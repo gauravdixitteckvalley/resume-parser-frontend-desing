@@ -8,7 +8,8 @@ import BlockUI from "../../components/BlockUI"
 import SearchBox from "../../components/Search/SearchBox"
 import { fetchSkillsData, deleteSkill } from "../../actions/Skills"
 import { displayRecordNotFound } from '../../utils/helper'
-import Modal from '../../components/ConfirmationModal/Modal'
+import Modal from '../../components/ConfirmationModal/Modal';
+import "./Skill.css";
 
 const SkillsList = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
@@ -65,37 +66,38 @@ const SkillsList = (props) => {
     const _skillsList = skills => {
         if (!_.isEmpty(skills)) {
             return (
-                <table className="table table-bordered table-striped table-hover">
+              
+                <table className="table table-bordered mb-4">
                     <thead>
-                        <tr role="row">
-                            {/* <th>S.No</th> */}
-                            <th>Name</th>
-                            {/* <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Actions</th> */}
+                        <tr>
+                            <th> # </th>
+                            <th> Skill Name </th>
+                            <th> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
+
                         {skills.map((data, index) => (
                             <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
-                                {/* <td>{ data.serial_no }</td> */}
+                                <td>{ data.serial_no }</td>
                                 <td>{data.value}</td>
-                                {/*<td>{data.last_name}</td>
-                                <td>{data.email}</td>*/}
-                                <td className="actions">
-                                     <NavLink to={`/skills/edit/${data.id}`} className="ms-2" title="Edit">
-                                        <i className="fa fa-pencil" aria-hidden="true"></i>
-                                    </NavLink>
-                                    
-                                    <a className="delete" title="Delete" className="ms-2" style={{'cursor':'pointer'}}
-                                        onClick={(event) => _handleModalShowClick(event,index)} >
-                                        <i className="fa fa-trash" aria-hidden="true"></i>
-                                    </a> 
+                                <td className="icons-list">
+                                    <div style={{'border-bottom':'0 !important','border-right':'0 !important','padding':'0 !important'}}>
+                                        <NavLink to={`/skills/edit/${data.id}`} className="ms-2" title="Edit">
+                                            <i className="mdi mdi-square-edit-outline"></i>
+                                        </NavLink>
+                                        
+                                        <a className="delete" title="Delete"  style={{'cursor':'pointer'}}
+                                            onClick={(event) => _handleModalShowClick(event,index)} >
+                                            <i className="mdi mdi-delete"></i>
+                                        </a> 
+                                    </div>
                                 </td>
                             </tr>
-                        ))}
+                        ))}      
                     </tbody>
-                </table>                
+                </table>    
+                          
             )
         } else if (_.isEmpty(skills)) {
             return (
@@ -114,44 +116,47 @@ const SkillsList = (props) => {
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
-            <h3>Skills List</h3>
-
-            <div className="row clearfix">
-                <div className="col-lg-12">
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 mb-2">
-                            <NavLink to={'/skills/create'} className="btn btn-primary">Create Skill</NavLink>
+            <div className="page-header">
+                <h3 className="page-title"> Skills List</h3>
+            </div>
+            <div className="row ">
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="add-items row">
+                                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2"><NavLink to={'/skills/create'}><button type="button" className="btn btn-gradient-primary btn-fw">Create Skill</button></NavLink></div>
+                                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2">
+                                    <SearchBox searchParentclassName="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2 offset-lg-7 offset-md-7"
+                                        searchText="Search by Skills"
+                                        searchInputChangeValue={(val) => _handleSearchInputChange(val)}
+                                        searchValue={searchTitle}
+                                    />
+                                </div>
+                            </div>
+                            <p></p>
+                            
+                            {/* list of records */}
+                            {_skillsList(skillsList)}
+                            {/* <div className="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div> */}
+                            {(total > per_page) ? 
+                                <div className="pagination mb-3" aria-label="Page navigation example">
+                                    <Pagination
+                                        activePage={currentPage}
+                                        itemsCountPerPage={Number(per_page)}
+                                        totalItemsCount={total}
+                                        pageRangeDisplayed={5}
+                                        onChange={_handlePageChange}
+                                        itemclassName="page-item"
+                                        linkclassName="page-link"
+                                        innerclassName="pagination justify-content-end"
+                                    /> 
+                                </div> 
+                            : ''} 
+                    
                         </div>
-                    
-                        <SearchBox searchParentClass="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2 offset-lg-7 offset-md-7"
-                                    searchText="Search by Skills"
-                                    searchInputChangeValue={(val) => _handleSearchInputChange(val)}
-                                    searchValue={searchTitle}
-                        />
-                    </div>
-                    
-                    <div className="table-responsive">
-                        {/* list of records */}
-                        {_skillsList(skillsList)}
-                        <div class="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
-                        {(total > per_page) ? 
-                            <div className="pagination mb-3" style={{"justifyContent" : "right"}}>
-                                <Pagination
-                                    activePage={currentPage}
-                                    itemsCountPerPage={Number(per_page)}
-                                    totalItemsCount={total}
-                                    pageRangeDisplayed={5}
-                                    onChange={_handlePageChange}
-                                    itemClass="page-item"
-                                    linkClass="page-link"
-                                    innerClass="pagination text-center"
-                                /> 
-                            </div> 
-                        : ''} 
                     </div>
                 </div>
             </div>
-
              {/* delete pop up modal */}
              {showModal ? (<Modal 
                             showModal={showModal} 

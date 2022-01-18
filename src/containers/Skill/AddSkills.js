@@ -82,31 +82,31 @@ const SkillsForm = (props) => {
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
-            <h3>
-                {(currentId) ? 'Edit Skill' : 'Add Skill'}
-            </h3>
-
-            <form onSubmit={(event) => _handleSubmit(event)} className="user-form">
-                <div className="row clearfix mb-3">
-                    <div className="col-lg-12 col-md-12 col-sm-12">
-                        <div className="row clearfix">
-                            <div className="col-md-6 mb-3"> <b className="required">Skill</b>
+            <div className="page-header">
+              <h3 className="page-title">{(currentId) ? 'Edit Skill' : 'Create Skill'}</h3>
+            </div>
+            <div className="row">
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                        <div className="card-body">
+                            <form className="form-inline user-form" onSubmit={(event) => _handleSubmit(event)}>
                                 <div className="form-group">
-                                    <input type="text" name="skills_name" className="form-control" 
-                                            value={fields.skills_name || ''} 
-                                            onChange={(event) => _handleChange(event)} 
-                                             />
-                                    <div className="errorMsg">{errors.skills_name}</div>        
+                                    <label className="sr-only mb-1" htmlFor="inlineFormInputName2">Skill</label>
+                                    <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Python"
+                                        name="skills_name"  
+                                        value={fields.skills_name || ''} 
+                                        onChange={(event) => _handleChange(event)}
+                                    />
+                                    <div className="errorMsg">{errors.skills_name}</div>
                                 </div>
-                            </div>
-                                           
+                                <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
+                                <button className="btn btn-light mb-2"  onClick={_handleCancelForm}>Cancel</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                    
-                <button type="submit" className="btn btn-success">Submit</button>
-                <button className="btn btn-danger ms-2" onClick={_handleCancelForm}>Cancel</button>
-            </form>
+            </div>
+         
         </Fragment>
     )
 }
