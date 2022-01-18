@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import _ from 'lodash'
 import { Form } from "react-bootstrap";
 
+import UserStyle from './style';
 import BlockUI from "../../components/BlockUI"
 import {history} from '../../utils/helper'
 import validateUserForm from './UserFormValidation'
@@ -92,121 +93,128 @@ const UserForm = (props) => {
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
-            <h1 className="display-4 d-none d-sm-block">
-                User Details
-            </h1>
-            
-            <form onSubmit={(event) => _handleSubmit(event)} className="user-form">
-                <div className="row clearfix mb-3">
-                    <div className="col-lg-12 col-md-12 col-sm-12">
-                        <div className="row clearfix">
-                            <div className="col-md-6 mb-3"> <b className="required">First Name</b>
-                                <div className="form-group">
-                                    <input type="text" name="first_name" className="form-control" 
-                                            value={fields.first_name || ''} 
-                                            onChange={(event) => _handleChange(event)} 
-                                            minLength="3" />
-                                    <div className="errorMsg">{errors.first_name}</div>        
-                                </div>
-                            </div>
-
-                            <div className="col-md-6 mb-3"> <b className="required">Last Name</b>
-                                <div className="form-group">
-                                    <input type="text" name="last_name" className="form-control" 
-                                            value={fields.last_name || ''} 
-                                            onChange={(event) => _handleChange(event)} 
-                                            minLength="3" />
-                                    <div className="errorMsg">{errors.last_name}</div>        
-                                </div>
-                            </div>
-                            
-                            <div className="col-md-6 mb-3"> <b className="required">Username</b>
-                                <div className="form-group">
-                                    <input type="text" name="username" className="form-control" 
-                                            value={fields.username || ''}
-                                            onChange={(event) => _handleChange(event)} 
-                                            readOnly={currentId}
-                                            minLength="3" />
-                                    <div className="errorMsg">{errors.username}</div>
-                                </div>
-                            </div>
-                            
-                            <div className="col-md-6 mb-3"> <b className="required">Email</b>
-                                <div className="form-group">
-                                    <input type="email" name="email" className="form-control" 
-                                            value={fields.email || ''}
-                                            onChange={(event) => _handleChange(event)} 
-                                            readOnly={currentId}
-                                            />
-                                    <div className="errorMsg">{errors.email}</div>        
-                                </div>
-                            </div>
-
-                            {!currentId ? 
-                                <>
-                                    <div className="col-md-6 mb-3"> <b className="required">Password</b>
-                                        <div className="form-group">
-                                            <input type="password" name="password" className="form-control"  
-                                                    value={fields.password || ''} 
-                                                    onChange={(event) => _handleChange(event)} 
-                                                    minLength="6" />
-                                            <div className="errorMsg">{errors.password}</div>        
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 mb-3"> <b className="required">Confirm Password</b>
-                                        <div className="form-group">
-                                            <input type="password" name="confirm_password" className="form-control"  
-                                                    value={fields.confirm_password || ''} 
-                                                    onChange={(event) => _handleChange(event)} 
-                                                    minLength="6" />
-                                            <div className="errorMsg">{errors.confirm_password}</div>        
-                                        </div>
-                                    </div>
-                                </> 
-                            : ''} 
-                            {(user_roles) && user_roles.length > 0 ?
-                            <div className="col-md-6 mb-3"> <b className="required">User Role</b>
-                                <div className="form-group">
-                                <Form.Control as="select" name="user_role" value={fields.user_role || ''} onChange={(event) => _handleChange(event)}>
-                                    <option value="">Select Role</option>
-                                    {user_roles.map((role, index) => (
-                                        <option key={index} value={role._id}>{role.name}</option>
-                                    ))}
-                                </Form.Control>
-                                <div className="errorMsg">{errors.user_role}</div> 
-                                </div>
-                            </div> : ''}                                          
-                            { ((user_list) && user_list.length > 0) ?
-                            <div className="col-md-6 mb-3"> <b className="required">Assign To</b>
-                                <div className="form-group">
-                                  <Form.Control as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
-                                    <option value="">Choose Option</option>
-                                    {user_list.map((assigned, index) => (
-                                        <option key={index} value={assigned.id}>{ (assigned.name).charAt(0).toUpperCase() + (assigned.name).slice(1) }</option>
-                                    ))}
-                                </Form.Control> 
-                                
-                                <div className="errorMsg">{errors.assigned_to}</div> 
-                                </div>
-                            </div>
-                            :''  }
-
-                            {(currentId && !user_list) ?
-                               <div className="col-md-6 mb-3"> <b className="required">Assign To</b>
-                                     <Form.Control as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
-                                        <option value={fields.assigned_to}>{fields.assigned_name}</option>
-                                     </Form.Control>      
-                                </div>
-                            : '' }  
+            <UserStyle>
+            <div class="page-header">
+              <h3 class="page-title"> User Details</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                          <form onSubmit={(event) => _handleSubmit(event)} className="form-inline">
                        
-                       
-                        </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                        <label class="sr-only mb-1" for="inlineFormInputName2">First Name</label>
+                                                <input type="text" name="first_name" className="form-control mb-2 mr-sm-2 col-md-6" 
+                                                        value={fields.first_name || ''} 
+                                                        onChange={(event) => _handleChange(event)} 
+                                                        minLength="3" />
+                                                <div className="errorMsg">{errors.first_name}</div>        
+                                         
+                                        </div>
+
+                                        <div className="col-md-6"> 
+                                         <label class="sr-only mb-1" for="inlineFormInputName2">Last Name</label>
+                                          <input type="text" name="last_name" className="form-control mb-2 mr-sm-2 col-md-6" 
+                                                        value={fields.last_name || ''} 
+                                                        onChange={(event) => _handleChange(event)} 
+                                                        minLength="3" />
+                                                <div className="errorMsg">{errors.last_name}</div>        
+                                        </div>
+                                        </div>
+                                        
+                                        <div className="row mt-2">
+                                        <div class="col-md-6">
+                                            <label class="sr-only mb-1" for="inlineFormInputName2">Username</label>
+                                               <input type="text" name="username" className="form-control mb-2 mr-sm-2 col-md-6" 
+                                                        value={fields.username || ''}
+                                                        onChange={(event) => _handleChange(event)} 
+                                                        readOnly={currentId}
+                                                        minLength="3" />
+                                                <div className="errorMsg">{errors.username}</div>
+                                        </div>
+                                        
+                                        <div className="col-md-6"> 
+                                        <label class="sr-only mb-1" for="inlineFormInputName2">Email</label>
+                                                <input type="email" name="email" className="form-control mb-2 mr-sm-2 col-md-6" 
+                                                        value={fields.email || ''}
+                                                        onChange={(event) => _handleChange(event)} 
+                                                        readOnly={currentId}
+                                                        />
+                                                <div className="errorMsg">{errors.email}</div>        
+                                            
+                                          </div>
+                                        </div>
+                                        {!currentId ? 
+                                            <div class="row mt-2">
+                                               <div class="col-md-6">
+                                                        <label class="sr-only mb-1" for="inlineFormInputName2">Password</label>
+                                                            <input type="password" name="password" className="form-control mb-2 mr-sm-2 col-md-6"  
+                                                                        value={fields.password || ''} 
+                                                                        onChange={(event) => _handleChange(event)} 
+                                                                        minLength="6" />
+                                                                <div className="errorMsg">{errors.password}</div>        
+                                                </div>       
+                                                <div className="col-md-6"> 
+                                                 <label class="sr-only mb-1" for="inlineFormInputName2">Confirm Password</label>
+                                                    <div className="form-group">
+                                                        <input type="password" name="confirm_password" className="form-control mb-2 mr-sm-2 col-md-6"  
+                                                                value={fields.confirm_password || ''} 
+                                                                onChange={(event) => _handleChange(event)} 
+                                                                minLength="6" />
+                                                        <div className="errorMsg">{errors.confirm_password}</div>        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        : ''} 
+                                        {(user_roles) && user_roles.length > 0 ?
+                                     <div class="row mt-2 mb-4">
+                                         <div class="col-md-6">
+                                         <label class="sr-only mb-1" for="inlineFormInputName2">User Role</label>
+                                            <Form.Control className="form-control form-control-lg" as="select" name="user_role" value={fields.user_role || ''} onChange={(event) => _handleChange(event)}>
+                                                <option value="">Select Role</option>
+                                                {user_roles.map((role, index) => (
+                                                    <option key={index} value={role._id}>{role.name}</option>
+                                                ))}
+                                            </Form.Control>
+                                            <div className="errorMsg">{errors.user_role}</div> 
+                                            </div>
+                                      
+                                            { ((user_list) && user_list.length > 0) ?
+                                        <div className="col-md-6"> 
+                                        <label class="sr-only mb-1" for="inlineFormInputName2">Assign To</label>
+                                            <Form.Control className="form-control form-control-lg" as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
+                                                <option value="">Choose Option</option>
+                                                {user_list.map((assigned, index) => (
+                                                    <option key={index} value={assigned.id}>{ (assigned.name).charAt(0).toUpperCase() + (assigned.name).slice(1) }</option>
+                                                ))}
+                                            </Form.Control> 
+                                            
+                                            <div className="errorMsg">{errors.assigned_to}</div> 
+                                            
+                                        </div>
+                                        :''  }
+
+                                        {(currentId && !user_list) ?
+                                        <div className="col-md-6"> 
+                                        <label class="sr-only mb-1" for="inlineFormInputName2">Assign To</label>
+                                                <Form.Control as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
+                                                    <option value={fields.assigned_to}>{fields.assigned_name}</option>
+                                                </Form.Control>      
+                                            </div>
+                                        : '' }   
+                                        </div> : ''}                                          
+                          
+                    
+                                 <button type="submit" class="btn btn-gradient-primary mb-2">Submit</button>
+                                 <button class="btn btn-light mb-2" onClick={_handleCancelForm}>Cancel</button>
+                         </form>
+                       </div>
                     </div>
                 </div>
-                    
-                <button type="submit" className="btn btn-success">Submit</button>
-                <button className="btn btn-danger ms-2" onClick={_handleCancelForm}>Cancel</button>
-            </form>
+            </div>           
+            </UserStyle>
         </Fragment>
     )
 }

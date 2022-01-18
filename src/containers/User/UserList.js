@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom"
 import Pagination from "react-js-pagination"
 import _ from 'lodash'
 
+import UserStyle from './style';
 import BlockUI from "../../components/BlockUI"
 import SearchBox from "../../components/Search/SearchBox"
 import { fetchUserData, resetUserData, deleteUser } from "../../actions/User"
@@ -49,9 +50,9 @@ const UserList = (props) => {
     const _userList = users => {
         if (!_.isEmpty(users)) {
             return (
-                <table className="table table-bordered table-striped table-hover">
+                <table className="table table-bordered mb-4">
                     <thead>
-                        <tr role="row">
+                        <tr>
                             <th>Username</th>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -63,7 +64,7 @@ const UserList = (props) => {
                     </thead>
                     <tbody>
                         {users.map((data, index) => (
-                            <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
+                            <tr key={index} role="row">
                                 <td>{data.username}</td>
                                 <td>{data.first_name}</td>
                                 <td>{data.last_name}</td>
@@ -120,16 +121,20 @@ const UserList = (props) => {
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
-            <h3>User List</h3>
-
-            <div className="row clearfix">
-                <div className="col-lg-12">
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-2 col-lg-2 mb-2">
-                            <NavLink to={'/user/create'} className="btn btn-primary">Create User</NavLink>
+            <UserStyle>
+            <div class="page-header">
+              <h3 class="page-title"> Users List</h3>
+            </div>
+            <div className="row">
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                        <div className="card-body">
+                    <div className="add-items row">
+                        <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2">
+                            <NavLink to={'/user/create'} className="btn btn-gradient-primary btn-fw">Create User</NavLink>
                         </div>
-                    
-                        <SearchBox searchParentClass="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2 offset-lg-7 offset-md-7"
+                   
+                        <SearchBox searchParentClass="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2"
                                     searchText="Search by username/email"
                                     searchInputChangeValue={(val) => _handleSearchInputChange(val)}
                                     searchValue={searchTitle}
@@ -155,6 +160,8 @@ const UserList = (props) => {
                             </div> 
                         : ''} 
                     </div>
+                   </div>
+                   </div>
                 </div>
             </div>
 
@@ -166,6 +173,7 @@ const UserList = (props) => {
                             modalTitle="Delete Record"
                             modalBody="Are you sure you wish to perform this action? This action is irreversible!"
             />) : null}
+            </UserStyle>
         </Fragment>
     )
 }
