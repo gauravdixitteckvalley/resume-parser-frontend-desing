@@ -20,7 +20,7 @@ class SearchBox extends Component {
         
         return (
             <div className={searchParentClass || "search-div"}>
-                <input type="text" className="form-control todo-list-input"
+                <input type="text" className="form-control search-user todo-list-input"
                     onKeyPress={(event) => {
                         var key = event.keyCode || event.which;
                         if (key === 13)
