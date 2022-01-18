@@ -5,7 +5,8 @@ import _ from 'lodash'
 import BlockUI from "../../components/BlockUI"
 import {history} from '../../utils/helper'
 import validateSkillsForm from './SkillsValidation'
-import { fetchSkillsEditFormData, submitSkillsFormData } from '../../actions/Skills'
+import { fetchSkillsEditFormData, submitSkillsFormData } from '../../actions/Skills';
+import "./Skill.css";
 
 const SkillsForm = (props) => {
     const currentId = props?.match?.params?.id;
