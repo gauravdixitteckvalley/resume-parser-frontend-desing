@@ -1,0 +1,13 @@
+progress {
+    vertical-align: baseline;
+    background: green !important;
+    height: 8px !important;
+}
+.dzu-dropzone{
+    min-height: 500px !important;
+    max-height: 500px !important;
+    overflow-y: auto !important;
+}
+.dzu-previewContainer{
+    padding: 20px 3% !important;
+}

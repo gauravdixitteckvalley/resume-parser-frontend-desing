@@ -1,0 +1,37 @@
+body, html {
+    height:100%;
+}
+.toast {
+    background-color: #030303 !important
+}
+.toast-success {
+    background-color: #51A351 !important
+}
+.toast-error {
+    background-color: #BD362F !important
+}
+.toast-info {
+    background-color: #2F96B4 !important
+}
+.toast-warning {
+    background-color: #F89406 !important
+}
+.errorMsg {
+    color : red;
+}
+
+.display-preview{
+    padding: 25px;
+}
+
+.display-preview h1 {
+    font-weight: bold;
+    font-size: 30px;
+    margin: 20px 0px;
+}
+.displayPreviewRow{
+    border-bottom: 1px dotted #dddddd;
+    padding: 8px;
+    display: flex;
+}
+

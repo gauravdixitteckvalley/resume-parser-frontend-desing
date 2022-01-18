@@ -1,0 +1,21 @@
+
+/* Footer */
+.footer {
+    background: #f2edf3;
+    color: color(dark);
+    border-top: 1px solid #e7dee9;
+    padding: 30px 1rem;
+    transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    font-size: calc(0.875rem - 0.05rem);
+    font-family: "ubuntu-regular", sans-serif; }
+    .footer a {
+      color: #1bcfb4;
+      font-size: inherit; }
+    @media (max-width: 991px) {
+      .footer {
+        margin-left: 0;
+        width: 100%; } }
+  
