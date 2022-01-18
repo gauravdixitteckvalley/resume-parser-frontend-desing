@@ -11,3 +11,14 @@ progress {
 .dzu-previewContainer{
     padding: 20px 3% !important;
 }
+.btn-gradient-primary {
+    background: linear-gradient(to right, #da8cff, #9a55ff);
+    border: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+.btn {
+    padding: 0.7rem 1.5rem !important;
+}
+.dzu-inputLabel {
+    color: #c77cff !important;
+}
