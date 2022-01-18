@@ -10,6 +10,7 @@ import SearchBox from "../../components/Search/SearchBox"
 import { fetchUserData, resetUserData, deleteUser } from "../../actions/User"
 import { displayRecordNotFound } from '../../utils/helper'
 import Modal from '../../components/ConfirmationModal/Modal'
+import './Userlist.css';
 
 const UserList = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
@@ -58,7 +59,7 @@ const UserList = (props) => {
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Resume Uploaded</th>
+                            <th>Resume</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -71,20 +72,22 @@ const UserList = (props) => {
                                 <td>{data.email}</td>
                                 <td>{data.user_role}</td>
                                 <td>{data.resumeCount}</td>
-                                <td className="actions">
+                                <td className="icons-list actions">
+                                    <div className="actions-cls">
                                     <NavLink to={`/user/edit/${data.id}`} className="ms-2" title="Edit">
-                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
                                     </NavLink>
                                     {/* eslint-disable-next-line */}
                                     <a className="delete" title="Delete" className="ms-2" style={{'cursor':'pointer'}}
                                         onClick={(event) => _handleModalShowClick(event,index)}>
-                                        <i className="fa fa-trash" aria-hidden="true"></i>
+                                        <i className="mdi mdi-delete" aria-hidden="true"></i>
                                     </a>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
-                </table>                
+                </table>               
             )
         } else if (_.isEmpty(users)) {
             return (
