@@ -61,7 +61,11 @@ const SkillsList = (props) => {
             _handleModalCloseClick(false);  //modal is closed
         }
     }
-
+    const tbodyDiv = {
+        borderBottom: "0",
+        borderRight: "0",
+        padding: "0 ",
+      };
     /* build user list */
     const _skillsList = skills => {
         if (!_.isEmpty(skills)) {
@@ -82,7 +86,7 @@ const SkillsList = (props) => {
                                 <td>{ data.serial_no }</td>
                                 <td>{data.value}</td>
                                 <td className="icons-list">
-                                    <div style={{'border-bottom':'0 !important','border-right':'0 !important','padding':'0 !important'}}>
+                                    <div  style={tbodyDiv}>
                                         <NavLink to={`/skills/edit/${data.id}`} className="ms-2" title="Edit">
                                             <i className="mdi mdi-square-edit-outline"></i>
                                         </NavLink>
@@ -139,16 +143,19 @@ const SkillsList = (props) => {
                             {_skillsList(skillsList)}
                             {/* <div className="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div> */}
                             {(total > per_page) ? 
-                                <div className="pagination mb-3" aria-label="Page navigation example">
+                                <div className="pagination justify-content-end" aria-label="Page navigation example">
                                     <Pagination
                                         activePage={currentPage}
                                         itemsCountPerPage={Number(per_page)}
                                         totalItemsCount={total}
                                         pageRangeDisplayed={5}
                                         onChange={_handlePageChange}
-                                        itemclassName="page-item"
-                                        linkclassName="page-link"
-                                        innerclassName="pagination justify-content-end"
+                                        itemClass="page-item"
+                                        itemClass="page-item"
+                                        linkClass="page-link"
+                                        prevPageText=" Previous"
+                                        innerClass="pagination justify-content-end"
+                                        nextPageText="Next"
                                     /> 
                                 </div> 
                             : ''} 
