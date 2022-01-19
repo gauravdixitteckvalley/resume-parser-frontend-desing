@@ -77,18 +77,27 @@ export function resume(state = [], action) {
 
         case 'SINGLE_RESUME_GET':
             return {
-                blocking : true,
-                resumeDetails:[]
+                blocking       : true,
+                resumeDetails  : [],
+                countryList    : [],
+                stateList      : [],
+                cityList       : []
             }
         case 'GET_RESUME_DATA_SUCCESS':
             return {
                 blocking        : false,
-                resumeDetails   : action.payload.candidate
+                resumeDetails   : action.payload.candidate,
+                countryList     : action.payload.country,
+                stateList       : action.payload.state,
+                cityList        : action.payload.city
             }
         case 'GET_RESUME_DATA_FAILURE':
             return {
                 blocking        : false,
-                resumeDetails   : []
+                resumeDetails   : [],
+                countryList     : [],
+                stateList       : [],
+                cityList        : []
             }
 
         case 'UPDATE_RESUME_FORM_REQUEST':
@@ -136,7 +145,49 @@ export function resume(state = [], action) {
         case 'SUBMIT_RESUME_NOTE_FAILURE':
             return {
                 blocking : false,
-            };            
+            };  
+
+        case 'GET_COUNTRY_REQUEST':
+            return {
+                blocking : true,
+                countryList:[]
+            };
+        
+        case 'GET_COUNTRY_SUCCESS':
+            
+            return {
+                blocking : false,
+                countryList:action.payload.country
+            };
+            
+        case 'GET_COUNTRY_FAILURE':
+            return {
+                blocking : false,
+                countryList:[]
+            }; 
+
+        case 'GET_STATE_REQUEST':
+            return {
+                ...state,
+                blocking : true,
+                stateList:[]
+            };
+        
+        case 'GET_STATE_SUCCESS':
+            
+            return {
+                ...state,
+                blocking : false,
+                stateList:action.payload.state
+            };
+            
+        case 'GET_STATE_FAILURE':
+            return {
+                ...state,
+                blocking : false,
+                stateList:[]
+            };  
+                       
         default:
             return state;
     }

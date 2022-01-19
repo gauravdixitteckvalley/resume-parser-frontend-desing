@@ -6,7 +6,9 @@ export function dashboard(state = [], action) {
                 blocking        : true,
                 weeklyList      : '',
                 monthlyList     : '',
-                totalList       : ''
+                totalList       : '',
+                statusList      : '',
+                statusData     : ''
             }
         
         case 'RESUME_DASHBOARD_SUCCESS':
@@ -14,7 +16,9 @@ export function dashboard(state = [], action) {
                 blocking        : false,
                 weeklyList      : action.payload.weeklyResumes,
                 totalList       : action.payload.totalResumes,
-                monthlyList     : action.payload.monthlyResumes
+                monthlyList     : action.payload.monthlyResumes,
+                statusList      : action.payload.statusList,
+                statusData       : action.payload.statusData
             }
         
         case 'RESUME_DASHBOARD_FAILURE':
@@ -22,7 +26,9 @@ export function dashboard(state = [], action) {
                 blocking        : false,
                 weeklyList      : '',
                 totalList       : '',
-                monthlyList     : ''
+                monthlyList     : '',
+                statusList      : '',
+                statusData     : ''
             }
 
         case 'RESET_DASHBOARD_REQUEST':{
@@ -30,7 +36,9 @@ export function dashboard(state = [], action) {
                 blocking        : false,
                 weeklyList      : '',
                 monthlyList      : '',
-                totalList       : ''
+                totalList       : '',
+                statusList      : '',
+                statusData     : ''
             }
         }
         

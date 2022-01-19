@@ -188,3 +188,41 @@ export const addResumeComment=(id,postData)=>{
         }
     }
 }
+
+/* get country list */
+export const getCountryList = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'GET_COUNTRY_REQUEST' });
+        try {
+            let response = await api.get(`/resume/country`, {
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'GET_COUNTRY_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'GET_COUNTRY_FAILURE' });
+        }
+    }
+}
+
+/* get state list */
+export const getStateList = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'GET_STATE_REQUEST' });
+        try {
+            let response = await api.get(`/resume/state/${params}`, {
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'GET_STATE_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'GET_STATE_FAILURE' });
+        }
+    }
+}

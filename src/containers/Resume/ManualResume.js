@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import BlockUI from "../../components/BlockUI"
 import { history, displayErrorMessage } from '../../utils/helper'
-import { submitManualResumeFormData, resetResumeData } from "../../actions/Resume"
+import { submitManualResumeFormData, resetResumeData, getCountryList, getStateList } from "../../actions/Resume"
 import validateManualResumeForm from './ManualResumeValidation'
 
 let base64File = ''
@@ -19,6 +19,7 @@ const ManualResume = (props) => {
 
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
+        dispatch(getCountryList());
         // returned function will be called on component unmount 
         return () => {
             dispatch(resetResumeData())
@@ -57,6 +58,11 @@ const ManualResume = (props) => {
             }
             reader.readAsDataURL(imageFile);
         } else {
+            
+            if(event.target.name === 'country'){
+                let countryid = event.target.value;
+                dispatch(getStateList(countryid));    
+            }
             data[event.target.name] = event.target.value;
             setFields({...data})
         }
@@ -86,8 +92,8 @@ const ManualResume = (props) => {
         history.push('/resume')
     }
 
-    //const { blocking } = userData
-    const blocking = false;
+    const { blocking, countryList, stateList } = resumeData
+    // const blocking = false;
 
     return (
         <Fragment>
@@ -100,7 +106,7 @@ const ManualResume = (props) => {
                 <div className="row clearfix mb-3">
                     <div className="col-lg-12 col-md-12 col-sm-12">
                         <div className="row clearfix">
-                            <div className="col-md-6 mb-3"> <b className="required">Name</b>
+                        <div className="col-md-6 mb-3"> <b className="required">Name</b>
                                 <div className="form-group">
                                     <input type="text" name="name" className="form-control"
                                             placeholder="Martin Philipes" 
@@ -132,6 +138,90 @@ const ManualResume = (props) => {
                                     <div className="errorMsg">{errors.phone}</div>        
                                 </div>
                             </div>
+                       
+                            <div className="col-md-6 mb-3"> <b className="required">D.O.B</b>
+                                <div className="form-group">
+                                    <input className="form-control" type="date" name="dob" 
+                                        onChange={(event) => _handleChange(event)} 
+                                    />
+                                    <div className="errorMsg">{errors.dob}</div>
+                                </div>
+                            </div>
+                            <div className="col-md-12 mb-3"> Address
+                                <div className="form-group">
+                                   <textarea className="form-control" name="location" 
+                                    onChange={(event) => _handleChange(event)}></textarea>
+                                    <div className="errorMsg">{errors.location}</div>
+                                </div>
+                            </div>
+                            <div className="col-md-3 mb-3"> <b className="required">Country</b>
+                                <div className="form-group">
+                                    
+                                    <select name="country" className="form-control" value={fields.country || ''} 
+                                        onChange={(event) => _handleChange(event)} 
+                                    >
+                                        <option value="">Select Country</option>
+                                        {countryList?.map((country, index) => (
+                                            <option key={index} value={country._id}>{country.name}</option>
+                                        ))}
+                                    </select>
+                                    <div className="errorMsg">{errors.country}</div>        
+                                </div>
+                            </div>
+                            <div className="col-md-3 mb-3"> <b className="required">State</b>
+                                <div className="form-group">
+                                
+                                    <select name="state" className="form-control" value={fields.state || ''} 
+                                        onChange={(event) => _handleChange(event)} 
+                                    >
+                                        <option value="">Select State</option>
+                                        {stateList?.map((state, index) => (
+                                            <option key={index} value={state._id}>{state.name}</option>
+                                        ))}
+                                    </select>
+                                    <div className="errorMsg">{errors.state}</div>        
+                                </div>
+                            </div>
+                            <div className="col-md-3 mb-3"> <b className="required">City</b>
+                                <div className="form-group">
+                                   
+                                    {/* <select name="city" className="form-control" value={fields.city || ''} 
+                                        onChange={(event) => _handleChange(event)} 
+                                    >
+                                        <option value="">Select City</option>
+                                        {cityList?.map((city, index) => (
+                                            <option key={index} value={city._id}>{city.name}</option>
+                                        ))}
+                                    </select> */}
+                                    <input className="form-control" type="text" name="place" 
+                                     value={fields.place || ''} 
+                                        onChange={(event) => _handleChange(event)} 
+                                    />
+                                    
+                                    <div className="errorMsg">{errors.place}</div>        
+                                </div>
+                            </div>
+                            <div className="col-md-3 mb-3"> <b className="required">Zip</b>
+                                <div className="form-group">
+                                    <input type="text" name="zip" className="form-control"
+                                            placeholder="Zip" 
+                                            value={fields.zip || ''} 
+                                            onChange={(event) => _handleChange(event)} 
+                                    />
+                                    <div className="errorMsg">{errors.zip}</div>        
+                                </div>
+                            </div>        
+
+                            <div className="col-md-6 mb-3"> <b className="required">Company Name</b>
+                                <div className="form-group">
+                                    <input type="text" name="workExperience" className="form-control"
+                                            placeholder="Company name" 
+                                            value={fields.workExperience || ''} 
+                                            onChange={(event) => _handleChange(event)} 
+                                    />
+                                    <div className="errorMsg">{errors.workExperience}</div>        
+                                </div>
+                            </div>
 
                             <div className="col-md-6 mb-3"> <b className="required">Skills</b>
                                 <div className="form-group">
@@ -143,44 +233,7 @@ const ManualResume = (props) => {
                                     <div className="errorMsg">{errors.skills}</div>        
                                 </div>
                             </div>
-
-                            <div className="col-md-6 mb-3"> <b className="required">City</b>
-                                <div className="form-group">
-                                    <input type="text" name="place" className="form-control"
-                                            placeholder="City" 
-                                            value={fields.place || ''} 
-                                            onChange={(event) => _handleChange(event)} 
-                                    />
-                                    <div className="errorMsg">{errors.place}</div>        
-                                </div>
-                            </div>
-                            <div className="col-md-6 mb-3"> <b className="required">Company Name</b>
-                                <div className="form-group">
-                                    <input type="text" name="workExperience" className="form-control"
-                                            placeholder="Company name" 
-                                            value={fields.workExperience || ''} 
-                                            onChange={(event) => _handleChange(event)} 
-                                    />
-                                    <div className="errorMsg">{errors.workExperience}</div>        
-                                </div>
-                            </div>
-                            
-                            <div className="col-md-6 mb-3"> <b className="required">D.O.B</b>
-                                <div className="form-group">
-                                    <input className="form-control" type="date" name="dob" 
-                                        onChange={(event) => _handleChange(event)} 
-                                    />
-                                    <div className="errorMsg">{errors.dob}</div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 mb-3"> Place/Location
-                                <div className="form-group">
-                                    <input className="form-control" type="text" name="location" 
-                                        onChange={(event) => _handleChange(event)} 
-                                    />
-                                    <div className="errorMsg">{errors.location}</div>
-                                </div>
-                            </div>
+                        
                             <div className="col-md-6 mb-3"> <b className="required">Total Experience</b>
                                 <div className="form-group">
                                     <input className="form-control" type="text" name="exp" 
@@ -213,7 +266,7 @@ const ManualResume = (props) => {
                                     <div className="errorMsg">{errors.expected_ctc}</div>
                                 </div>
                             </div>
-                            <div className="col-md-6 mb-3"> Resume Lable
+                            <div className="col-md-6 mb-3">Other Information
                                 <div className="form-group">
                                     <textarea className="form-control" name="resume_label" cols="30" rows="3" onChange={(event) => _handleChange(event)}></textarea>
                                     <div className="errorMsg">{errors.resume_label}</div>

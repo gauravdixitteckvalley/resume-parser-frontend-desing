@@ -9,6 +9,7 @@ import RecentEntries from './Recent/Recent';
 import Graph from './Graph/Graph';
 
 import "./index.css";
+import CandidateStatusGraph from './Graph/CandidateStatusGraph';
 
 const Dashboard = (props) => {
   /**fetched data from redux store */
@@ -25,7 +26,7 @@ const Dashboard = (props) => {
     };
   }, [callData]);
 
-  const { weeklyList, monthlyList, totalList } = dashboardData;
+  const { weeklyList, monthlyList, totalList, statusList, statusData } = dashboardData;
   return (
     <>
       <div className="page-header">
@@ -157,6 +158,12 @@ const Dashboard = (props) => {
         </div>
       </div> */}
       <Graph />
+      <div className="row">
+        <div className="col-12 grid-margin">
+        
+          <CandidateStatusGraph statusList ={statusList} statusData={statusData} ></CandidateStatusGraph>
+        </div>
+      </div>
       <RecentEntries />
     </>
   );
