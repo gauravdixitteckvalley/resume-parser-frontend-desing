@@ -289,14 +289,7 @@ const ManualResume = (props) => {
                             <div className="col-md-3 mb-3"> <b className="required">City</b>
                                 <div className="form-group">
                                    
-                                    {/* <select name="city" className="form-control" value={fields.city || ''} 
-                                        onChange={(event) => _handleChange(event)} 
-                                    >
-                                        <option value="">Select City</option>
-                                        {cityList?.map((city, index) => (
-                                            <option key={index} value={city._id}>{city.name}</option>
-                                        ))}
-                                    </select> */}
+                                    
                                     <input className="form-control" type="text" name="place" 
                                      value={fields.place || ''} 
                                         onChange={(event) => _handleChange(event)} 
