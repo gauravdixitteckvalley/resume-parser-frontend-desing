@@ -156,8 +156,8 @@ const Dashboard = (props) => {
           </Card>
         </div>
       </div> */}
-      <Graph />
-      <RecentEntries />
+      {/* <Graph />
+      <RecentEntries /> */}
     </>
   );
 };

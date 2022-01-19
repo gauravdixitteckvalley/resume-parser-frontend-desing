@@ -35,4 +35,9 @@ body, html {
     padding: 8px;
     display: flex;
 }
+::placeholder {
+    color: #c9c8d3 !important;
+    opacity: 1 !important; /* Firefox */
+    font-size: 0.8rem !important;
+  }
 
