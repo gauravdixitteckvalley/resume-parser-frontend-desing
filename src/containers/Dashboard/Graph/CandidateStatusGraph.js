@@ -1,14 +1,9 @@
-import React, {Component, useState, useEffect} from 'react';
+
 import Chart from 'react-apexcharts'; 
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchStatusByResume } from './../../../actions/Dashboard'
-
-
-
 const CandidateStatusGraph = (props) => {
     
     const series=  [{
-        data: props.statusData
+        data: props.statusData ? props.statusData :''
       }];
  
       const options =  {

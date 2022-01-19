@@ -52,7 +52,7 @@ const Dashboard = (props) => {
               <img
                 src="./../assets/img/circle.svg"
                 className="card-img-absolute"
-                alt="circle-image"
+                alt="circleimagefile"
               />
               <h4 className="font-weight-normal mb-3">
                 All Resumes{" "}
@@ -69,7 +69,7 @@ const Dashboard = (props) => {
               <img
                 src="./../assets/img/circle.svg"
                 className="card-img-absolute"
-                alt="circle-image"
+                alt="circleimagefile"
               />
               <h4 className="font-weight-normal mb-3">
                 Monthly Resume
@@ -86,7 +86,7 @@ const Dashboard = (props) => {
               <img
                 src="./../assets/img/circle.svg"
                 className="card-img-absolute"
-                alt="circle-image"
+                alt="circleimagefile"
               />
               <h4 className="font-weight-normal mb-3">
                 Weekly Resume
@@ -160,8 +160,7 @@ const Dashboard = (props) => {
       
       <div className="row">
         <div className="col-12 grid-margin">
-        
-          <CandidateStatusGraph statusList ={statusList} statusData={statusData} ></CandidateStatusGraph>
+         { statusData ? <CandidateStatusGraph statusList ={statusList} statusData={statusData} /> : null }
         </div>
       </div>
       
