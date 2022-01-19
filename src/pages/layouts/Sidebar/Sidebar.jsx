@@ -10,6 +10,7 @@ const Sidebar = () => {
     
     /**fetched data from redux store */
     const authenticateUser = useSelector(state => state.authenticatedUser);
+    console.log(authenticateUser,' authenticateUser')
     const { user } = authenticateUser;
 
     const location = useLocation();
@@ -18,7 +19,7 @@ const Sidebar = () => {
     const { pathname } = location;
     //Javascript split method to get the name of the path in array
     const splitLocation = pathname.split("/");
-    console.log(splitLocation," splitLocation")
+
 
     const showRoutesForAdmin = () => {
         return(
@@ -52,12 +53,12 @@ const Sidebar = () => {
                     <li className="nav-item nav-profile">
                         <a href="#" className="nav-link">
                             <div className="nav-profile-image">
-                            <img src="../../assets/img/faces/face1.jpg" alt="profile" />
-                            <span className="login-status online"></span>
+                                <img src="../../assets/img/faces/face1.jpg" alt="profile" />
+                                <span className="login-status online"></span>
                             </div>
                             <div className="nav-profile-text d-flex flex-column">
-                            <span className="font-weight-bold mb-2">Sandip Ghosh</span>
-                            <span className="text-secondary text-small">Team Lead</span>
+                                <span className="font-weight-bold mb-2">{authenticateUser.user.full_name}</span>
+                                <span className="text-secondary text-small">{authenticateUser.user.user_role_name}</span>
                             </div>
                             <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                         </a>
