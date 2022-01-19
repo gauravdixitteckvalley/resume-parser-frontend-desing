@@ -3,6 +3,7 @@ import handleHttpError,{requestTokenHeader, displaySuccessMessage, history} from
 
 /* action for fetching Resume records */
 export const fetchResumeData = (params) => {
+    
     return async dispatch => {
         dispatch({ type: 'RESUME_LIST_REQUEST' });
         try {
@@ -188,3 +189,21 @@ export const addResumeComment=(id,postData)=>{
         }
     }
 }
+
+/*export const fetchResumeDataFromHeader = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'RESUME_LIST_REQUEST_HEADER' });
+        try {
+            const response = await api.get('resume',{
+                params  : params,
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'RESUME_LIST_SUCCESS_HEADER', payload : response.data.data});
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'RESUME_LIST_FAILURE_HEADER'});
+        }
+    }
+}*/

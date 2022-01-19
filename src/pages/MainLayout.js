@@ -18,12 +18,12 @@ const MainLayout = (props) => {
 
     return(
         <CommonStyle>
-            <div class="container-scroller">
+            <div className="container-scroller">
                 <Header {...props.children.props}></Header>
                 <div className="container-fluid page-body-wrapper" >{/* id="main" */}
                     <Sidebar {...props.children.props} ></Sidebar>
-                    <div class="main-panel">
-                        <div class="content-wrapper">
+                    <div className="main-panel">
+                        <div className="content-wrapper">
                             {props.children}
                         </div>
                         <Footer />
