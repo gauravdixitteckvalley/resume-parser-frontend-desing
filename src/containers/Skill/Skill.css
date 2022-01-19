@@ -1855,3 +1855,10 @@ table {
   .pagination-sm .page-item:last-child .page-link {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem; }
+    .page-item.active .page-link{
+        background-color: #b66dff;
+        border-color: #b66dff;
+    }
+    .page-link:hover{
+       color: #b66dff;
+    }
