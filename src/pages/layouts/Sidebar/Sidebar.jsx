@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import siderbarMenu from './siderbarMenu';
+import { useLocation } from "react-router-dom";
 import "./sidebar.css";
 
 
@@ -11,24 +12,31 @@ const Sidebar = () => {
     const authenticateUser = useSelector(state => state.authenticatedUser);
     const { user } = authenticateUser;
 
+    const location = useLocation();
+
+    //destructuring pathname from location
+    const { pathname } = location;
+    //Javascript split method to get the name of the path in array
+    const splitLocation = pathname.split("/");
+    console.log(splitLocation," splitLocation")
 
     const showRoutesForAdmin = () => {
         return(
             <>
-                <li className="nav-item">
-                    <Link to='/dashboard' className="nav-link active">
+                <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
+                    <Link to='/dashboard' className="nav-link">
                         <span className="menu-title">Dashboard</span>
                         <i className="mdi mdi-home menu-icon"></i>
                     </Link>
                 </li>
-                <li className="nav-item">
-                    <Link to='/user' className="nav-link active">
+                <li  className={splitLocation[1] === "user" ? "active nav-item" : "nav-item "}>
+                    <Link to='/user' className="nav-link">
                         <span className="menu-title">Users</span>
                         <i className="mdi mdi-contacts menu-icon"></i>
                     </Link>
                 </li>
-                <li className="nav-item">
-                    <Link to='/skills' className="nav-link active">
+                <li  className={splitLocation[1] === "skills" ? "active nav-item" : "nav-item "}>
+                    <Link to='/skills' className="nav-link">
                         <span className="menu-title">Skills</span>
                         <i className="mdi mdi-format-list-bulleted menu-icon"></i>
                     </Link>
@@ -58,14 +66,14 @@ const Sidebar = () => {
                         user.email === 'testing@gmail.com' ?
                         showRoutesForAdmin() : ''
                     }
-                    <li className="nav-item">
-                    <Link to='/resume/add' className="nav-link active">
+                     <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
+                    <Link to='/resume/add' className="nav-link">
                         <span className="menu-title">Add Candidate</span>
                         <i className="mdi mdi-account-plus menu-icon"></i>
                     </Link>
                     </li>
-                    <li className="nav-item">
-                    <Link to='/resume' className="nav-link active">
+                    <li  className={splitLocation[1] ==="resume" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
+                    <Link to='/resume' className="nav-link">
                         <span className="menu-title">Find Candidate</span>
                         <i className="mdi mdi-account-search menu-icon"></i>
                     </Link>

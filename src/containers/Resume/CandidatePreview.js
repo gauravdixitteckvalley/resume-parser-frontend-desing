@@ -111,7 +111,7 @@ const CandidatePreview = (props) => {
                          </div>
 
                          <div className="displayPreviewRow">
-                            <label className="col-lg-4 col-form-label"><b>Place/Location</b></label>
+                            <label className="col-lg-4 col-form-label"><b>Address</b></label>
                             <div className="col-lg-7 form-group">
                                     {fields.location || ''}
                             </div>
@@ -146,9 +146,30 @@ const CandidatePreview = (props) => {
                          </div>
 
                          <div className="displayPreviewRow">
-                            <label className="col-lg-4 col-form-label"><b>Reaume Label</b></label>
+                            <label className="col-lg-4 col-form-label"><b>Other Information</b></label>
                             <div className="col-lg-7 form-group">
                                     {fields.resume_label || ''}
+                            </div>
+                         </div>
+                         
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Country</b></label>
+                            <div className="col-lg-7 form-group">
+                                    {fields.country_name || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>State</b></label>
+                            <div className="col-lg-7 form-group">
+                                    {fields.state_name || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Zip Code</b></label>
+                            <div className="col-lg-7 form-group">
+                                    {fields.zip || ''}
                             </div>
                          </div>
                             

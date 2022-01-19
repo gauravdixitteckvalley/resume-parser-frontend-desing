@@ -91,15 +91,15 @@ const SkillsForm = (props) => {
                     <div className="card">
                         <div className="card-body">
                             <form className="form-inline user-form" onSubmit={(event) => _handleSubmit(event)}>
-                                <div className="form-group">
-                                    <label className="sr-only mb-1" htmlFor="inlineFormInputName2">Skill</label>
+                              
+                                    <label className=" mb-1" htmlFor="inlineFormInputName2">Skill</label>
                                     <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Python"
                                         name="skills_name"  
                                         value={fields.skills_name || ''} 
                                         onChange={(event) => _handleChange(event)}
                                     />
                                     <div className="errorMsg">{errors.skills_name}</div>
-                                </div>
+                            
                                 <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
                                 <button className="btn btn-light mb-2"  onClick={_handleCancelForm}>Cancel</button>
                             </form>

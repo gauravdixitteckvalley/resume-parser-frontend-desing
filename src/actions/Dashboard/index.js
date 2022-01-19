@@ -6,7 +6,7 @@ export const fetchDashboardResume = () => {
     return async dispatch => {
         dispatch({ type: 'RESUME_DASHBOARD_REQUEST' });
         try {
-            const response = await api.get('/resume/dashboard',{
+            const response = await api.get('/dashboard',{
                 headers : requestTokenHeader(),
             });
 

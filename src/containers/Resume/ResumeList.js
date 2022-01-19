@@ -12,6 +12,8 @@ import { fetchResumeData, resetResumeData,updateStatusField } from "../../action
 import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
 import axios from 'axios';
 
+import './ResumeList.css';
+
 const ResumeList = (props) => {
     const [name, setName]                   = useState('');
     const [email, setEmail]                 = useState('');
@@ -82,74 +84,170 @@ const ResumeList = (props) => {
         }
     }
     console.log(resumes);
-    /* build resume list */
-    const _buildResumeList = (resumes,applicant_status) => {
+
+    const _buildResumeListNew = (resumes,applicant_status) => {
         if (!_.isEmpty(resumes)) {
             return (
-                <table className="table table-bordered table-striped table-hover">
-                    <thead>
-                        <tr role="row">
-                            <th>SNO</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Upload Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {resumes.map((data, index) => (
-                            <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
-                                <td>{index+1}</td>
-                                <td>{data.name}</td>
-                                <td>{data.email}</td>
-                                <td>{data.phone}</td>
-                                <td>{data.created_at}</td>
-                                <td>
-                                <SelectBoxDropdown 
-                                    dataOptions={applicant_status}
-                                    name={`${data.id}`}
-                                    value={ _.isEmpty(selectedOption[`${data.id}`]) ? data.candidate_status : selectedOption[`${data.id}`] }
-                                    handleStatusChange={(event)=>handleStatusChange(event,`${data.id}`)}
-                                />
-                                     
-                                </td>
-                                <td className="actions">
-                                    {/* {data.resumePath ? ( */}
-                                        <div>
-                                            {/* href={`${API_URL}resume/view/${data.resumePath}`} */}
-                                            <NavLink target="_blank" to={`/candidate/preview/${data.id}`} className="ms-2 cmn">
-                                                <i className="fa fa-eye" aria-hidden="true"></i>
-                                            </NavLink>
-                                            <NavLink title="Candidate Communication" to={`/candidate/communication/${data.id}`} className="ms-2 cmn">
-                                                <i className="fa fa-comment" aria-hidden="true"></i>
-                                            </NavLink>
-                                            <NavLink to={`/candidate/details/${data.id}`} className="ms-2 cmn">
-                                                <i className="fa fa-edit" aria-hidden="true"></i>
-                                            </NavLink>
-                                            <a 
-                                                className={"ms-2 cmn " + (index === sending ? 'disable' : '' ) }
-                                                id={`mail_btn_${index}`}
-                                                onClick={ () => sendMail(data.email, index) }
-                                                style={{'cursor':'pointer'}}
-                                            >
-                                                <i className="fa fa-envelope" aria-hidden="true"></i>
-                                            </a>
-                                        </div>
-                                    {/* ) : 'N/A'} */}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>                
-            )
+                <table className="table table-bordered mb-0">
+                  <thead>
+                    <tr>
+                      <th> # </th>
+                      <th> Name </th>
+                      <th> Email </th>
+                      <th> Phone </th>
+                      <th> Upload Date </th>
+                      <th> Status </th>
+                      <th> Actions </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {resumes.map((data, index) => (
+                      <tr
+                        key={index}
+                        role="row"
+                        className={index % 2 === 0 ? "even" : "odd"}
+                      >
+                        <td>{index + 1}</td>
+                        <td>{data.name}</td>
+                        <td>{data.email}</td>
+                        <td>{data.phone}</td>
+                        <td>{data.created_at}</td>
+                        <td>
+                          <SelectBoxDropdown
+                            dataOptions={applicant_status}
+                            name={`${data.id}`}
+                            value={
+                              _.isEmpty(selectedOption[`${data.id}`])
+                                ? data.candidate_status
+                                : selectedOption[`${data.id}`]
+                            }
+                            handleStatusChange={(event) =>
+                              handleStatusChange(event, `${data.id}`)
+                            }
+                          />
+                        </td>
+                        <td className="actions icons-list my-mdi-cls">
+                          {/* {data.resumePath ? ( */}
+                          <div className="actions-cls">
+                            {/* href={`${API_URL}resume/view/${data.resumePath}`} */}
+                            <NavLink
+                              target="_blank"
+                              to={`/candidate/preview/${data.id}`}
+                            >
+                              <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
+                            </NavLink>
+                            <NavLink
+                              title="Candidate Communication"
+                              to={`/candidate/communication/${data.id}`}
+                            >
+                              <i
+                                className="mdi mdi mdi-message"
+                                aria-hidden="true"
+                              ></i>
+                            </NavLink>
+                            <NavLink
+                              to={`/candidate/details/${data.id}`}
+                            >
+                              <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
+                            </NavLink>
+                            <a
+                              className={
+                                "" +
+                                (index === sending ? "disable" : "")
+                              }
+                              id={`mail_btn_${index}`}
+                              onClick={() => sendMail(data.email, index)}
+                              style={{ cursor: "pointer" }}
+                            >
+                              <i
+                                className="mdi mdi mdi-email"
+                                aria-hidden="true"
+                              ></i>
+                            </a>
+                          </div>
+                          {/* ) : 'N/A'} */}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+            );
         } else if (_.isEmpty(resumes)) {
             return (
                 displayRecordNotFound('No Resume Found')
             )
         }
     }
+
+
+    /* build resume list */
+    // const _buildResumeList = (resumes,applicant_status) => {
+    //     if (!_.isEmpty(resumes)) {
+    //         return (
+    //             <table className="table table-bordered table-striped table-hover">
+    //                 <thead>
+    //                     <tr role="row">
+    //                         <th>#</th>
+    //                         <th>Name</th>
+    //                         <th>Email</th>
+    //                         <th>Phone</th>
+    //                         <th>Upload Date</th>
+    //                         <th>Status</th>
+    //                         <th>Actions</th>
+    //                     </tr>
+    //                 </thead>
+    //                 <tbody>
+    //                     {resumes.map((data, index) => (
+    //                         <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
+    //                             <td>{index+1}</td>
+    //                             <td>{data.name}</td>
+    //                             <td>{data.email}</td>
+    //                             <td>{data.phone}</td>
+    //                             <td>{data.created_at}</td>
+    //                             <td>
+    //                             <SelectBoxDropdown 
+    //                                 dataOptions={applicant_status}
+    //                                 name={`${data.id}`}
+    //                                 value={ _.isEmpty(selectedOption[`${data.id}`]) ? data.candidate_status : selectedOption[`${data.id}`] }
+    //                                 handleStatusChange={(event)=>handleStatusChange(event,`${data.id}`)}
+    //                             />
+                                     
+    //                             </td>
+    //                             <td className="actions">
+    //                                 {/* {data.resumePath ? ( */}
+    //                                     <div>
+    //                                         {/* href={`${API_URL}resume/view/${data.resumePath}`} */}
+    //                                         <NavLink target="_blank" to={`/candidate/preview/${data.id}`} className="ms-2 cmn">
+    //                                             <i className="fa fa-eye" aria-hidden="true"></i>
+    //                                         </NavLink>
+    //                                         <NavLink title="Candidate Communication" to={`/candidate/communication/${data.id}`} className="ms-2 cmn">
+    //                                             <i className="fa fa-comment" aria-hidden="true"></i>
+    //                                         </NavLink>
+    //                                         <NavLink to={`/candidate/details/${data.id}`} className="ms-2 cmn">
+    //                                             <i className="fa fa-edit" aria-hidden="true"></i>
+    //                                         </NavLink>
+    //                                         <a 
+    //                                             className={"ms-2 cmn " + (index === sending ? 'disable' : '' ) }
+    //                                             id={`mail_btn_${index}`}
+    //                                             onClick={ () => sendMail(data.email, index) }
+    //                                             style={{'cursor':'pointer'}}
+    //                                         >
+    //                                             <i className="fa fa-envelope" aria-hidden="true"></i>
+    //                                         </a>
+    //                                     </div>
+    //                                 {/* ) : 'N/A'} */}
+    //                             </td>
+    //                         </tr>
+    //                     ))}
+    //                 </tbody>
+    //             </table>               
+    //         )
+    //     } else if (_.isEmpty(resumes)) {
+    //         return (
+    //             displayRecordNotFound('No Resume Found')
+    //         )
+    //     }
+    // }
 
     /**method to handle the search fields */
     const _handleChange = (event) => {
@@ -217,9 +315,206 @@ const ResumeList = (props) => {
         total = totalRecords;
     
     return (
-        <ResumeStyle>
-            <BlockUI blocking={blocking} />
-            <h3>Resume List</h3>
+      <ResumeStyle>
+        <BlockUI blocking={blocking} />
+
+        <div className="page-header">
+          <h3 className="page-title"> Resume List</h3>
+        </div>
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card mb-4">
+            <div className="card">
+              <div className="card-body">
+                <div className="template-demo mb-2">
+                  <NavLink to={"/resume/add"}>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-fw mb-2"
+                    >
+                      Upload Resume
+                    </button>
+                  </NavLink>
+                  <NavLink to={"/resume/manual/add"}>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-fw mb-2"
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Manual Upload Resume
+                    </button>
+                  </NavLink>
+                  <hr className="mb-4" />
+                </div>
+                <form className="form-inline">
+                  <div className="row">
+                    <div className="col-md-3">
+                      <input
+                        type="text"
+                        name="name"
+                        value={name}
+                        onChange={(event) => _handleChange(event)}
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        id="inlineFormInputName2"
+                        placeholder="Name"
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <input
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={(event) => _handleChange(event)}
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        id="inlineFormInputName2"
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <input
+                        type="text"
+                        name="phone"
+                        value={phone}
+                        onChange={(event) => _handleChange(event)}
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        id="inlineFormInputName2"
+                        placeholder="Phone"
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <input
+                        type="text"
+                        name="city"
+                        value={city}
+                        onChange={(event) => _handleChange(event)}
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        id="inlineFormInputName2"
+                        placeholder="City"
+                      />
+                    </div>
+                  </div>
+                  <div className="row mt-2 mb-2">
+                    <div className="col-md-3">
+                      <input
+                        type="text"
+                        name="company"
+                        value={company}
+                        onChange={(event) => _handleChange(event)}
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        id="inlineFormInputName2"
+                        placeholder="Company"
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <Select
+                        placeholder={"Select Skills"}
+                        isMulti
+                        options={definedSkills}
+                        onChange={_handleSkillChange}
+                        value={skillsData}
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <Form.Control
+                        as="select"
+                        name="minExp"
+                        value={minExp || ""}
+                        onChange={(event) => _handleChange(event)}
+                      >
+                        <option>Min Exp</option>
+                        {min.map((value, index) => (
+                          <option key={index} value={value}>
+                            {value}
+                          </option>
+                        ))}
+                      </Form.Control>
+                    </div>
+                    <div className="col-md-3">
+                      <Form.Control
+                        as="select"
+                        name="maxExp"
+                        value={maxExp || ""}
+                        onChange={(event) => _handleChange(event)}
+                      >
+                        <option>Max Exp</option>
+                        {max.map((value, index) => (
+                          <option key={index} value={value}>
+                            {value}
+                          </option>
+                        ))}
+                      </Form.Control>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => _handleSubmit()}
+                    className="btn btn-gradient-primary mb-2"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => _handleReset()}
+                    className="btn btn-light mb-2"
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Reset
+                  </button>
+                  <hr className="mb-4" />
+                </form>
+
+                {/* Pagination */}
+                {/* <nav aria-label="Page navigation example">
+                            <ul className="pagination justify-content-end">
+                              <li className="page-item">
+                                <a className="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span className="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li className="page-item"><a className="page-link" href="#">1</a></li>
+                              <li className="page-item"><a className="page-link" href="#">2</a></li>
+                              <li className="page-item"><a className="page-link" href="#">3</a></li>
+                              <li className="page-item">
+                                <a className="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span className="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                        </nav> */}
+                {/* Pagination ends */}
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-12 grid-margin stretch-card mb-2">
+            <div className="card card-cls">
+              <div className="table-responsive">
+                {_buildResumeListNew(resumeList, applicant_status)}
+              </div>
+            </div>
+          </div>
+
+          {total > per_page ? (
+            <div aria-label="Page navigation example">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={Number(per_page)}
+                totalItemsCount={total}
+                prevPageText="Prev"
+                nextPageText="Next"
+                pageRangeDisplayed={5}
+                onChange={_handlePageChange}
+                itemClass="page-item"
+                linkClass="page-link"
+                innerClass="pagination justify-content-end"
+              />
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+
+        {/* <h3>Resume List</h3>
 
             <div className="row clearfix">
                 <div className="col-lg-12">
@@ -260,7 +555,7 @@ const ResumeList = (props) => {
                                             </div>
                                             <div className="col-sm-3">
                                                 <label className="form-label visually-hidden" >Company</label>
-                                                <input type="text" className="form-control" placeholder="Company" name="company"
+                                                <input type="text" className="form-control" placeholder="Company" name="company" 
                                                     value={company} 
                                                     onChange={(event) => _handleChange(event)} />
                                             </div>
@@ -300,8 +595,8 @@ const ResumeList = (props) => {
                     
                     <div className="table-responsive">
                         {/* list of records */}
-                        {_buildResumeList(resumeList,applicant_status)}
-                        <div class="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+        {/* {_buildResumeList(resumeList,applicant_status)}
+                        <div className="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
                         {(total > per_page) ? 
                             <div className="pagination mb-3 pagination-content">
                                 <Pagination
@@ -310,17 +605,17 @@ const ResumeList = (props) => {
                                     totalItemsCount={total}
                                     pageRangeDisplayed={5}
                                     onChange={_handlePageChange}
-                                    itemClass="page-item"
-                                    linkClass="page-link"
-                                    innerClass="pagination text-center"
+                                    itemclassName="page-item"
+                                    linkclassName="page-link"
+                                    innerclassName="pagination text-center"
                                 /> 
                             </div> 
                         : ''} 
                     </div>
-                </div>
-            </div>
-        </ResumeStyle>
-    )
+                </div> */}
+        {/* </div> */}
+      </ResumeStyle>
+    );
 }
 
 export default ResumeList

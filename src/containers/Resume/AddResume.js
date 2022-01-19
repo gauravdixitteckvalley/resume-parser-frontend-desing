@@ -122,7 +122,6 @@ const AddResume = (props) => {
                   </a>
                 </div>
               </div>
-              <div className="row">
                 <Dropzone
                   getUploadParams={getUploadParams}
                   onChangeStatus={handleChangeStatus}
@@ -132,7 +131,6 @@ const AddResume = (props) => {
                   maxSizeBytes={2000000}
                   inputContent={`Drag Files or Click to Browse (Maximum ${maxUploadFiles} files allowed)`}
                 />
-              </div>
             </div>
           </div>
         </div>
