@@ -86,7 +86,7 @@ const Header = (props) => {
                             <span className="availability-status online"></span>
                             </div>
                             <div className="nav-profile-text">
-                            <p className="mb-1 text-black">Sandip Ghosh</p>
+                            <p className="mb-1 text-black">{loggedUser.user.full_name}</p>
                             </div>
                         </a>
                         <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
