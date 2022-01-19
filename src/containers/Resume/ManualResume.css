@@ -1,0 +1,10 @@
+.card {
+    border: 0 !important;
+}
+.btn-gradient-primary {
+    border: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+.btn {
+    padding: 0.5rem 2.5rem !important;
+}

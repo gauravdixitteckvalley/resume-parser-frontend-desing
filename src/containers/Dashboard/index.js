@@ -157,6 +157,7 @@ const Dashboard = (props) => {
           </Card>
         </div>
       </div> */}
+<<<<<<< HEAD
       <Graph />
       <div className="row">
         <div className="col-12 grid-margin">
@@ -165,6 +166,10 @@ const Dashboard = (props) => {
         </div>
       </div>
       <RecentEntries />
+=======
+      {/* <Graph />
+      <RecentEntries /> */}
+>>>>>>> c3bc20201f7aafde2c39cf05120c2994493ee0a9
     </>
   );
 };
