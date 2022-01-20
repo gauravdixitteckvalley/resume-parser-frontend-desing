@@ -53,7 +53,7 @@ const Sidebar = () => {
                     <li className="nav-item nav-profile">
                         <a href="#" className="nav-link">
                             <div className="nav-profile-image">
-                                <img src="../../assets/img/faces/face1.jpg" alt="profile" />
+                                <img src="./user_icon.png" alt="profile" />
                                 <span className="login-status online"></span>
                             </div>
                             <div className="nav-profile-text d-flex flex-column">

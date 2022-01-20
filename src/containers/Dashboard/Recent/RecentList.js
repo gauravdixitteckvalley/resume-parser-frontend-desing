@@ -56,15 +56,15 @@ const RecentList = (props) => {
         <div className="col-12 grid-margin">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title">Recent Candidate</h4>
+              <h4 className="card-title">Recent Candidates</h4>
               <div className="table-responsive">
                 <table className="table">
                   <thead>
                     <tr>
                       <th> Name </th>
                       <th> Email </th>
-                      <th> Phone </th>
                       <th> Status </th>
+                      <th> Phone </th>
                       <th> Created Date </th>
                     </tr>
                   </thead>
