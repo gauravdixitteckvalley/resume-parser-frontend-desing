@@ -10,7 +10,7 @@ const Sidebar = () => {
     
     /**fetched data from redux store */
     const authenticateUser = useSelector(state => state.authenticatedUser);
-    console.log(authenticateUser,' authenticateUser')
+    //console.log(authenticateUser,' authenticateUser')
     const { user } = authenticateUser;
 
     const location = useLocation();

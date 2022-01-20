@@ -245,3 +245,23 @@ export const getStateList = (params) => {
         }
     }
 }
+
+
+/* multi mail send */
+export const sendMultiMail = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'SEND_MULTIPLE_MAIL_REQUEST' });
+        try {
+            let response = await api.post(`/send-multiple`,params, {
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'SEND_MULTIPLE_MAIL_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SEND_MULTIPLE_MAIL_FAILURE' });
+        }
+    }
+}
