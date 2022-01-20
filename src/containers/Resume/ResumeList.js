@@ -26,6 +26,7 @@ const ResumeList = (props) => {
     const [maxExp, setMaxExp]               = useState('');
     const [sending, setSending]               = useState(null);
     const [selectedOption, setSelectedOption]               = useState([]);
+    const [sortingOption, setsortingOption]               = useState({});
     /**fetched data from redux store */
     const resumes = useSelector(state => state.resume);
     const dispatch = useDispatch();
@@ -52,7 +53,8 @@ const ResumeList = (props) => {
             phone   : params?.phone,
             city    : params?.city,
             company : params?.company,
-            skills  : params?.skills
+            skills  : params?.skills,
+            sortingData : params.sortingData === undefined ? {} : params.sortingData
         }
         dispatch(fetchResumeData(queryParams));
     }
@@ -63,7 +65,7 @@ const ResumeList = (props) => {
     }
 
     /**method for calling api based on page change  */
-    const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email, phone, city, company, skills : skillsSearch});
+    const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption});
 
     const sendMail = async (mail, key) => {
         setSending(key);
@@ -83,7 +85,23 @@ const ResumeList = (props) => {
             alert("Mail sent error, check the email");
         }
     }
-    console.log(resumes);
+
+    // method to add sorting functionality on columns
+    const onClickEventForSorting = (fieldName, order, params = {}) => {
+      const setStateValue = { name: fieldName, order }
+      setsortingOption(setStateValue)
+      const queryParams = {
+          page    : 1,
+          name    : name ,
+          email   : email,
+          phone   : phone,
+          city    : city,
+          company : company,
+          skills  : skillsSearch,
+          sortingData : setStateValue
+      }
+      dispatch(fetchResumeData(queryParams));
+  }
 
     const _buildResumeListNew = (resumes,applicant_status) => {
         if (!_.isEmpty(resumes)) {
@@ -92,12 +110,29 @@ const ResumeList = (props) => {
                   <thead>
                     <tr>
                       <th> # </th>
-                      <th> Name </th>
-                      <th> Email </th>
-                      <th> Phone </th>
-                      <th> Upload Date </th>
-                      <th> Status </th>
-                      <th> Actions </th>
+                      <th>
+                          Name
+                          <button onClick={ () => onClickEventForSorting('name','asc') }>A</button>
+                          <button onClick={ () => onClickEventForSorting('name','desc') }>D</button>
+                      </th>
+                      <th>
+                          Email
+                          <button onClick={ () => onClickEventForSorting('email','asc') }>A</button>
+                          <button onClick={ () => onClickEventForSorting('email','desc') }>D</button>
+                      </th>
+                      <th>
+                          Phone
+                          <button onClick={ () => onClickEventForSorting('phone','asc') }>A</button>
+                          <button onClick={ () => onClickEventForSorting('phone','desc') }>D</button>
+                      </th>
+                      <th>Upload Date</th>
+                      <th>
+                          Status
+                          <button onClick={ () => onClickEventForSorting('candidate_status','asc') }>A</button>
+                          <button onClick={ () => onClickEventForSorting('candidate_status','desc') }>D</button>
+                      </th>
+
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -292,7 +327,7 @@ const ResumeList = (props) => {
         if(_.isEmpty(name) && _.isEmpty(email) && _.isEmpty(phone) && _.isEmpty(company) && _.isEmpty(city) && _.isEmpty(skillsSearch))
             displayErrorMessage('Please input any search field first')
 
-        _getData('', {name, email, phone, city, company, skills : skillsSearch})
+        _getData('', {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption})
     }
 
     /*handle reset event*/
@@ -306,6 +341,7 @@ const ResumeList = (props) => {
         setSkillsSearch('')
         setMinExp('')
         setMaxExp('')
+        setsortingOption({})
         _getData()
     }
 
