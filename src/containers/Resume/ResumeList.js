@@ -101,7 +101,8 @@ const ResumeList = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                  {resumes.map((data, index) => (
+                  {resumes.map((data, index) => ( 
+                    
                       <tr
                         key={index}
                         role="row"
@@ -111,7 +112,7 @@ const ResumeList = (props) => {
                         <td>{data.name}</td>
                         <td>{data.email}</td>
                         <td>{data.phone}</td>
-                        <td>{data.created_at}</td>
+                        <td>{ data.created_at}</td>
                         <td>
                           <SelectBoxDropdown
                             dataOptions={applicant_status}

@@ -8,7 +8,8 @@ export function dashboard(state = [], action) {
                 monthlyList     : '',
                 totalList       : '',
                 statusList      : '',
-                statusData     : ''
+                statusData      : '',
+                topResume       : ''   
             }
         
         case 'RESUME_DASHBOARD_SUCCESS':
@@ -18,7 +19,8 @@ export function dashboard(state = [], action) {
                 totalList       : action.payload.totalResumes,
                 monthlyList     : action.payload.monthlyResumes,
                 statusList      : action.payload.statusList,
-                statusData       : action.payload.statusData
+                statusData      : action.payload.statusData,
+                topResume       : action.payload.topResume 
             }
         
         case 'RESUME_DASHBOARD_FAILURE':
@@ -28,7 +30,8 @@ export function dashboard(state = [], action) {
                 totalList       : '',
                 monthlyList     : '',
                 statusList      : '',
-                statusData     : ''
+                statusData      : '',
+                topResume       : ''  
             }
 
         case 'RESET_DASHBOARD_REQUEST':{
@@ -38,7 +41,8 @@ export function dashboard(state = [], action) {
                 monthlyList      : '',
                 totalList       : '',
                 statusList      : '',
-                statusData     : ''
+                statusData      : '',
+                topResume       : ''  
             }
         }
         
