@@ -5,6 +5,7 @@ import {
   fetchDashboardResume,
   fetchDashboardReset,
 } from "../../actions/Dashboard";
+import RecentList from './Recent/RecentList';
 import RecentEntries from './Recent/Recent';
 import Graph from './Graph/Graph';
 
@@ -26,7 +27,8 @@ const Dashboard = (props) => {
     };
   }, [callData]);
 
-  const { weeklyList, monthlyList, totalList, statusList, statusData } = dashboardData;
+  const { weeklyList, monthlyList, totalList, statusList, statusData, topResume } = dashboardData;
+
   return (
     <>
       <div className="page-header">
@@ -163,9 +165,11 @@ const Dashboard = (props) => {
          { statusData ? <CandidateStatusGraph statusList ={statusList} statusData={statusData} /> : null }
         </div>
       </div>
-      
+
+      <RecentList topResume={topResume} ></RecentList>
       {/* <Graph />
       <RecentEntries /> */}
+      
     </>
   );
 };

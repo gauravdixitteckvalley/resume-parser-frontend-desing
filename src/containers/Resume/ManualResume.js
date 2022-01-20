@@ -127,34 +127,70 @@ const ManualResume = (props) => {
                                 <div className="errorMsg">{errors.phone}</div> 
                               </div>
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Skills</label>
-                                <input type="text" name="skills" value={fields.skills || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="HTML,CSS,PHP" />
-                                <div className="errorMsg">{errors.skills}</div>
-                              </div>
-                          </div>
-                          <div className="row mt-2">
-                              <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">City</label>
-                                <input type="text" name="place" value={fields.place || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" />
-                                <div className="errorMsg">{errors.place}</div>  
-                              </div>
-                              <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Company Name</label>
-                                <input type="text" name="workExperience" value={fields.workExperience || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Company Name" />
-                                <div className="errorMsg">{errors.workExperience}</div>   
-                              </div>
-                          </div>
-                          <div className="row mt-2">
-                              <div className="col-md-6">
                                 <label className="mb-1 required" for="inlineFormInputName2">DOB</label>
                                 <input type="date" name="dob" onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" />
                                 <div className="errorMsg">{errors.dob}</div>
                               </div>
-                              <div className="col-md-6">
-                                <label className="mb-1" for="inlineFormInputName2">Place/Location</label>
-                                <input type="text" name="location" onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Place/Location" />
+                          </div>
+                          <div className="row mt-2">
+                              <div className="col-md-12">
+                                <label className="mb-1" for="inlineFormInputName2">Address</label>
+                                <textarea  name="location" onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-12" id="inlineFormInputName2" placeholder="Address"></textarea>
+                                {/* <input type="text" name="location" onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Place/Location" /> */}
                                 <div className="errorMsg">{errors.location}</div>
                               </div>
+                          </div>
+                          <div className="row mt-2">
+                              <div className="col-md-3">
+                                <label className="mb-1 required" for="inlineFormInputName2">Country</label>
+                                {/* <input type="text" name="place" value={fields.place || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" /> */}
+                                <select name="country" className="form-control mb-2 mr-sm-2 col-md-6" value={fields.country || ''} 
+                                        onChange={(event) => _handleChange(event)} 
+                                >
+                                <option value="">Select Country</option>
+                                {countryList?.map((country, index) => (
+                                    <option key={index} value={country._id}>{country.name}</option>
+                                ))}
+                            </select>
+                                <div className="errorMsg">{errors.country}</div>  
+                              </div>
+                              <div className="col-md-3">
+                                <label className="mb-1 required" for="inlineFormInputName2">State</label>
+                                {/* <input type="text" name="place" value={fields.place || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" /> */}
+                                <select name="state" className="form-control mb-2 mr-sm-2 col-md-6" value={fields.state || ''} 
+                                    onChange={(event) => _handleChange(event)} 
+                                >
+                                    <option value="">Select State</option>
+                                    {stateList?.map((state, index) => (
+                                        <option key={index} value={state._id}>{state.name}</option>
+                                    ))}
+                                </select>
+                                <div className="errorMsg">{errors.state}</div>  
+                              </div>
+                              <div className="col-md-3">
+                                <label className="mb-1 required" for="inlineFormInputName2">City</label>
+                                <input type="text" name="place" value={fields.place || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" />
+                                <div className="errorMsg">{errors.place}</div>  
+                              </div>
+                              <div className="col-md-3">
+                                <label className="mb-1 required" for="inlineFormInputName2">Zip</label>
+                                <input type="text" name="zip" value={fields.zip || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Zip Code" />
+                                <div className="errorMsg">{errors.zip}</div>  
+                              </div>
+                             
+                          </div>
+                         
+                          <div className="row mt-2">
+                               <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Company Name</label>
+                                <input type="text" name="workExperience" value={fields.workExperience || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Company Name" />
+                                <div className="errorMsg">{errors.workExperience}</div>   
+                              </div>
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Skills</label>
+                                <input type="text" name="skills" value={fields.skills || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="HTML,CSS,PHP" />
+                                <div className="errorMsg">{errors.skills}</div>
+                              </div>                              
                           </div>
                           <div className="row mt-2">
                               <div className="col-md-6">
@@ -167,7 +203,7 @@ const ManualResume = (props) => {
                                 <input type="text" name="designation" onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Designation" />
                                 <div className="errorMsg">{errors.designation}</div>
                               </div>
-                          </div>
+                          </div>   
                           <div className="row mt-2">
                               <div className="col-md-6">
                                 <label className="mb-1 required" for="inlineFormInputName2">Current CTC</label>
