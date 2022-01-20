@@ -13,12 +13,7 @@ const Sidebar = (props) => {
         return(
             <>
                 <img src="../../../assets/img/face1.jpg" alt="profile" />
-                <li className="nav-item">
-                        <Link to='/dashboard' className="nav-link active">Dashboard</Link>
-                </li>
-                <li className="nav-item">
-                    <Link to='/user' className="nav-link active">Users</Link>
-                </li>
+                
                 <li className="nav-item">
                     <Link to='/skills' className="nav-link active">Skills</Link>
                 </li>
@@ -34,6 +29,12 @@ const Sidebar = (props) => {
                         user.email === 'testing@gmail.com' ?
                         showRoutesForAdmin() : ''
                     }
+                    <li className="nav-item">
+                            <Link to='/dashboard' className="nav-link active">Dashboard</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to='/user' className="nav-link active">Users</Link>
+                    </li>    
                     <li className="nav-item">
                         <Link to='/resume/add' className="nav-link active">Add Candidate</Link>
                     </li>
