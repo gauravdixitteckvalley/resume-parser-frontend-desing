@@ -138,3 +138,10 @@
     .page-link:hover{
        color: #b66dff;
     }
+    button.icon-up, button.icon-down {
+      margin-left: 2px;
+      border: 0;
+  }
+  button.icon-up i, button.icon-down i {
+    margin-left: 0 !important;
+}

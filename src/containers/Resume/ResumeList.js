@@ -112,24 +112,24 @@ const ResumeList = (props) => {
                       <th> # </th>
                       <th>
                           Name
-                          <button onClick={ () => onClickEventForSorting('name','asc') }>A</button>
-                          <button onClick={ () => onClickEventForSorting('name','desc') }>D</button>
+                          <button onClick={ () => onClickEventForSorting('name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('name','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>
                           Email
-                          <button onClick={ () => onClickEventForSorting('email','asc') }>A</button>
-                          <button onClick={ () => onClickEventForSorting('email','desc') }>D</button>
+                          <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>
                           Phone
-                          <button onClick={ () => onClickEventForSorting('phone','asc') }>A</button>
-                          <button onClick={ () => onClickEventForSorting('phone','desc') }>D</button>
+                          <button onClick={ () => onClickEventForSorting('phone','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('phone','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>Upload Date</th>
                       <th>
                           Status
-                          <button onClick={ () => onClickEventForSorting('candidate_status','asc') }>A</button>
-                          <button onClick={ () => onClickEventForSorting('candidate_status','desc') }>D</button>
+                          <button onClick={ () => onClickEventForSorting('candidate_status','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('candidate_status','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                       </th>
 
                       <th>Actions</th>
