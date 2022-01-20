@@ -9,6 +9,7 @@ import RecentEntries from './Recent/Recent';
 import Graph from './Graph/Graph';
 
 import "./index.css";
+import CandidateStatusGraph from './Graph/CandidateStatusGraph';
 
 const Dashboard = (props) => {
   /**fetched data from redux store */
@@ -25,7 +26,7 @@ const Dashboard = (props) => {
     };
   }, [callData]);
 
-  const { weeklyList, monthlyList, totalList } = dashboardData;
+  const { weeklyList, monthlyList, totalList, statusList, statusData } = dashboardData;
   return (
     <>
       <div className="page-header">
@@ -51,7 +52,7 @@ const Dashboard = (props) => {
               <img
                 src="./../assets/img/circle.svg"
                 className="card-img-absolute"
-                alt="circle-image"
+                alt="circleimagefile"
               />
               <h4 className="font-weight-normal mb-3">
                 All Resumes{" "}
@@ -68,7 +69,7 @@ const Dashboard = (props) => {
               <img
                 src="./../assets/img/circle.svg"
                 className="card-img-absolute"
-                alt="circle-image"
+                alt="circleimagefile"
               />
               <h4 className="font-weight-normal mb-3">
                 Monthly Resume
@@ -85,7 +86,7 @@ const Dashboard = (props) => {
               <img
                 src="./../assets/img/circle.svg"
                 className="card-img-absolute"
-                alt="circle-image"
+                alt="circleimagefile"
               />
               <h4 className="font-weight-normal mb-3">
                 Weekly Resume
@@ -156,6 +157,13 @@ const Dashboard = (props) => {
           </Card>
         </div>
       </div> */}
+      
+      <div className="row">
+        <div className="col-12 grid-margin">
+         { statusData ? <CandidateStatusGraph statusList ={statusList} statusData={statusData} /> : null }
+        </div>
+      </div>
+      
       {/* <Graph />
       <RecentEntries /> */}
     </>

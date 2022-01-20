@@ -3,6 +3,7 @@ import handleHttpError,{requestTokenHeader, displaySuccessMessage, history} from
 
 /* action for fetching Resume records */
 export const fetchResumeData = (params) => {
+    
     return async dispatch => {
         dispatch({ type: 'RESUME_LIST_REQUEST' });
         try {
@@ -185,6 +186,62 @@ export const addResumeComment=(id,postData)=>{
         }catch(error){
             handleHttpError(error.response);
             dispatch({ type: 'SUBMIT_RESUME_NOTE_FAILURE' });
+        }
+    }
+}
+
+/*export const fetchResumeDataFromHeader = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'RESUME_LIST_REQUEST_HEADER' });
+        try {
+            const response = await api.get('resume',{
+                params  : params,
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'RESUME_LIST_SUCCESS_HEADER', payload : response.data.data});
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'RESUME_LIST_FAILURE_HEADER'});
+        }
+    }
+}*/
+
+/* get country list */
+export const getCountryList = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'GET_COUNTRY_REQUEST' });
+        try {
+            let response = await api.get(`/resume/country`, {
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'GET_COUNTRY_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'GET_COUNTRY_FAILURE' });
+        }
+    }
+}
+
+/* get state list */
+export const getStateList = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'GET_STATE_REQUEST' });
+        try {
+            let response = await api.get(`/resume/state/${params}`, {
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'GET_STATE_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'GET_STATE_FAILURE' });
         }
     }
 }
