@@ -1,3 +1,6 @@
 .search-btn{
     text-decoration: none !important;
 }
+.dropdown .dropdown-menu .dropdown-item:hover {
+    color: #000 !important;
+}

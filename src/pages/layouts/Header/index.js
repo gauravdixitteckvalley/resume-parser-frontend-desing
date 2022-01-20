@@ -8,6 +8,7 @@ import { resetLoggedUserData } from '../../../actions/Login';
 import { fetchResumeData, resetResumeData,updateStatusField } from "../../../actions/Resume";
 import { history, displayErrorMessage } from '../../../utils/helper';
 
+
 const Header = (props) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
@@ -82,7 +83,7 @@ const Header = (props) => {
                         <li className="nav-item nav-profile dropdown">
                         <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="nav-profile-img">
-                            <img src="../../assets/img/faces/face1.jpg" alt="image" />
+                            <img src="./user_icon.png" alt="image" />
                             <span className="availability-status online"></span>
                             </div>
                             <div className="nav-profile-text">
@@ -176,30 +177,30 @@ const Header = (props) => {
                                 </a>
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <div className="preview-icon bg-info">
-                                    <i className="mdi mdi-link-variant"></i>
+                                    <div className="preview-thumbnail">
+                                        <div className="preview-icon bg-info">
+                                        <i className="mdi mdi-link-variant"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                                    <p className="text-gray ellipsis mb-0"> New admin wow! </p>
-                                </div>
+                                    <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 className="preview-subject font-weight-normal mb-1">Launch Admin</h6>
+                                        <p className="text-gray ellipsis mb-0"> New admin wow! </p>
+                                    </div>
                                 </a>
                                 <div className="dropdown-divider"></div>
                                 <h6 className="p-3 mb-0 text-center">See all notifications</h6>
                             </div>
                         </li>
                         <li className="nav-item nav-logout d-none d-lg-block">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="javascript:void(0)" onClick={() => _loggedOutUser()}>
                             <i className="mdi mdi-power"></i>
                             </a>
                         </li>
-                        <li className="nav-item nav-settings d-none d-lg-block">
+                        {/* <li className="nav-item nav-settings d-none d-lg-block">
                             <a className="nav-link" href="#">
                             <i className="mdi mdi-format-line-spacing"></i>
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                     <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                         <span className="mdi mdi-menu"></span>
