@@ -6,6 +6,7 @@ import BlockUI from "../../components/BlockUI"
 import { history, displayErrorMessage } from '../../utils/helper'
 import { getSingleResumeData, fetchResumeData, updateResumeFormData, resetResumeData } from "../../actions/Resume"
 import validateCandidateDetailsForm from './CandidateDetailsValidation';
+import './CandidateDetails.css';
 
 let base64File = ''
 const CandidateDetails = (props) => {
@@ -108,11 +109,111 @@ const CandidateDetails = (props) => {
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
-            <h1 className="display-4 d-none d-sm-block">
-                Update Details
-            </h1>
+            <div className="page-header">
+              <h3 className="page-title"> Update Details</h3>
+            </div>
+            
+            <div className="row">
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                      <div className="card-body">
+                        <form onSubmit={(event) => _handleSubmit(event)} className="form-inline edit-form">
+                          <div className="row">
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Name</label>
+                                <input type="text" name="name" value={fields.name || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Name" />
+                                <div className="errorMsg">{errors.name}</div>  
+                              </div>
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Email</label>
+                                <input type="email" name="email" value={fields.email || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Email" />
+                                <div className="errorMsg">{errors.email}</div>  
+                              </div>
+                          </div>
+                          <div className="row mt-2">
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Phone</label>
+                                <input type="text" name="phone" value={fields.phone || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Phone" />
+                                <div className="errorMsg">{errors.phone}</div>   
+                              </div>
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Skills</label>
+                                <input type="text" name="skills" value={fields.skills || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="HTML,CSS,PHP,.NET,JAVASCRIPT" />
+                                <div className="errorMsg">{errors.skills}</div>   
+                              </div>
+                          </div>
+                          <div className="row mt-2">
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">City</label>
+                                <input type="text" name="place" value={fields.place || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" />
+                                <div className="errorMsg">{errors.place}</div>
+                              </div>
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Company Name</label>
+                                <input type="text" name="workExperience" value={fields.workExperience || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Company Name" />
+                                <div className="errorMsg">{errors.workExperience}</div> 
+                              </div>
+                          </div>
+                          <div className="row mt-2">
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">D.O.B</label>
+                                <input type="date" name="dob" value={fields.dob || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" />
+                                <div className="errorMsg">{errors.dob}</div>
+                              </div>
+                              <div className="col-md-6">
+                                <label className="mb-1" for="inlineFormInputName2">Place/Location</label>
+                                <input type="text" name="location" value={fields.location || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Place/Location" />
+                                <div className="errorMsg">{errors.location}</div>
+                              </div>
+                          </div>
+                          <div className="row mt-2">
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Total Experience</label>
+                                <input type="text" name="exp" value={fields.exp || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Total Experience" />
+                                <div className="errorMsg">{errors.exp}</div>
+                              </div>
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Designation</label>
+                                <input type="text" name="designation" value={fields.designation || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Designation" />
+                                <div className="errorMsg">{errors.designation}</div>
+                              </div>
+                          </div>
+                          <div className="row mt-2">
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Current CTC</label>
+                                <input type="text" name="current_ctc" value={fields.current_ctc || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Current CTC" />
+                                <div className="errorMsg">{errors.current_ctc}</div>
+                              </div>
+                              <div className="col-md-6">
+                                <label className="mb-1" for="inlineFormInputName2">Expected CTC</label>
+                                <input type="text" name="expected_ctc" value={fields.expected_ctc || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Expected CTC" />
+                                <div className="errorMsg">{errors.expected_ctc}</div>
+                              </div>
+                          </div>
+                          <div className="row mt-2 mb-4">
+                              <div className="col-md-6">
+                                <label className="mb-1 required" for="inlineFormInputName2">Resume Lable</label>
+                                <textarea className="form-control" name="resume_label" cols="30" rows="3" 
+                                     value={fields.resume_label || ''} 
+                                    onChange={(event) => _handleChange(event)}></textarea>
+                                    <div className="errorMsg">{errors.resume_label}</div>
+                              </div>
+                              <div className="col-md-6 mb-3">
+                                <label for="formFile" className="form-label required">Resume</label>
+                                <input name="document" onChange={(event) => _handleChange(event)} className="form-control" type="file" id="formFile" />
+                              </div>
+                          </div>
+                          
+                          <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
+                          <button onClick={_handleCancelForm} className="btn btn-light mb-2" style={{marginLeft: '10px'}}>Cancel</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
 
-            <form onSubmit={(event) => _handleSubmit(event)}>
+
+            {/* <form onSubmit={(event) => _handleSubmit(event)}>
                 <div className="row clearfix mb-3">
                     <div className="col-lg-12 col-md-12 col-sm-12">
                         <div className="row clearfix">
@@ -200,7 +301,7 @@ const CandidateDetails = (props) => {
                             </div>
                             <div className="col-md-6 mb-3"> <b className="required">Total Experience</b>
                                 <div className="form-group">
-                                    <input className="form-control" type="text" name="exp"
+                                    <input className="form-control" type="text" name="exp" 
                                      value={fields.exp || ''}  
                                         onChange={(event) => _handleChange(event)} 
                                     />
@@ -209,7 +310,7 @@ const CandidateDetails = (props) => {
                             </div>
                             <div className="col-md-6 mb-3"> <b className="required">Designation</b>
                                 <div className="form-group">
-                                    <input className="form-control" type="text" name="designation"
+                                    <input className="form-control" type="text" name="designation" 
                                      value={fields.designation || ''}  
                                         onChange={(event) => _handleChange(event)} 
                                     />
@@ -255,7 +356,7 @@ const CandidateDetails = (props) => {
                     
                 <button type="submit" className="btn btn-success">Submit</button>
                 <button className="btn btn-danger ms-2" onClick={_handleCancelForm}>Cancel</button>
-            </form>
+            </form> */}
         </Fragment>
     )
 }

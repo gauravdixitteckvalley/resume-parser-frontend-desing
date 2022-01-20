@@ -8,6 +8,7 @@ import moment from "moment";
 import { addResumeComment,getResumeCommunication } from "../../actions/Resume";
 
 import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
+import './CandidateCommunication.css';
 
 const CandidateCommunication = (props) => {
 
@@ -57,7 +58,7 @@ const CandidateCommunication = (props) => {
 
         if (!_.isEmpty(resumes)) {
             return (
-                <table className="table table-bordered table-striped table-hover">
+                <table className="table table-bordered mb-4">
                     <thead>
                         <tr role="row">
                             <th>Candidate Name</th>
@@ -93,23 +94,28 @@ const CandidateCommunication = (props) => {
     
  
     return (
-        <Fragment>
-            <BlockUI blocking={blocking} />
-            <h3> Candidate Communication </h3>
+      <Fragment>
+        <BlockUI blocking={blocking} />
+        <div class="page-header">
+          <h3 class="page-title"> Candidate Communication</h3>
+        </div>
 
-            <div className="row clearfix" >
-                <div className="col-lg-12">
-                    <div className="row">
-                        <div className="col-lg-12 ">
-                            <a onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-2">Add Note</a>
-                    
-                        </div>
-                    </div>    
-                    <div className="table-responsive">
-                            {/* list of records */}
-                            {_buildCommunicationList(resumeCommunication)}
+        <div className="row clearfix">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div class="card-body">
+                <div className="row">
+                  <div className="col-lg-12 ">
+                    <a onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-4 add-note">
+                      Add Note
+                    </a>
+                  </div>
+                </div>
+                <div className="table-responsive">
+                  {/* list of records */}
+                  {_buildCommunicationList(resumeCommunication)}
 
-                            {/* {(total > per_page) ? 
+                  {/* {(total > per_page) ? 
                                 <div className="pagination mb-3 pagination-content">
                                     <Pagination
                                         activePage={currentPage}
@@ -123,21 +129,24 @@ const CandidateCommunication = (props) => {
                                     /> 
                                 </div> 
                             : ''}  */}
-                        </div>
                 </div>
+              </div>
             </div>
+          </div>
+        </div>
 
-             {/* add note pop up modal */}
-             {showModal ? (<CommentModal 
-                            showModal={showModal} 
-                            handleModalClose={_handleModalCloseClick} 
-                            addCommentData={_addResumeComment}
-                            modalTitle="Add Note"
-                            modalBody="Are you sure you wish to perform this action? This action is irreversible!"
-            />) : null}
-
-        </Fragment>
-    )
+        {/* add note pop up modal */}
+        {showModal ? (
+          <CommentModal
+            showModal={showModal}
+            handleModalClose={_handleModalCloseClick}
+            addCommentData={_addResumeComment}
+            modalTitle="Add Note"
+            modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+          />
+        ) : null}
+      </Fragment>
+    );
 }
 
 export default CandidateCommunication;

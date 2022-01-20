@@ -1,0 +1,20 @@
+.btn {
+    padding: 0.675rem 2.5rem;
+    font-size: 0.875rem;
+}
+.add-note {
+    background-color: #b66dff !important;
+    border-color: #b66dff !important;
+}
+.card {
+    border: none;
+}
+.table>:not(:first-child) {
+    border-top: 1px solid currentColor;
+}
+.table thead th {
+    font-weight: 600;
+}
+.table th, .table td {
+    padding: 0.9375rem !important;
+}

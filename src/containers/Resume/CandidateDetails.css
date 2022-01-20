@@ -1,0 +1,8 @@
+.btn {
+    padding: 0.675rem 2.5rem;
+    font-size: 0.875rem;
+    border: none;
+}
+.edit-form .form-control {
+    font-size: 0.92rem !important;
+}
