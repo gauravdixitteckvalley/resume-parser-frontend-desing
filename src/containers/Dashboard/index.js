@@ -38,14 +38,14 @@ const Dashboard = (props) => {
           </span>{" "}
           Dashboard
         </h3>
-        <nav aria-label="breadcrumb">
+        {/* <nav aria-label="breadcrumb">
           <ul className="breadcrumb">
             <li className="breadcrumb-item active" aria-current="page">
               <span></span>Overview{" "}
               <i className="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
             </li>
           </ul>
-        </nav>
+        </nav> */}
       </div>
       <div className="row">
         <div className="col-md-4 stretch-card grid-margin">
@@ -61,7 +61,7 @@ const Dashboard = (props) => {
                 <i className="mdi mdi-chart-line mdi-24px float-right"></i>
               </h4>
               <h2 className="mb-5">{totalList}</h2>
-              <h6 className="card-text">Increased by 60%</h6>
+              {/* <h6 className="card-text">Increased by 60%</h6> */}
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ const Dashboard = (props) => {
                 <i className="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
               <h2 className="mb-5">{monthlyList}</h2>
-              <h6 className="card-text">Decreased by 10%</h6>
+              {/* <h6 className="card-text">Decreased by 10%</h6> */}
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Dashboard = (props) => {
                 <i className="mdi mdi-diamond mdi-24px float-right"></i>
               </h4>
               <h2 className="mb-5">{weeklyList}</h2>
-              <h6 className="card-text">Increased by 5%</h6>
+              {/* <h6 className="card-text">Increased by 5%</h6> */}
             </div>
           </div>
         </div>
