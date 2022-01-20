@@ -29,7 +29,7 @@ const SkillsList = (props) => {
 
     
     /**method to call the configure the data and call the action */
-    const _getData = (data) => {
+    const _getData = (data, sortingData) => {
         const params = {
             page    : data ? data : 1,
             search  : searchTitle,
