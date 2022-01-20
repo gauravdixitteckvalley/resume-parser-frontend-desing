@@ -15,6 +15,7 @@ const SkillsList = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedRowId, setSelectedRowId] = useState('');
+    const [sortingOption, setsortingOption]               = useState({});
 
     /**fetched data from redux store */
     const skills = useSelector(state => state.skills);
@@ -28,16 +29,17 @@ const SkillsList = (props) => {
 
     
     /**method to call the configure the data and call the action */
-    const _getData = (data) => {
+    const _getData = (data, sortingData) => {
         const params = {
             page    : data ? data : 1,
-            search  : searchTitle
+            search  : searchTitle,
+            sortingData : sortingData === undefined ? {} : sortingData
         }
         dispatch(fetchSkillsData(params));
     }
 
     /**method for calling api based on page change  */
-    const _handlePageChange = (pageNumber) => _getData(pageNumber)
+    const _handlePageChange = (pageNumber) => _getData(pageNumber, sortingOption)
 
     /*method called to when search is performed*/
     const _handleSearchInputChange = (value) => setSearchTitle(value)
@@ -66,6 +68,19 @@ const SkillsList = (props) => {
         borderRight: "0",
         padding: "0 ",
       };
+
+    // method to add sorting functionality on columns
+    const onClickEventForSorting = (fieldName, order) => {
+        const setStateValue = { name: fieldName, order }
+        setsortingOption(setStateValue)
+        const queryParams = {
+            page    : 1,
+            search  : searchTitle,
+            sortingData : setStateValue
+        }
+        dispatch(fetchSkillsData(queryParams));
+    }
+
     /* build user list */
     const _skillsList = skills => {
         if (!_.isEmpty(skills)) {
@@ -75,7 +90,11 @@ const SkillsList = (props) => {
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Skill Name </th>
+                            <th>
+                                Skill Name
+                                <button onClick={ () => onClickEventForSorting('value','asc') }>A</button>
+                                <button onClick={ () => onClickEventForSorting('value','desc') }>D</button>
+                            </th>
                             <th> Actions </th>
                         </tr>
                     </thead>

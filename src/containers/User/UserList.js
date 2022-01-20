@@ -16,6 +16,7 @@ const UserList = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedRowId, setSelectedRowId] = useState('');
+    const [sortingOption, setSortingOption] = useState({})
 
     /**fetched data from redux store */
     const users = useSelector(state => state.user);
@@ -36,7 +37,8 @@ const UserList = (props) => {
     const _getData = (data) => {
         const params = {
             page    : data ? data : 1,
-            search  : searchTitle
+            search  : searchTitle,
+            sortingData : sortingOption
         }
         dispatch(fetchUserData(params));
     }
@@ -47,6 +49,18 @@ const UserList = (props) => {
     /*method called to when search is performed*/
     const _handleSearchInputChange = (value) => setSearchTitle(value)
 
+    // method to add sorting on columns
+    const onClickEventForSorting = (fieldName, order) => {
+        const setStateValue = { name: fieldName, order }
+        setSortingOption(setStateValue)
+        const queryParams = {
+            page    : 1,
+            search  : searchTitle,
+            sortingData : setStateValue
+        }
+        dispatch(fetchUserData(queryParams));
+    }
+
     /* build user list */
     const _userList = users => {
         if (!_.isEmpty(users)) {
@@ -54,12 +68,34 @@ const UserList = (props) => {
                 <table className="table table-bordered mb-4">
                     <thead>
                         <tr>
-                            <th>Username</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Resume</th>
+                            <th>
+                                Username
+                                <button onClick={ () => onClickEventForSorting('username','asc') }>A</button>
+                                <button onClick={ () => onClickEventForSorting('username','desc') }>D</button>
+                            </th>
+                            <th>
+                                First Name
+                                <button onClick={ () => onClickEventForSorting('first_name','asc') }>A</button>
+                                <button onClick={ () => onClickEventForSorting('first_name','desc') }>D</button>
+                            </th>
+                            <th>
+                                Last Name
+                                <button onClick={ () => onClickEventForSorting('last_name','asc') }>A</button>
+                                <button onClick={ () => onClickEventForSorting('last_name','desc') }>D</button>
+                            </th>
+                            <th>
+                                Email
+                                <button onClick={ () => onClickEventForSorting('email','asc') }>A</button>
+                                <button onClick={ () => onClickEventForSorting('email','desc') }>D</button>
+                            </th>
+                            <th>
+                                Role
+                                <button onClick={ () => onClickEventForSorting('user_role','asc') }>A</button>
+                                <button onClick={ () => onClickEventForSorting('user_role','desc') }>D</button>
+                            </th>
+                            <th>
+                                Resume 
+                            </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
