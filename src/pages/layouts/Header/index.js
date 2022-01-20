@@ -38,9 +38,17 @@ const Header = (props) => {
         history.push('/resume');
     }
 
+    var status = false;
     const toggleSidebar = () => {
+        
+        if (status == false) {
+            document.body.classList.add('sidebar-icon-only');
+            status = !status;
+        }else{
+            document.body.classList.remove('sidebar-icon-only');            
+            status = !status;
+        }
         // setToggleView(true);
-        document.body.idList.add('root');
 
     }
 
