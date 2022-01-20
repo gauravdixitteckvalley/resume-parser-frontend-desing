@@ -8,9 +8,11 @@ import { resetLoggedUserData } from '../../../actions/Login';
 import { fetchResumeData, resetResumeData,updateStatusField } from "../../../actions/Resume";
 import { history, displayErrorMessage } from '../../../utils/helper';
 
+
 const Header = (props) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
+    const [toggleView, setToggleView] = useState("");
 
     const loggedUser = useSelector(state => state.authenticatedUser);
     const {user} = loggedUser;
@@ -36,6 +38,12 @@ const Header = (props) => {
         history.push('/resume');
     }
 
+    const toggleSidebar = () => {
+        // setToggleView(true);
+        document.body.idList.add('root');
+
+    }
+
     const _getData = (data, params = {}) => {
         const queryParams = {
             page    : data ? data : 1,
@@ -51,13 +59,13 @@ const Header = (props) => {
 
     return (
         <>
-            <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                     <a className="navbar-brand brand-logo" href="index.html"><img src="../../assets/img/logo.png" alt="logo" /></a> 
                     <a className="navbar-brand brand-logo-mini" href="index.html"><img src="../../assets/img/logo.png" alt="logo" /></a> 
                 </div>
                 <div className="navbar-menu-wrapper d-flex align-items-stretch">
-                    <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <button className="navbar-toggler navbar-toggler align-self-center" onClick={() => toggleSidebar()} type="button" data-toggle="minimize">
                         <span className="mdi mdi-menu"></span>
                     </button>
                     <div className="search-field d-none d-md-block">
@@ -82,7 +90,7 @@ const Header = (props) => {
                         <li className="nav-item nav-profile dropdown">
                         <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="nav-profile-img">
-                            <img src="../../assets/img/faces/face1.jpg" alt="image" />
+                            <img src="./user_icon.png" alt="image" />
                             <span className="availability-status online"></span>
                             </div>
                             <div className="nav-profile-text">
@@ -94,7 +102,7 @@ const Header = (props) => {
                             <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                             <div className="dropdown-divider"></div>
                             <button className="dropdown-item" href="#" onClick={() => _loggedOutUser()}>
-                            <i className="mdi mdi-logout me-2 text-primary"></i> Signout </button>
+                            <i className="mdi mdi-logout me-2 text-primary"></i> Sign   out </button>
                         </div>
                         </li>
                         {/* <li className="nav-item d-none d-lg-block full-screen-link">
@@ -176,30 +184,30 @@ const Header = (props) => {
                                 </a>
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <div className="preview-icon bg-info">
-                                    <i className="mdi mdi-link-variant"></i>
+                                    <div className="preview-thumbnail">
+                                        <div className="preview-icon bg-info">
+                                        <i className="mdi mdi-link-variant"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                                    <p className="text-gray ellipsis mb-0"> New admin wow! </p>
-                                </div>
+                                    <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 className="preview-subject font-weight-normal mb-1">Launch Admin</h6>
+                                        <p className="text-gray ellipsis mb-0"> New admin wow! </p>
+                                    </div>
                                 </a>
                                 <div className="dropdown-divider"></div>
                                 <h6 className="p-3 mb-0 text-center">See all notifications</h6>
                             </div>
                         </li>
                         <li className="nav-item nav-logout d-none d-lg-block">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="javascript:void(0)" onClick={() => _loggedOutUser()}>
                             <i className="mdi mdi-power"></i>
                             </a>
                         </li>
-                        <li className="nav-item nav-settings d-none d-lg-block">
+                        {/* <li className="nav-item nav-settings d-none d-lg-block">
                             <a className="nav-link" href="#">
                             <i className="mdi mdi-format-line-spacing"></i>
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                     <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                         <span className="mdi mdi-menu"></span>
