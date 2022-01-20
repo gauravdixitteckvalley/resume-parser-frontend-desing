@@ -15,8 +15,8 @@ export const login = (postData = {}, props) => {
                 localStorage.setItem('accessToken', JSON.stringify(response.data.data.accessToken));
                 if(userData.email === 'testing@gmail.com'){
                     //const { from } = props?.location?.state || { from: { pathname: '/dashboard' } }
-                    const { from } = props?.location?.state || { from: { pathname: '/dashboard' } }
-                    history.push(from);
+                  //  const  from= { pathname: '/dashboard' }
+                    history.push('/dashboard');
                 }else{
                     const { from } = props?.location?.state || { from: { pathname: '/resume' } }
                     history.push(from);
