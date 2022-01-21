@@ -10,6 +10,7 @@ import BlockUI from "../../components/BlockUI";
 import SelectBoxDropdown from "../../components/SelectBoxDropdown";
 import { fetchResumeData, resetResumeData,updateStatusField } from "../../actions/Resume";
 import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
+import EmailModal from "../../components/EmailModal/EmailModal"
 import axios from 'axios';
 
 import './ResumeList.css';
@@ -27,6 +28,12 @@ const ResumeList = (props) => {
     const [sending, setSending]               = useState(null);
     const [selectedOption, setSelectedOption]               = useState([]);
     const [sortingOption, setsortingOption]               = useState({});
+
+
+    const [isCheck, setIsCheck] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    // const [isCheck, setIsCheck] = useState([]);
+
     /**fetched data from redux store */
     const resumes = useSelector(state => state.resume);
     const dispatch = useDispatch();
@@ -103,13 +110,27 @@ const ResumeList = (props) => {
       dispatch(fetchResumeData(queryParams));
   }
 
+  /*method called to display modal*/
+  const _handleModalShowClick = () => {
+    setShowModal(true)
+  }
+
+  const _handleModalCloseClick = (value) => {
+    setShowModal(value)
+  }
+
+  const handleSelectAll = () => {
+    setIsCheck(!isCheck);
+  }
+  console.log(isCheck);
+
     const _buildResumeListNew = (resumes,applicant_status) => {
         if (!_.isEmpty(resumes)) {
             return (
-                <table className="table table-bordered mb-0">
+                <table className="table table-bordered mb-0 resume-list-table">
                   <thead>
                     <tr>
-                      <th> # </th>
+                      <th><input class="form-check-input" name="selectAll" type="checkbox" onChange={handleSelectAll} checked={isCheck} value="" id="selectAll flexCheckDefault" /> &nbsp; #</th>
                       <th>
                           Name
                           <button onClick={ () => onClickEventForSorting('name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
@@ -143,7 +164,7 @@ const ResumeList = (props) => {
                         role="row"
                         className={index % 2 === 0 ? "even" : "odd"}
                       >
-                        <td>{index + 1}</td>
+                        <td><input class="form-check-input" name="selectAll" onChange={handleSelectAll} checked={isCheck ? "checked" : "unchecked"} type="checkbox" value="" id="flexCheckDefault" /> &nbsp; {index + 1} </td>
                         <td>{data.name}</td>
                         <td>{data.email}</td>
                         <td>{data.phone}</td>
@@ -498,6 +519,22 @@ const ResumeList = (props) => {
                   </button>
                   <hr className="mb-4" />
                 </form>
+                
+                <div className="col-lg-12 ">
+                    <a onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-4 add-note">
+                    Send Emails
+                    </a>
+                  </div>
+                  {/* add note pop up modal */}
+                  {showModal ? (
+                    <EmailModal
+                      showModal={showModal}
+                      handleModalClose={_handleModalCloseClick}
+                      // addCommentData={_addResumeComment}
+                      modalTitle="Email Body"
+                      modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+                    />
+                  ) : null}
 
                 {/* Pagination */}
                 {/* <nav aria-label="Page navigation example">

@@ -70,28 +70,28 @@ const UserList = (props) => {
                         <tr>
                             <th>
                                 Username
-                                <button onClick={ () => onClickEventForSorting('username','asc') }>A</button>
-                                <button onClick={ () => onClickEventForSorting('username','desc') }>D</button>
+                                <button onClick={ () => onClickEventForSorting('username','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('username','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 First Name
-                                <button onClick={ () => onClickEventForSorting('first_name','asc') }>A</button>
-                                <button onClick={ () => onClickEventForSorting('first_name','desc') }>D</button>
+                                <button onClick={ () => onClickEventForSorting('first_name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('first_name','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Last Name
-                                <button onClick={ () => onClickEventForSorting('last_name','asc') }>A</button>
-                                <button onClick={ () => onClickEventForSorting('last_name','desc') }>D</button>
+                                <button onClick={ () => onClickEventForSorting('last_name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('last_name','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Email
-                                <button onClick={ () => onClickEventForSorting('email','asc') }>A</button>
-                                <button onClick={ () => onClickEventForSorting('email','desc') }>D</button>
+                                <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Role
-                                <button onClick={ () => onClickEventForSorting('user_role','asc') }>A</button>
-                                <button onClick={ () => onClickEventForSorting('user_role','desc') }>D</button>
+                                <button onClick={ () => onClickEventForSorting('user_role','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('user_role','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Resume 

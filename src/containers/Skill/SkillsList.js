@@ -92,8 +92,8 @@ const SkillsList = (props) => {
                             <th> # </th>
                             <th>
                                 Skill Name
-                                <button onClick={ () => onClickEventForSorting('value','asc') }>A</button>
-                                <button onClick={ () => onClickEventForSorting('value','desc') }>D</button>
+                                <button onClick={ () => onClickEventForSorting('value','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('value','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th> Actions </th>
                         </tr>

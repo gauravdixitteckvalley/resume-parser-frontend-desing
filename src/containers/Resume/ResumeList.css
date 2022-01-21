@@ -12,7 +12,7 @@
     border: 0 !important;
 }
 .table thead th {
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 .actions-cls {
     border-bottom: 0 !important;
@@ -144,4 +144,19 @@
   }
   button.icon-up i, button.icon-down i {
     margin-left: 0 !important;
+}
+.table thead th:nth-child(1) {
+  display: flex;
+  align-items: end;
+  border: none;
+}
+.table tbody td:nth-child(1) {
+  display: flex;
+  align-items: end;
+  border: none;
+  margin-top: 8px;
+}
+.resume-list-table tr.even td:nth-child(2), tr.odd td:nth-child(2), tr.even td:nth-child(3), tr.odd td:nth-child(3) {
+  white-space: initial !important;
+  max-width: 190px;
 }
