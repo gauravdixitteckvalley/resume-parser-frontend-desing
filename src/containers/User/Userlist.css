@@ -12,3 +12,10 @@
     border-right: 0 !important;
     padding: 0 !important;
 }
+button.icon-up, button.icon-down {
+    margin-left: 2px;
+    border: 0;
+}
+.table thead th i {
+    margin-left: 0 !important; 
+  }

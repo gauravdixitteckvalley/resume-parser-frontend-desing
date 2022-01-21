@@ -1,3 +1,6 @@
 .table th, .table td {
     padding: 0.9375rem !important;
 }
+.displayPreviewRow {
+    justify-content: space-between !important;
+}
