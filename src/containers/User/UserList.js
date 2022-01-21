@@ -110,14 +110,18 @@ const UserList = (props) => {
                                 <td>{data.resumeCount}</td>
                                 <td className="icons-list actions">
                                     <div className="actions-cls">
+                                    { (userRole === "1")?    
                                     <NavLink to={`/user/edit/${data.id}`} className="ms-2" title="Edit">
                                         <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
                                     </NavLink>
+                                    :"" }
                                     {/* eslint-disable-next-line */}
+                                    { (userRole === "1")? 
                                     <a className="delete" title="Delete" className="ms-2" style={{'cursor':'pointer'}}
                                         onClick={(event) => _handleModalShowClick(event,index)}>
                                         <i className="mdi mdi-delete" aria-hidden="true"></i>
                                     </a>
+                                     :"" }
                                     </div>
                                 </td>
                             </tr>
@@ -152,7 +156,7 @@ const UserList = (props) => {
         }
     }
 
-    const {totalRecords, per_page , blocking, userList, currentPage } = users;
+    const {totalRecords, per_page , blocking, userList, currentPage, userRole } = users;
     let total = 0;
     if(typeof totalRecords != 'undefined')
         total = totalRecords;
@@ -169,9 +173,11 @@ const UserList = (props) => {
                     <div className="card">
                         <div className="card-body">
                     <div className="add-items row">
+                        {(userRole === "1")?
                         <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2">
                             <NavLink to={'/user/create'} className="btn btn-gradient-primary btn-fw">Create User</NavLink>
                         </div>
+                        : ''}
                    
                         <SearchBox searchParentClass="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2"
                                     searchText="Search by username/email"

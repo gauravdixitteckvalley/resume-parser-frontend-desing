@@ -24,7 +24,7 @@ const Sidebar = () => {
     const showRoutesForAdmin = () => {
         return(
             <>
-                <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
+                {/* <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
                     <Link to='/dashboard' className="nav-link">
                         <span className="menu-title">Dashboard</span>
                         <i className="mdi mdi-home menu-icon"></i>
@@ -35,7 +35,7 @@ const Sidebar = () => {
                         <span className="menu-title">Users</span>
                         <i className="mdi mdi-contacts menu-icon"></i>
                     </Link>
-                </li>
+                </li> */}
                 <li  className={splitLocation[1] === "skills" ? "active nav-item" : "nav-item "}>
                     <Link to='/skills' className="nav-link">
                         <span className="menu-title">Skills</span>
@@ -67,7 +67,19 @@ const Sidebar = () => {
                         user.email === 'testing@gmail.com' ?
                         showRoutesForAdmin() : ''
                     }
-                     <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
+                    <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
+                        <Link to='/dashboard' className="nav-link">
+                            <span className="menu-title">Dashboard</span>
+                            <i className="mdi mdi-home menu-icon"></i>
+                        </Link>
+                    </li>
+                    <li  className={splitLocation[1] === "user" ? "active nav-item" : "nav-item "}>
+                        <Link to='/user' className="nav-link">
+                            <span className="menu-title">Users</span>
+                            <i className="mdi mdi-contacts menu-icon"></i>
+                        </Link>
+                    </li>                    
+                    <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
                     <Link to='/resume/add' className="nav-link">
                         <span className="menu-title">Add Candidate</span>
                         <i className="mdi mdi-account-plus menu-icon"></i>
