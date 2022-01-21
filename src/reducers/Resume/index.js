@@ -187,7 +187,23 @@ export function resume(state = [], action) {
                 blocking : false,
                 stateList:[]
             };  
-                       
+        
+        case 'SEND_MULTIPLE_MAIL_REQUEST':
+            return {
+                blocking        : true,                    
+            }
+        
+        case 'SEND_MULTIPLE_MAIL_SUCCESS':
+        
+            return {
+                blocking        : false,                    
+            }
+        
+        case 'SEND_MULTIPLE_MAIL_FAILURE':
+            return {
+                blocking        : false,                   
+            }
+    
         default:
             return state;
     }

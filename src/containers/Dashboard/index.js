@@ -11,10 +11,12 @@ import Graph from './Graph/Graph';
 
 import "./index.css";
 import CandidateStatusGraph from './Graph/CandidateStatusGraph';
+import WelcomeModal from "../../components/WelcomeModal/WelcomeModal";
 
 const Dashboard = (props) => {
   /**fetched data from redux store */
   let [callData, setCallData] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const dashboardData = useSelector((state) => state.dashboard);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,7 +30,16 @@ const Dashboard = (props) => {
   }, [callData]);
 
   const { weeklyList, monthlyList, totalList, statusList, statusData, topResume } = dashboardData;
-
+ /*method called to close modal*/
+ const _handleModalCloseClick = () => {
+  setShowModal(false)
+}
+const _deleteskillData = (status) => {
+  if(status) {
+     // dispatch(deleteSkill(selectedRowId));  // action is called to get data
+      _handleModalCloseClick(false);  //modal is closed
+  }
+}
   return (
     <>
       <div className="page-header">
@@ -167,6 +178,14 @@ const Dashboard = (props) => {
       </div>
 
       <RecentList topResume={topResume} ></RecentList>
+
+      {showModal ? (<WelcomeModal 
+                            showModal={showModal} 
+                            handleModalClose={_handleModalCloseClick} 
+                            updateData={_deleteskillData}
+                            modalTitle="Welcome Popup"
+                            
+            />) : null}
       {/* <Graph />
       <RecentEntries /> */}
       
