@@ -68,11 +68,11 @@ const UserList = (props) => {
                 <table className="table table-bordered mb-4">
                     <thead>
                         <tr>
-                            <th>
+                            {/* <th>
                                 Username
                                 <button onClick={ () => onClickEventForSorting('username','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
                                 <button onClick={ () => onClickEventForSorting('username','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
-                            </th>
+                            </th> */}
                             <th>
                                 First Name
                                 <button onClick={ () => onClickEventForSorting('first_name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
@@ -102,7 +102,7 @@ const UserList = (props) => {
                     <tbody>
                         {users.map((data, index) => (
                             <tr key={index} role="row">
-                                <td>{data.username}</td>
+                                {/* <td>{data.username}</td> */}
                                 <td>{data.first_name}</td>
                                 <td>{data.last_name}</td>
                                 <td>{data.email}</td>
