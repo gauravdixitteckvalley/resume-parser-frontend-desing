@@ -12,7 +12,7 @@ const Sidebar = (props) => {
     const showRoutesForAdmin = () => {
         return(
             <>
-                <img src="../../../assets/img/face1.jpg" alt="profile" />
+                <img src="/assets/img/user_icon.png" alt="profile" />
                 <li className="nav-item">
                         <Link to='/dashboard' className="nav-link active">Dashboard</Link>
                 </li>

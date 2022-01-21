@@ -69,8 +69,8 @@ const Header = (props) => {
         <>
             <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a className="navbar-brand brand-logo" href="index.html"><img src="../../assets/img/logo.png" alt="logo" /></a> 
-                    <a className="navbar-brand brand-logo-mini" href="index.html"><img src="../../assets/img/logo.png" alt="logo" /></a> 
+                    <a className="navbar-brand brand-logo" href="index.html"><img src="/assets/img/logo.png" alt="logo" /></a> 
+                    <a className="navbar-brand brand-logo-mini" href="index.html"><img src="/assets/img/logo.png" alt="logo" /></a> 
                 </div>
                 <div className="navbar-menu-wrapper d-flex align-items-stretch">
                     <button className="navbar-toggler navbar-toggler align-self-center" onClick={() => toggleSidebar()} type="button" data-toggle="minimize">
@@ -98,7 +98,7 @@ const Header = (props) => {
                         <li className="nav-item nav-profile dropdown">
                         <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="nav-profile-img">
-                            <img src="./user_icon.png" alt="image" />
+                            <img src="/assets/img/user_icon.png" alt="image" />
                             <span className="availability-status online"></span>
                             </div>
                             <div className="nav-profile-text">
@@ -128,7 +128,7 @@ const Header = (props) => {
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
-                                    <img src="../../assets/img/faces/face4.jpg" alt="image" className="profile-pic" />
+                                    <img src="/assets/img/faces/face4.jpg" alt="image" className="profile-pic" />
                                 </div>
                                 <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
                                     <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
@@ -138,7 +138,7 @@ const Header = (props) => {
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
-                                    <img src="../../assets/img/faces/face2.jpg" alt="image" className="profile-pic" />
+                                    <img src="/assets/img/faces/face2.jpg" alt="image" className="profile-pic" />
                                 </div>
                                 <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
                                     <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
@@ -148,7 +148,7 @@ const Header = (props) => {
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
-                                    <img src="../../assets/img/faces/face3.jpg" alt="image" className="profile-pic" />
+                                    <img src="/assets/img/faces/face3.jpg" alt="image" className="profile-pic" />
                                 </div>
                                 <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
                                     <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
