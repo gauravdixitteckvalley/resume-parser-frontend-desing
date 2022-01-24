@@ -1869,8 +1869,45 @@ table {
   .table thead th i {
     margin-left: 0 !important; 
   }
-  @media (max-width: 425px) {
+  .btn-inverse-danger {
+    background-color: rgba(254, 124, 150, 0.2) !important;
+    background-image: none;
+    border-color: rgba(254, 124, 150, 0) !important;
+}
+.btn-inverse-danger:hover {
+  color: #ffffff !important;
+  background-color: #fe7c96 !important;
+  border-color: #fe7c96 !important;
+}
+.btn-inverse-danger.focus, .btn-inverse-danger:focus {
+    box-shadow: 0 0 0 3px rgb(254 124 150 / 50%) !important;
+}
+.btn-inverse-success {
+  background-color: rgba(27, 207, 180, 0.2) !important;
+  background-image: none;
+  border-color: rgba(27, 207, 180, 0) !important;
+}
+.btn-inverse-success:hover {
+  color: #ffffff !important;
+  background-color: #1bcfb4 !important;
+  border-color: #1bcfb4 !important;
+}
+.btn-inverse-success.focus, .btn-inverse-success:focus {
+    box-shadow: 0 0 0 3px rgb(27 207 180 / 50%) !important;
+}
+.template-demo .approval-btn {
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+}
+@media (max-width: 425px) {
     .justify-content-end {
       justify-content: center !important;
+    }
+    .approval-sec {
+        display: flex;
+        flex-direction: column;
+    }
+    .approval-sec .approval-btn:nth-child(1) {
+        margin-bottom: 5px;
     }
   }

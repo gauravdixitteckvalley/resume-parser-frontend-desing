@@ -201,7 +201,7 @@ const CandidateDetails = (props) => {
                           <div className="row mt-2">
                               <div className="col-md-6">
                                 <label className="mb-1 required" for="inlineFormInputName2">Total Experience</label>
-                                <input type="text" name="exp" value={fields.exp || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Total Experience" />
+                                <input type="text"  pattern="[+-]?\d+(?:[.,]\d{1}+)?" name="exp" value={fields.exp || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Total Experience" />
                                 <div className="errorMsg">{errors.exp}</div>
                               </div>
                               <div className="col-md-6">

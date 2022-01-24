@@ -25,10 +25,13 @@ const ResumeList = (props) => {
     const [skillsData, setSkillsData]       = useState([]);
     const [minExp, setMinExp]               = useState('');
     const [maxExp, setMaxExp]               = useState('');
-    const [sending, setSending]             = useState(null);
-    const [selectedOption, setSelectedOption]             = useState([]);
+    const [status, setStatus]               = useState('');
+    const [sending, setSending]               = useState(null);
+    const [selectedOption, setSelectedOption] = useState([]);
     const [selectedCheckBox, setSelectedCheckBox]         = useState([]);
-    const [sortingOption, setsortingOption]               = useState({});
+    const [sortingOption, setsortingOption]   = useState({});
+    const [min, setMinData]       = useState([1,2,3,4,5,6,7,8,9]);
+    const [max, setMaxData]       = useState([2,3,4,5,6,7,8,9,10]);
 
 
     const [isCheck, setIsCheck] = useState(false);
@@ -38,8 +41,8 @@ const ResumeList = (props) => {
     /**fetched data from redux store */
     const resumes = useSelector(state => state.resume);
     const dispatch = useDispatch();
-    const min = [1,2,3,4,5,6,7,8,9];
-    const max = [2,3,4,5,6,7,8,9,10];
+    // const min = [1,2,3,4,5,6,7,8,9];
+    // const max = [2,3,4,5,6,7,8,9,10];
    
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
@@ -62,7 +65,10 @@ const ResumeList = (props) => {
             city    : params?.city,
             company : params?.company,
             skills  : params?.skills,
-            sortingData : params.sortingData === undefined ? {} : params.sortingData
+            sortingData : params.sortingData === undefined ? {} : params.sortingData,
+            status  : status,
+            minExp  : minExp,
+            maxExp  : maxExp
         }
         dispatch(fetchResumeData(queryParams));
     }
@@ -73,7 +79,7 @@ const ResumeList = (props) => {
     }
 
     /**method for calling api based on page change  */
-    const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption});
+    const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption,status, minExp, maxExp});
 
     const sendMail = async (mail, key) => {
         setSending(key);
@@ -106,7 +112,10 @@ const ResumeList = (props) => {
           city    : city,
           company : company,
           skills  : skillsSearch,
-          sortingData : setStateValue
+          sortingData : setStateValue,
+          status      : status,
+          minExp      : minExp,
+          maxExp      : maxExp
       }
       dispatch(fetchResumeData(queryParams));
   }
@@ -123,7 +132,7 @@ const ResumeList = (props) => {
   const handleSelectAll = () => {
     setIsCheck(!isCheck);
   }
-  const [selectedMailId, setSelectedMailId] = useState([]);
+  //const [selectedMailId, setSelectedMailId] = useState([]);
   const handleSelectOnly = (event,cb_id) => {
     //dispatch(updateStatusField({id:resume_id,candidate_status:event.target.value}))
     if(selectedCheckBox.hasOwnProperty(cb_id)){
@@ -133,35 +142,35 @@ const ResumeList = (props) => {
     }  
     console.log('selectedCheckBox ' ,selectedCheckBox)
   }
-  //console.log(isCheck);
 
     const _buildResumeListNew = (resumes,applicant_status) => {
         if (!_.isEmpty(resumes)) {
             return (
+              <>
                 <table className="table table-bordered mb-0 resume-list-table">
                   <thead>
                     <tr>
-                      <th><input class="form-check-input" name="selectAll" type="checkbox" onChange={handleSelectAll} checked={isCheck} value="" id="selectAll flexCheckDefault" /> &nbsp; #</th>
+                      <th><input className="form-check-input" name="selectAll" type="checkbox" onChange={handleSelectAll} checked={isCheck} value="" id="selectAll flexCheckDefault" /> &nbsp; #</th>
                       <th>
                           Name
-                          <button onClick={ () => onClickEventForSorting('name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('name','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('name','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('name','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>
                           Email
-                          <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>
                           Phone
-                          <button onClick={ () => onClickEventForSorting('phone','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('phone','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('phone','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('phone','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>Upload Date</th>
                       <th>
                           Status
-                          <button onClick={ () => onClickEventForSorting('candidate_status','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('candidate_status','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('candidate_status','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('candidate_status','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
 
                       <th>Actions</th>
@@ -196,6 +205,7 @@ const ResumeList = (props) => {
                             id={`checkbox_${data.id}`} 
                           /> &nbsp; {index + 1}
                         </td>
+                        
                         <td>{data.name}</td>
                         <td>{data.email}</td>
                         <td>{data.phone}</td>
@@ -259,6 +269,7 @@ const ResumeList = (props) => {
                     ))}
                   </tbody>
                 </table>
+                </>
             );
         } else if (_.isEmpty(resumes)) {
             return (
@@ -355,11 +366,25 @@ const ResumeList = (props) => {
         if(name === 'company')
             setCompany(value)
 
-        if(name === 'minExp')
+        if(name === 'minExp'){
             setMinExp(value)
+            setMaxExp('')
+            let newMax=[]
+            let maxtstart = parseInt(value)+2;
+            for (let i = maxtstart; i < maxtstart+7; i++) {
+              newMax.push(i)
+            }
+            setMaxData([])
+            setMaxData(newMax)
+            
+        }
 
         if(name === 'maxExp')
             setMaxExp(value)
+        
+        if(name === 'status')
+            setStatus(value)
+                
     }
 
     /*handle onChange event of the dropdown*/
@@ -376,10 +401,13 @@ const ResumeList = (props) => {
 
     /*handle onChange event of the dropdown*/
     const _handleSubmit = () => {
-        if(_.isEmpty(name) && _.isEmpty(email) && _.isEmpty(phone) && _.isEmpty(company) && _.isEmpty(city) && _.isEmpty(skillsSearch))
+        if(_.isEmpty(name) && _.isEmpty(email) && _.isEmpty(phone) && _.isEmpty(company) && _.isEmpty(city) && _.isEmpty(skillsSearch) && _.isEmpty(status) && _.isEmpty(minExp) && _.isEmpty(maxExp) )
             displayErrorMessage('Please input any search field first')
-
-        _getData('', {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption})
+        
+        if(!_.isEmpty(minExp) && _.isEmpty(maxExp))
+          displayErrorMessage('Please select max experience')
+          
+        _getData('', {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption, status, minExp, maxExp})
     }
 
     /*handle reset event*/
@@ -393,11 +421,12 @@ const ResumeList = (props) => {
         setSkillsSearch('')
         setMinExp('')
         setMaxExp('')
+        setStatus('')
         setsortingOption({})
         _getData()
     }
 
-    const {totalRecords, per_page , blocking, resumeList, currentPage, definedSkills, applicant_status } = resumes;
+    const {totalRecords, per_page , blocking, resumeList, currentPage, definedSkills, applicant_status, statusList } = resumes;
     
     let total = 0;
     if(typeof totalRecords != 'undefined')
@@ -502,6 +531,16 @@ const ResumeList = (props) => {
                         value={skillsData}
                       />
                     </div>
+                    
+                    <div className="col-md-3">
+                      <Form.Control as="select" name="status" value={status || ""}
+                        onChange={(event) => _handleChange(event)} >
+                        <option>Status</option>
+                        {statusList?.map((country, index) => (
+                          <option key={index} value={country.pid}>{country.name}</option>
+                        ))}
+                      </Form.Control>
+                    </div>
                     <div className="col-md-3">
                       <Form.Control
                         as="select"
@@ -509,7 +548,7 @@ const ResumeList = (props) => {
                         value={minExp || ""}
                         onChange={(event) => _handleChange(event)}
                       >
-                        <option>Min Exp</option>
+                        <option value=''>Min Exp</option>
                         {min.map((value, index) => (
                           <option key={index} value={value}>
                             {value}
@@ -524,7 +563,7 @@ const ResumeList = (props) => {
                         value={maxExp || ""}
                         onChange={(event) => _handleChange(event)}
                       >
-                        <option>Max Exp</option>
+                        <option value=''>Max Exp</option>
                         {max.map((value, index) => (
                           <option key={index} value={value}>
                             {value}
@@ -550,23 +589,6 @@ const ResumeList = (props) => {
                   </button>
                   <hr className="mb-4" />
                 </form>
-                
-                <div className="col-lg-12 ">
-                    <a onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-4 add-note">
-                    Send Emails
-                    </a>
-                  </div>
-                  {/* add note pop up modal */}
-                  {showModal ? (
-                    <EmailModal
-                      showModal={showModal}
-                      handleModalClose={_handleModalCloseClick}
-                      // addCommentData={_addResumeComment}s
-                      sendMailData={selectedCheckBox}
-                      modalTitle="Email Body"
-                      modalBody="Are you sure you wish to perform this action? This action is irreversible!"
-                    />
-                  ) : null}
 
                 {/* Pagination */}
                 {/* <nav aria-label="Page navigation example">
@@ -594,6 +616,27 @@ const ResumeList = (props) => {
           </div>
           <div className="col-lg-12 grid-margin stretch-card mb-2">
             <div className="card card-cls">
+              <div className="table-responsive">
+                <div className="col-lg-12 p-3">
+                  <a
+                    onClick={(event) => _handleModalShowClick()}
+                    className="btn btn-primary send-email"
+                  >
+                    Send Emails
+                  </a>
+                </div>
+                {/* add note pop up modal */}
+                {showModal ? (
+                  <EmailModal
+                    showModal={showModal}
+                    handleModalClose={_handleModalCloseClick}
+                    // addCommentData={_addResumeComment}
+                    sendMailData={selectedCheckBox}
+                    modalTitle="Email Body"
+                    modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+                  />
+                ) : null}
+              </div>
               <div className="table-responsive">
                 {_buildResumeListNew(resumeList, applicant_status)}
               </div>

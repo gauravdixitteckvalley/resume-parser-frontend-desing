@@ -66,6 +66,7 @@ const UserForm = (props) => {
         event.preventDefault();
         
         if (_validateForm()) {
+            const is_del = 0;
             const {first_name, last_name, email, password, username, user_role, assigned_to} = event.target;
             const postData = {
                 first_name  : first_name.value,
@@ -73,7 +74,8 @@ const UserForm = (props) => {
                 email       : email.value,
                 username    : username.value,
                 user_role   : user_role.value,
-                assigned_to : assigned_to.value
+                assigned_to : assigned_to.value,
+                is_deleted  : is_del
             }
 
             if(currentId){
