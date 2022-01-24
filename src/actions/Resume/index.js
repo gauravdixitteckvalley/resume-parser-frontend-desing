@@ -252,7 +252,7 @@ export const sendMultiMail = (params) => {
     return async dispatch => {
         dispatch({ type: 'SEND_MULTIPLE_MAIL_REQUEST' });
         try {
-            let response = await api.post(`/send-multiple`,params, {
+            let response = await api.post(`/mail/send-multiple`,params, {
                 headers: requestTokenHeader(),
             });
 

@@ -25,8 +25,9 @@ const ResumeList = (props) => {
     const [skillsData, setSkillsData]       = useState([]);
     const [minExp, setMinExp]               = useState('');
     const [maxExp, setMaxExp]               = useState('');
-    const [sending, setSending]               = useState(null);
-    const [selectedOption, setSelectedOption]               = useState([]);
+    const [sending, setSending]             = useState(null);
+    const [selectedOption, setSelectedOption]             = useState([]);
+    const [selectedCheckBox, setSelectedCheckBox]         = useState([]);
     const [sortingOption, setsortingOption]               = useState({});
 
 
@@ -122,7 +123,17 @@ const ResumeList = (props) => {
   const handleSelectAll = () => {
     setIsCheck(!isCheck);
   }
-  console.log(isCheck);
+  const [selectedMailId, setSelectedMailId] = useState([]);
+  const handleSelectOnly = (event,cb_id) => {
+    //dispatch(updateStatusField({id:resume_id,candidate_status:event.target.value}))
+    if(selectedCheckBox.hasOwnProperty(cb_id)){
+      delete (selectedCheckBox[cb_id]);
+    }else{
+       setSelectedCheckBox(Object.assign({...selectedCheckBox,[cb_id]:cb_id }))
+    }  
+    console.log('selectedCheckBox ' ,selectedCheckBox)
+  }
+  //console.log(isCheck);
 
     const _buildResumeListNew = (resumes,applicant_status) => {
         if (!_.isEmpty(resumes)) {
@@ -164,7 +175,27 @@ const ResumeList = (props) => {
                         role="row"
                         className={index % 2 === 0 ? "even" : "odd"}
                       >
-                        <td><input class="form-check-input" name="selectAll" onChange={handleSelectAll} checked={isCheck ? "checked" : "unchecked"} type="checkbox" value="" id="flexCheckDefault" /> &nbsp; {index + 1} </td>
+                        <td>
+                          <input 
+                            class="form-check-input" 
+                            name={`checkbox_${data.id}`} 
+                            onChange={(event)=>handleSelectOnly(event,`${data.id}`)} 
+                            
+                            // checked={
+                            //   !_.isEmpty(selectedCheckBox[`${data.id}`]) 
+                            //     ? true
+                            //     : false
+                            // }
+                            checked={
+                              selectedCheckBox.hasOwnProperty(`${data.id}`) 
+                                ? true
+                                : false
+                            }
+                            //selectedCheckBox.hasOwnProperty
+                            type="checkbox"  
+                            id={`checkbox_${data.id}`} 
+                          /> &nbsp; {index + 1}
+                        </td>
                         <td>{data.name}</td>
                         <td>{data.email}</td>
                         <td>{data.phone}</td>
@@ -530,7 +561,8 @@ const ResumeList = (props) => {
                     <EmailModal
                       showModal={showModal}
                       handleModalClose={_handleModalCloseClick}
-                      // addCommentData={_addResumeComment}
+                      // addCommentData={_addResumeComment}s
+                      sendMailData={selectedCheckBox}
                       modalTitle="Email Body"
                       modalBody="Are you sure you wish to perform this action? This action is irreversible!"
                     />
