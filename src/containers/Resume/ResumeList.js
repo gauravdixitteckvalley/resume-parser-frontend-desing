@@ -127,30 +127,31 @@ const ResumeList = (props) => {
     const _buildResumeListNew = (resumes,applicant_status) => {
         if (!_.isEmpty(resumes)) {
             return (
+              <>
                 <table className="table table-bordered mb-0 resume-list-table">
                   <thead>
                     <tr>
-                      <th><input class="form-check-input" name="selectAll" type="checkbox" onChange={handleSelectAll} checked={isCheck} value="" id="selectAll flexCheckDefault" /> &nbsp; #</th>
+                      <th><input className="form-check-input" name="selectAll" type="checkbox" onChange={handleSelectAll} checked={isCheck} value="" id="selectAll flexCheckDefault" /> &nbsp; #</th>
                       <th>
                           Name
-                          <button onClick={ () => onClickEventForSorting('name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('name','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('name','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('name','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>
                           Email
-                          <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>
                           Phone
-                          <button onClick={ () => onClickEventForSorting('phone','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('phone','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('phone','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('phone','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
                       <th>Upload Date</th>
                       <th>
                           Status
-                          <button onClick={ () => onClickEventForSorting('candidate_status','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                          <button onClick={ () => onClickEventForSorting('candidate_status','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                          <button onClick={ () => onClickEventForSorting('candidate_status','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                          <button onClick={ () => onClickEventForSorting('candidate_status','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                       </th>
 
                       <th>Actions</th>
@@ -164,7 +165,7 @@ const ResumeList = (props) => {
                         role="row"
                         className={index % 2 === 0 ? "even" : "odd"}
                       >
-                        <td><input class="form-check-input" name="selectAll" onChange={handleSelectAll} checked={isCheck ? "checked" : "unchecked"} type="checkbox" value="" id="flexCheckDefault" /> &nbsp; {index + 1} </td>
+                        <td><input className="form-check-input" name="selectAll" onChange={handleSelectAll} checked={isCheck ? "checked" : "unchecked"} type="checkbox" value="" id="flexCheckDefault" /> &nbsp; {index + 1} </td>
                         <td>{data.name}</td>
                         <td>{data.email}</td>
                         <td>{data.phone}</td>
@@ -228,6 +229,7 @@ const ResumeList = (props) => {
                     ))}
                   </tbody>
                 </table>
+                </>
             );
         } else if (_.isEmpty(resumes)) {
             return (
@@ -519,22 +521,6 @@ const ResumeList = (props) => {
                   </button>
                   <hr className="mb-4" />
                 </form>
-                
-                <div className="col-lg-12 ">
-                    <a onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-4 add-note">
-                    Send Emails
-                    </a>
-                  </div>
-                  {/* add note pop up modal */}
-                  {showModal ? (
-                    <EmailModal
-                      showModal={showModal}
-                      handleModalClose={_handleModalCloseClick}
-                      // addCommentData={_addResumeComment}
-                      modalTitle="Email Body"
-                      modalBody="Are you sure you wish to perform this action? This action is irreversible!"
-                    />
-                  ) : null}
 
                 {/* Pagination */}
                 {/* <nav aria-label="Page navigation example">
@@ -563,6 +549,26 @@ const ResumeList = (props) => {
           <div className="col-lg-12 grid-margin stretch-card mb-2">
             <div className="card card-cls">
               <div className="table-responsive">
+                <div className="col-lg-12 p-3">
+                  <a
+                    onClick={(event) => _handleModalShowClick()}
+                    className="btn btn-primary send-email"
+                  >
+                    Send Emails
+                  </a>
+                </div>
+                {/* add note pop up modal */}
+                {showModal ? (
+                  <EmailModal
+                    showModal={showModal}
+                    handleModalClose={_handleModalCloseClick}
+                    // addCommentData={_addResumeComment}
+                    modalTitle="Email Body"
+                    modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+                  />
+                ) : null}
+              </div>
+              <div className="table-responsive">
                 {_buildResumeListNew(resumeList, applicant_status)}
               </div>
             </div>
@@ -578,9 +584,9 @@ const ResumeList = (props) => {
                 nextPageText="Next"
                 pageRangeDisplayed={5}
                 onChange={_handlePageChange}
-                itemClass="page-item"
-                linkClass="page-link"
-                innerClass="pagination justify-content-end"
+                itemclassName="page-item"
+                linkclassName="page-link"
+                innerclassName="pagination justify-content-end"
               />
             </div>
           ) : (

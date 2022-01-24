@@ -92,8 +92,8 @@ const SkillsList = (props) => {
                             <th> # </th>
                             <th>
                                 Skill Name
-                                <button onClick={ () => onClickEventForSorting('value','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                                <button onClick={ () => onClickEventForSorting('value','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                                <button onClick={ () => onClickEventForSorting('value','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('value','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th> Actions </th>
                         </tr>
@@ -169,11 +169,11 @@ const SkillsList = (props) => {
                                         totalItemsCount={total}
                                         pageRangeDisplayed={5}
                                         onChange={_handlePageChange}
-                                        itemClass="page-item"
-                                        itemClass="page-item"
-                                        linkClass="page-link"
+                                        itemclassName="page-item"
+                                        itemclassName="page-item"
+                                        linkclassName="page-link"
                                         prevPageText=" Previous"
-                                        innerClass="pagination justify-content-end"
+                                        innerclassName="pagination justify-content-end"
                                         nextPageText="Next"
                                     /> 
                                 </div> 
