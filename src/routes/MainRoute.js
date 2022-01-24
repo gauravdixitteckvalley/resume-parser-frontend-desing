@@ -17,6 +17,7 @@ const ManualResume = lazy(() => import('../containers/Resume/ManualResume'))
 const Skills = lazy(() => import('../containers/Skill/SkillsList'))
 const SkillsForm = lazy(() => import('../containers/Skill/AddSkills'))
 const CandidateCommunication = lazy(() => import('../containers/Resume/CandidateCommunication'))
+const SkillsApproval = lazy(() => import ('../containers/Skill/SkillsApproval'))
 
 
 function MainRoute() {
@@ -40,6 +41,7 @@ function MainRoute() {
 
                         <PrivateRoute exact path="/skills" component={Skills} />
                         <PrivateRoute exact path="/skills/create" component={SkillsForm} />
+                        <PrivateRoute exact path="/skills/approval" component={SkillsApproval} />
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
                         {/*Page Not Found*/}
                         <Route component={NotFound} />

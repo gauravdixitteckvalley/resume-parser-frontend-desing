@@ -9,9 +9,9 @@ import SearchBox from "../../components/Search/SearchBox"
 import { fetchSkillsData, deleteSkill } from "../../actions/Skills"
 import { displayRecordNotFound } from '../../utils/helper'
 import Modal from '../../components/ConfirmationModal/Modal';
-import "./Skill.css";
+import "./SkillsApproval.css";
 
-const SkillsList = (props) => {
+const SkillsApproval = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedRowId, setSelectedRowId] = useState('');
@@ -104,8 +104,12 @@ const SkillsList = (props) => {
                             <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
                                 <td>{ data.serial_no }</td>
                                 <td>{data.value}</td>
-                                <td className="icons-list">
-                                    <div  style={tbodyDiv}>
+                                <td>
+                                    <div className="template-demo approval-sec">
+                                        <button type="button" className="btn btn-primary btn-sm btn-inverse-success approval-btn">Approve</button>
+                                        <button type="button" className="btn btn-primary btn-sm btn-inverse-danger approval-btn" style={{ marginLeft: "10px" }}>Delete</button>
+                                    </div>
+                                    {/* <div  style={tbodyDiv}>
                                         <NavLink to={`/skills/edit/${data.id}`} className="ms-2" title="Edit">
                                             <i className="mdi mdi-square-edit-outline"></i>
                                         </NavLink>
@@ -114,7 +118,7 @@ const SkillsList = (props) => {
                                             onClick={(event) => _handleModalShowClick(event,index)} >
                                             <i className="mdi mdi-delete"></i>
                                         </a> 
-                                    </div>
+                                    </div> */}
                                 </td>
                             </tr>
                         ))}      
@@ -140,7 +144,7 @@ const SkillsList = (props) => {
         <Fragment>
             <BlockUI blocking={blocking} />
             <div className="page-header">
-                <h3 className="page-title"> Skills List</h3>
+                <h3 className="page-title"> Skills Approval</h3>
             </div>
             <div className="row ">
                 <div className="col-lg-12 grid-margin stretch-card">
@@ -177,7 +181,7 @@ const SkillsList = (props) => {
                                         nextPageText="Next"
                                     /> 
                                 </div> 
-                            : ''}  
+                            : ''} 
                     
                         </div>
                     </div>
@@ -196,4 +200,4 @@ const SkillsList = (props) => {
     )
 }
 
-export default SkillsList
+export default SkillsApproval
