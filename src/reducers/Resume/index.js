@@ -207,6 +207,26 @@ export function resume(state = [], action) {
             return {
                 blocking        : false,                   
             }
+
+        /* cases for delete resume */
+        case 'DELETE_RESUME_REQUEST':
+            return {
+                ...state,
+                blocking        : true,
+            };
+        
+        case 'DELETE_RESUME_SUCCESS':
+            return {
+                ...state,
+                blocking    : false,
+                resumeList    : action.payload,
+            };
+        
+        case 'DELETE_RESUME_FAILURE':
+            return {
+                blocking : false
+            };
+        
     
         default:
             return state;
