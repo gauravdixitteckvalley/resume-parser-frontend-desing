@@ -18,7 +18,7 @@ export const login = (postData = {}, props) => {
                   //  const  from= { pathname: '/dashboard' }
                     history.push('/dashboard');
                 }else{
-                    const { from } = props?.location?.state || { from: { pathname: '/resume' } }
+                    const { from } = props?.location?.state || { from: { pathname: '/dashboard' } }
                     history.push(from);
                 }
                     
