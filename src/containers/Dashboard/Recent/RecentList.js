@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { displayRecordNotFound } from '../../../utils/helper';
+import { NavLink } from "react-router-dom"
 
 const RecentList = (props) => {
     const { topResume } = props;
@@ -73,6 +74,7 @@ const RecentList = (props) => {
                   </tbody>
                 </table>
               </div>
+              <NavLink to={`/resume/`} className='btn btn-info right'>More</NavLink>
             </div>
           </div>
         </div>

@@ -218,7 +218,7 @@ const ManualResume = (props) => {
                           </div>
                           <div className="row mt-2 mb-4">
                             <div className="col-md-6">
-                                <label className="mb-1" for="inlineFormInputName2">Resume Lable</label>
+                                <label className="mb-1" for="inlineFormInputName2">Other Information</label>
                                 <textarea className="form-control" name="resume_label" cols="30" rows="3" onChange={(event) => _handleChange(event)}></textarea>
                                 <div className="errorMsg">{errors.resume_label}</div>
                             </div>
