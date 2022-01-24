@@ -674,7 +674,8 @@ const ResumeList = (props) => {
           </div>
 
           {total > per_page ? (
-            <div aria-label="Page navigation example">
+            <div aria-label="Page navigation example" style={{display:'flex', justifyContent: 'space-between'}}>
+              <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={Number(per_page)}

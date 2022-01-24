@@ -191,7 +191,8 @@ const UserList = (props) => {
                         {_userList(userList)}
 
                         {(total > per_page) ? 
-                            <div className="pagination mb-3" style={{"justifyContent" : "right"}}>
+                            <div className="pagination mb-3" style={{"justifyContent" : "space-between"}}>
+                                <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
                                 <Pagination
                                     activePage={currentPage}
                                     itemsCountPerPage={Number(per_page)}
