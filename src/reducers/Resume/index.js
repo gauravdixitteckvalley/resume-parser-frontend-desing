@@ -10,6 +10,7 @@ export function resume(state = [], action) {
                 totalRecords    : 0,
                 per_page        : 0,
                 currentPage     : 1,
+                statusList      : []
             }
         
         case 'RESUME_LIST_SUCCESS':
@@ -22,7 +23,9 @@ export function resume(state = [], action) {
                 totalRecords    : action.payload.total,
                 per_page        : action.payload.per_page,
                 currentPage     : action.payload.current_page,
+                statusList      : action.payload.candidateStatusList
             }
+            
         
         case 'RESUME_LIST_FAILURE':
             return {
@@ -33,6 +36,7 @@ export function resume(state = [], action) {
                 totalRecords    : 0,
                 per_page        : 0,
                 currentPage     : 1,
+                statusList      : []
             }
 
         /* cases for submit form starts */

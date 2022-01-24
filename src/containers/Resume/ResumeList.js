@@ -25,9 +25,12 @@ const ResumeList = (props) => {
     const [skillsData, setSkillsData]       = useState([]);
     const [minExp, setMinExp]               = useState('');
     const [maxExp, setMaxExp]               = useState('');
+    const [status, setStatus]               = useState('');
     const [sending, setSending]               = useState(null);
-    const [selectedOption, setSelectedOption]               = useState([]);
-    const [sortingOption, setsortingOption]               = useState({});
+    const [selectedOption, setSelectedOption] = useState([]);
+    const [sortingOption, setsortingOption]   = useState({});
+    const [min, setMinData]       = useState([1,2,3,4,5,6,7,8,9]);
+    const [max, setMaxData]       = useState([2,3,4,5,6,7,8,9,10]);
 
 
     const [isCheck, setIsCheck] = useState(false);
@@ -37,8 +40,8 @@ const ResumeList = (props) => {
     /**fetched data from redux store */
     const resumes = useSelector(state => state.resume);
     const dispatch = useDispatch();
-    const min = [1,2,3,4,5,6,7,8,9];
-    const max = [2,3,4,5,6,7,8,9,10];
+    // const min = [1,2,3,4,5,6,7,8,9];
+    // const max = [2,3,4,5,6,7,8,9,10];
    
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
@@ -61,7 +64,10 @@ const ResumeList = (props) => {
             city    : params?.city,
             company : params?.company,
             skills  : params?.skills,
-            sortingData : params.sortingData === undefined ? {} : params.sortingData
+            sortingData : params.sortingData === undefined ? {} : params.sortingData,
+            status  : status,
+            minExp  : minExp,
+            maxExp  : maxExp
         }
         dispatch(fetchResumeData(queryParams));
     }
@@ -72,7 +78,7 @@ const ResumeList = (props) => {
     }
 
     /**method for calling api based on page change  */
-    const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption});
+    const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption,status, minExp, maxExp});
 
     const sendMail = async (mail, key) => {
         setSending(key);
@@ -105,7 +111,10 @@ const ResumeList = (props) => {
           city    : city,
           company : company,
           skills  : skillsSearch,
-          sortingData : setStateValue
+          sortingData : setStateValue,
+          status      : status,
+          minExp      : minExp,
+          maxExp      : maxExp
       }
       dispatch(fetchResumeData(queryParams));
   }
@@ -122,7 +131,7 @@ const ResumeList = (props) => {
   const handleSelectAll = () => {
     setIsCheck(!isCheck);
   }
-  console.log(isCheck);
+  // console.log(isCheck);
 
     const _buildResumeListNew = (resumes,applicant_status) => {
         if (!_.isEmpty(resumes)) {
@@ -326,11 +335,25 @@ const ResumeList = (props) => {
         if(name === 'company')
             setCompany(value)
 
-        if(name === 'minExp')
+        if(name === 'minExp'){
             setMinExp(value)
+            setMaxExp('')
+            let newMax=[]
+            let maxtstart = parseInt(value)+2;
+            for (let i = maxtstart; i < maxtstart+7; i++) {
+              newMax.push(i)
+            }
+            setMaxData([])
+            setMaxData(newMax)
+            
+        }
 
         if(name === 'maxExp')
             setMaxExp(value)
+        
+        if(name === 'status')
+            setStatus(value)
+                
     }
 
     /*handle onChange event of the dropdown*/
@@ -347,10 +370,13 @@ const ResumeList = (props) => {
 
     /*handle onChange event of the dropdown*/
     const _handleSubmit = () => {
-        if(_.isEmpty(name) && _.isEmpty(email) && _.isEmpty(phone) && _.isEmpty(company) && _.isEmpty(city) && _.isEmpty(skillsSearch))
+        if(_.isEmpty(name) && _.isEmpty(email) && _.isEmpty(phone) && _.isEmpty(company) && _.isEmpty(city) && _.isEmpty(skillsSearch) && _.isEmpty(status) && _.isEmpty(minExp) && _.isEmpty(maxExp) )
             displayErrorMessage('Please input any search field first')
-
-        _getData('', {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption})
+        
+        if(!_.isEmpty(minExp) && _.isEmpty(maxExp))
+          displayErrorMessage('Please select max experience')
+          
+        _getData('', {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption, status, minExp, maxExp})
     }
 
     /*handle reset event*/
@@ -364,11 +390,12 @@ const ResumeList = (props) => {
         setSkillsSearch('')
         setMinExp('')
         setMaxExp('')
+        setStatus('')
         setsortingOption({})
         _getData()
     }
 
-    const {totalRecords, per_page , blocking, resumeList, currentPage, definedSkills, applicant_status } = resumes;
+    const {totalRecords, per_page , blocking, resumeList, currentPage, definedSkills, applicant_status, statusList } = resumes;
     
     let total = 0;
     if(typeof totalRecords != 'undefined')
@@ -473,6 +500,16 @@ const ResumeList = (props) => {
                         value={skillsData}
                       />
                     </div>
+                    
+                    <div className="col-md-3">
+                      <Form.Control as="select" name="status" value={status || ""}
+                        onChange={(event) => _handleChange(event)} >
+                        <option>Status</option>
+                        {statusList?.map((country, index) => (
+                          <option key={index} value={country.pid}>{country.name}</option>
+                        ))}
+                      </Form.Control>
+                    </div>
                     <div className="col-md-3">
                       <Form.Control
                         as="select"
@@ -480,7 +517,7 @@ const ResumeList = (props) => {
                         value={minExp || ""}
                         onChange={(event) => _handleChange(event)}
                       >
-                        <option>Min Exp</option>
+                        <option value=''>Min Exp</option>
                         {min.map((value, index) => (
                           <option key={index} value={value}>
                             {value}
@@ -495,7 +532,7 @@ const ResumeList = (props) => {
                         value={maxExp || ""}
                         onChange={(event) => _handleChange(event)}
                       >
-                        <option>Max Exp</option>
+                        <option value=''>Max Exp</option>
                         {max.map((value, index) => (
                           <option key={index} value={value}>
                             {value}
