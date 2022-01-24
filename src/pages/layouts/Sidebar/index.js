@@ -35,7 +35,7 @@ const Sidebar = (props) => {
                         showRoutesForAdmin() : ''
                     }
                     <li className="nav-item">
-                            <Link to='/dashboard' className="nav-link active">Dashboard </Link>
+                            <Link to='/dashboard' className="nav-link active">Dashboard</Link>
                     </li>
                     <li className="nav-item">
                         <Link to='/user' className="nav-link active">Users</Link>
