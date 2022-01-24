@@ -9,7 +9,10 @@ export function dashboard(state = [], action) {
                 totalList       : '',
                 statusList      : '',
                 statusData      : '',
-                topResume       : ''   
+                topResume       : '' ,
+                weeklyResumessubuser:'',
+                monthlyResumessubuser:'', 
+                totalResumessubuser:''
             }
         
         case 'RESUME_DASHBOARD_SUCCESS':
@@ -20,7 +23,10 @@ export function dashboard(state = [], action) {
                 monthlyList     : action.payload.monthlyResumes,
                 statusList      : action.payload.statusList,
                 statusData      : action.payload.statusData,
-                topResume       : action.payload.topResume 
+                topResume       : action.payload.topResume,
+                weeklyResumessubuser:action.payload.weeklyResumessubuser,
+                monthlyResumessubuser:action.payload.monthlyResumessubuser,
+                totalResumessubuser:action.payload.totalResumessubuser
             }
         
         case 'RESUME_DASHBOARD_FAILURE':
@@ -29,6 +35,9 @@ export function dashboard(state = [], action) {
                 weeklyList      : '',
                 totalList       : '',
                 monthlyList     : '',
+                weeklyResumessubuser:'',
+                monthlyResumessubuser:'', 
+                totalResumessubuser:'',
                 statusList      : '',
                 statusData      : '',
                 topResume       : ''  
@@ -41,6 +50,9 @@ export function dashboard(state = [], action) {
                 monthlyList      : '',
                 totalList       : '',
                 statusList      : '',
+                weeklyResumessubuser:'',
+                monthlyResumessubuser:'', 
+                totalResumessubuser:'',
                 statusData      : '',
                 topResume       : ''  
             }

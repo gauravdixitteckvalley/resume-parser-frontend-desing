@@ -24,12 +24,6 @@ const Sidebar = () => {
     const showRoutesForAdmin = () => {
         return(
             <>
-                <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
-                    <Link to='/dashboard' className="nav-link">
-                        <span className="menu-title">Dashboard</span>
-                        <i className="mdi mdi-home menu-icon"></i>
-                    </Link>
-                </li>
                 <li  className={splitLocation[1] === "user" ? "active nav-item" : "nav-item "}>
                     <Link to='/user' className="nav-link">
                         <span className="menu-title">Users</span>
@@ -62,6 +56,12 @@ const Sidebar = () => {
                             </div>
                             <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                         </a>
+                    </li>
+                    <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
+                        <Link to='/dashboard' className="nav-link">
+                            <span className="menu-title">Dashboard</span>
+                            <i className="mdi mdi-home menu-icon"></i>
+                        </Link>
                     </li>
                     {
                         user.email === 'testing@gmail.com' ?
