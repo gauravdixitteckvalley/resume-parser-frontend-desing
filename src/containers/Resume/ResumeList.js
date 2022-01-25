@@ -562,7 +562,7 @@ const ResumeList = (props) => {
                       />
                     </div>
                     
-                    <div className="col-md-3">
+                    <div className="col-md-3 status">
                       <Form.Control as="select" name="status" value={status || ""}
                         onChange={(event) => _handleChange(event)} >
                         <option>Status</option>
@@ -571,7 +571,7 @@ const ResumeList = (props) => {
                         ))}
                       </Form.Control>
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-3 min-max">
                       <Form.Control
                         as="select"
                         name="minExp"
@@ -585,8 +585,6 @@ const ResumeList = (props) => {
                           </option>
                         ))}
                       </Form.Control>
-                    </div>
-                    <div className="col-md-3">
                       <Form.Control
                         as="select"
                         name="maxExp"
