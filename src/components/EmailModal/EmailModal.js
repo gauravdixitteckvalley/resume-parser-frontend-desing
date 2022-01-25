@@ -45,15 +45,10 @@ export default function EmailModal(props) {
     const _handleModalCloseClick = () => {
         props.handleModalClose(false)
     }
-    const {showModal, modalTitle} = props
+    const {showModal, modalTitle} = props;
+
     const _handleSubmit = (event) => {
         event.preventDefault();
-        // const { multi_Mail } = event.target;
-        //console.log("123: ",fields);
-        const mails = {
-            '1': 'abs@ww.com',
-            '2': 'ees@ww.com',
-        };
         const postData = {
             'mail_text': fields,
             'mail_ids': props.sendMailData
@@ -61,10 +56,12 @@ export default function EmailModal(props) {
         dispatch(sendMultiMail(postData));
         props.handleModalClose(false);
     }
+
     const _handleChange = (event) => {
         const { name, value } = event.target;
         setFields(value);
     }
+    
     return (
         <Modal show={showModal} onHide={_handleModalCloseClick} backdrop="static">
             <form className="form-inline user-form" onSubmit={(event) => _handleSubmit(event)}>
