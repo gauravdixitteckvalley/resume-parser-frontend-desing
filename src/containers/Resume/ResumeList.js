@@ -583,6 +583,13 @@ const ResumeList = (props) => {
                           <option key={index} value={country.pid}>{country.name}</option>
                         ))}
                       </Form.Control>
+                      {/* <Select
+                        name="status"
+                        placeholder={"Select Status"}
+                        options={statusList}
+                        onChange={(event) => _handleChange(event)}
+                        value={status}
+                      /> */}
                     </div>
                     <div className="col-md-3 min-max d-flex">
                       <div className="col-md-5">
