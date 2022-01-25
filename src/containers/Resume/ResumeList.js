@@ -132,18 +132,17 @@ const ResumeList = (props) => {
     setShowModal(value)
   }
 
-  const handleSelectAll = () => {
-    setIsCheck(!isCheck);
-  }
+  
   //const [selectedMailId, setSelectedMailId] = useState([]);
   const handleSelectOnly = (event,cb_id) => {
     //dispatch(updateStatusField({id:resume_id,candidate_status:event.target.value}))
     if(selectedCheckBox.hasOwnProperty(cb_id)){
       delete (selectedCheckBox[cb_id]);
+      setIsCheck(false);
     }else{
        setSelectedCheckBox(Object.assign({...selectedCheckBox,[cb_id]:cb_id }))
     }  
-    console.log('selectedCheckBox ' ,selectedCheckBox)
+    //console.log('selectedCheckBox ' ,selectedCheckBox)
   }
 
   /*method called to display modal*/
@@ -166,6 +165,20 @@ const ResumeList = (props) => {
   }
 
     const _buildResumeListNew = (resumes,applicant_status) => {
+      const handleSelectAll = () => {
+        setIsCheck(!isCheck);
+        if(isCheck == true){
+          //console.log('selectedCheckBox ' ,selectedCheckBox)
+          resumes.map((data) => (
+            setSelectedCheckBox(Object.assign({...selectedCheckBox,[data.id]:data.id }))
+          ));
+        }else{
+          resumes.map((data) => (
+            delete (selectedCheckBox[data.id])
+          ));
+          //console.log('selectedCheckBox ' ,selectedCheckBox)
+        }
+      }
         if (!_.isEmpty(resumes)) {
             return (
               <>
@@ -218,7 +231,7 @@ const ResumeList = (props) => {
                             //     : false
                             // }
                             checked={
-                              selectedCheckBox.hasOwnProperty(`${data.id}`) 
+                              selectedCheckBox.hasOwnProperty(`${data.id}`) || isCheck
                                 ? true
                                 : false
                             }
