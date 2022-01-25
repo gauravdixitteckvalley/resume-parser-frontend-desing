@@ -8,6 +8,7 @@ import { Form } from "react-bootstrap";
 import ResumeStyle from './style';
 import BlockUI from "../../components/BlockUI";
 import SelectBoxDropdown from "../../components/SelectBoxDropdown";
+import Checkbox from "../../components/Checkbox"
 import { fetchResumeData, resetResumeData,updateStatusField, deleteResume } from "../../actions/Resume";
 import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
 import EmailModal from "../../components/EmailModal/EmailModal";
@@ -34,10 +35,11 @@ const ResumeList = (props) => {
     const [min, setMinData]       = useState([1,2,3,4,5,6,7,8,9]);
     const [max, setMaxData]       = useState([2,3,4,5,6,7,8,9,10]);
     
-    
-    const [isCheck, setIsCheck] = useState(false);
+    const [isCheckAll, setIsCheckAll] = useState(false);
+    const [isCheck, setIsCheck] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [showDelModal, setShowDelModal] = useState(false);
+    const [list, setList] = useState([]);
     // const [isCheck, setIsCheck] = useState([]);
     const [selectedRowId, setSelectedRowId] = useState('');
 
@@ -56,7 +58,6 @@ const ResumeList = (props) => {
             dispatch(resetResumeData())
         }
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
-
     
     /**method to call the configure the data and call the action */
     const _getData = (data, params = {}) => {
@@ -90,7 +91,6 @@ const ResumeList = (props) => {
         var postData = {
             'email': mail
         }
-        
         const response = await axios.post(`${API_URL}mail/send`, postData);
         // console.log('Email sent: ', response);
         if (response.data.flag) {
@@ -134,14 +134,13 @@ const ResumeList = (props) => {
 
   
   //const [selectedMailId, setSelectedMailId] = useState([]);
-  const handleSelectOnly = (event,cb_id) => {
+  const handleSelectOnly = (e) => {
     //dispatch(updateStatusField({id:resume_id,candidate_status:event.target.value}))
-    if(selectedCheckBox.hasOwnProperty(cb_id)){
-      delete (selectedCheckBox[cb_id]);
-      setIsCheck(false);
-    }else{
-       setSelectedCheckBox(Object.assign({...selectedCheckBox,[cb_id]:cb_id }))
-    }  
+      const { id, checked } = e.target;
+      setIsCheck([...isCheck, id]);
+      if (!checked) {
+        setIsCheck(isCheck.filter(item => item !== id));
+      }
     //console.log('selectedCheckBox ' ,selectedCheckBox)
   }
 
@@ -163,30 +162,33 @@ const ResumeList = (props) => {
   const _handleDelModalCloseClick = (value) => {
     setShowDelModal(value);
   }
-
+    
+  const handleSelectAll = (resumeList) => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(resumeList.map(li => li.id));
+    if (isCheckAll) {
+      setIsCheck([]);
+    }
+  }
+    
     const _buildResumeListNew = (resumes,applicant_status) => {
-      const handleSelectAll = () => {
-        setIsCheck(!isCheck);
-        if(isCheck == true){
-          //console.log('selectedCheckBox ' ,selectedCheckBox)
-          resumes.map((data) => (
-            setSelectedCheckBox(Object.assign({...selectedCheckBox,[data.id]:data.id }))
-          ));
-        }else{
-          resumes.map((data) => (
-            delete (selectedCheckBox[data.id])
-          ));
-          //console.log('selectedCheckBox ' ,selectedCheckBox)
-        }
-      }
         if (!_.isEmpty(resumes)) {
             return (
               <>
                 <table className="table table-bordered mb-0 resume-list-table">
                   <thead>
                     <tr>
-                      <th><input className="form-check-input" name="selectAll" type="checkbox" onChange={handleSelectAll} checked={isCheck} value="" id="selectAll flexCheckDefault" /> &nbsp; #</th>
                       <th>
+                             <Checkbox
+                                type="checkbox"
+                                name="selectAll"
+                                className="form-check-input"
+                                id="selectAll flexCheckDefault"
+                                handleClick={()=>handleSelectAll(resumes)}
+                                isChecked={isCheckAll}
+                              />&nbsp; #
+                              </th>
+                       <th>
                           Name
                           <button onClick={ () => onClickEventForSorting('name','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
                           <button onClick={ () => onClickEventForSorting('name','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
@@ -220,25 +222,16 @@ const ResumeList = (props) => {
                         className={index % 2 === 0 ? "even" : "odd"}
                       >
                         <td>
-                          <input 
-                            class="form-check-input" 
-                            name={`checkbox_${data.id}`} 
-                            onChange={(event)=>handleSelectOnly(event,`${data.id}`)} 
-                            
-                            // checked={
-                            //   !_.isEmpty(selectedCheckBox[`${data.id}`]) 
-                            //     ? true
-                            //     : false
-                            // }
-                            checked={
-                              selectedCheckBox.hasOwnProperty(`${data.id}`) || isCheck
-                                ? true
-                                : false
-                            }
-                            //selectedCheckBox.hasOwnProperty
-                            type="checkbox"  
-                            id={`checkbox_${data.id}`} 
-                          /> &nbsp; {index + 1}
+                         
+                        <Checkbox
+                                  key={data.id}
+                                  className="form-check-input" 
+                                  type="checkbox"
+                                  name={data.id}
+                                  id={data.id}
+                                  handleClick={handleSelectOnly}
+                                  isChecked={isCheck.includes(data.id)}
+                                />&nbsp; {index + 1}
                         </td>
                         
                         <td>{data.name}</td>
@@ -672,7 +665,7 @@ const ResumeList = (props) => {
                     showModal={showModal}
                     handleModalClose={_handleModalCloseClick}
                     // addCommentData={_addResumeComment}
-                    sendMailData={selectedCheckBox}
+                    sendMailData={isCheck}
                     modalTitle="Email Body"
                     modalBody="Are you sure you wish to perform this action? This action is irreversible!"
                   />
@@ -686,7 +679,7 @@ const ResumeList = (props) => {
 
           {total > per_page ? (
             <div aria-label="Page navigation example" style={{display:'flex', justifyContent: 'space-between'}}>
-              <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+              <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={Number(per_page)}

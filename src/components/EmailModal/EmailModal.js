@@ -53,6 +53,7 @@ export default function EmailModal(props) {
             'mail_text': fields,
             'mail_ids': props.sendMailData
         };
+       // console.log("sendMail",props.sendMailData)
         dispatch(sendMultiMail(postData));
         props.handleModalClose(false);
     }
