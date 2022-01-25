@@ -1,9 +1,8 @@
-import React, { useState, useEffect, Fragment } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import React, { Fragment } from "react"
 import _ from 'lodash'
+import { Form } from "react-bootstrap";
 
 import BlockUI from "../../components/BlockUI"
-import {history} from '../../utils/helper'
 import "./message.css";
 
 const Message = (props) => {
@@ -20,14 +19,26 @@ const Message = (props) => {
                     <div className="card">
                         <div className="card-body">
                             <form className="form-inline user-form">
-                              
-                                    <label className=" mb-1" htmlFor="inlineFormInputName2">Skill</label>
-                                    <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Python"
-                                        name="skills_name"  
-                                    />
-                            
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <label className="mb-1 required" for="inlineFormInputName2">Name</label>
+                                        <Form.Control as="select" name="name" > 
+                                            <option value=''>Select Name</option> 
+                                            <option>Sandip Ghosh</option>
+                                        </Form.Control>
+                                    </div>
+                                    <div className="col-md-12 mt-2">
+                                        <label className="mb-1 required" for="inlineFormInputName2">Subject</label>
+                                        <input type="email" name="email" className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Subject" />
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <label className="mb-1 required" for="inlineFormInputName2">Message</label>
+                                        <textarea style={{minHeight: '150px'}} name="message" className="form-control mb-2 mr-sm-2 col-md-12" id="inlineFormInputName2" placeholder="Type Your Message"></textarea>
+                                    </div>
+                                </div>
                                 <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
-                                <button className="btn btn-light mb-2">Cancel</button>
                             </form>
                         </div>
                     </div>
