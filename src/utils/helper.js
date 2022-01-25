@@ -5,9 +5,10 @@ import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 
 /* called when needed to redirect user to login screen*/
-const loginRedirect = () => {
+const loginRedirect = (user) => {
     localStorage.clear();
-    history.push('/');
+    const redirectRoute = user.isCandidateLogin ? '/login/candidate' : '/'
+    history.push(redirectRoute);
 };
 
 /* called when there is need to display success messages */

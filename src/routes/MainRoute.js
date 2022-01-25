@@ -17,6 +17,7 @@ const ManualResume = lazy(() => import('../containers/Resume/ManualResume'))
 const Skills = lazy(() => import('../containers/Skill/SkillsList'))
 const SkillsForm = lazy(() => import('../containers/Skill/AddSkills'))
 const CandidateCommunication = lazy(() => import('../containers/Resume/CandidateCommunication'))
+const CandidateDashboard = lazy(() => import('../containers/Candidate/Dashboard'))
 
 
 function MainRoute() {
@@ -25,9 +26,11 @@ function MainRoute() {
             <Switch>
                 <Route exact path="/" component={Login} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/login/candidate" component={Login} />
                 <MainLayout>
                     <Switch>
                         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                        <PrivateRoute exact path="/candidate/dashboard" component={CandidateDashboard} />
                         <PrivateRoute exact path="/user" component={User} />
                         <PrivateRoute exact path="/user/create" component={UserForm} />
                         <PrivateRoute exact path="/user/edit/:id" component={UserForm} />
@@ -37,6 +40,8 @@ function MainRoute() {
                         <PrivateRoute exact path="/candidate/communication/:id" component={CandidateCommunication} />
                         <PrivateRoute exact path="/candidate/details/:id" component={CandidateDetails} />
                         <PrivateRoute exact path="/candidate/preview/:id" component={CandidatePreview} />
+                        <PrivateRoute exact path="/candidate/view/:id" component={CandidatePreview} />
+                        <PrivateRoute exact path="/candidate/details/edit/:id" component={CandidateDetails} />
 
                         <PrivateRoute exact path="/skills" component={Skills} />
                         <PrivateRoute exact path="/skills/create" component={SkillsForm} />

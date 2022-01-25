@@ -16,6 +16,7 @@ const CandidateDetails = (props) => {
     
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
+    const loggedUser = useSelector(state => state.authenticatedUser);
     const dispatch = useDispatch();
 
     // const { resumeDetails } = resumeData;    
@@ -93,7 +94,7 @@ const CandidateDetails = (props) => {
             expected_ctc : expected_ctc.value, 
             resume_label : resume_label.value
         }
-
+        postData.loginFor = user.isCandidateLogin ? 'candidate' : ''
         // const postData = new FormData(event.target);
         dispatch(updateResumeFormData(currentId, postData));  // action is called to submit data
     }
@@ -105,6 +106,7 @@ const CandidateDetails = (props) => {
 
     //const { blocking } = userData
     const { blocking, resumeDetails, countryList, stateList } = resumeData; 
+    const { user } = loggedUser;
     // const blocking = false;
 
     return (
