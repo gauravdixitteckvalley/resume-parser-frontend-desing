@@ -28,6 +28,7 @@ const ResumeList = (props) => {
     const [minExp, setMinExp]               = useState('');
     const [maxExp, setMaxExp]               = useState('');
     const [status, setStatus]               = useState('');
+    const [statusShow, setStatusShow]               = useState('');
     const [sending, setSending]               = useState(null);
     const [selectedOption, setSelectedOption] = useState([]);
     const [selectedCheckBox, setSelectedCheckBox]         = useState([]);
@@ -437,6 +438,7 @@ const ResumeList = (props) => {
 
     const _handleStatusSrcChange = e => {
       setStatus(e.value);
+      setStatusShow(e.name);
     }
 
     /*handle onChange event of the dropdown*/
@@ -585,7 +587,7 @@ const ResumeList = (props) => {
                         placeholder={"Select Status"}
                         options={statusList}
                         onChange={_handleStatusSrcChange}
-                        value={status}
+                        value={statusShow}
                       />
                     </div>
                     <div className="col-md-3 min-max d-flex">
