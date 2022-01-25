@@ -88,7 +88,7 @@ const _deleteskillData = (status) => {
                 Monthly Resume
                 <i className="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 className="mb-5">{monthlyList}+{monthlyResumessubuser} = {monthlyList+monthlyResumessubuser}</h2>
+              <h2 className="mb-5">{monthlyList} + {monthlyResumessubuser} = {monthlyList+monthlyResumessubuser}</h2>
               {/* <h6 className="card-text">Decreased by 10%</h6> */}
             </div>
           </div>
