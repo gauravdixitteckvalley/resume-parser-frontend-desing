@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { displayRecordNotFound } from '../../../utils/helper';
 import { NavLink } from "react-router-dom"
+import './RecentList.css';
 
 const RecentList = (props) => {
     const { topResume } = props;
@@ -59,7 +60,7 @@ const RecentList = (props) => {
             <div className="card-body">
               <h4 className="card-title">Recent Candidates</h4>
               <div className="table-responsive">
-                <table className="table">
+                <table className="table table-bordered mb-4">
                   <thead>
                     <tr>
                       <th> Name </th>
@@ -74,7 +75,7 @@ const RecentList = (props) => {
                   </tbody>
                 </table>
               </div>
-              <NavLink to={`/resume/`} className='btn btn-info right'>More</NavLink>
+              <NavLink to={`/resume/`} className='btn btn-gradient-primary btn-fw'>More</NavLink>
             </div>
           </div>
         </div>
