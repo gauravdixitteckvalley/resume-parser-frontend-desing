@@ -162,7 +162,8 @@ const SkillsList = (props) => {
                             {_skillsList(skillsList)}
                             {/* <div className="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div> */}
                             {(total > per_page) ? 
-                                <div className="pagination justify-content-end" aria-label="Page navigation example">
+                                <div className="pagination justify-content-between" aria-label="Page navigation example">
+                                    <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
                                     <Pagination
                                         activePage={currentPage}
                                         itemsCountPerPage={Number(per_page)}

@@ -8,9 +8,10 @@ import { Form } from "react-bootstrap";
 import ResumeStyle from './style';
 import BlockUI from "../../components/BlockUI";
 import SelectBoxDropdown from "../../components/SelectBoxDropdown";
-import { fetchResumeData, resetResumeData,updateStatusField } from "../../actions/Resume";
+import { fetchResumeData, resetResumeData,updateStatusField, deleteResume } from "../../actions/Resume";
 import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
-import EmailModal from "../../components/EmailModal/EmailModal"
+import EmailModal from "../../components/EmailModal/EmailModal";
+import Modal from '../../components/ConfirmationModal/Modal';
 import axios from 'axios';
 
 import './ResumeList.css';
@@ -32,11 +33,13 @@ const ResumeList = (props) => {
     const [sortingOption, setsortingOption]   = useState({});
     const [min, setMinData]       = useState([1,2,3,4,5,6,7,8,9]);
     const [max, setMaxData]       = useState([2,3,4,5,6,7,8,9,10]);
-
-
+    
+    
     const [isCheck, setIsCheck] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showDelModal, setShowDelModal] = useState(false);
     // const [isCheck, setIsCheck] = useState([]);
+    const [selectedRowId, setSelectedRowId] = useState('');
 
     /**fetched data from redux store */
     const resumes = useSelector(state => state.resume);
@@ -140,6 +143,25 @@ const ResumeList = (props) => {
        setSelectedCheckBox(Object.assign({...selectedCheckBox,[cb_id]:cb_id }))
     }  
     //console.log('selectedCheckBox ' ,selectedCheckBox)
+  }
+
+  /*method called to display modal*/
+  function _handleDelModalShowClick(e,i){
+    e.preventDefault();
+    setShowDelModal(true);
+    setSelectedRowId(i);
+  }
+
+  /*method called to when record deleted option is chosen*/
+  const _deleteResumeData = (status) => {
+    if(status) {
+      dispatch(deleteResume(selectedRowId));  // action is called to get data
+      _handleDelModalCloseClick(false);  //modal is closed
+    }
+  }
+
+  const _handleDelModalCloseClick = (value) => {
+    setShowDelModal(value);
   }
 
     const _buildResumeListNew = (resumes,applicant_status) => {
@@ -274,6 +296,14 @@ const ResumeList = (props) => {
                                 className="mdi mdi mdi-email"
                                 aria-hidden="true"
                               ></i>
+                            </a>
+                            <a 
+                              className="" 
+                              title="Delete" 
+                              className="ms-2" 
+                              style={{'cursor':'pointer'}}
+                              onClick={(event) => _handleDelModalShowClick(event, data.id)}>
+                              <i className="mdi mdi-delete" aria-hidden="true"></i>
                             </a>
                           </div>
                           {/* ) : 'N/A'} */}
@@ -657,7 +687,8 @@ const ResumeList = (props) => {
           </div>
 
           {total > per_page ? (
-            <div aria-label="Page navigation example">
+            <div aria-label="Page navigation example" style={{display:'flex', justifyContent: 'space-between'}}>
+              <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={Number(per_page)}
@@ -776,6 +807,16 @@ const ResumeList = (props) => {
                     </div>
                 </div> */}
         {/* </div> */}
+        {/* delete pop up modal */}
+        {showDelModal ? (
+          <Modal 
+            showModal={showDelModal} 
+            handleModalClose={_handleDelModalCloseClick} 
+            updateData={_deleteResumeData}
+            modalTitle="Delete Record"
+            modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+          />
+        ) : null}
       </ResumeStyle>
     );
 }

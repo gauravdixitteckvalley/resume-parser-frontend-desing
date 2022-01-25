@@ -265,3 +265,24 @@ export const sendMultiMail = (params) => {
         }
     }
 }
+
+/* action for deleting resume record */
+export const deleteResume = (id) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: 'DELETE_RESUME_REQUEST' });
+        try {
+            const response = await api.delete('resume/resume/'+id, {
+                headers : requestTokenHeader(),
+            });
+    
+            if (response.data.success) {
+                const updatedResumeList =  getState().resume.resumeList.filter(res => res.id !== id);
+                dispatch({ type : 'DELETE_RESUME_SUCCESS', payload : updatedResumeList});
+                displaySuccessMessage('Record Deleted Successfully');
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'DELETE_RESUME_FAILURE'});
+        }
+    }
+}
