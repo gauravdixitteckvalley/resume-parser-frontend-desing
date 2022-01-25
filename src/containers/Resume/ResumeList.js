@@ -303,6 +303,7 @@ const ResumeList = (props) => {
                         </td>
                       </tr>
                     ))}
+                    
                   </tbody>
                 </table>
                 </>
@@ -621,7 +622,7 @@ const ResumeList = (props) => {
               />
             </div>
           ) : (
-            ""
+            <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
           )}
         </div>
 
