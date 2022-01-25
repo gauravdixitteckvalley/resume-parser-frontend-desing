@@ -584,33 +584,38 @@ const ResumeList = (props) => {
                         ))}
                       </Form.Control>
                     </div>
-                    <div className="col-md-3 min-max">
-                      <Form.Control
-                        as="select"
-                        name="minExp"
-                        value={minExp || ""}
-                        onChange={(event) => _handleChange(event)}
-                      >
-                        <option value=''>Min Exp</option>
-                        {min.map((value, index) => (
-                          <option key={index} value={value}>
-                            {value}
-                          </option>
-                        ))}
-                      </Form.Control>
-                      <Form.Control
-                        as="select"
-                        name="maxExp"
-                        value={maxExp || ""}
-                        onChange={(event) => _handleChange(event)}
-                      >
-                        <option value=''>Max Exp</option>
-                        {max.map((value, index) => (
-                          <option key={index} value={value}>
-                            {value}
-                          </option>
-                        ))}
-                      </Form.Control>
+                    <div className="col-md-3 min-max d-flex">
+                      <div className="col-md-5">
+                        <Form.Control
+                          as="select"
+                          name="minExp"
+                          value={minExp || ""}
+                          onChange={(event) => _handleChange(event)}
+                        >
+                          <option value=''>Min Exp</option>
+                          {min.map((value, index) => (
+                            <option key={index} value={value}>
+                              {value}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </div>
+                      <div className="col-md-2"></div>
+                      <div className="col-md-5">
+                        <Form.Control
+                          as="select"
+                          name="maxExp"
+                          value={maxExp || ""}
+                          onChange={(event) => _handleChange(event)}
+                        >
+                          <option value=''>Max Exp</option>
+                          {max.map((value, index) => (
+                            <option key={index} value={value}>
+                              {value}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </div> 
                     </div>
                   </div>
                   <button
