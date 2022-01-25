@@ -435,6 +435,10 @@ const ResumeList = (props) => {
         setSkillsSearch(skillsData)
     }
 
+    const _handleStatusSrcChange = e => {
+      setStatus(e.value);
+    }
+
     /*handle onChange event of the dropdown*/
     const _handleSubmit = () => {
         if(_.isEmpty(name) && _.isEmpty(email) && _.isEmpty(phone) && _.isEmpty(company) && _.isEmpty(city) && _.isEmpty(skillsSearch) && _.isEmpty(status) && _.isEmpty(minExp) && _.isEmpty(maxExp) )
@@ -569,20 +573,20 @@ const ResumeList = (props) => {
                     </div>
                     
                     <div className="col-md-3 status">
-                      <Form.Control as="select" name="status" value={status || ""}
+                      {/* <Form.Control as="select" name="status" value={status || ""}
                         onChange={(event) => _handleChange(event)} >
                         <option>Status</option>
                         {statusList?.map((country, index) => (
                           <option key={index} value={country.pid}>{country.name}</option>
                         ))}
-                      </Form.Control>
-                      {/* <Select
-                        name="status"
+                      </Form.Control> */}
+                      <Select
+                        // name="status"
                         placeholder={"Select Status"}
                         options={statusList}
-                        onChange={(event) => _handleChange(event)}
+                        onChange={_handleStatusSrcChange}
                         value={status}
-                      /> */}
+                      />
                     </div>
                     <div className="col-md-3 min-max d-flex">
                       <div className="col-md-5">
