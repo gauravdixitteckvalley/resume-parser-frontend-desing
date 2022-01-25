@@ -79,6 +79,12 @@ const Sidebar = () => {
                         <i className="mdi mdi-account-search menu-icon"></i>
                     </Link>
                     </li>
+                    <li  className={splitLocation[1] ==="messages" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
+                    <Link to='/messages' className="nav-link">
+                        <span className="menu-title">Message</span>
+                        <i className="mdi mdi-message-reply menu-icon"></i>
+                    </Link>
+                    </li>
                 </ul>
             </nav>
         </>

@@ -160,7 +160,7 @@
   white-space: initial !important;
   max-width: 190px;
 }
-.min-max {
+/* .min-max {
   display: flex;
 }
 .min-max select:nth-child(1), .min-max select:nth-child(2) {
@@ -169,7 +169,7 @@
 }
 .min-max select:nth-child(2) {
   margin-left: 20px;
-}
+} */
 @media only screen and (max-width: 425px)  {
   .min-max {
     display: block;
