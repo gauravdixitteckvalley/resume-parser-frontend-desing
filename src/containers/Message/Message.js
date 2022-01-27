@@ -38,7 +38,7 @@ const Message = (props) => {
                                         <textarea style={{minHeight: '150px'}} name="message" className="form-control mb-2 mr-sm-2 col-md-12" id="inlineFormInputName2" placeholder="Type Your Message"></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
+                                <button type="submit" className="btn btn-gradient-primary mb-2">Send</button>
                             </form>
                         </div>
                     </div>
