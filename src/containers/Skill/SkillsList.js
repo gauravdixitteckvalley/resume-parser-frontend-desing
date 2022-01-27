@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import Pagination from "react-js-pagination"
 import _ from 'lodash'
 
@@ -110,10 +110,10 @@ const SkillsList = (props) => {
                                             <i className="mdi mdi-square-edit-outline"></i>
                                         </NavLink>
                                         
-                                        <a className="delete" title="Delete"  style={{'cursor':'pointer'}}
+                                        <Link className="delete" title="Delete"  style={{'cursor':'pointer'}}
                                             onClick={(event) => _handleModalShowClick(event,index)} >
                                             <i className="mdi mdi-delete"></i>
-                                        </a> 
+                                        </Link> 
                                     </div>
                                 </td>
                             </tr>
@@ -163,7 +163,7 @@ const SkillsList = (props) => {
                             {/* <div className="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div> */}
                             {(total > per_page) ? 
                                 <div className="pagination justify-content-between" aria-label="Page navigation example">
-                                    <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+                                    <div>Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
                                     <Pagination
                                         activePage={currentPage}
                                         itemsCountPerPage={Number(per_page)}
@@ -178,7 +178,7 @@ const SkillsList = (props) => {
                                         nextPageText="Next"
                                     /> 
                                 </div> 
-                            : <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>}  
+                            : <div>Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>}  
                     
                         </div>
                     </div>

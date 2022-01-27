@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import Pagination from "react-js-pagination"
 import _ from 'lodash'
 import Select from "react-select";
@@ -279,7 +279,7 @@ const ResumeList = (props) => {
                             >
                               <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
                             </NavLink>
-                            <a
+                            <Link
                               className={
                                 "" +
                                 (index === sending ? "disable" : "")
@@ -292,15 +292,15 @@ const ResumeList = (props) => {
                                 className="mdi mdi mdi-email"
                                 aria-hidden="true"
                               ></i>
-                            </a>
-                            <a 
+                            </Link>
+                            <Link 
                               className="" 
                               title="Delete" 
                               className="ms-2" 
                               style={{'cursor':'pointer'}}
                               onClick={(event) => _handleDelModalShowClick(event, data.id)}>
                               <i className="mdi mdi-delete" aria-hidden="true"></i>
-                            </a>
+                            </Link>
                           </div>
                           {/* ) : 'N/A'} */}
                         </td>
@@ -672,12 +672,12 @@ const ResumeList = (props) => {
             <div className="card card-cls">
               <div className="table-responsive">
                 <div className="col-lg-12 p-3">
-                  <a
+                  <Link
                     onClick={(event) => _handleModalShowClick()}
                     className="btn btn-primary send-email"
                   >
                     Send Emails
-                  </a>
+                  </Link>
                 </div>
                 {/* add note pop up modal */}
                 {showModal ? (
