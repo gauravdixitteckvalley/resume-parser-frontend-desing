@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import _ from 'lodash'
-import { Form } from "react-bootstrap";
 
 import UserStyle from './style';
 import BlockUI from "../../components/BlockUI"
@@ -100,18 +99,18 @@ const ProfileForm = (props) => {
         <Fragment>
             <BlockUI blocking={blocking} />
             <UserStyle>
-            <div class="page-header">
-              <h3 class="page-title"> Edit Profile</h3>
+            <div className="page-header">
+              <h3 className="page-title"> Edit Profile</h3>
             </div>
-            <div class="row">
-                <div class="col-lg-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
+            <div className="row">
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                      <div className="card-body">
                           <form onSubmit={(event) => _handleSubmit(event)} className="form-inline">
                        
                                     <div className="row">
                                         <div className="col-md-6">
-                                        <label class="mb-1" for="inlineFormInputName2">First Name</label>
+                                        <label className="mb-1" for="inlineFormInputName2">First Name</label>
                                                 <input type="text" name="first_name" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.first_name || ''} 
                                                         onChange={(event) => _handleChange(event)} 
@@ -121,7 +120,7 @@ const ProfileForm = (props) => {
                                         </div>
 
                                         <div className="col-md-6"> 
-                                         <label class="mb-1" for="inlineFormInputName2">Last Name</label>
+                                         <label className="mb-1" for="inlineFormInputName2">Last Name</label>
                                           <input type="text" name="last_name" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.last_name || ''} 
                                                         onChange={(event) => _handleChange(event)} 
@@ -131,8 +130,8 @@ const ProfileForm = (props) => {
                                         </div>
                                         
                                         <div className="row mt-2">
-                                        <div class="col-md-6">
-                                            <label class="mb-1" for="inlineFormInputName2">Username</label>
+                                        <div className="col-md-6">
+                                            <label className="mb-1" for="inlineFormInputName2">Username</label>
                                                <input type="text" name="username" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.username || ''}
                                                         onChange={(event) => _handleChange(event)} 
@@ -141,7 +140,7 @@ const ProfileForm = (props) => {
                                         </div>
                                         
                                         <div className="col-md-6"> 
-                                        <label class="mb-1" for="inlineFormInputName2">Email</label>
+                                        <label className="mb-1" for="inlineFormInputName2">Email</label>
                                                 <input type="email" name="email" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.email || ''}
                                                         onChange={(event) => _handleChange(event)} 
@@ -151,9 +150,9 @@ const ProfileForm = (props) => {
                                           </div>
                                         </div>
                                        
-                                            <div class="row mt-2">
-                                               <div class="col-md-6">
-                                                        <label class="mb-1" for="inlineFormInputName2">Profile Image</label>
+                                            <div className="row mt-2">
+                                               <div className="col-md-6">
+                                                        <label className="mb-1" for="inlineFormInputName2">Profile Image</label>
                                                             <input type="file" name="profile_image" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                                         value={fields.password || ''} 
                                                                         onChange={(event) => _handleChange(event)} 
@@ -166,8 +165,8 @@ const ProfileForm = (props) => {
                                             </div>                           
                           
                     
-                                 <button type="submit" class="btn btn-gradient-primary mb-2">Submit</button>
-                                 <button class="btn btn-light mb-2" onClick={_handleCancelForm}>Cancel</button>
+                                 <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
+                                 <button className="btn btn-light mb-2" onClick={_handleCancelForm}>Cancel</button>
                          </form>
                        </div>
                     </div>
