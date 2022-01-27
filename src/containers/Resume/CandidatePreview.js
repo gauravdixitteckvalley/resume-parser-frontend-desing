@@ -38,7 +38,7 @@ const CandidatePreview = (props) => {
       if(user.isCandidateLogin){
         return (
           <>
-            <Link to={`/candidate/details/edit/${user.id}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" className="btn btn-gradient-primary mb-2">Edit</button></Link>
+            <Link to={`/candidate/details/edit/${user.id}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" class="btn btn-primary mb-2">Edit</button></Link>
           </>
         )
         
@@ -58,8 +58,8 @@ const CandidatePreview = (props) => {
         <Fragment>
             <BlockUI blocking={blocking} />
             
-            <div className="page-header">
-              <h3 className="page-title"> Candidate Preview</h3>
+            <div class="page-header">
+              <h3 class="page-title"> {user.isCandidateLogin ? 'My Profile' : 'Candidate Preview'}</h3>
               {
                     manageButtonLinkByLoggedIn(fields)
                 }
