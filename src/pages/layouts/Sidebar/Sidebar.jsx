@@ -95,7 +95,7 @@ const Sidebar = () => {
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
                 <ul className="nav">
                     <li className="nav-item nav-profile">
-                        <Link to="#" className="nav-link">
+                        <Link to="/profile" className="nav-link">
                             <div className="nav-profile-image">
                                 <img src="/assets/img/user_icon.png" alt="profile" />
                                 <span className="login-status online"></span>
