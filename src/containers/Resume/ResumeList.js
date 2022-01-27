@@ -48,6 +48,7 @@ const ResumeList = (props) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [mailType, setMailType] = useState('');
   const [showDelModal, setShowDelModal] = useState(false);
   const [list, setList] = useState([]);
   const [selectedRowId, setSelectedRowId] = useState("");
@@ -147,8 +148,9 @@ const ResumeList = (props) => {
   };
 
   /*method called to display modal*/
-  const _handleModalShowClick = () => {
+  const _handleModalShowClick = (type) => {
     setShowModal(true);
+    setMailType(type);
   };
 
   const _handleModalCloseClick = (value) => {
@@ -341,7 +343,8 @@ const ResumeList = (props) => {
                       <a
                         className={"" + (index === sending ? "disable" : "")}
                         id={`mail_btn_${index}`}
-                        onClick={() => sendMail(data.email, index)}
+                        // onClick={() => sendMail(data.email, index)}
+                        onClick={(event) => _handleModalShowClick('single')}
                         style={{ cursor: "pointer" }}
                       >
                         <i className="mdi mdi mdi-email" aria-hidden="true"></i>
@@ -356,7 +359,7 @@ const ResumeList = (props) => {
                         }
                       >
                         <i className="mdi mdi-delete" aria-hidden="true"></i>
-                      </a>
+                      </a> 
                     </div>
                   </td>
                 </tr>
@@ -643,7 +646,7 @@ const ResumeList = (props) => {
             <div className="table-responsive">
               <div className="col-lg-12 p-3">
                 <a
-                  onClick={(event) => _handleModalShowClick()}
+                  onClick={(event) => _handleModalShowClick('multiple')}
                   className="btn btn-primary send-email"
                 >
                   Send Emails
