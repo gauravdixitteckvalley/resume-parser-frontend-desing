@@ -21,7 +21,7 @@ const Header = (props) => {
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
         dispatch(resetLoggedUserData())
-        loginRedirect()
+        loginRedirect(user)
     }
 
     const _handleChange = (event) => {
@@ -64,6 +64,21 @@ const Header = (props) => {
             skills  : params?.searchValue*/
         }
         dispatch(fetchResumeData(queryParams));
+    }
+
+
+    //For forget password link(candidate login)
+    const isLoginUserFunction = (loginCondition) => {
+        if(loginCondition){
+            return (
+                <>
+                    
+                    <button className="dropdown-item" href="#" onClick={() => console.log(loginCondition)}>
+                    <i className="mdi mdi-logout me-2 text-primary"></i>Change    password </button>
+                    <div className="dropdown-divider"></div>
+                </>
+            )
+        }
     }
 
     return (
@@ -115,6 +130,8 @@ const Header = (props) => {
                             <a className="dropdown-item" href="#">
                             <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                             <div className="dropdown-divider"></div>
+
+                            { isLoginUserFunction(loggedUser.user.isCandidateLogin) }
 
                             <button className="dropdown-item" href="#" onClick={() => _loggedOutUser()}>
                             <i className="mdi mdi-logout me-2 text-primary"></i> Sign   out </button>

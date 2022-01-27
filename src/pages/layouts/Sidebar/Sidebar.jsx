@@ -40,6 +40,56 @@ const Sidebar = () => {
         )
     }
 
+    // Manage links to handle candidate admin and other's login
+    const _manageSideMenus = (user) => {
+        if(user.isCandidateLogin){
+            return (
+                <>
+                    <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
+                        <Link to='/candidate/dashboard' className="nav-link">
+                            <span className="menu-title">Dashboard</span>
+                            <i className="mdi mdi-home menu-icon"></i>
+                        </Link>
+                    </li>
+                    <li  className={splitLocation[1] === "profile" ? "active nav-item" : "nav-item "}>
+                        <Link to={`/candidate/view/${user.id}`} className="nav-link">
+                            <span className="menu-title">Profile</span>
+                            <i className="mdi mdi-contacts menu-icon"></i>
+                        </Link>
+                    </li>
+                </>
+            )
+        }else{
+            return (
+                <>
+                    {
+                        user.email === 'testing@gmail.com' ?
+                        showRoutesForAdmin() : ''
+                    }
+                    <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
+                        <Link to='/resume/add' className="nav-link">
+                            <span className="menu-title">Add Candidate</span>
+                            <i className="mdi mdi-account-plus menu-icon"></i>
+                        </Link>
+                    </li>
+                    <li  className={splitLocation[1] ==="resume" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
+                        <Link to='/resume' className="nav-link">
+                            <span className="menu-title">Find Candidate</span>
+                            <i className="mdi mdi-account-search menu-icon"></i>
+                        </Link>
+                    </li>
+                    <li  className={splitLocation[1] ==="messages" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
+                    <Link to='/messages' className="nav-link">
+                        <span className="menu-title">Message</span>
+                        <i className="mdi mdi-message-reply menu-icon"></i>
+                    </Link>
+                    </li>
+                </>
+            )
+        }
+        
+    }
+
     return (
         <>
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -57,34 +107,8 @@ const Sidebar = () => {
                             <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                         </a>
                     </li>
-                    <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
-                        <Link to='/dashboard' className="nav-link">
-                            <span className="menu-title">Dashboard</span>
-                            <i className="mdi mdi-home menu-icon"></i>
-                        </Link>
-                    </li>
-                    {
-                        user.email === 'testing@gmail.com' ?
-                        showRoutesForAdmin() : ''
-                    }                  
-                    <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
-                    <Link to='/resume/add' className="nav-link">
-                        <span className="menu-title">Add Candidate</span>
-                        <i className="mdi mdi-account-plus menu-icon"></i>
-                    </Link>
-                    </li>
-                    <li  className={splitLocation[1] ==="resume" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
-                    <Link to='/resume' className="nav-link">
-                        <span className="menu-title">Find Candidate</span>
-                        <i className="mdi mdi-account-search menu-icon"></i>
-                    </Link>
-                    </li>
-                    <li  className={splitLocation[1] ==="messages" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
-                    <Link to='/messages' className="nav-link">
-                        <span className="menu-title">Message</span>
-                        <i className="mdi mdi-message-reply menu-icon"></i>
-                    </Link>
-                    </li>
+                    { _manageSideMenus(user) }
+                     
                 </ul>
             </nav>
         </>

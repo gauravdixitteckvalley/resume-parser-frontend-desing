@@ -19,7 +19,6 @@ export default function EmailModal(props) {
             'mail_text': fields,
             'mail_ids': props.sendMailData
         };
-       // console.log("sendMail",props.sendMailData)
         dispatch(sendMultiMail(postData));
         console.log(dispatch(sendMultiMail(postData)), " dxbgdfgd")
         props.handleModalClose(false);
@@ -45,7 +44,6 @@ export default function EmailModal(props) {
                         onChange={(event)=>_handleChange(event)}
                         required={true}  
                     ></textarea>
-                    
                 </Modal.Body>
                 <Modal.Footer>
                     <button type="button" className="btn btn-danger" onClick={_handleModalCloseClick}>Cancel</button>

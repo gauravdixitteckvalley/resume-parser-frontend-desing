@@ -20,6 +20,7 @@ const Login = (props) => {
         setLocation({...props});
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
+    
     /* validate form */
     const _validateForm = () => {
         let formFields = fields;
@@ -52,11 +53,21 @@ const Login = (props) => {
         event.preventDefault();
         if(_validateForm()) {
             const { email, password } = event.target;
+            const { pathname } =props.location
             const userData = {
                 email       : email.value,
-                password    : password.value
+                password    : password.value,
+
             }
-            
+            const splitPath = pathname.split('/')
+            if(splitPath.length > 0){
+                for(let path of splitPath){
+                    if(path === 'candidate')
+                        userData.loginFor = path
+                }
+            }else{
+                userData.loginFor = ''
+            }
             dispatch(login(userData, location))
             setFields({})
         }
