@@ -36,7 +36,7 @@ const Dashboard = (props) => {
           <span className="page-title-icon bg-gradient-primary text-white me-2">
             <i className="mdi mdi-home"></i>
           </span>{" "}
-          Dashboard Candidate
+          Dashboard
         </h3>
         {/* <nav aria-label="breadcrumb">
           <ul className="breadcrumb">
@@ -47,8 +47,8 @@ const Dashboard = (props) => {
           </ul>
         </nav> */}
       </div>
-      <div className="row">
-        Welcome to Dashboard {user.full_name}
+      <div className="row" style={{fontWeight: 'bold', display: 'flex', justifyContent: 'center', fontSize: '1.5rem'}}>
+        Welcome {user.full_name}
       </div>
       
     </>

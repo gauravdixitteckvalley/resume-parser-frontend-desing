@@ -92,24 +92,30 @@ const Header = (props) => {
                     <button className="navbar-toggler navbar-toggler align-self-center" onClick={() => toggleSidebar()} type="button" data-toggle="minimize">
                         <span className="mdi mdi-menu"></span>
                     </button>
-                    <div className="search-field d-none d-md-block">
-                        <form className="d-flex align-items-center h-100" action="#">
-                            <div className="input-group">
-                                <div className="input-group-prepend bg-transparent">
-                                    <a className="search-btn" onClick={() => searchResume()}>
-                                        <i className="input-group-text border-0 mdi mdi-magnify"></i>
-                                    </a>
-                                </div>
-                                <input 
-                                    type="text" 
-                                    className="form-control bg-transparent border-0" 
-                                    name="name" 
-                                    placeholder="Search Resume" 
-                                    onChange={(event) => _handleChange(event)}
-                                />
+                    
+                    {
+                        loggedUser.user.isCandidateLogin === false ? 
+                        <>
+                            <div className="search-field d-none d-md-block">
+                                <form className="d-flex align-items-center h-100" action="#">
+                                    <div className="input-group">
+                                        <div className="input-group-prepend bg-transparent">
+                                            <a className="search-btn" onClick={() => searchResume()}>
+                                                <i className="input-group-text border-0 mdi mdi-magnify"></i>
+                                            </a>
+                                        </div>
+                                        <input 
+                                            type="text" 
+                                            className="form-control bg-transparent border-0" 
+                                            name="name" 
+                                            placeholder="Search Resume" 
+                                            onChange={(event) => _handleChange(event)}
+                                        />
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                    </div>
+                        </> : ''
+                    }
                     <ul className="navbar-nav navbar-nav-right">
                         <li className="nav-item nav-profile dropdown">
                         <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -122,10 +128,15 @@ const Header = (props) => {
                             </div>
                         </a>
                         <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <Link to='/profile/edit/:id' className="dropdown-item">
-                                 <i className="mdi mdi-account-edit me-2 text-info"></i> Edit Profile
-                            </Link>
-                            <div className="dropdown-divider"></div>
+                            {
+                                loggedUser.user.isCandidateLogin === false ? 
+                                <>
+                                <Link to='/profile/edit/:id' className="dropdown-item">
+                                    <i className="mdi mdi-account-edit me-2 text-info"></i> Edit Profile
+                                </Link>
+                                <div className="dropdown-divider"></div>
+                                </> : ''
+                            }
 
                             <a className="dropdown-item" href="#">
                             <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
