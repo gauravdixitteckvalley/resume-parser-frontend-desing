@@ -20,7 +20,7 @@ export default function SingleEmailModal(props) {
   const _handleModalCloseClick = () => {
     props.handleModalClose(false);
   };
-  const { showModal, modalTitle } = props;
+  const { singleMailModal, modalTitle } = props;
 
   const _handleSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +39,7 @@ export default function SingleEmailModal(props) {
   };
 
   return (
-    <Modal show={showModal} onHide={_handleModalCloseClick} backdrop="static">
+    <Modal show={singleMailModal} onHide={_handleModalCloseClick} backdrop="static">
       <form
         className="form-inline user-form"
         onSubmit={(event) => _handleSubmit(event)}
