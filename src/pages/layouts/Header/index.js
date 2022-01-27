@@ -122,8 +122,8 @@ const Header = (props) => {
                             </div>
                         </a>
                         <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <Link to='/profile/edit/:id' className="dropdown-item">
-                                 <i className="mdi mdi-account-edit me-2 text-info"></i> Edit Profile
+                            <Link to='/profile' className="dropdown-item">
+                                 <i className="mdi mdi-account me-2 text-info"></i> My Profile
                             </Link>
                             <div className="dropdown-divider"></div>
 
