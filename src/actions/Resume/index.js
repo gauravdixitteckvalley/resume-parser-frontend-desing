@@ -81,8 +81,10 @@ export const updateResumeFormData = (id, postData) => {
             
             if (response.data.success) {
                 dispatch({ type : 'UPDATE_RESUME_FORM_SUCCESS'});
-                displaySuccessMessage(response.data.data.data);
-                history.push('/resume');
+                const { message, isCandidateLogin, id } = response.data.data
+                displaySuccessMessage(message);
+                const redirectLink = isCandidateLogin ? `/candidate/view/${id}` : '/resume'
+                history.push(redirectLink);
             } 
         } catch(error) {
             handleHttpError(error.response);

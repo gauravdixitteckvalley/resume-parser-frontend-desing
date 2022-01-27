@@ -7,6 +7,7 @@ import {loginRedirect} from '../../../utils/helper'
 import { resetLoggedUserData } from '../../../actions/Login';
 import { fetchResumeData, resetResumeData,updateStatusField } from "../../../actions/Resume";
 import { history, displayErrorMessage } from '../../../utils/helper';
+import { Link } from "react-router-dom";
 
 
 const Header = (props) => {
@@ -20,7 +21,7 @@ const Header = (props) => {
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
         dispatch(resetLoggedUserData())
-        loginRedirect()
+        loginRedirect(user)
     }
 
     const _handleChange = (event) => {
@@ -65,6 +66,21 @@ const Header = (props) => {
         dispatch(fetchResumeData(queryParams));
     }
 
+
+    //For forget password link(candidate login)
+    const isLoginUserFunction = (loginCondition) => {
+        if(loginCondition){
+            return (
+                <>
+                    
+                    <button className="dropdown-item" href="#" onClick={() => console.log(loginCondition)}>
+                    <i className="mdi mdi-logout me-2 text-primary"></i>Change    password </button>
+                    <div className="dropdown-divider"></div>
+                </>
+            )
+        }
+    }
+
     return (
         <>
             <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
@@ -98,7 +114,7 @@ const Header = (props) => {
                         <li className="nav-item nav-profile dropdown">
                         <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="nav-profile-img">
-                            <img src="./user_icon.png" alt="image" />
+                            <img src="/assets/img/user_icon.png" alt="image" />
                             <span className="availability-status online"></span>
                             </div>
                             <div className="nav-profile-text">
@@ -106,9 +122,17 @@ const Header = (props) => {
                             </div>
                         </a>
                         <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                            <Link to='/profile/edit/:id' className="dropdown-item">
+                                 <i className="mdi mdi-account-edit me-2 text-info"></i> Edit Profile
+                            </Link>
+                            <div className="dropdown-divider"></div>
+
                             <a className="dropdown-item" href="#">
                             <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                             <div className="dropdown-divider"></div>
+
+                            { isLoginUserFunction(loggedUser.user.isCandidateLogin) }
+
                             <button className="dropdown-item" href="#" onClick={() => _loggedOutUser()}>
                             <i className="mdi mdi-logout me-2 text-primary"></i> Sign   out </button>
                         </div>

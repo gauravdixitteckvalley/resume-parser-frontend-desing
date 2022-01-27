@@ -13,9 +13,11 @@ const CandidatePreview = (props) => {
     
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
+    const loggedUser = useSelector(state => state.authenticatedUser);
     const dispatch = useDispatch();
 
-    const { resumeDetails } = resumeData;    
+    const { resumeDetails } = resumeData; 
+    const { user } = loggedUser;   
     
     const getCandidateDetails = async () => {
         dispatch(getSingleResumeData(currentId));
@@ -30,6 +32,24 @@ const CandidatePreview = (props) => {
         if (_.size(resumeData.resumeDetails) !== _.size(fields))
             setFields({...resumeData.resumeDetails})
 
+            
+    const manageButtonLinkByLoggedIn = (fields) => {
+      if(user.isCandidateLogin){
+        return (
+          <>
+            <a href={`/candidate/details/edit/${user.id}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" class="btn btn-gradient-primary mb-2">Edit</button></a>
+          </>
+        )
+        
+      }else if(fields.resumePath){
+        return (
+          <>
+            <a href={`${API_URL}resume/view/${fields.resumePath}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" class="btn btn-gradient-primary mb-2">Download</button></a>
+          </>
+        )
+      }
+    }
+
     //const { blocking } = userData
     const blocking = false;
     
@@ -40,9 +60,7 @@ const CandidatePreview = (props) => {
             <div class="page-header">
               <h3 class="page-title"> Candidate Preview</h3>
               {
-                    fields.resumePath ? (<a href={`${API_URL}resume/view/${fields.resumePath}`}
-                    className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" class="btn btn-gradient-primary mb-2">Download</button></a>)
-                    : ('')
+                    manageButtonLinkByLoggedIn(fields)
                 }
             </div>
 

@@ -178,7 +178,7 @@ const SkillsList = (props) => {
                                         nextPageText="Next"
                                     /> 
                                 </div> 
-                            : ''}  
+                            : <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>}  
                     
                         </div>
                     </div>
