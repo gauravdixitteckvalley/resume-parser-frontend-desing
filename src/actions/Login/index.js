@@ -21,7 +21,7 @@ export const login = (postData = {}, props) => {
                     history.push('/candidate/dashboard');
                 }
                 else{
-                    const { from } = props?.location?.state || { from: { pathname: '/resume' } }
+                    const { from } = props?.location?.state || { from: { pathname: '/dashboard' } }
                     history.push(from);
                 }
                     

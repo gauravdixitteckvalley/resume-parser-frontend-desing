@@ -6,10 +6,10 @@ import { Form } from "react-bootstrap";
 import UserStyle from './style';
 import BlockUI from "../../components/BlockUI"
 import {history} from '../../utils/helper'
-import validateUserForm from './UserFormValidation'
+import validateProfileForm from './ProfileFormValidation'
 import { fetchUserEditFormDependantData, submitUserFormData, resetUserData, fetchUserRolesData,fetchUserByRole } from '../../actions/User'
 
-const UserForm = (props) => {
+const ProfileForm = (props) => {
     const currentId = props?.match?.params?.id;
     const [fields, setFields] = useState({});
     const [errors, setErrors] = useState({});
@@ -17,13 +17,15 @@ const UserForm = (props) => {
     const [roles, setRoles] = useState([]);
     const [usersList, setusersList] = useState({});
     /**fetched data from redux store */
-    const userData = useSelector(state => state.user);
+    const userData = useSelector(state => state.authenticatedUser);
     const dispatch = useDispatch();
+    const [file, setFile] =  useState({})
 
+    console.log("authenticateUser ", userData );
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
-        if(currentId){
-            dispatch(fetchUserEditFormDependantData(currentId)) // action is called to fetch record
+        if(userData.id){
+            dispatch(fetchUserEditFormDependantData(userData.id)) // action is called to fetch record
         } 
         else{
             dispatch(fetchUserRolesData())
@@ -45,7 +47,7 @@ const UserForm = (props) => {
     /* validate form */
     const _validateForm = () => {
         let formFields = fields;
-        let response = validateUserForm(formFields, applyCheck);
+        let response = validateProfileForm(formFields, applyCheck);
 
         setErrors(response.errors)
         return response.formIsValid;
@@ -54,8 +56,13 @@ const UserForm = (props) => {
     /* handle input field changes */
     const _handleChange = (event) => {
         let data = fields;
+        console.log('event.target.name ', event.target.name)
         if(event.target.name==="user_role"){
                dispatch(fetchUserByRole(event.target.value));
+        }
+        if(event.target.name==="profile_image"){
+            console.log(event, " event ")
+            console.log(event.target.value, " event.target.files ")
         }
         data[event.target.name] = event.target.value;
         setFields({...data})
@@ -66,20 +73,17 @@ const UserForm = (props) => {
         event.preventDefault();
         
         if (_validateForm()) {
-            const is_del = 0;
-            const {first_name, last_name, email, password, username, user_role, assigned_to} = event.target;
+            const {first_name, last_name, email, password, username, user_role} = event.target;
             const postData = {
                 first_name  : first_name.value,
                 last_name   : last_name.value,
                 email       : email.value,
                 username    : username.value,
                 user_role   : user_role.value,
-                assigned_to : assigned_to.value,
-                is_deleted  : is_del
             }
 
-            if(currentId){
-                dispatch(submitUserFormData(currentId,postData));  //action is called to submit data
+            if(userData.id){
+                dispatch(submitUserFormData(userData.id,postData));  //action is called to submit data
             } else {
                 postData.password = password.value
                 dispatch(submitUserFormData('',postData));  // action is called to submit data
@@ -97,7 +101,7 @@ const UserForm = (props) => {
             <BlockUI blocking={blocking} />
             <UserStyle>
             <div class="page-header">
-              <h3 class="page-title"> User Details</h3>
+              <h3 class="page-title"> Edit Profile</h3>
             </div>
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
@@ -132,7 +136,6 @@ const UserForm = (props) => {
                                                <input type="text" name="username" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.username || ''}
                                                         onChange={(event) => _handleChange(event)} 
-                                                        readOnly={currentId}
                                                         minLength="3" />
                                                 <div className="errorMsg">{errors.username}</div>
                                         </div>
@@ -142,71 +145,25 @@ const UserForm = (props) => {
                                                 <input type="email" name="email" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.email || ''}
                                                         onChange={(event) => _handleChange(event)} 
-                                                        readOnly={currentId}
                                                         />
                                                 <div className="errorMsg">{errors.email}</div>        
                                             
                                           </div>
                                         </div>
-                                        {!currentId ? 
+                                       
                                             <div class="row mt-2">
                                                <div class="col-md-6">
-                                                        <label class="mb-1" for="inlineFormInputName2">Password</label>
-                                                            <input type="password" name="password" className="form-control mb-2 mr-sm-2 col-md-6"  
+                                                        <label class="mb-1" for="inlineFormInputName2">Profile Image</label>
+                                                            <input type="file" name="profile_image" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                                         value={fields.password || ''} 
                                                                         onChange={(event) => _handleChange(event)} 
                                                                         minLength="6" />
                                                                 <div className="errorMsg">{errors.password}</div>        
                                                 </div>       
                                                 <div className="col-md-6"> 
-                                                 <label class="mb-1" for="inlineFormInputName2">Confirm Password</label>
-                                                    <div className="form-group">
-                                                        <input type="password" name="confirm_password" className="form-control mb-2 mr-sm-2 col-md-6"  
-                                                                value={fields.confirm_password || ''} 
-                                                                onChange={(event) => _handleChange(event)} 
-                                                                minLength="6" />
-                                                        <div className="errorMsg">{errors.confirm_password}</div>        
-                                                    </div>
+                                                    
                                                 </div>
-                                            </div>
-                                        : ''} 
-                                        {(user_roles) && user_roles.length > 0 ?
-                                     <div class="row mt-2 mb-4">
-                                         <div class="col-md-6">
-                                         <label class="mb-1" for="inlineFormInputName2">User Role</label>
-                                            <Form.Control className="form-control form-control-md" as="select" name="user_role" value={fields.user_role || ''} onChange={(event) => _handleChange(event)}>
-                                                <option value="">Select Role</option>
-                                                {user_roles.map((role, index) => (
-                                                    <option key={index} value={role._id}>{role.name}</option>
-                                                ))}
-                                            </Form.Control>
-                                            <div className="errorMsg">{errors.user_role}</div> 
-                                            </div>
-                                      
-                                            { ((user_list) && user_list.length > 0) ?
-                                        <div className="col-md-6"> 
-                                        <label class="mb-1" for="inlineFormInputName2">Assign To</label>
-                                            <Form.Control className="form-control form-control-md" as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
-                                                <option value="">Choose Option</option>
-                                                {user_list.map((assigned, index) => (
-                                                    <option key={index} value={assigned.id}>{ (assigned.name).charAt(0).toUpperCase() + (assigned.name).slice(1) }</option>
-                                                ))}
-                                            </Form.Control> 
-                                            
-                                            <div className="errorMsg">{errors.assigned_to}</div> 
-                                            
-                                        </div>
-                                        :''  }
-
-                                        {(currentId && !user_list) ?
-                                        <div className="col-md-6"> 
-                                        <label class="mb-1" for="inlineFormInputName2">Assign To</label>
-                                                <Form.Control className="form-control form-control-md" as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
-                                                    <option value={fields.assigned_to}>{fields.assigned_name}</option>
-                                                </Form.Control>      
-                                            </div>
-                                        : '' }   
-                                        </div> : ''}                                          
+                                            </div>                           
                           
                     
                                  <button type="submit" class="btn btn-gradient-primary mb-2">Submit</button>
@@ -221,4 +178,4 @@ const UserForm = (props) => {
     )
 }
 
-export default UserForm
+export default ProfileForm

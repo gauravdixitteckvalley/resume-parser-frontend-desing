@@ -7,6 +7,7 @@ import {loginRedirect} from '../../../utils/helper'
 import { resetLoggedUserData } from '../../../actions/Login';
 import { fetchResumeData, resetResumeData,updateStatusField } from "../../../actions/Resume";
 import { history, displayErrorMessage } from '../../../utils/helper';
+import { Link } from "react-router-dom";
 
 
 const Header = (props) => {
@@ -71,9 +72,10 @@ const Header = (props) => {
         if(loginCondition){
             return (
                 <>
+                    
+                    <button className="dropdown-item" href="#" onClick={() => console.log(loginCondition)}>
+                    <i className="mdi mdi-logout me-2 text-primary"></i>Change    password </button>
                     <div className="dropdown-divider"></div>
-                        <button className="dropdown-item" href="#" onClick={() => console.log(loginCondition)}>
-                        <i className="mdi mdi-logout me-2 text-primary"></i>Change    password </button>
                 </>
             )
         }
@@ -83,8 +85,8 @@ const Header = (props) => {
         <>
             <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a className="navbar-brand brand-logo" href="index.html"><img src="../../assets/img/logo.png" alt="logo" /></a> 
-                    <a className="navbar-brand brand-logo-mini" href="index.html"><img src="../../assets/img/logo.png" alt="logo" /></a> 
+                    <a className="navbar-brand brand-logo" href="/dashboard"><img src="/logo.PNG" alt="logo" /></a> 
+                    <a className="navbar-brand brand-logo-mini" href="/dashboard"><img src="/mobile_logo.png" alt="logo" /></a> 
                 </div>
                 <div className="navbar-menu-wrapper d-flex align-items-stretch">
                     <button className="navbar-toggler navbar-toggler align-self-center" onClick={() => toggleSidebar()} type="button" data-toggle="minimize">
@@ -110,23 +112,30 @@ const Header = (props) => {
                     </div>
                     <ul className="navbar-nav navbar-nav-right">
                         <li className="nav-item nav-profile dropdown">
-                            <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div className="nav-profile-img">
-                                <img src="./user_icon.png" alt="image" />
-                                <span className="availability-status online"></span>
-                                </div>
-                                <div className="nav-profile-text">
-                                <p className="mb-1 text-black">{loggedUser.user.full_name}</p>
-                                </div>
-                            </a>
-                            <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                                <a className="dropdown-item" href="#">
-                                <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
-                                { isLoginUserFunction(loggedUser.user.isCandidateLogin) }
-                                <div className="dropdown-divider"></div>
-                                    <button className="dropdown-item" href="#" onClick={() => _loggedOutUser()}>
-                                    <i className="mdi mdi-logout me-2 text-primary"></i> Sign   out </button>
+                        <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div className="nav-profile-img">
+                            <img src="/assets/img/user_icon.png" alt="image" />
+                            <span className="availability-status online"></span>
                             </div>
+                            <div className="nav-profile-text">
+                            <p className="mb-1 text-black">{loggedUser.user.full_name}</p>
+                            </div>
+                        </a>
+                        <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                            <Link to='/profile/edit/:id' className="dropdown-item">
+                                 <i className="mdi mdi-account-edit me-2 text-info"></i> Edit Profile
+                            </Link>
+                            <div className="dropdown-divider"></div>
+
+                            <a className="dropdown-item" href="#">
+                            <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
+                            <div className="dropdown-divider"></div>
+
+                            { isLoginUserFunction(loggedUser.user.isCandidateLogin) }
+
+                            <button className="dropdown-item" href="#" onClick={() => _loggedOutUser()}>
+                            <i className="mdi mdi-logout me-2 text-primary"></i> Sign   out </button>
+                        </div>
                         </li>
                         {/* <li className="nav-item d-none d-lg-block full-screen-link">
                             <a className="nav-link">

@@ -68,74 +68,113 @@ const CandidatePreview = (props) => {
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <table class="table">
-                          <tbody>
-                            <tr>
-                              <td><strong>Name</strong></td>
-                              <td>{fields.name || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Email</strong></td>
-                              <td>{fields.email || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Phone</strong></td>
-                              <td>{fields.phone || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Skills</strong></td>
-                              <td>{fields.skills || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>City</strong></td>
-                              <td>{fields.place || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Company Name</strong></td>
-                              <td>{fields.workExperience || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>D.O.B</strong></td>
-                              <td>{fields.dob || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Address</strong></td>
-                              <td>{fields.location || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Total Experience</strong></td>
-                              <td>{fields.exp || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Designation</strong></td>
-                              <td>{fields.designation || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Current CTC</strong></td>
-                              <td>{fields.current_ctc || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Expected Name</strong></td>
-                              <td>{fields.expected_ctc || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Other Information</strong></td>
-                              <td>{fields.resume_label || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Country</strong></td>
-                              <td>{fields.country_name || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>State</strong></td>
-                              <td>{fields.state_name || ''}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Zip Code</strong></td>
-                              <td>{fields.zip || ''}</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Name</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.name || ''}
+                            </div>
+                        </div>
+                        <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Email</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.email || ''}
+                            </div>
+                        </div>
+                        <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Phone</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.phone || ''}
+                            </div>
+                        </div>
+                        <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Skills</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.skills || ''}
+                            </div>
+                        </div>
+                        <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>City</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.place || ''}
+                            </div>
+                        </div>
+
+                        <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Company Name</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.workExperience || ''}
+                            </div>
+                         </div>
+                         
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>D.O.B</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.dob || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Address</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.location || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Total Experience</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.exp || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Designation</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.designation || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Current CTC</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.current_ctc || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Expected CTC</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.expected_ctc || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Other Information</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.resume_label || ''}
+                            </div>
+                         </div>
+                         
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Country</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.country_name || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>State</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.state_name || ''}
+                            </div>
+                         </div>
+
+                         <div className="displayPreviewRow">
+                            <label className="col-lg-4 col-form-label"><b>Zip Code</b></label>
+                            <div className="col-lg-7 col-form-label">
+                                    {fields.zip || ''}
+                            </div>
+                         </div>
                       </div>
                     </div>
                   </div>

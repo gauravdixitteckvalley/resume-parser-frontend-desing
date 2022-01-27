@@ -8,6 +8,7 @@ export function user(state = [], action) {
                 totalRecords    : 0,
                 per_page        : 0,
                 currentPage     : 1,
+                userRole        : ''
             }
         
         case 'USER_LIST_SUCCESS':
@@ -17,6 +18,7 @@ export function user(state = [], action) {
                 totalRecords    : action.payload.total,
                 per_page        : action.payload.per_page,
                 currentPage     : action.payload.current_page,
+                userRole        : action.payload.userRole
             }
         
         case 'USER_LIST_FAILURE':
@@ -26,6 +28,7 @@ export function user(state = [], action) {
                 totalRecords    : 0,
                 per_page        : 0,
                 currentPage     : 1,
+                userRole        : ''
             }
 
         /* cases for delete user starts */

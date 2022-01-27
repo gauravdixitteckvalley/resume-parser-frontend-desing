@@ -10,6 +10,7 @@ const Sidebar = () => {
     
     /**fetched data from redux store */
     const authenticateUser = useSelector(state => state.authenticatedUser);
+    //console.log(authenticateUser,' authenticateUser')
     const { user } = authenticateUser;
 
     const location = useLocation();
@@ -23,12 +24,6 @@ const Sidebar = () => {
     const showRoutesForAdmin = () => {
         return(
             <>
-                <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
-                    <Link to='/dashboard' className="nav-link">
-                        <span className="menu-title">Dashboard</span>
-                        <i className="mdi mdi-home menu-icon"></i>
-                    </Link>
-                </li>
                 <li  className={splitLocation[1] === "user" ? "active nav-item" : "nav-item "}>
                     <Link to='/user' className="nav-link">
                         <span className="menu-title">Users</span>
@@ -83,6 +78,12 @@ const Sidebar = () => {
                             <i className="mdi mdi-account-search menu-icon"></i>
                         </Link>
                     </li>
+                    <li  className={splitLocation[1] ==="messages" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
+                    <Link to='/messages' className="nav-link">
+                        <span className="menu-title">Message</span>
+                        <i className="mdi mdi-message-reply menu-icon"></i>
+                    </Link>
+                    </li>
                 </>
             )
         }
@@ -96,7 +97,7 @@ const Sidebar = () => {
                     <li className="nav-item nav-profile">
                         <a href="#" className="nav-link">
                             <div className="nav-profile-image">
-                                <img src="./user_icon.png" alt="profile" />
+                                <img src="/assets/img/user_icon.png" alt="profile" />
                                 <span className="login-status online"></span>
                             </div>
                             <div className="nav-profile-text d-flex flex-column">
