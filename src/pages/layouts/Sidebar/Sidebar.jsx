@@ -95,7 +95,7 @@ const Sidebar = () => {
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
                 <ul className="nav">
                     <li className="nav-item nav-profile">
-                        <a href="#" className="nav-link">
+                        <Link to="#" className="nav-link">
                             <div className="nav-profile-image">
                                 <img src="/assets/img/user_icon.png" alt="profile" />
                                 <span className="login-status online"></span>
@@ -105,7 +105,7 @@ const Sidebar = () => {
                                 <span className="text-secondary text-small">{authenticateUser.user.user_role_name}</span>
                             </div>
                             <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-                        </a>
+                        </Link>
                     </li>
                     { _manageSideMenus(user) }
                      
