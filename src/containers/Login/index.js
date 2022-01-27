@@ -79,16 +79,22 @@ const Login = (props) => {
         <Fragment>
             <BlockUI blocking={blocking} />
             <LoginStyle>
-                    <div className=" container-scroller login-cont">
+                    <div className=" container-scroller login-cont" style={{ backgroundImage:`url(${process.env.PUBLIC_URL+ "/backgroundVe.png"})` ,   
+                                                                             backgroundSize: 'cover',
+                                                                             backgroundRepeat: 'no-repeat' }}>
                         <div className="main-panel login-panel">
                             <div className="content-wrapper">
-                                <div className="page-header mb-4 login-img">
-                                    <img src="../../assets/img/logo.png" alt="logo" />
+                                <div className="page-header mt-34" style={{ minHeight:'92px' }}>
+                                   
                                 </div>
                                 <div className="row">
                                     <div className="col-md-6 grid-margin stretch-card my-form">
                                         <div className="card">
                                             <div className="card-body" id="logreg-forms">
+                                               <div className="page-header mb-4 login-img">
+                                                    <img src="../../assets/img/logo.png" alt="logo" />
+                                                </div>
+                                         
                                             <h4 className="card-title text-center">Login</h4>
                                             <form className="form-signin forms-sample" onSubmit={(event) => handleSubmit(event)}>
                                                 <div className="form-group">
@@ -118,7 +124,7 @@ const Login = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <Footer />
+                         
 
                         </div>
                     </div>

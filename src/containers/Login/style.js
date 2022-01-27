@@ -260,7 +260,6 @@ export default styled.div`
     color: theme-color-level(#3e4b5b, 3); }
     /* ================================ card end ===================================*/
 .login-cont {
-    background: #f2edf3;
     height: 100vh;
   }  
 
@@ -285,7 +284,7 @@ export default styled.div`
             width: 100%; } }
 
 .content-wrapper {
-    background: #f2edf3;
+    background:none !important;
     padding: 2.75rem 2.25rem;
     width: 100%;
     -webkit-box-flex: 1;

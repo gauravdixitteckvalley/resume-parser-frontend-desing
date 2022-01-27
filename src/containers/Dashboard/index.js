@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card } from "react-bootstrap";
 import {
   fetchDashboardResume,
   fetchDashboardReset,
 } from "../../actions/Dashboard";
 import RecentList from './Recent/RecentList';
-import RecentEntries from './Recent/Recent';
-import Graph from './Graph/Graph';
 
 import "./index.css";
 import CandidateStatusGraph from './Graph/CandidateStatusGraph';
