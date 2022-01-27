@@ -85,8 +85,8 @@ const Header = (props) => {
         <>
             <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a className="navbar-brand brand-logo" href="/dashboard"><img src="/logo.PNG" alt="logo" /></a> 
-                    <a className="navbar-brand brand-logo-mini" href="/dashboard"><img src="/mobile_logo.png" alt="logo" /></a> 
+                    <Link className="navbar-brand brand-logo" to="/dashboard"><img src="/logo.PNG" alt="logo" /></Link> 
+                    <Link className="navbar-brand brand-logo-mini" to="/dashboard"><img src="/mobile_logo.png" alt="logo" /></Link> 
                 </div>
                 <div className="navbar-menu-wrapper d-flex align-items-stretch">
                     <button className="navbar-toggler navbar-toggler align-self-center" onClick={() => toggleSidebar()} type="button" data-toggle="minimize">
@@ -100,9 +100,9 @@ const Header = (props) => {
                                 <form className="d-flex align-items-center h-100" action="#">
                                     <div className="input-group">
                                         <div className="input-group-prepend bg-transparent">
-                                            <a className="search-btn" onClick={() => searchResume()}>
+                                            <Link className="search-btn" onClick={() => searchResume()}>
                                                 <i className="input-group-text border-0 mdi mdi-magnify"></i>
-                                            </a>
+                                            </Link>
                                         </div>
                                         <input 
                                             type="text" 
@@ -118,7 +118,7 @@ const Header = (props) => {
                     }
                     <ul className="navbar-nav navbar-nav-right">
                         <li className="nav-item nav-profile dropdown">
-                        <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <Link className="nav-link dropdown-toggle" id="profileDropdown" to="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="nav-profile-img">
                             <img src="/assets/img/user_icon.png" alt="image" />
                             <span className="availability-status online"></span>
@@ -126,7 +126,7 @@ const Header = (props) => {
                             <div className="nav-profile-text">
                             <p className="mb-1 text-black">{loggedUser.user.full_name}</p>
                             </div>
-                        </a>
+                        </Link>
                         <div className="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
                             {
                                 loggedUser.user.isCandidateLogin === false ? 
@@ -138,8 +138,8 @@ const Header = (props) => {
                                 </> : ''
                             }
 
-                            <a className="dropdown-item" href="#">
-                            <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
+                            <Link className="dropdown-item" to="#">
+                            <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </Link>
                             <div className="dropdown-divider"></div>
 
                             { isLoginUserFunction(loggedUser.user.isCandidateLogin) }
@@ -148,20 +148,16 @@ const Header = (props) => {
                             <i className="mdi mdi-logout me-2 text-primary"></i> Sign   out </button>
                         </div>
                         </li>
-                        {/* <li className="nav-item d-none d-lg-block full-screen-link">
-                            <a className="nav-link">
-                                <i className="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                            </a>
-                        </li> */}
+                        
                         <li className="nav-item dropdown">
-                            <a className="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <Link className="nav-link count-indicator dropdown-toggle" id="messageDropdown" to="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i className="mdi mdi-email-outline"></i>
                             <span className="count-symbol bg-warning"></span>
-                            </a>
+                            </Link>
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                                 <h6 className="p-3 mb-0">Messages</h6>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item preview-item">
+                                <Link className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
                                     <img src="../../assets/img/faces/face4.jpg" alt="image" className="profile-pic" />
                                 </div>
@@ -169,9 +165,9 @@ const Header = (props) => {
                                     <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
                                     <p className="text-gray mb-0"> 1 Minutes ago </p>
                                 </div>
-                                </a>
+                                </Link>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item preview-item">
+                                <Link className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
                                     <img src="../../assets/img/faces/face2.jpg" alt="image" className="profile-pic" />
                                 </div>
@@ -179,9 +175,9 @@ const Header = (props) => {
                                     <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
                                     <p className="text-gray mb-0"> 15 Minutes ago </p>
                                 </div>
-                                </a>
+                                </Link>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item preview-item">
+                                <Link className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
                                     <img src="../../assets/img/faces/face3.jpg" alt="image" className="profile-pic" />
                                 </div>
@@ -189,20 +185,20 @@ const Header = (props) => {
                                     <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
                                     <p className="text-gray mb-0"> 18 Minutes ago </p>
                                 </div>
-                                </a>
+                                </Link>
                                 <div className="dropdown-divider"></div>
                                 <h6 className="p-3 mb-0 text-center">4 new messages</h6>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                            <Link className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" to="#" data-bs-toggle="dropdown">
                                 <i className="mdi mdi-bell-outline"></i>
                                 <span className="count-symbol bg-danger"></span>
-                            </a>
+                            </Link>
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <h6 className="p-3 mb-0">Notifications</h6>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item preview-item">
+                                <Link className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
                                     <div className="preview-icon bg-success">
                                     <i className="mdi mdi-calendar"></i>
@@ -212,9 +208,9 @@ const Header = (props) => {
                                     <h6 className="preview-subject font-weight-normal mb-1">Event today</h6>
                                     <p className="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
                                 </div>
-                                </a>
+                                </Link>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item preview-item">
+                                <Link className="dropdown-item preview-item">
                                 <div className="preview-thumbnail">
                                     <div className="preview-icon bg-warning">
                                     <i className="mdi mdi-settings"></i>
@@ -224,9 +220,9 @@ const Header = (props) => {
                                     <h6 className="preview-subject font-weight-normal mb-1">Settings</h6>
                                     <p className="text-gray ellipsis mb-0"> Update dashboard </p>
                                 </div>
-                                </a>
+                                </Link>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item preview-item">
+                                <Link className="dropdown-item preview-item">
                                     <div className="preview-thumbnail">
                                         <div className="preview-icon bg-info">
                                         <i className="mdi mdi-link-variant"></i>
@@ -236,7 +232,7 @@ const Header = (props) => {
                                         <h6 className="preview-subject font-weight-normal mb-1">Launch Admin</h6>
                                         <p className="text-gray ellipsis mb-0"> New admin wow! </p>
                                     </div>
-                                </a>
+                                </Link>
                                 <div className="dropdown-divider"></div>
                                 <h6 className="p-3 mb-0 text-center">See all notifications</h6>
                             </div>
@@ -246,11 +242,6 @@ const Header = (props) => {
                             <i className="mdi mdi-power"></i>
                             </a>
                         </li>
-                        {/* <li className="nav-item nav-settings d-none d-lg-block">
-                            <a className="nav-link" href="#">
-                            <i className="mdi mdi-format-line-spacing"></i>
-                            </a>
-                        </li> */}
                     </ul>
                     <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                         <span className="mdi mdi-menu"></span>

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
@@ -112,14 +112,14 @@ const AddResume = (props) => {
                       Manual Upload Resume
                     </button>
                   </NavLink>
-                  <a href={resumeSampleFile} target="_parent" rel="noreferrer">
+                  <Link to={resumeSampleFile} target="_parent" rel="noreferrer">
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"
                     >
                       Download Sample
                     </button>
-                  </a>
+                  </Link>
                 </div>
               </div>
                 <Dropzone
