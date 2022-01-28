@@ -81,6 +81,52 @@ export function skills(state = [], action) {
                 blocking : false,
             };
 
+        case 'SKILLS_TEMP_LIST_REQUEST':
+            return {
+                blocking        : true,
+                skillsTempList  : [],
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+            }
+
+        case 'SKILLS_TEMP_LIST_SUCCESS':
+            return {
+                blocking        : false,
+                skillsTempList  : action.payload.skillsTemp,
+                totalRecords    : action.payload.total,
+                per_page        : action.payload.per_page,
+                currentPage     : action.payload.current_page,
+            }
+
+        case 'SKILLS_TEMP_LIST_FAILURE':
+            return {
+                blocking        : false,
+                skillsTempList  : [],
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+            } 
+
+            /* cases for approve/reject user starts */
+        case 'APPROVE_TEMP_SKILLS_REQUEST':
+            return {
+                ...state,
+                blocking        : true,
+            };
+        
+        case 'APPROVE_TEMP_SKILLS_SUCCESS':
+            return {
+                ...state,
+                blocking    : false,
+                skillsTempList   : action.payload,
+            };
+        
+        case 'APPROVE_TEMP_SKILLS_FAILURE':
+            return {
+                blocking : false
+            };
+
         default:
             return state;
     }

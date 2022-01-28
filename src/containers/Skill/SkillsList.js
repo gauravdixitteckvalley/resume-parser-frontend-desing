@@ -147,7 +147,8 @@ const SkillsList = (props) => {
                     <div className="card">
                         <div className="card-body">
                             <div className="add-items row">
-                                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2"><NavLink to={'/skills/create'}><button type="button" className="btn btn-gradient-primary btn-fw">Create Skill</button></NavLink></div>
+                                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2"><NavLink to={'/skills/create'}><button type="button" className="btn btn-gradient-primary btn-fw">Create Skill</button></NavLink></div>
+                                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2 float-left"><NavLink to={'/skills/approval'}><button type="button" className="btn btn-gradient-primary btn-fw">Approve Skill</button></NavLink></div>
                                 <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2">
                                     <SearchBox searchParentclassName="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2 offset-lg-7 offset-md-7"
                                         searchText="Search by Skills"
