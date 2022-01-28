@@ -1,5 +1,5 @@
 import api from '../../axios';
-import handleHttpError,{requestTokenHeader, displaySuccessMessage, history, loginRedirect } from '../../utils/helper';
+import handleHttpError,{requestTokenHeader, displaySuccessMessage, displayErrorMessage, history, loginRedirect } from '../../utils/helper';
 
 /* action for fetching Resume records */
 export const fetchResumeData = (params) => {
@@ -36,14 +36,25 @@ export const submitResumeData = (postData) => {
             let response = await api.post(`resume/parse`, postData,{
                 headers : requestTokenHeader(),
             });
-            
+            let existEmails = [];
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_RESUME_FORM_SUCCESS'});
                 // var existEmails = response.data.data.data;
-                var existEmails = JSON.parse(response.data.data.data);
+                if (response.data.data.preExistEmails) {
+                    existEmails = JSON.parse(response.data.data.preExistEmails);                    
+                }
+                
+                if (existEmails.length > 0) {
+                    existEmails.forEach(element => {
+                        displayErrorMessage('Resume with this mail id '+ element +'is already exist');
+                    });
+                    displaySuccessMessage(response.data.data.data);                    
+                } else {
+                    displaySuccessMessage(response.data.data.data);                    
+                }
                 // console.log('Parse: ', JSON.parse(duplicate_candidate));
                 console.log('Upload Responce: ', existEmails);
-                displaySuccessMessage(response.data.data.data);
+                console.log('Exist Responce: ', response.data.data.preExistEmails);
                 //history.push('/resume');
             } 
         } catch(error) {
