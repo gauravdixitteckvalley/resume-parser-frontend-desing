@@ -62,10 +62,17 @@ const Sidebar = () => {
         }else{
             return (
                 <>
+                 <li  className={splitLocation[1] === "dashboard" ? "active nav-item" : "nav-item "}>
+                        <Link to='/dashboard' className="nav-link">
+                            <span className="menu-title">Dashboard</span>
+                            <i className="mdi mdi-home menu-icon"></i>
+                        </Link>
+                    </li> 
                     {
                         user.email === 'testing@gmail.com' ?
                         showRoutesForAdmin() : ''
                     }
+                     
                     <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
                         <Link to='/resume/add' className="nav-link">
                             <span className="menu-title">Add Candidate</span>
@@ -95,7 +102,7 @@ const Sidebar = () => {
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
                 <ul className="nav">
                     <li className="nav-item nav-profile">
-                        <Link to="#" className="nav-link">
+                        <Link to="/profile" className="nav-link">
                             <div className="nav-profile-image">
                                 <img src="/assets/img/user_icon.png" alt="profile" />
                                 <span className="login-status online"></span>

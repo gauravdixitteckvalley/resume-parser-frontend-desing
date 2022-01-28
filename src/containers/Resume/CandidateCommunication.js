@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import BlockUI from "../../components/BlockUI";
 import CommentModal from "../../components/CommentModal/CommentModal";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import _ from "lodash";
 import moment from "moment";
 import { addResumeComment,getResumeCommunication } from "../../actions/Resume";
@@ -96,19 +96,19 @@ const CandidateCommunication = (props) => {
     return (
       <Fragment>
         <BlockUI blocking={blocking} />
-        <div class="page-header">
-          <h3 class="page-title"> Candidate Communication</h3>
+        <div className="page-header">
+          <h3 className="page-title"> Candidate Communication</h3>
         </div>
 
         <div className="row clearfix">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
-              <div class="card-body">
+              <div className="card-body">
                 <div className="row">
                   <div className="col-lg-12 ">
-                    <a onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-4 add-note">
+                    <Link onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-4 add-note">
                       Add Note
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="table-responsive">
@@ -123,9 +123,9 @@ const CandidateCommunication = (props) => {
                                         totalItemsCount={total}
                                         pageRangeDisplayed={5}
                                         onChange={_handlePageChange}
-                                        itemClass="page-item"
-                                        linkClass="page-link"
-                                        innerClass="pagination text-center"
+                                        itemclassName="page-item"
+                                        linkclassName="page-link"
+                                        innerclassName="pagination text-center"
                                     /> 
                                 </div> 
                             : ''}  */}

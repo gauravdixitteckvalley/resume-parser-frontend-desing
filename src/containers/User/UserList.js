@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import Pagination from "react-js-pagination"
 import _ from 'lodash'
 
@@ -70,28 +70,28 @@ const UserList = (props) => {
                         <tr>
                             {/* <th>
                                 Username
-                                <button onClick={ () => onClickEventForSorting('username','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                                <button onClick={ () => onClickEventForSorting('username','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                                <button onClick={ () => onClickEventForSorting('username','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('username','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th> */}
                             <th>
                                 First Name
-                                <button onClick={ () => onClickEventForSorting('first_name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                                <button onClick={ () => onClickEventForSorting('first_name','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                                <button onClick={ () => onClickEventForSorting('first_name','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('first_name','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Last Name
-                                <button onClick={ () => onClickEventForSorting('last_name','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                                <button onClick={ () => onClickEventForSorting('last_name','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                                <button onClick={ () => onClickEventForSorting('last_name','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('last_name','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Email
-                                <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                                <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                                <button onClick={ () => onClickEventForSorting('email','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('email','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Role
-                                <button onClick={ () => onClickEventForSorting('user_role','asc') } className="icon-up"><i class="mdi mdi-chevron-up"></i></button>
-                                <button onClick={ () => onClickEventForSorting('user_role','desc') } className="icon-down"><i class="mdi mdi-chevron-down"></i></button>
+                                <button onClick={ () => onClickEventForSorting('user_role','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('user_role','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>
                                 Resume 
@@ -117,10 +117,10 @@ const UserList = (props) => {
                                     :"" }
                                     {/* eslint-disable-next-line */}
                                     { (userRole === "1")? 
-                                    <a className="delete" title="Delete" className="ms-2" style={{'cursor':'pointer'}}
+                                    <Link className="delete" title="Delete" className="ms-2" style={{'cursor':'pointer'}}
                                         onClick={(event) => _handleModalShowClick(event,index)}>
                                         <i className="mdi mdi-delete" aria-hidden="true"></i>
-                                    </a>
+                                    </Link>
                                      :"" }
                                     </div>
                                 </td>
@@ -165,8 +165,8 @@ const UserList = (props) => {
         <Fragment>
             <BlockUI blocking={blocking} />
             <UserStyle>
-            <div class="page-header">
-              <h3 class="page-title"> Users List</h3>
+            <div className="page-header">
+              <h3 className="page-title"> Users List</h3>
             </div>
             <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">
@@ -192,7 +192,7 @@ const UserList = (props) => {
 
                         {(total > per_page) ? 
                             <div className="pagination mb-3" style={{"justifyContent" : "space-between"}}>
-                                <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+                                <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
                                 <Pagination
                                     activePage={currentPage}
                                     itemsCountPerPage={Number(per_page)}
@@ -204,7 +204,7 @@ const UserList = (props) => {
                                     innerClass="pagination text-center"
                                 /> 
                             </div> 
-                        : <div class="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>} 
+                        : <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>} 
                     </div>
                    </div>
                    </div>
