@@ -39,6 +39,10 @@ export const submitResumeData = (postData) => {
             
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_RESUME_FORM_SUCCESS'});
+                // var existEmails = response.data.data.data;
+                var existEmails = JSON.parse(response.data.data.data);
+                // console.log('Parse: ', JSON.parse(duplicate_candidate));
+                console.log('Upload Responce: ', existEmails);
                 displaySuccessMessage(response.data.data.data);
                 //history.push('/resume');
             } 
