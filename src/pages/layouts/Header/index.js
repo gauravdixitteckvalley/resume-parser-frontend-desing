@@ -73,7 +73,7 @@ const Header = (props) => {
             return (
                 <>
                     
-                    <button className="dropdown-item" href="#" onClick={() => console.log(loginCondition)}>
+                    <button className="dropdown-item" href="#" onClick={() => history.push(`/candidate/changepassword/${user.id}`)}>
                     <i className="mdi mdi-logout me-2 text-primary"></i>Change    password </button>
                     <div className="dropdown-divider"></div>
                 </>
@@ -85,8 +85,8 @@ const Header = (props) => {
         <>
             <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <Link className="navbar-brand brand-logo" to="/dashboard"><img src="/logo.PNG" alt="logo" /></Link> 
-                    <Link className="navbar-brand brand-logo-mini" to="/dashboard"><img src="/mobile_logo.png" alt="logo" /></Link> 
+                    <Link className="navbar-brand brand-logo" to={user.isCandidateLogin ? "/candidate/dashboard" : "/dashboard"}><img src="/logo.PNG" alt="logo" /></Link> 
+                    <Link className="navbar-brand brand-logo-mini" to={user.isCandidateLogin ? "/candidate/dashboard" : "/dashboard"}><img src="/mobile_logo.png" alt="logo" /></Link> 
                 </div>
                 <div className="navbar-menu-wrapper d-flex align-items-stretch">
                     <button className="navbar-toggler navbar-toggler align-self-center" onClick={() => toggleSidebar()} type="button" data-toggle="minimize">

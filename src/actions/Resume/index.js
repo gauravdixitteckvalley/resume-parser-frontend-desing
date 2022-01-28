@@ -1,5 +1,5 @@
 import api from '../../axios';
-import handleHttpError,{requestTokenHeader, displaySuccessMessage, history} from '../../utils/helper';
+import handleHttpError,{requestTokenHeader, displaySuccessMessage, history, loginRedirect } from '../../utils/helper';
 
 /* action for fetching Resume records */
 export const fetchResumeData = (params) => {
@@ -289,6 +289,31 @@ export const deleteResume = (id) => {
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'DELETE_RESUME_FAILURE'});
+        }
+    }
+}
+
+
+/* action for change candidate password */
+export const actionChangeCandidatePassword=(postData, user)=>{
+    return async dispatch =>{
+        dispatch({type:'SUBMIT_CHANGE_PASSWORD_REQUEST'})
+        try {
+            let response = await api.post(`/resume/candidate/changePassword`, postData,{
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'SUBMIT_CHANGE_PASSWORD_SUCCESS', payload : response.data.data});
+                displaySuccessMessage(response.data.data.message);
+                setTimeout(() => {
+                    loginRedirect(user)
+                }, 3000)
+
+            }
+        }catch(error){
+            handleHttpError(error.response);
+            dispatch({ type: 'SUBMIT_CHANGE_PASSWORD_FAILURE' });
         }
     }
 }

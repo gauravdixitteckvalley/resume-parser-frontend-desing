@@ -38,7 +38,7 @@ const CandidatePreview = (props) => {
       if(user.isCandidateLogin){
         return (
           <>
-            <Link to={`/candidate/details/edit/${user.id}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" class="btn btn-primary mb-2">Edit</button></Link>
+            <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer"><button type="submit" class="btn btn-gradient-primary mb-2">Edit</button></Link>
           </>
         )
         
