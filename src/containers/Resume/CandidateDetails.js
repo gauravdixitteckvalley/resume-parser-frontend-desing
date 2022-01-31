@@ -7,6 +7,7 @@ import { history, displayErrorMessage } from '../../utils/helper'
 import { getSingleResumeData, fetchResumeData, updateResumeFormData, resetResumeData } from "../../actions/Resume"
 import validateCandidateDetailsForm from './CandidateDetailsValidation';
 import './CandidateDetails.css';
+import CandidateMultistepForm from './CandidateMultistepForm';
 
 let base64File = ''
 const CandidateDetails = (props) => {
@@ -244,7 +245,7 @@ const CandidateDetails = (props) => {
             )
         } else {
             return (
-                <p>Admin Login</p>
+                <CandidateMultistepForm />
             )
         }
     }

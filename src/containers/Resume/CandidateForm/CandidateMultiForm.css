@@ -1,0 +1,14 @@
+.my-check label {
+    margin-left: 0 !important;
+}
+.candidate-del {
+    border-top: 0 !important;
+    border-left: 0 !important;
+    align-self: center;
+    margin-top: 20px;
+}
+.candidate-del i {
+    width: 28px;
+    color: #b66dff;
+    font-size: 22px;
+}
