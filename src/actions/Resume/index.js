@@ -1,5 +1,5 @@
 import api from '../../axios';
-import handleHttpError,{requestTokenHeader, displaySuccessMessage, history} from '../../utils/helper';
+import handleHttpError,{requestTokenHeader, displaySuccessMessage, displayErrorMessage, history, loginRedirect } from '../../utils/helper';
 
 /* action for fetching Resume records */
 export const fetchResumeData = (params) => {
@@ -36,10 +36,25 @@ export const submitResumeData = (postData) => {
             let response = await api.post(`resume/parse`, postData,{
                 headers : requestTokenHeader(),
             });
-            
+            let existEmails = [];
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_RESUME_FORM_SUCCESS'});
-                displaySuccessMessage(response.data.data.data);
+                // var existEmails = response.data.data.data;
+                if (response.data.data.preExistEmails) {
+                    existEmails = JSON.parse(response.data.data.preExistEmails);                    
+                }
+                
+                if (existEmails.length > 0) {
+                    existEmails.forEach(element => {
+                        displayErrorMessage('Resume with this mail id '+ element +'is already exist');
+                    });
+                    displaySuccessMessage(response.data.data.data);                    
+                } else {
+                    displaySuccessMessage(response.data.data.data);                    
+                }
+                // console.log('Parse: ', JSON.parse(duplicate_candidate));
+                console.log('Upload Responce: ', existEmails);
+                console.log('Exist Responce: ', response.data.data.preExistEmails);
                 //history.push('/resume');
             } 
         } catch(error) {
@@ -285,6 +300,31 @@ export const deleteResume = (id) => {
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'DELETE_RESUME_FAILURE'});
+        }
+    }
+}
+
+
+/* action for change candidate password */
+export const actionChangeCandidatePassword=(postData, user)=>{
+    return async dispatch =>{
+        dispatch({type:'SUBMIT_CHANGE_PASSWORD_REQUEST'})
+        try {
+            let response = await api.post(`/resume/candidate/changePassword`, postData,{
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'SUBMIT_CHANGE_PASSWORD_SUCCESS', payload : response.data.data});
+                displaySuccessMessage(response.data.data.message);
+                setTimeout(() => {
+                    loginRedirect(user)
+                }, 3000)
+
+            }
+        }catch(error){
+            handleHttpError(error.response);
+            dispatch({ type: 'SUBMIT_CHANGE_PASSWORD_FAILURE' });
         }
     }
 }

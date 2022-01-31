@@ -229,7 +229,20 @@ export function resume(state = [], action) {
             return {
                 blocking : false
             };
+        case 'SUBMIT_CHANGE_PASSWORD_REQUEST':
+            return {
+                blocking : true
+            };
         
+        case 'SUBMIT_CHANGE_PASSWORD_SUCCESS':
+            return {
+                blocking : false
+            };
+        
+        case 'SUBMIT_CHANGE_PASSWORD_FAILURE':
+            return {
+                blocking : false,
+            };    
     
         default:
             return state;
