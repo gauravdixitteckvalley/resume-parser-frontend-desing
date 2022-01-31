@@ -192,6 +192,25 @@ export function resume(state = [], action) {
                 stateList:[]
             };  
         
+        case 'SEND_MAIL_REQUEST':
+            return {
+                ...state,
+                blocking        : true,                    
+            }
+        
+        case 'SEND_MAIL_SUCCESS':
+        
+            return {
+                ...state,
+                blocking        : false,                    
+            }
+        
+        case 'SEND_MAIL_FAILURE':
+            return {
+                ...state,
+                blocking        : false,                   
+            }
+
         case 'SEND_MULTIPLE_MAIL_REQUEST':
             return {
                 ...state,

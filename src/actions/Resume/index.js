@@ -33,20 +33,21 @@ export const submitResumeData = (postData) => {
     return async dispatch => {
         dispatch({ type: 'SUBMIT_RESUME_FORM_REQUEST' });
         try {
-            let response = await api.post(`resume/parse`, postData,{
-                headers : requestTokenHeader(),
+            let response = '';
+            
+            response = await api.post(`resume/parse`, postData,{ 
             });
+
             let existEmails = [];
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_RESUME_FORM_SUCCESS'});
-                // var existEmails = response.data.data.data;
                 if (response.data.data.preExistEmails) {
                     existEmails = JSON.parse(response.data.data.preExistEmails);                    
                 }
                 
                 if (existEmails.length > 0) {
                     existEmails.forEach(element => {
-                        displayErrorMessage('Resume with this mail id '+ element +'is already exist');
+                        displayErrorMessage('Resume with this mail id '+ element +' is already exist');
                     });
                     displaySuccessMessage(response.data.data.data);                    
                 } else {
@@ -263,7 +264,6 @@ export const getStateList = (params) => {
     }
 }
 
-
 /* multi mail send */
 export const sendMultiMail = (params) => {
     return async dispatch => {
@@ -273,12 +273,41 @@ export const sendMultiMail = (params) => {
                 headers: requestTokenHeader(),
             });
 
-            if (response.data.success) {
+            if (response.data) {
                 dispatch({ type : 'SEND_MULTIPLE_MAIL_SUCCESS', payload : response.data.data});
+                displaySuccessMessage('Mails sent successfully');
+            }else{
+                dispatch({ type : 'SEND_MULTIPLE_MAIL_FAILURE', payload : response.data.data});
+                displayErrorMessage('Mails sending error');
             }
         } catch (error) {
             handleHttpError(error.response);
             dispatch({ type: 'SEND_MULTIPLE_MAIL_FAILURE' });
+            displayErrorMessage('Mail not sent');
+        }
+    }
+}
+
+/* single mail send */ 
+export const sendMail = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'SEND_MAIL_REQUEST' });
+        try {
+            let response = await api.post(`/mail/send`,params, {
+                headers: requestTokenHeader(),
+            });
+            
+            if (response.data) {
+                dispatch({ type : 'SEND_MAIL_SUCCESS', payload : response.data.data});
+                displaySuccessMessage('Mail sent successfully');
+            }else{
+                dispatch({ type : 'SEND_MAIL_FAILURE', payload : response.data.data});
+                displayErrorMessage('Mail not sent');
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SEND_MAIL_FAILURE' });
+            displayErrorMessage('Mail not sent');
         }
     }
 }

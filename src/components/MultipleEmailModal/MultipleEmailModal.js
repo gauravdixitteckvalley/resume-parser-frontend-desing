@@ -29,7 +29,6 @@ export default function EmailModal(props) {
       mail_ids: props.sendMailData,
     };
     dispatch(sendMultiMail(postData));
-    console.log(dispatch(sendMultiMail(postData)), " dxbgdfgd");
     props.handleModalClose(false);
   };
 
