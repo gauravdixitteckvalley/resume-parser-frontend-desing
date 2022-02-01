@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import _ from 'lodash'
-import { Form } from "react-bootstrap";
 
 import ChangePasswordStyle from './changePasswordStyle';
 import BlockUI from "../../../components/BlockUI"
@@ -10,7 +9,6 @@ import validateChangePasswordForm from './ChangePasswordFormValidation'
 import { actionChangeCandidatePassword } from '../../../actions/Resume'
 
 const ChangePasswordForm = (props) => {
-    const candidateId = props?.match?.params?.id;
     const [fields, setFields] = useState({});
     const [errors, setErrors] = useState({});
     /**fetched data from redux store */

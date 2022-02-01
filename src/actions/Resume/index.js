@@ -61,7 +61,7 @@ export const submitManualResumeFormData = (postData) => {
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS'});
                 displaySuccessMessage(response.data.data.data);
-                history.push('/resume');
+                // history.push('/resume');
             } 
         } catch(error) {
             handleHttpError(error.response);
