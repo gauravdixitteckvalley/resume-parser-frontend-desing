@@ -36,6 +36,7 @@ export const submitResumeData = (postData) => {
             let response = '';
             
             response = await api.post(`resume/parse`, postData,{ 
+                headers : requestTokenHeader(),
             });
 
             let existEmails = [];
