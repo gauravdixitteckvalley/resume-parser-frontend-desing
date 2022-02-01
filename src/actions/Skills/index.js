@@ -107,7 +107,7 @@ export const fetchSkillsTempData = (params) => {
 }
 
 /* action for approve temp skill record */
-export const approveTempSkill = (id,postData) => {
+export const approveTempSkill = (id,postData,params) => {
     return async (dispatch, getState) => {
         dispatch({ type: 'APPROVE_TEMP_SKILLS_REQUEST' });
         try {
@@ -116,9 +116,10 @@ export const approveTempSkill = (id,postData) => {
             });
     
             if (response.data.success) {
-                const updateSkillTempList =  getState().skills.skillsTempList.filter(skills => skills.id !== id);
-                dispatch({ type : 'APPROVE_TEMP_SKILLS_SUCCESS', payload : updateSkillTempList});
+                // const updateSkillTempList =  getState().skills.skillsTempList.filter(skills => skills.id !== id);
+                dispatch({ type : 'APPROVE_TEMP_SKILLS_SUCCESS'});
                 displaySuccessMessage('Record Updated Successfully');
+                dispatch(fetchSkillsTempData(params))
             } 
         } catch(error) {
             handleHttpError(error.response);

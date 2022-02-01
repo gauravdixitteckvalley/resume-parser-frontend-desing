@@ -9,11 +9,16 @@ import SearchBox from "../../components/Search/SearchBox"
 import { fetchSkillsTempData, approveTempSkill } from "../../actions/Skills"
 import { displayRecordNotFound } from '../../utils/helper'
 import Modal from '../../components/ConfirmationModal/Modal';
+import InputBox from '../../components/InputBox';
+
 import "./SkillsApproval.css";
 
 const SkillsApproval = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [showInput, setShowInput] = useState(false);
+    const [editRow, setEditRow] = useState('');
+    const [editRowValue, setEditRowValue] = useState('');
     const [selectedRowId, setSelectedRowId] = useState('');
     const [sortingOption, setsortingOption]               = useState({});
 
@@ -75,11 +80,32 @@ const SkillsApproval = (props) => {
         dispatch(fetchSkillsTempData(queryParams));
     }
 
-    const _handleApproved = (id,status)=>{
+    const _handleApproved = (id,value,status,currentPage)=>{
+        
         const postdata = {
-            skills_status    : status
+            skills_status   : status,
+            value           : (editRowValue ==='')? value: editRowValue
         };
-        dispatch(approveTempSkill(id,postdata));
+        const params = {
+            page    : currentPage ? currentPage : 1,
+            search  : '',
+            sortingData : {}
+        }
+        dispatch(approveTempSkill(id,postdata,params));
+        setEditRow('')
+        setEditRowValue('')
+    }
+
+    const _handleEdit = (rowIndex,value) =>{
+        
+        setEditRow(rowIndex)
+        setEditRowValue(value)
+        setShowInput(true);
+    }
+
+    const _handleClick = (event)=>{
+        setEditRowValue(event.target.value)
+        // console.log('value',event.target.value);
     }
     /* build user list */
     const _skillsList = skills => {
@@ -103,11 +129,18 @@ const SkillsApproval = (props) => {
                         {skills.map((data, index) => (
                             <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
                                 <td>{ data.serial_no }</td>
-                                <td>{data.value}</td>
+                                <td>{ (showInput && editRow === index) ? 
+                                    <InputBox 
+                                    InputValue={editRowValue}  
+                                    handleClick={_handleClick}
+                                    /> 
+                                    : data.value }</td>
+                                
                                 <td>
                                     <div className="template-demo approval-sec">
-                                        <button type="button" onClick={(event) => _handleApproved(data.id,true)}  className="btn btn-primary btn-sm btn-inverse-success approval-btn">Approve</button>
-                                        <button type="button" onClick={(event) => _handleApproved(data.id,false)} className="btn btn-primary btn-sm btn-inverse-danger approval-btn" style={{ marginLeft: "10px" }}>Delete</button>
+                                        <button type="button" onClick={(event) => _handleApproved(data.id,data.value,true,currentPage)}  className="btn btn-primary btn-sm btn-inverse-success approval-btn">Approve</button>
+                                        <button type="button" onClick={(event) => _handleApproved(data.id,data.value,false,currentPage)} className="btn btn-primary btn-sm btn-inverse-danger approval-btn" style={{ marginLeft: "10px" }}>Delete</button>
+                                        <button type="button" onClick={(event) => _handleEdit(index,data.value)} className="btn btn-primary btn-sm btn-inverse-info approval-btn" style={{ marginLeft: "10px" }}>Edit</button>
                                     </div>
                                   
                                 </td>
@@ -126,6 +159,7 @@ const SkillsApproval = (props) => {
 
 
     const {totalRecords, per_page , blocking, skillsTempList, currentPage } = skills;
+ 
     let total = 0;
     
     if(typeof totalRecords != 'undefined')
