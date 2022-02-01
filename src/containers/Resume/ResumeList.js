@@ -45,6 +45,7 @@ const ResumeList = (props) => {
     const [list, setList] = useState([]);
     // const [isCheck, setIsCheck] = useState([]);
     const [selectedRowId, setSelectedRowId] = useState('');
+    const [mailId, setMailId] = useState('');
 
     /**fetched data from redux store */
     const resumes = useSelector(state => state.resume);
@@ -90,7 +91,8 @@ const ResumeList = (props) => {
 
     const sendMail = async (mail, key) => {
       setSending(key);
-      setSingleMailModal(true); return;
+      setMailId(mail);
+      setSingleMailModal(true); /*return;
       var postData = {
           'email': mail
       }
@@ -103,7 +105,7 @@ const ResumeList = (props) => {
       }else{
           setSending(null);
           alert("Mail sent error, check the email");
-      }
+      }*/
     }
 
     // method to add sorting functionality on columns
@@ -596,7 +598,7 @@ const ResumeList = (props) => {
                     singleMailModal={singleMailModal}
                     handleModalClose={_handleSingleMailModalCloseClick}
                     // addCommentData={_addResumeComment}
-                    sendMailData={isCheck}
+                    sendMailData={mailId}
                     modalTitle="Email Body"
                     modalBody="Are you sure you wish to perform this action? This action is irreversible!"
                   />
