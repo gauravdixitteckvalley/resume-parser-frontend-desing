@@ -9,7 +9,9 @@ import './CandidateMultiForm.css';
 const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
    //creating error state for validation
   const [error, setError] = useState(false);
-  const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
+  // const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
+
+  const [formValues, setFormValues] = useState([1])
 
     // after form submit validating the form data using validator
   const submitFormData = (e) => {
@@ -28,7 +30,13 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
   };
 
   const addFormFields = () => {
-    setFormValues([...formValues, { name: "", email: "" }])
+    setFormValues([...formValues, { language: "", langLevel: "" }])
+  }
+
+  const removeFormFields = (i) => {
+    let newFormValues = [...formValues];
+        newFormValues.splice(i, 1);
+        setFormValues(newFormValues)
   }
   
   return (
@@ -38,7 +46,9 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
         <h3 className="page-title font-style-bold mb-2">LANGUAGES </h3>
         <p style={{fontSize: '13px'}}>Add languages to your resume</p>
           <Form onSubmit={submitFormData} className="mt-4">
-              <Row>
+              {formValues.map((index) => {
+                return (
+                  <Row key={index}>
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Content</Form.Label>
                     <Form.Control
@@ -46,47 +56,6 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
                         type="text"
                         placeholder="eg. Spanish"
                         name="language"
-                        onChange={e => handleFormData("language, index, e")}
-                    />
-                    {error ? (
-                        <Form.Text style={{ color: "red" }}>
-                        This is a required field
-                        </Form.Text>
-                    ) : (
-                        ""
-                    )}
-                </Form.Group>  
-                <Form.Group className="mb-2 col-md-5">
-                    <Form.Label>Level</Form.Label>
-                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="langLevel" defaultValue={values.langLevel} onChange={e => handleFormData("langLevel, index, e")}>
-                        <option>Select your language level</option>
-                        <option value="1">Basic</option>
-                        <option value="2">Proficient</option>
-                        <option value="3">Conversational</option>
-                        <option value="3">Fluent</option>
-                        <option value="3">Native speaker</option>
-                    </Form.Select>
-                    {error ? (
-                        <Form.Text style={{ color: "red" }}>
-                        This is a required field
-                        </Form.Text>
-                    ) : (
-                        ""
-                    )}
-                </Form.Group> 
-                <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
-                    <Link to="#">
-                        <i class="mdi mdi-delete"></i>
-                    </Link>
-                </div>                  
-              </Row>
-              <Row>
-                <Form.Group className="mb-2 col-md-6">
-                    <Form.Label>Content</Form.Label>
-                    <Form.Control
-                        style={{ border: error ? "2px solid red" : "" }}
-                        type="text"
-                        placeholder="eg. Spanish"
                         onChange={handleFormData("language")}
                     />
                     {error ? (
@@ -115,12 +84,18 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
                         ""
                     )}
                 </Form.Group> 
-                <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
-                    <Link to="#">
-                        <i class="mdi mdi-delete"></i>
-                    </Link>
-                </div>                  
+                {
+                  index ? 
+                  <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
+                      <Link to="#" onClick={() => removeFormFields(index)}>
+                          <i class="mdi mdi-delete"></i>
+                      </Link>
+                  </div>
+                  : null
+                }                  
               </Row>
+                )
+              })}
              
             <hr className="mb-4"/> 
             <Row>
