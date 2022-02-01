@@ -91,7 +91,7 @@ const ProfileForm = (props) => {
       }
     }
   };
-
+ 
   /**method called when form is cancelled */
   const _handleCancelForm = () => {
     history.push("/profile");
