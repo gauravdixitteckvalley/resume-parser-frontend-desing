@@ -6,6 +6,7 @@ import {
   resetResumeData,
   updateStatusField,
   sendMultiMail,
+  sendMail
 } from "../../actions/Resume";
 import {
   displayRecordNotFound,
@@ -26,10 +27,11 @@ export default function SingleEmailModal(props) {
     event.preventDefault();
     const postData = {
       mail_text: fields,
-      mail_ids: props.sendMailData,
+      mail_id: props.sendMailData,
     };
-    dispatch(sendMultiMail(postData));
-    console.log(dispatch(sendMultiMail(postData)), " dxbgdfgd");
+    // console.log(postData);
+    dispatch(sendMail(postData));
+    // console.log(dispatch(sendMail(postData)), "------single dxbgdfgd");
     props.handleModalClose(false);
   };
 
