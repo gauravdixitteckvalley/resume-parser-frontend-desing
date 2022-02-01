@@ -84,6 +84,7 @@ const ManualResume = (props) => {
             // }
 
             const postData = new FormData(event.target);
+            postData.append('frontendURL', window.location.origin);
             dispatch(submitManualResumeFormData(postData));  // action is called to submit data
         }
     }

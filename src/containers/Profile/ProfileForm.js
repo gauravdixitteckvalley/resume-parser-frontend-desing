@@ -209,7 +209,7 @@ const ProfileForm = (props) => {
                   <div className="row mt-2">
                     
                     <div className="col-md-6">
-                        {/* <Inputbox
+                         <Inputbox
                             labelStatus={true}
                             labelValue="Profile Image"
                             labelClass="mb-1"
@@ -221,7 +221,7 @@ const ProfileForm = (props) => {
                             handleClick={(event) => _handleChange(event)}
                             placeholder="Upload profile"
                         />
-                        <div className="errorMsg">{errors.profile_image}</div> */}
+                        <div className="errorMsg">{errors.profile_image}</div> 
                     </div>
                     <div className="col-md-6">
                     </div>

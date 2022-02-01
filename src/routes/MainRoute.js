@@ -23,6 +23,7 @@ const ProfileEdit = lazy(() => import ('../containers/Profile/ProfileForm'))
 const Profile = lazy(() => import ('../containers/Profile/Profile'))
 const Message = lazy(() => import ('../containers/Message/Message'))
 const ChangePassword = lazy(() => import ('../containers/Profile/ChangePassword'))
+const ChangePasswordForm = lazy(() => import('../containers/Candidate/CandidateForm/ChangePasswordForm'))
 
 
 function MainRoute() {
@@ -50,6 +51,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/candidate/preview/:id" component={CandidatePreview} />
                         <PrivateRoute exact path="/candidate/view/:id" component={CandidatePreview} />
                         <PrivateRoute exact path="/candidate/details/edit/:id" component={CandidateDetails} />
+                        <PrivateRoute exact path="/candidate/changepassword/:id" component={ChangePasswordForm} />
 
                         <PrivateRoute exact path="/skills" component={Skills} />
                         <PrivateRoute exact path="/skills/create" component={SkillsForm} />

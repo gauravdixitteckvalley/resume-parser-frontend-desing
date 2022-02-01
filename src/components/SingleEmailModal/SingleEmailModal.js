@@ -6,6 +6,7 @@ import {
   resetResumeData,
   updateStatusField,
   sendMultiMail,
+  sendMail
 } from "../../actions/Resume";
 import {
   displayRecordNotFound,
@@ -20,16 +21,17 @@ export default function SingleEmailModal(props) {
   const _handleModalCloseClick = () => {
     props.handleModalClose(false);
   };
-  const { showModal, modalTitle } = props;
+  const { singleMailModal, modalTitle } = props;
 
   const _handleSubmit = (event) => {
     event.preventDefault();
     const postData = {
       mail_text: fields,
-      mail_ids: props.sendMailData,
+      mail_id: props.sendMailData,
     };
-    dispatch(sendMultiMail(postData));
-    console.log(dispatch(sendMultiMail(postData)), " dxbgdfgd");
+    // console.log(postData);
+    dispatch(sendMail(postData));
+    // console.log(dispatch(sendMail(postData)), "------single dxbgdfgd");
     props.handleModalClose(false);
   };
 
@@ -39,7 +41,7 @@ export default function SingleEmailModal(props) {
   };
 
   return (
-    <Modal show={showModal} onHide={_handleModalCloseClick} backdrop="static">
+    <Modal show={singleMailModal} onHide={_handleModalCloseClick} backdrop="static">
       <form
         className="form-inline user-form"
         onSubmit={(event) => _handleSubmit(event)}

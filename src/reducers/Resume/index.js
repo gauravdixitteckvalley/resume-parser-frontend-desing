@@ -192,6 +192,25 @@ export function resume(state = [], action) {
                 stateList:[]
             };  
         
+        case 'SEND_MAIL_REQUEST':
+            return {
+                ...state,
+                blocking        : true,                    
+            }
+        
+        case 'SEND_MAIL_SUCCESS':
+        
+            return {
+                ...state,
+                blocking        : false,                    
+            }
+        
+        case 'SEND_MAIL_FAILURE':
+            return {
+                ...state,
+                blocking        : false,                   
+            }
+
         case 'SEND_MULTIPLE_MAIL_REQUEST':
             return {
                 ...state,
@@ -229,7 +248,20 @@ export function resume(state = [], action) {
             return {
                 blocking : false
             };
+        case 'SUBMIT_CHANGE_PASSWORD_REQUEST':
+            return {
+                blocking : true
+            };
         
+        case 'SUBMIT_CHANGE_PASSWORD_SUCCESS':
+            return {
+                blocking : false
+            };
+        
+        case 'SUBMIT_CHANGE_PASSWORD_FAILURE':
+            return {
+                blocking : false,
+            };    
     
         default:
             return state;

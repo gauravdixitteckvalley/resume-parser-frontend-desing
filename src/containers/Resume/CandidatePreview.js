@@ -5,6 +5,7 @@ import BlockUI from "../../components/BlockUI"
 import { getSingleResumeData } from "../../actions/Resume"
 import { API_URL } from '../../utils/helper';
 import './CandidatePreview.css'
+import { Link } from "react-router-dom";
 
 let base64File = ''
 const CandidatePreview = (props) => {
@@ -37,14 +38,14 @@ const CandidatePreview = (props) => {
       if(user.isCandidateLogin){
         return (
           <>
-            <a href={`/candidate/details/edit/${user.id}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" class="btn btn-primary mb-2">Edit</button></a>
+            <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer"><button type="submit" class="btn btn-gradient-primary mb-2">Edit</button></Link>
           </>
         )
         
       }else if(fields.resumePath){
         return (
           <>
-            <a href={`${API_URL}resume/view/${fields.resumePath}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" class="btn btn-gradient-primary mb-2">Download</button></a>
+            <Link to={`${API_URL}resume/view/${fields.resumePath}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" className="btn btn-gradient-primary mb-2">Download</button></Link>
           </>
         )
       }
@@ -64,10 +65,10 @@ const CandidatePreview = (props) => {
                 }
             </div>
 
-            <div class="row">
-                <div class="col-lg-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
+            <div className="row">
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                      <div className="card-body">
                       <div className="displayPreviewRow">
                             <label className="col-lg-4 col-form-label"><b>Name</b></label>
                             <div className="col-lg-7 col-form-label">

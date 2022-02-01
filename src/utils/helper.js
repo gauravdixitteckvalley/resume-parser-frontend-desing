@@ -5,9 +5,22 @@ import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 
 /* called when needed to redirect user to login screen*/
-const loginRedirect = (user) => {
+const loginRedirect = (user = {}) => {
     localStorage.clear();
-    const redirectRoute = user.isCandidateLogin ? '/login/candidate' : '/'
+    const splitPath = window.location.href.split('/')
+    let isCandidateLogin = false
+    let redirectRoute
+    if(Object.keys(user).length > 0 ){
+        redirectRoute = user.isCandidateLogin ? '/login/candidate' : '/'
+    }
+    if(splitPath.length > 0){
+        for(let path of splitPath){
+            if(path === 'candidate')
+                isCandidateLogin = true
+        }
+        redirectRoute = isCandidateLogin ? '/login/candidate' : '/'
+    }
+    
     history.push(redirectRoute);
 };
 

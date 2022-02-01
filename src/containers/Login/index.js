@@ -23,11 +23,23 @@ const Login = (props) => {
     
     /* validate form */
     const _validateForm = () => {
-        let formFields = fields;
+        // let formFields = fields;
         let errors = {};
         let formIsValid = true;
 
-        if (!formFields["email"] || formFields["email"].trim() === '') {
+        const em = fields.email;
+        const pw = fields.password;
+
+        if (em == '') {
+            formIsValid = false;
+            errors["email"] = "*Please enter your email";
+        }
+        if (pw == '') {
+            formIsValid = false;
+            errors["password"] = "*Please enter your password";
+        }
+
+        /*if (!formFields["email"] || formFields["email"].trim() === '') {
             formIsValid = false;
             errors["email"] = "*Please enter your email";
         }
@@ -35,9 +47,9 @@ const Login = (props) => {
         if (!formFields["password"] || formFields["password"].trim() === '') {
             formIsValid = false;
             errors["password"] = "*Please enter your password";
-        }
+        }*/
 
-        setErrors(errors)
+        setErrors(errors);
         return formIsValid;
     }
 
@@ -45,19 +57,20 @@ const Login = (props) => {
     const _handleChange = (event) => {
         let field = fields;
         field[event.target.name] = event.target.value;
-        setFields(field)
+        setFields(field);
     }
 
     /* submit form */
     const handleSubmit = (event) => {
         event.preventDefault();
+        
         if(_validateForm()) {
             const { email, password } = event.target;
-            const { pathname } =props.location
+            const { pathname } = props.location
             const userData = {
                 email       : email.value,
                 password    : password.value,
-
+    
             }
             const splitPath = pathname.split('/')
             if(splitPath.length > 0){
@@ -79,55 +92,56 @@ const Login = (props) => {
         <Fragment>
             <BlockUI blocking={blocking} />
             <LoginStyle>
-                    <div className=" container-scroller login-cont" style={{ backgroundImage:`url(${process.env.PUBLIC_URL+ "/backgroundVe.png"})` ,   
-                                                                             backgroundSize: 'cover',
-                                                                             backgroundRepeat: 'no-repeat' }}>
-                        <div className="main-panel login-panel">
-                            <div className="content-wrapper">
-                                <div className="page-header mt-34" style={{ minHeight:'92px' }}>
-                                   
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6 grid-margin stretch-card my-form">
-                                        <div className="card">
-                                            <div className="card-body" id="logreg-forms">
-                                               <div className="page-header mb-4 login-img">
-                                                    <img src="../../assets/img/logo.png" alt="logo" />
-                                                </div>
-                                         
+                <div 
+                    className=" container-scroller login-cont" 
+                    style={{ 
+                        backgroundImage:`url(${process.env.PUBLIC_URL+ "/backgroundVe.png"})`, 
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat' 
+                    }}
+                >
+                    <div className="main-panel login-panel">
+                        <div className="content-wrapper">
+                            <div className="page-header mt-34" style={{ minHeight:'92px' }}></div>
+                            <div className="row">
+                                <div className="col-md-6 grid-margin stretch-card my-form">
+                                    <div className="card">
+                                        <div className="card-body" id="logreg-forms">
+                                            <div className="page-header mb-4 login-img">
+                                                <img src="../../assets/img/logo.png" alt="logo" />
+                                            </div>
+                                        
                                             <h4 className="card-title text-center">Login</h4>
                                             <form className="form-signin forms-sample" onSubmit={(event) => handleSubmit(event)}>
                                                 <div className="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Email" 
-                                                    required={true}
-                                                    name="email"
-                                                    onChange={_handleChange}
-                                                />
-                                                <div className="errorMsg">{errors.email}</div>
+                                                    <label for="exampleInputEmail1">Email address</label>
+                                                    <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Email" 
+                                                        required={true}
+                                                        name="email"
+                                                        onChange={_handleChange}
+                                                    />
+                                                    <div className="errorMsg">{errors.email}</div>
                                                 </div>
                                                 <div className="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
-                                                    required={true}
-                                                    name="password"
-                                                    onChange={_handleChange}
-                                                />
-                                                <div className="errorMsg">{errors.password}</div>
+                                                    <label for="exampleInputPassword1">Password</label>
+                                                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
+                                                        required={true}
+                                                        name="password"
+                                                        onChange={_handleChange}                                                        
+                                                    />
+                                                    <div className="errorMsg">{errors.password}</div>
                                                 </div>
                                                 <div className="text-center">
-                                                <button type="submit" className="btn btn-gradient-primary me-2">Submit</button>
+                                                    <button type="submit" className="btn btn-gradient-primary me-2">Submit</button>
                                                 </div>
                                             </form>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                         
-
                         </div>
                     </div>
+                </div>
                 
             </LoginStyle>
         </Fragment>
