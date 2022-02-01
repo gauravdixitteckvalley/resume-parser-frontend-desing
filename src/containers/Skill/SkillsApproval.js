@@ -6,14 +6,19 @@ import _ from 'lodash'
 
 import BlockUI from "../../components/BlockUI"
 import SearchBox from "../../components/Search/SearchBox"
-import { fetchSkillsData, deleteSkill } from "../../actions/Skills"
+import { fetchSkillsTempData, approveTempSkill } from "../../actions/Skills"
 import { displayRecordNotFound } from '../../utils/helper'
 import Modal from '../../components/ConfirmationModal/Modal';
+import InputBox from '../../components/InputBox';
+
 import "./SkillsApproval.css";
 
 const SkillsApproval = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [showInput, setShowInput] = useState(false);
+    const [editRow, setEditRow] = useState('');
+    const [editRowValue, setEditRowValue] = useState('');
     const [selectedRowId, setSelectedRowId] = useState('');
     const [sortingOption, setsortingOption]               = useState({});
 
@@ -35,7 +40,7 @@ const SkillsApproval = (props) => {
             search  : searchTitle,
             sortingData : sortingData === undefined ? {} : sortingData
         }
-        dispatch(fetchSkillsData(params));
+        dispatch(fetchSkillsTempData(params));
     }
 
     /**method for calling api based on page change  */
@@ -56,13 +61,7 @@ const SkillsApproval = (props) => {
         setShowModal(value)
     }
 
-     /*method called to when record deleted option is chosen*/
-     const _deleteskillData = (status) => {
-        if(status) {
-            dispatch(deleteSkill(selectedRowId));  // action is called to get data
-            _handleModalCloseClick(false);  //modal is closed
-        }
-    }
+
     const tbodyDiv = {
         borderBottom: "0",
         borderRight: "0",
@@ -78,9 +77,36 @@ const SkillsApproval = (props) => {
             search  : searchTitle,
             sortingData : setStateValue
         }
-        dispatch(fetchSkillsData(queryParams));
+        dispatch(fetchSkillsTempData(queryParams));
     }
 
+    const _handleApproved = (id,value,status,currentPage)=>{
+        
+        const postdata = {
+            skills_status   : status,
+            value           : (editRowValue ==='')? value: editRowValue
+        };
+        const params = {
+            page    : currentPage ? currentPage : 1,
+            search  : '',
+            sortingData : {}
+        }
+        dispatch(approveTempSkill(id,postdata,params));
+        setEditRow('')
+        setEditRowValue('')
+    }
+
+    const _handleEdit = (rowIndex,value) =>{
+        
+        setEditRow(rowIndex)
+        setEditRowValue(value)
+        setShowInput(true);
+    }
+
+    const _handleClick = (event)=>{
+        setEditRowValue(event.target.value)
+        // console.log('value',event.target.value);
+    }
     /* build user list */
     const _skillsList = skills => {
         if (!_.isEmpty(skills)) {
@@ -103,22 +129,20 @@ const SkillsApproval = (props) => {
                         {skills.map((data, index) => (
                             <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
                                 <td>{ data.serial_no }</td>
-                                <td>{data.value}</td>
+                                <td>{ (showInput && editRow === index) ? 
+                                    <InputBox 
+                                    InputValue={editRowValue}  
+                                    handleClick={_handleClick}
+                                    /> 
+                                    : data.value }</td>
+                                
                                 <td>
                                     <div className="template-demo approval-sec">
-                                        <button type="button" className="btn btn-primary btn-sm btn-inverse-success approval-btn">Approve</button>
-                                        <button type="button" className="btn btn-primary btn-sm btn-inverse-danger approval-btn" style={{ marginLeft: "10px" }}>Delete</button>
+                                        <button type="button" onClick={(event) => _handleApproved(data.id,data.value,true,currentPage)}  className="btn btn-primary btn-sm btn-inverse-success approval-btn">Approve</button>
+                                        <button type="button" onClick={(event) => _handleApproved(data.id,data.value,false,currentPage)} className="btn btn-primary btn-sm btn-inverse-danger approval-btn" style={{ marginLeft: "10px" }}>Delete</button>
+                                        <button type="button" onClick={(event) => _handleEdit(index,data.value)} className="btn btn-primary btn-sm btn-inverse-info approval-btn" style={{ marginLeft: "10px" }}>Edit</button>
                                     </div>
-                                    {/* <div  style={tbodyDiv}>
-                                        <NavLink to={`/skills/edit/${data.id}`} className="ms-2" title="Edit">
-                                            <i className="mdi mdi-square-edit-outline"></i>
-                                        </NavLink>
-                                        
-                                        <a className="delete" title="Delete"  style={{'cursor':'pointer'}}
-                                            onClick={(event) => _handleModalShowClick(event,index)} >
-                                            <i className="mdi mdi-delete"></i>
-                                        </a> 
-                                    </div> */}
+                                  
                                 </td>
                             </tr>
                         ))}      
@@ -134,7 +158,8 @@ const SkillsApproval = (props) => {
     }
 
 
-    const {totalRecords, per_page , blocking, skillsList, currentPage } = skills;
+    const {totalRecords, per_page , blocking, skillsTempList, currentPage } = skills;
+ 
     let total = 0;
     
     if(typeof totalRecords != 'undefined')
@@ -151,7 +176,6 @@ const SkillsApproval = (props) => {
                     <div className="card">
                         <div className="card-body">
                             <div className="add-items row">
-                                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2"><NavLink to={'/skills/create'}><button type="button" className="btn btn-gradient-primary btn-fw">Create Skill</button></NavLink></div>
                                 <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2">
                                     <SearchBox searchParentclassName="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2 offset-lg-7 offset-md-7"
                                         searchText="Search by Skills"
@@ -163,7 +187,7 @@ const SkillsApproval = (props) => {
                             <p></p>
                             
                             {/* list of records */}
-                            {_skillsList(skillsList)}
+                            {_skillsList(skillsTempList)}
                             {/* <div className="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div> */}
                             {(total > per_page) ? 
                                 <div className="pagination justify-content-end" aria-label="Page navigation example">
@@ -173,7 +197,6 @@ const SkillsApproval = (props) => {
                                         totalItemsCount={total}
                                         pageRangeDisplayed={5}
                                         onChange={_handlePageChange}
-                                        itemClass="page-item"
                                         itemClass="page-item"
                                         linkClass="page-link"
                                         prevPageText=" Previous"
@@ -191,7 +214,7 @@ const SkillsApproval = (props) => {
              {showModal ? (<Modal 
                             showModal={showModal} 
                             handleModalClose={_handleModalCloseClick} 
-                            updateData={_deleteskillData}
+                            // updateData={_deleteskillData}
                             modalTitle="Delete Record"
                             modalBody="Are you sure you wish to perform this action? This action is irreversible!"
             />) : null}
