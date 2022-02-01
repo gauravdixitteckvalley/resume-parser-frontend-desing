@@ -9,7 +9,7 @@ import './CandidateMultiForm.css';
 const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
    //creating error state for validation
   const [error, setError] = useState(false);
-  const [formValues, setFormValues] = useState([1])
+  const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
 
     // after form submit validating the form data using validator
   const submitFormData = (e) => {
@@ -28,7 +28,7 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
   };
 
   const addFormFields = () => {
-    setFormValues([...formValues, { language: "", langLevel: "" }])
+    setFormValues([...formValues, { skill: "", skillLevel: "" }])
   }
 
   const removeFormFields = (i) => {

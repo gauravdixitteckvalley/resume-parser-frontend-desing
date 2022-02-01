@@ -9,9 +9,7 @@ import './CandidateMultiForm.css';
 const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
    //creating error state for validation
   const [error, setError] = useState(false);
-  // const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
-
-  const [formValues, setFormValues] = useState([1])
+  const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
 
     // after form submit validating the form data using validator
   const submitFormData = (e) => {
