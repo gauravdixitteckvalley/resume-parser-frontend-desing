@@ -84,7 +84,7 @@ const AddResume = (props) => {
     // else{
     //     displayErrorMessage('Please select document files');
     // }
-    dispatch(submitResumeData({ filename: fileArray.toString() })); // action is called to submit data
+    dispatch(submitResumeData({ filename: fileArray.toString(), frontendURL: window.location.origin })); // action is called to submit data
     allFiles.forEach((f) => f.remove());
   };
 

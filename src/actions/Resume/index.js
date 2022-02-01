@@ -1,5 +1,5 @@
 import api from '../../axios';
-import handleHttpError,{requestTokenHeader, displaySuccessMessage, history} from '../../utils/helper';
+import handleHttpError,{requestTokenHeader, displaySuccessMessage, displayErrorMessage, history, loginRedirect } from '../../utils/helper';
 
 /* action for fetching Resume records */
 export const fetchResumeData = (params) => {
@@ -33,14 +33,30 @@ export const submitResumeData = (postData) => {
     return async dispatch => {
         dispatch({ type: 'SUBMIT_RESUME_FORM_REQUEST' });
         try {
-            let response = await api.post(`resume/parse`, postData,{
-                headers : requestTokenHeader(),
-            });
+            let response = '';
             
+            response = await api.post(`resume/parse`, postData,{ 
+            });
+
+            let existEmails = [];
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_RESUME_FORM_SUCCESS'});
-                displaySuccessMessage(response.data.data.data);
-                //history.push('/resume');
+                if (response.data.data.preExistEmails) {
+                    existEmails = JSON.parse(response.data.data.preExistEmails);                    
+                }
+                console.log('jjdjd: ', existEmails);
+                if (existEmails.length > 0) {
+                    existEmails.forEach(element => {
+                        displayErrorMessage('Resume with this mail id '+ element +' is already exist');
+                    });
+                    // displaySuccessMessage(response.data.data.data);
+                } else {
+                    displaySuccessMessage(response.data.data.data);                    
+                }
+                
+                console.log('Upload Responce: ', existEmails);
+                console.log('Exist Responce: ', response.data.data.preExistEmails);
+                
             } 
         } catch(error) {
             handleHttpError(error.response);
@@ -61,7 +77,7 @@ export const submitManualResumeFormData = (postData) => {
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS'});
                 displaySuccessMessage(response.data.data.data);
-                history.push('/resume');
+                // history.push('/resume');
             } 
         } catch(error) {
             handleHttpError(error.response);
@@ -248,7 +264,6 @@ export const getStateList = (params) => {
     }
 }
 
-
 /* multi mail send */
 export const sendMultiMail = (params) => {
     return async dispatch => {
@@ -258,12 +273,41 @@ export const sendMultiMail = (params) => {
                 headers: requestTokenHeader(),
             });
 
-            if (response.data.success) {
+            if (response.data) {
                 dispatch({ type : 'SEND_MULTIPLE_MAIL_SUCCESS', payload : response.data.data});
+                displaySuccessMessage('Mails sent successfully');
+            }else{
+                dispatch({ type : 'SEND_MULTIPLE_MAIL_FAILURE', payload : response.data.data});
+                displayErrorMessage('Mails sending error');
             }
         } catch (error) {
             handleHttpError(error.response);
             dispatch({ type: 'SEND_MULTIPLE_MAIL_FAILURE' });
+            displayErrorMessage('Mail not sent');
+        }
+    }
+}
+
+/* single mail send */ 
+export const sendMail = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'SEND_MAIL_REQUEST' });
+        try {
+            let response = await api.post(`/mail/send`,params, {
+                headers: requestTokenHeader(),
+            });
+            
+            if (response.data) {
+                dispatch({ type : 'SEND_MAIL_SUCCESS', payload : response.data.data});
+                displaySuccessMessage('Mail sent successfully');
+            }else{
+                dispatch({ type : 'SEND_MAIL_FAILURE', payload : response.data.data});
+                displayErrorMessage('Mail not sent');
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SEND_MAIL_FAILURE' });
+            displayErrorMessage('Mail not sent');
         }
     }
 }
@@ -285,6 +329,31 @@ export const deleteResume = (id) => {
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'DELETE_RESUME_FAILURE'});
+        }
+    }
+}
+
+
+/* action for change candidate password */
+export const actionChangeCandidatePassword=(postData, user)=>{
+    return async dispatch =>{
+        dispatch({type:'SUBMIT_CHANGE_PASSWORD_REQUEST'})
+        try {
+            let response = await api.post(`/resume/candidate/changePassword`, postData,{
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'SUBMIT_CHANGE_PASSWORD_SUCCESS', payload : response.data.data});
+                displaySuccessMessage(response.data.data.message);
+                setTimeout(() => {
+                    loginRedirect(user)
+                }, 3000)
+
+            }
+        }catch(error){
+            handleHttpError(error.response);
+            dispatch({ type: 'SUBMIT_CHANGE_PASSWORD_FAILURE' });
         }
     }
 }
