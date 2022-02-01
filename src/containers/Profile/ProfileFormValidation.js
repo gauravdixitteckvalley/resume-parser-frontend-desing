@@ -1,5 +1,5 @@
 
-const validateUserForm = (fields, applyCheck = false) => {
+const validateProfileForm = (fields, applyCheck = false) => {
     let errors = {};
     let formIsValid = true;
 
@@ -32,35 +32,26 @@ const validateUserForm = (fields, applyCheck = false) => {
         errors["last_name"] = "*Please enter your last name.";
     }
 
-    /* condition for update form */
-    if(applyCheck) {
-        if (!fields["password"] || fields["password"].trim() === '') {
-            formIsValid = false;
-            errors["password"] = "*Please enter your password.";
-        }
-    
-        if (!fields["confirm_password"] || fields["confirm_password"].trim() === '') {
-            formIsValid = false;
-            errors["confirm_password"] = "*Please enter confirm password.";
-        }
-    
-        if (typeof fields["confirm_password"] !== "undefined") {
-            if (fields["confirm_password"] !== fields["password"]) {
-                formIsValid = false;
-                errors["confirm_password"] = "*The password and confirm password do not match.";
-            }
-        }
-    }
-
-    if (!fields["user_role"] || fields["user_role"].trim() === '') {
+    if (!fields["profile_image"] || fields["profile_image"].trim() === '') {
         formIsValid = false;
-        errors["user_role"] = "*Please select role.";
+        errors["profile_image"] = "*Please upload image file ";
     }
-
+   /* if (!fields["profile_image"].match(/\.(jpg|jpeg|png|gif)$/)) {
+        formIsValid = false;
+        errors["profile_image"] = "*Please upload image file ";
+        console.log('wrong file')
+    }else{
+        formIsValid = false;
+        console.log('correct file')
+    }*/
+    console.log(fields["profile_image"], " profile_image " )
+    /* condition for update form */
+    
+    
     return {
         errors : errors,
         formIsValid : formIsValid
     };
 }
 
-export default validateUserForm;
+export default validateProfileForm;
