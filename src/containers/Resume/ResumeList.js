@@ -65,20 +65,20 @@ const ResumeList = (props) => {
     
     /**method to call the configure the data and call the action */
     const _getData = (data, params = {}) => {
-        const queryParams = {
-            page    : data ? data : 1,
-            name    : params?.name,
-            email   : params?.email,
-            phone   : params?.phone,
-            city    : params?.city,
-            company : params?.company,
-            skills  : params?.skills,
-            sortingData : params.sortingData === undefined ? {} : params.sortingData,
-            status  : status,
-            minExp  : minExp,
-            maxExp  : maxExp
-        }
-        dispatch(fetchResumeData(queryParams));
+      const queryParams = {
+        page    : data ? data : 1,
+        name    : params?.name,
+        email   : params?.email,
+        phone   : params?.phone,
+        city    : params?.city,
+        company : params?.company,
+        skills  : params?.skills,
+        sortingData : params.sortingData === undefined ? {} : params.sortingData,
+        status  : status,
+        minExp  : minExp,
+        maxExp  : maxExp
+      }
+      dispatch(fetchResumeData(queryParams));
     }
 
     const handleStatusChange=(event,resume_id)=>{
@@ -92,20 +92,7 @@ const ResumeList = (props) => {
     const sendMail = async (mail, key) => {
       setSending(key);
       setMailId(mail);
-      setSingleMailModal(true); /*return;
-      var postData = {
-          'email': mail
-      }
-      const response = await axios.post(`${API_URL}mail/send`, postData);
-      // console.log('Email sent: ', response);
-      if (response.data.flag) {
-          setSending(null);
-          
-          alert("Mail sent");
-      }else{
-          setSending(null);
-          alert("Mail sent error, check the email");
-      }*/
+      setSingleMailModal(true);
     }
 
     // method to add sorting functionality on columns
