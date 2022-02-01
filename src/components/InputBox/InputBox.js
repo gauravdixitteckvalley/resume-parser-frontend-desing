@@ -4,7 +4,7 @@ const InputBox = ({labelStatus,labelValue,labelClass,labelFor, id, type, name, h
     return (
     <>
     {labelStatus ?
-    <label className={labelClass} htmlFor={labelFor}>
+    <label className={labelClass} htmlFor={labelFor}>{labelValue}
     </label>
     : ""
     }
@@ -17,7 +17,8 @@ const InputBox = ({labelStatus,labelValue,labelClass,labelFor, id, type, name, h
         maxLength={maxLength ? maxLength :""}
         placeholder={placeholder ? placeholder : ""}
         readOnly={readonly?readonly:false}
-        name="skill"
+        name={name ? name  : ''}
+        id={id ? id : ""}
         />
       </>
     
