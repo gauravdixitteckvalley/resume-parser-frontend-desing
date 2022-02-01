@@ -6,7 +6,7 @@ import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
 import { history } from "../../utils/helper";
 import validateProfileForm from "./ProfileFormValidation";
-import Inputbox from "../../components/Inputbox";
+import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
   submitUserFormData,
@@ -132,7 +132,7 @@ const ProfileForm = (props) => {
                 >
                   <div className="row">
                     <div className="col-md-6">
-                        <Inputbox
+                        <InputBox
                             labelStatus={true}
                             labelValue="First Name"
                             labelClass="mb-1"
@@ -150,7 +150,7 @@ const ProfileForm = (props) => {
                     </div>
 
                     <div className="col-md-6">
-                        <Inputbox
+                        <InputBox
                             labelStatus={true}
                             labelValue="Last Name"
                             labelClass="mb-1"
@@ -170,7 +170,7 @@ const ProfileForm = (props) => {
 
                   <div className="row mt-2">
                     <div className="col-md-6">
-                        <Inputbox
+                        <InputBox
                             labelStatus={true}
                             labelValue="Username"
                             labelClass="mb-1"
@@ -189,7 +189,7 @@ const ProfileForm = (props) => {
                     </div>
 
                     <div className="col-md-6">
-                        <Inputbox
+                        <InputBox
                             labelStatus={true}
                             labelValue="Email"
                             labelClass="mb-1"
@@ -209,7 +209,7 @@ const ProfileForm = (props) => {
                   <div className="row mt-2">
                     
                     <div className="col-md-6">
-                         <Inputbox
+                         <InputBox
                             labelStatus={true}
                             labelValue="Profile Image"
                             labelClass="mb-1"

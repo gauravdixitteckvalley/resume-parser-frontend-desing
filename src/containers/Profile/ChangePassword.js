@@ -7,7 +7,7 @@ import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
 import { history } from "../../utils/helper";
 import validateProfileForm from "./ProfileFormValidation";
-import Inputbox from "../../components/Inputbox";
+import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
   submitUserFormData,
@@ -115,7 +115,7 @@ const ProfileForm = (props) => {
                   
                   <div className="row mt-2">
                     <div className="col-md-4">
-                        <Inputbox
+                        <InputBox
                             labelStatus={true}
                             labelValue="Old Password"
                             labelClass="mb-1"
@@ -131,7 +131,7 @@ const ProfileForm = (props) => {
                       <div className="errorMsg">{errors.old_password}</div>
                     </div>
                     <div className="col-md-4">
-                        <Inputbox
+                        <InputBox
                             labelStatus={true}
                             labelValue="New Password"
                             labelClass="mb-1"
@@ -149,7 +149,7 @@ const ProfileForm = (props) => {
                     </div>
                     
                     <div className="col-md-4">
-                        <Inputbox
+                        <InputBox
                             labelStatus={true}
                             labelValue="Confirm Password"
                             labelClass="mb-1"
