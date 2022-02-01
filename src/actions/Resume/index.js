@@ -44,19 +44,19 @@ export const submitResumeData = (postData) => {
                 if (response.data.data.preExistEmails) {
                     existEmails = JSON.parse(response.data.data.preExistEmails);                    
                 }
-                
+                console.log('jjdjd: ', existEmails);
                 if (existEmails.length > 0) {
                     existEmails.forEach(element => {
                         displayErrorMessage('Resume with this mail id '+ element +' is already exist');
                     });
-                    displaySuccessMessage(response.data.data.data);                    
+                    // displaySuccessMessage(response.data.data.data);
                 } else {
                     displaySuccessMessage(response.data.data.data);                    
                 }
-                // console.log('Parse: ', JSON.parse(duplicate_candidate));
+                
                 console.log('Upload Responce: ', existEmails);
                 console.log('Exist Responce: ', response.data.data.preExistEmails);
-                //history.push('/resume');
+                
             } 
         } catch(error) {
             handleHttpError(error.response);
@@ -77,7 +77,7 @@ export const submitManualResumeFormData = (postData) => {
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS'});
                 displaySuccessMessage(response.data.data.data);
-                history.push('/resume');
+                // history.push('/resume');
             } 
         } catch(error) {
             handleHttpError(error.response);
