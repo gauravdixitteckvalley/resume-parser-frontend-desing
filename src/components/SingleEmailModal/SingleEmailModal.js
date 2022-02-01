@@ -6,12 +6,14 @@ import {
 } from "../../actions/Resume";
 
 export default function SingleEmailModal(props) {
-  const [fields, setFields] = useState();
+
   const dispatch = useDispatch();
+  const [fields, setFields] = useState();
+  const { singleMailModal, modalTitle } = props;
+
   const _handleModalCloseClick = () => {
     props.handleModalClose(false);
   };
-  const { singleMailModal, modalTitle } = props;
 
   const _handleSubmit = (event) => {
     event.preventDefault();
@@ -19,9 +21,8 @@ export default function SingleEmailModal(props) {
       mail_text: fields,
       mail_id: props.sendMailData,
     };
-    // console.log(postData);
+    
     dispatch(sendMail(postData));
-    // console.log(dispatch(sendMail(postData)), "------single dxbgdfgd");
     props.handleModalClose(false);
   };
 
