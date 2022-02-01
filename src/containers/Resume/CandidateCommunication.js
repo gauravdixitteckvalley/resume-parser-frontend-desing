@@ -33,7 +33,8 @@ const CandidateCommunication = (props) => {
     }
 
     /*method called to display modal*/
-    const _handleModalShowClick = () => {
+    const _handleModalShowClick = (event) => {
+        event.preventDefault();
         setShowModal(true)
     }
 
@@ -106,7 +107,7 @@ const CandidateCommunication = (props) => {
               <div className="card-body">
                 <div className="row">
                   <div className="col-lg-12 ">
-                    <Link onClick={(event) => _handleModalShowClick()} className="btn btn-primary mb-4 add-note">
+                    <Link onClick={(event) => _handleModalShowClick(event)} className="btn btn-primary mb-4 add-note">
                       Add Note
                     </Link>
                   </div>
