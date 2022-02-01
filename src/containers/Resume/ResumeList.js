@@ -14,7 +14,6 @@ import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils
 import MultipleEmailModal from "../../components/MultipleEmailModal/MultipleEmailModal";
 import SingleEmailModal from "../../components/SingleEmailModal/SingleEmailModal";
 import Modal from '../../components/ConfirmationModal/Modal';
-import axios from 'axios';
 
 import './ResumeList.css';
 
@@ -573,7 +572,6 @@ const ResumeList = (props) => {
                   <MultipleEmailModal
                     showModal={showModal}
                     handleModalClose={_handleModalCloseClick}
-                    // addCommentData={_addResumeComment}
                     sendMailData={isCheck}
                     modalTitle="Email Body"
                     modalBody="Are you sure you wish to perform this action? This action is irreversible!"
@@ -584,7 +582,6 @@ const ResumeList = (props) => {
                   <SingleEmailModal
                     singleMailModal={singleMailModal}
                     handleModalClose={_handleSingleMailModalCloseClick}
-                    // addCommentData={_addResumeComment}
                     sendMailData={mailId}
                     modalTitle="Email Body"
                     modalBody="Are you sure you wish to perform this action? This action is irreversible!"

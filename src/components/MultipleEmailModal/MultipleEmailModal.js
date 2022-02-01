@@ -2,17 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchResumeData,
-  resetResumeData,
-  updateStatusField,
   sendMultiMail,
 } from "../../actions/Resume";
-import {
-  displayRecordNotFound,
-  API_URL,
-  displayErrorMessage,
-} from "../../utils/helper";
-import axios from "axios";
 
 export default function EmailModal(props) {
   const [fields, setFields] = useState();
