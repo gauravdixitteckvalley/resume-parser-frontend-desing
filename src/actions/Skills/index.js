@@ -87,3 +87,43 @@ export const deleteSkill = (id) => {
     }
 }
 
+/* action for fetching Resume records */
+export const fetchSkillsTempData = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'SKILLS_TEMP_LIST_REQUEST' });
+        try {
+            const response = await api.get('skillsTemp',{
+                params  : params,
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'SKILLS_TEMP_LIST_SUCCESS', payload : response.data.data});
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SKILLS_TEMP_LIST_FAILURE'});
+        }
+    }
+}
+
+/* action for approve temp skill record */
+export const approveTempSkill = (id,postData,params) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: 'APPROVE_TEMP_SKILLS_REQUEST' });
+        try {
+            const response = await api.put(`skillsTempStatus/${id}`, postData, {
+                headers : requestTokenHeader(),
+            });
+    
+            if (response.data.success) {
+                // const updateSkillTempList =  getState().skills.skillsTempList.filter(skills => skills.id !== id);
+                dispatch({ type : 'APPROVE_TEMP_SKILLS_SUCCESS'});
+                displaySuccessMessage('Record Updated Successfully');
+                dispatch(fetchSkillsTempData(params))
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'APPROVE_TEMP_SKILLS_FAILURE'});
+        }
+    }
+}
