@@ -9,11 +9,13 @@ import validateProfileForm from "./ProfileFormValidation";
 import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
-  submitUserFormData,
   resetUserData,
   fetchUserRolesData,
   fetchUserByRole,
 } from "../../actions/User";
+import {
+  submitProfileFormData,
+} from "../../actions/Profile";
 
 const ProfileForm = (props) => {
   
@@ -25,9 +27,6 @@ const ProfileForm = (props) => {
   /**fetched data from redux store */
   const userData = useSelector(state => state.authenticatedUser);
   const dispatch = useDispatch();
-  const [file, setFile] = useState('');
-  let [first, last] = userData.user.full_name.split(" ");
-  const [lastName,setLastName]= useState(last)
   const currentId = userData.user.id;
   const [applyCheck] = useState(currentId ? false : true);
 
@@ -68,22 +67,14 @@ const ProfileForm = (props) => {
   /* handle input field changes */
   const _handleChange = (event) => {
     let data = fields;
-    if (event.target.name === "user_role") {
-      dispatch(fetchUserByRole(event.target.value));
-    }
     if (event.target.name === "profile_image") {
       let file_name = event.target.files[0].name;
       console.log(file_name," event ")
-      setFile(file_name);
-    }
-    if(event.target.name === "last_name"){
-      let lName= lastName;
-      lName = event.target.value;
-      setLastName(lName)
     }
     
     data[event.target.name] = event.target.value;
     setFields({ ...data });
+    setTimeout(function(){ console.log(fields, ' fields') }, 2000);
   };
 
   /* submit form */
@@ -102,10 +93,10 @@ const ProfileForm = (props) => {
       };
 
       if (userData.id) {
-        dispatch(submitUserFormData(userData.id, postData)); //action is called to submit data
+        dispatch(submitProfileFormData(userData.id, postData)); //action is called to submit data
       } else {
        
-        dispatch(submitUserFormData("", postData)); // action is called to submit data
+        dispatch(submitProfileFormData("", postData)); // action is called to submit data
       }
     }
   };
@@ -159,7 +150,7 @@ const ProfileForm = (props) => {
                             type="text"
                             name="last_name"
                             id="last_name"
-                            value={lastName || ""}
+                            value={fields.last_name || ""}
                             handleClick={(event) => _handleChange(event)}
                             minLength="3"
                             placeholder="Enter last name"

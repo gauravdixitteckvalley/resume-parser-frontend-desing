@@ -69,7 +69,7 @@ const Sidebar = () => {
                         </Link>
                     </li> 
                     {
-                        user.email === 'testing@gmail.com' ?
+                        user.role_id === '1' ?
                         showRoutesForAdmin() : ''
                     }
                      
@@ -104,7 +104,7 @@ const Sidebar = () => {
                     <li className="nav-item nav-profile">
                         <Link to={user.isCandidateLogin ? `/candidate/view/${user.id}` : "/profile"} className="nav-link">
                             <div className="nav-profile-image">
-                                <img src="/assets/img/user_icon.png" alt="profile" />
+                                <img src={authenticateUser.user.profile_image ? authenticateUser.user.profile_image : "/assets/img/user_icon.png"} alt="profile" />
                                 <span className="login-status online"></span>
                             </div>
                             <div className="nav-profile-text d-flex flex-column">
