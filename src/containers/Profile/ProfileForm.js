@@ -29,7 +29,7 @@ const ProfileForm = (props) => {
   const dispatch = useDispatch();
   const currentId = userData.user.id;
   const [applyCheck] = useState(currentId ? false : true);
-
+console.log(userData , " userdata")
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
     // if (userData.user.id) {
@@ -86,7 +86,7 @@ const ProfileForm = (props) => {
       const postData = new FormData(event.target);
        // postData.append('frontendURL', window.location.origin);
        // dispatch(submitManualResumeFormData(postData));
-      //console.log("1")
+      console.log("1")
       
       dispatch(submitProfileFormData(currentId, postData)); //action is called to submit data
     }
@@ -202,7 +202,6 @@ const ProfileForm = (props) => {
                             id="profile_image"
                             handleClick={(event) => _handleChange(event)}
                             placeholder="Upload profile"
-                            value={fields.profile_image || ""}
                         />
                         <div className="errorMsg">{errors.profile_image}</div> 
                     </div>
