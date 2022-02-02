@@ -14,7 +14,6 @@ import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils
 import MultipleEmailModal from "../../components/MultipleEmailModal/MultipleEmailModal";
 import SingleEmailModal from "../../components/SingleEmailModal/SingleEmailModal";
 import Modal from '../../components/ConfirmationModal/Modal';
-import axios from 'axios';
 
 import './ResumeList.css';
 
@@ -89,7 +88,8 @@ const ResumeList = (props) => {
     /**method for calling api based on page change  */
     const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email, phone, city, company, skills : skillsSearch, sortingData: sortingOption,status, minExp, maxExp});
 
-    const sendMail = async (mail, key) => {
+    const sendMail = async (event, mail, key) => {
+      event.preventDefault();
       setSending(key);
       setMailId(mail);
       setSingleMailModal(true);
@@ -116,7 +116,8 @@ const ResumeList = (props) => {
   }
 
   /*method called to display modal*/
-  const _handleModalShowClick = () => {
+  const _handleModalShowClick = (event) => {
+    event.preventDefault();
     setShowModal(true)
   }
 
@@ -275,7 +276,7 @@ const ResumeList = (props) => {
                               (index === sending ? "disable" : "")
                             }
                             id={`mail_btn_${index}`}
-                            onClick={() => sendMail(data.email, index)}
+                            onClick={(event) => sendMail(event, data.email, index)}
                             style={{ cursor: "pointer" }}
                           >
                             <i
@@ -562,7 +563,7 @@ const ResumeList = (props) => {
               <div className="table-responsive">
                 <div className="col-lg-12 p-3">
                   <Link
-                    onClick={(event) => _handleModalShowClick()}
+                    onClick={(event) => _handleModalShowClick(event)}
                     className="btn btn-primary send-email"
                   >
                     Send Emails
@@ -573,7 +574,6 @@ const ResumeList = (props) => {
                   <MultipleEmailModal
                     showModal={showModal}
                     handleModalClose={_handleModalCloseClick}
-                    // addCommentData={_addResumeComment}
                     sendMailData={isCheck}
                     modalTitle="Email Body"
                     modalBody="Are you sure you wish to perform this action? This action is irreversible!"
@@ -584,7 +584,6 @@ const ResumeList = (props) => {
                   <SingleEmailModal
                     singleMailModal={singleMailModal}
                     handleModalClose={_handleSingleMailModalCloseClick}
-                    // addCommentData={_addResumeComment}
                     sendMailData={mailId}
                     modalTitle="Email Body"
                     modalBody="Are you sure you wish to perform this action? This action is irreversible!"

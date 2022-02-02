@@ -2,26 +2,18 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchResumeData,
-  resetResumeData,
-  updateStatusField,
-  sendMultiMail,
   sendMail
 } from "../../actions/Resume";
-import {
-  displayRecordNotFound,
-  API_URL,
-  displayErrorMessage,
-} from "../../utils/helper";
-import axios from "axios";
 
 export default function SingleEmailModal(props) {
-  const [fields, setFields] = useState();
+
   const dispatch = useDispatch();
+  const [fields, setFields] = useState();
+  const { singleMailModal, modalTitle } = props;
+
   const _handleModalCloseClick = () => {
     props.handleModalClose(false);
   };
-  const { singleMailModal, modalTitle } = props;
 
   const _handleSubmit = (event) => {
     event.preventDefault();
@@ -29,9 +21,8 @@ export default function SingleEmailModal(props) {
       mail_text: fields,
       mail_id: props.sendMailData,
     };
-    // console.log(postData);
+    
     dispatch(sendMail(postData));
-    // console.log(dispatch(sendMail(postData)), "------single dxbgdfgd");
     props.handleModalClose(false);
   };
 
@@ -52,8 +43,8 @@ export default function SingleEmailModal(props) {
         <Modal.Body>
           <textarea
             className="form-control"
-            name="multi_Mail"
-            id="multiMail"
+            name="single_Mail"
+            id="singleMail"
             placeholder="Enter here"
             onChange={(event) => _handleChange(event)}
             required={true}

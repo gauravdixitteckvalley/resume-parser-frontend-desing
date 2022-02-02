@@ -69,7 +69,7 @@ const Sidebar = () => {
                         </Link>
                     </li> 
                     {
-                        user.email === 'testing@gmail.com' ?
+                        user.role_id === '1' ?
                         showRoutesForAdmin() : ''
                     }
                      
