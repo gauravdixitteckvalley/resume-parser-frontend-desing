@@ -45,10 +45,10 @@ export const submitResumeData = (postData) => {
                 if (response.data.data.preExistEmails) {
                     existEmails = JSON.parse(response.data.data.preExistEmails);                    
                 }
-                console.log('jjdjd: ', existEmails);
+                
                 if (existEmails.length > 0) {
                     existEmails.forEach(element => {
-                        displayErrorMessage('Resume with this mail id '+ element +' is already exist');
+                        displayErrorMessage('Resume of '+ element +' is already exist with the mail id ');
                     });
                     // displaySuccessMessage(response.data.data.data);
                 } else {
