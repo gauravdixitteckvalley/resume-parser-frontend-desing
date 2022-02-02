@@ -46,17 +46,20 @@ export const submitResumeData = (postData) => {
                     existEmails = JSON.parse(response.data.data.preExistEmails);                    
                 }
                 
-                if (existEmails.length > 0) {
+                console.log('Length: ', existEmails.length);
+                if (existEmails.length == 0) {
+                    displaySuccessMessage(response.data.data.data);
+                    console.log('Upload Responce: ', existEmails);
+                    console.log('Exist Responce: ', response.data.data.preExistEmails);
+                } else {
                     existEmails.forEach(element => {
                         displayErrorMessage('Resume of '+ element +' is already exist with the mail id ');
                     });
                     // displaySuccessMessage(response.data.data.data);
-                } else {
-                    displaySuccessMessage(response.data.data.data);                    
+                    console.log('Upload Responce123: ', existEmails);
+                    console.log('Exist Responce456: ', response.data.data.preExistEmails);
                 }
                 
-                console.log('Upload Responce: ', existEmails);
-                console.log('Exist Responce: ', response.data.data.preExistEmails);
                 
             } 
         } catch(error) {
