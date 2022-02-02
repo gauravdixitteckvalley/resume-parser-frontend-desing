@@ -13,9 +13,7 @@ export const login = (postData = {}, props) => {
                 dispatch({ type : 'LOGIN_SUCCESS', payload : userData});
                 localStorage.setItem('data', JSON.stringify(userData));
                 localStorage.setItem('accessToken', JSON.stringify(response.data.data.accessToken));
-                if(userData.email === 'testing@gmail.com'){
-                    //const { from } = props?.location?.state || { from: { pathname: '/dashboard' } }
-                  //  const  from= { pathname: '/dashboard' }
+                if(userData.role_id === '1'){
                     history.push('/dashboard');
                 }else if(userData.isCandidateLogin){
                     history.push('/candidate/dashboard');

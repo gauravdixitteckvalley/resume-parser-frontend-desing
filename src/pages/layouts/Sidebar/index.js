@@ -31,7 +31,7 @@ const Sidebar = (props) => {
             <SidebarStyle>
                 <ul className="nav flex-column sticky-top pl-0 pt-5 mt-3 sidebar">
                     {
-                        user.email === 'testing@gmail.com' ?
+                        user.role_id === '1' ?
                         showRoutesForAdmin() : ''
                     }
                     <li className="nav-item">
