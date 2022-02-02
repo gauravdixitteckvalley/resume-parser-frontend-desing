@@ -92,6 +92,7 @@ const history = createBrowserHistory();
 
 /* returns base url */
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
 
 export {
@@ -103,6 +104,7 @@ export {
     requestTokenHeader,
     history,
     API_URL,
+    IMAGE_URL,
 }
 
 export default handleHttpError;

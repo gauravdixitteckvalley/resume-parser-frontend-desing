@@ -6,7 +6,7 @@ import "./header.css";
 import {loginRedirect} from '../../../utils/helper'
 import { resetLoggedUserData } from '../../../actions/Login';
 import { fetchResumeData, resetResumeData,updateStatusField } from "../../../actions/Resume";
-import { history, displayErrorMessage } from '../../../utils/helper';
+import { history, displayErrorMessage,IMAGE_URL } from '../../../utils/helper';
 import { Link } from "react-router-dom";
 
 
@@ -120,7 +120,7 @@ const Header = (props) => {
                         <li className="nav-item nav-profile dropdown">
                         <Link className="nav-link dropdown-toggle" id="profileDropdown" to="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="nav-profile-img">
-                                <img src={loggedUser.user.profile_image ? loggedUser.user.profile_image :"/assets/img/user_icon.png"} alt="image" />
+                                <img src={loggedUser.user.profile_image ? IMAGE_URL+loggedUser.user.profile_image :"/assets/img/user_icon.png"} alt="image" />
                                 <span className="availability-status online"></span>
                             </div>
                             <div className="nav-profile-text">

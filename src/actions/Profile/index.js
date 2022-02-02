@@ -1,21 +1,25 @@
 import api from '../../axios';
 import handleHttpError,{requestTokenHeader, history, displaySuccessMessage} from '../../utils/helper';
 
-/* action for fetching user dependant records */
-export const fetchUserEditFormDependantData = (id) => {
+/* action for submitting user record */
+export const submitProfileFormData = (id,postData) => {
     return async dispatch => {
-        dispatch({ type: 'FETCH_USER_EDIT_FORM_REQUEST' });
+        dispatch({ type: 'SUBMIT_PROFILE_FORM_REQUEST' });
         try {
-            const response = await api.get(`user/${id}`,{
-                headers : requestTokenHeader(),
-            });
+            let response = '';
+            if(id)
+                response = await api.put(`profile/edit/${id}`, postData,{ 
+                    headers : requestTokenHeader()
+                });
             
             if (response.data.success) {
-                dispatch({ type : 'FETCH_USER_EDIT_FORM_SUCCESS', payload : response.data.data});
+                dispatch({ type : 'SUBMIT_PROFILE_FORM_SUCCESS'});
+                displaySuccessMessage(response.data.data.data);
+                history.push('/profile');
             } 
         } catch(error) {
             handleHttpError(error.response);
-            dispatch({ type: 'FETCH_USER_EDIT_FORM_FAILURE' });
+            dispatch({ type: 'SUBMIT_PROFILE_FORM_FAILURE' });
         }
     }
 }
