@@ -14,7 +14,6 @@ const validateProfileForm = (fields, applyCheck = false) => {
     }
 
     if (typeof fields["email"] !== "undefined") {
-        //regular expression for email validation
         var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
         if (!pattern.test(fields["email"])) {
             formIsValid = false;
@@ -32,20 +31,18 @@ const validateProfileForm = (fields, applyCheck = false) => {
         errors["last_name"] = "*Please enter your last name.";
     }
 
-    if (!fields["profile_image"] || fields["profile_image"].trim() === '') {
+    /*if (!fields["profile_image"] || fields["profile_image"].trim() === '') {
         formIsValid = false;
         errors["profile_image"] = "*Please upload image file ";
-    }
-   /* if (!fields["profile_image"].match(/\.(jpg|jpeg|png|gif)$/)) {
-        formIsValid = false;
-        errors["profile_image"] = "*Please upload image file ";
-        console.log('wrong file')
-    }else{
-        formIsValid = false;
-        console.log('correct file')
     }*/
-    console.log(fields["profile_image"], " profile_image " )
-    /* condition for update form */
+    if(fields["profile_image"]){
+        if (!fields["profile_image"].match(/\.(jpg|jpeg|png|gif)$/)) {
+            formIsValid = false;
+            errors["profile_image"] = "*Please upload image file ";
+            console.log('wrong file')
+        }
+    }
+    
     
     
     return {

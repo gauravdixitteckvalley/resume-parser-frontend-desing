@@ -9,11 +9,13 @@ import validateProfileForm from "./ProfileFormValidation";
 import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
-  submitUserFormData,
   resetUserData,
   fetchUserRolesData,
   fetchUserByRole,
 } from "../../actions/User";
+import {
+  submitProfileFormData,
+} from "../../actions/Profile";
 
 const ProfileForm = (props) => {
   
@@ -25,19 +27,16 @@ const ProfileForm = (props) => {
   /**fetched data from redux store */
   const userData = useSelector(state => state.authenticatedUser);
   const dispatch = useDispatch();
-  const [file, setFile] = useState('');
-  let [first, last] = userData.user.full_name.split(" ");
-  const [lastName,setLastName]= useState(last)
   const currentId = userData.user.id;
   const [applyCheck] = useState(currentId ? false : true);
 
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
-    if (userData.user.id) {
+    // if (userData.user.id) {
       dispatch(fetchUserEditFormDependantData(userData.user.id)); // action is called to fetch record
-    } else {
-      dispatch(fetchUserRolesData());
-    }
+    // } else {
+    //   dispatch(fetchUserRolesData());
+    // }
 
     // returned function will be called on component unmount
     return () => {
@@ -68,45 +67,28 @@ const ProfileForm = (props) => {
   /* handle input field changes */
   const _handleChange = (event) => {
     let data = fields;
-    if (event.target.name === "user_role") {
-      dispatch(fetchUserByRole(event.target.value));
-    }
-    if (event.target.name === "profile_image") {
-      let file_name = event.target.files[0].name;
-      console.log(file_name," event ")
-      setFile(file_name);
-    }
-    if(event.target.name === "last_name"){
-      let lName= lastName;
-      lName = event.target.value;
-      setLastName(lName)
-    }
-    
     data[event.target.name] = event.target.value;
     setFields({ ...data });
+    //setTimeout(function(){ console.log(fields, ' fields') }, 2000);
   };
 
   /* submit form */
   const _handleSubmit = (event) => {
     event.preventDefault();
     if (_validateForm()) {
-      const { first_name, last_name, email,  username, profile_image, user_role } =
-        event.target;
-      const postData = {
-        first_name: first_name.value,
-        last_name: last_name.value,
-        email: email.value,
-        profile_image:profile_image.files[0].name,
-        username: username.value,
-        user_role: user_role.value,
-      };
-
-      if (userData.id) {
-        dispatch(submitUserFormData(userData.id, postData)); //action is called to submit data
-      } else {
-       
-        dispatch(submitUserFormData("", postData)); // action is called to submit data
-      }
+      // const { first_name, last_name, email,  username, profile_image } =
+      //   event.target;
+      // const postData = {
+      //   first_name: first_name.value,
+      //   last_name: last_name.value,
+      //   profile_image:profile_image.files[0].name,
+      // };
+      const postData = new FormData(event.target);
+       // postData.append('frontendURL', window.location.origin);
+       // dispatch(submitManualResumeFormData(postData));
+      //console.log("1")
+      
+      dispatch(submitProfileFormData(currentId, postData)); //action is called to submit data
     }
   };
 
@@ -159,7 +141,7 @@ const ProfileForm = (props) => {
                             type="text"
                             name="last_name"
                             id="last_name"
-                            value={lastName || ""}
+                            value={fields.last_name || ""}
                             handleClick={(event) => _handleChange(event)}
                             minLength="3"
                             placeholder="Enter last name"
@@ -220,6 +202,7 @@ const ProfileForm = (props) => {
                             id="profile_image"
                             handleClick={(event) => _handleChange(event)}
                             placeholder="Upload profile"
+                            value={fields.profile_image || ""}
                         />
                         <div className="errorMsg">{errors.profile_image}</div> 
                     </div>
