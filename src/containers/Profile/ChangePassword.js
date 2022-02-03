@@ -6,7 +6,7 @@ import { Form } from "react-bootstrap";
 import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
 import { history } from "../../utils/helper";
-import validateProfileForm from "./ProfileFormValidation";
+import ChangePasswordValidation from "./ChangePasswordValidation";
 import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
@@ -55,7 +55,7 @@ const ProfileForm = (props) => {
   /* validate form */
   const _validateForm = () => {
     let formFields = fields;
-    let response = validateProfileForm(formFields, applyCheck);
+    let response = ChangePasswordValidation(formFields, applyCheck);
     setErrors(response.errors);
     return response.formIsValid;
   };

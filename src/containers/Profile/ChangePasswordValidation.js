@@ -7,6 +7,12 @@ const validateUserForm = (fields, applyCheck = false) => {
         formIsValid = false;
         errors["old_password"] = "*Please enter your old password.";
     }
+
+    if ((fields["old_password"].trim() === '').lenght > 6){
+        formIsValid = false;
+        errors["old_password"] = "*Please enter your old password.";
+    }
+
     if (!fields["password"] || fields["password"].trim() === '') {
         formIsValid = false;
         errors["password"] = "*Please enter your password.";
@@ -18,11 +24,10 @@ const validateUserForm = (fields, applyCheck = false) => {
         errors["confirm_password"] = "*Please enter confirm password.";
     }
 
-    if (typeof fields["confirm_password"] !== "undefined") {
-        if (fields["confirm_password"] !== fields["password"]) {
+    if ((fields["confirm_password"].trim() === '') === (fields["password"].trim() === '')) {
             formIsValid = false;
+            errors["password"] = "*The password and confirm password do not match.";
             errors["confirm_password"] = "*The password and confirm password do not match.";
-        }
     }
 
 
