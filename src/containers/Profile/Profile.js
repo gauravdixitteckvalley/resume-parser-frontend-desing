@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { IMAGE_URL } from './../../utils/helper'
+import "./style.css"
 
 export default function Profile() {
     const userData = useSelector(state => state.authenticatedUser);
@@ -27,8 +28,8 @@ export default function Profile() {
                             <label className="col-lg-4 col-form-label">
                                 <b> Profile Image</b>
                             </label>
-                            <div className="col-lg-7 col-form-label profile_image">
-                                <img src={userData.user.profile_image ? IMAGE_URL+userData.user.profile_image :"/assets/img/user_icon.png"} alt="profile" className="img-fluid" />
+                            <div className="col-lg-7 col-form-label ">
+                                <img src={userData.user.profile_image ? IMAGE_URL+userData.user.profile_image :"/assets/img/user_icon.png"} alt="profile" className="img-fluid profile_image" />
                             </div>
                         </div>
                         <div className="displayPreviewRow">

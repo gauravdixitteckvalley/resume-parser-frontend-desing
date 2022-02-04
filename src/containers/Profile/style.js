@@ -14424,9 +14424,6 @@ export default styled.div`
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1; }
-  .profile_image{
-    width:50px;
-  }
   /*# sourceMappingURL=style.css.map */
   
 `;

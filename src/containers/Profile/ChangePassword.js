@@ -6,15 +6,15 @@ import { Form } from "react-bootstrap";
 import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
 import { history } from "../../utils/helper";
-import validateProfileForm from "./ProfileFormValidation";
+import ChangePasswordValidation from "./ChangePasswordValidation";
 import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
-  submitUserFormData,
   resetUserData,
   fetchUserRolesData,
   fetchUserByRole,
 } from "../../actions/User";
+import { submitUpdatePasswordFormData } from "../../actions/Profile";
 
 const ProfileForm = (props) => {
   const currentId = props?.match?.params?.id;
@@ -25,12 +25,8 @@ const ProfileForm = (props) => {
   const [usersList, setusersList] = useState({});
   const userData = useSelector((state) => state.authenticatedUser);
   const dispatch = useDispatch();
-  const [file, setFile] = useState('');
-  let [first, last] = userData.user.full_name.split(" ");
-  const [lastName,setLastName]= useState(last)
-  const [oldPass,setOldPass]= useState('');
-  const [newPass,setNewPass]= useState('');
-  
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
 
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
@@ -55,7 +51,7 @@ const ProfileForm = (props) => {
   /* validate form */
   const _validateForm = () => {
     let formFields = fields;
-    let response = validateProfileForm(formFields, applyCheck);
+    let response = ChangePasswordValidation(formFields, applyCheck);
     setErrors(response.errors);
     return response.formIsValid;
   };
@@ -63,35 +59,28 @@ const ProfileForm = (props) => {
   /* handle input field changes */
   const _handleChange = (event) => {
     let data = fields;
-    if(event.target.name === "old_password"){
-    }
-    if(event.target.name === "password"){
-    }
     data[event.target.name] = event.target.value;
+    // console.log(event.target.name, event.target.value);
     setFields({ ...data });
+    // console.log(fields , " fields")
   };
 
   /* submit form */
   const _handleSubmit = (event) => {
     event.preventDefault();
+    //console.log(fields);
     if (_validateForm()) {
-      const { password, old_password } =
-        event.target;
+      const { password, old_password,confirm_password } = fields;
       const postData = {
-        password: password.vaule,
-        old_password: old_password.vaule,
-
+        password: password,
+        old_password: old_password
       };
-
-      if (userData.id) {
-        dispatch(submitUserFormData(userData.id, postData)); //action is called to submit data
-      } else {
-        postData.password = password.value;
-        dispatch(submitUserFormData("", postData)); // action is called to submit data
-      }
+      //console.log("postData ",postData)
+      if(userData.user.id)
+        dispatch(submitUpdatePasswordFormData(userData,postData)); //action is called to submit data
     }
   };
- 
+
   /**method called when form is cancelled */
   const _handleCancelForm = () => {
     history.push("/profile");
@@ -112,58 +101,58 @@ const ProfileForm = (props) => {
                   onSubmit={(event) => _handleSubmit(event)}
                   className="form-inline"
                 >
-                  
                   <div className="row mt-2">
                     <div className="col-md-4">
-                        <InputBox
-                            labelStatus={true}
-                            labelValue="Old Password"
-                            labelClass="mb-1"
-                            labelFor="old_password"
-                            className="form-control mb-2 mr-sm-2 col-md-6" 
-                            type="password"
-                            name="old_password"
-                            id="old_password"
-                            value={fields.old_password || ""}
-                            handleClick={(event) => _handleChange(event)}
-                            placeholder="Enter old password"
-                        />
+                      <InputBox
+                        labelStatus={true}
+                        labelValue="Old Password"
+                        labelClass="mb-1"
+                        labelFor="old_password"
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        type="password"
+                        name="old_password"
+                        id="old_password"
+                        value={fields.old_password || ""}
+                        handleClick={(event) => _handleChange(event)}
+                        placeholder="Enter old password"
+                        minLength="6"
+                      />
                       <div className="errorMsg">{errors.old_password}</div>
                     </div>
                     <div className="col-md-4">
-                        <InputBox
-                            labelStatus={true}
-                            labelValue="New Password"
-                            labelClass="mb-1"
-                            labelFor="password"
-                            className="form-control mb-2 mr-sm-2 col-md-6" 
-                            type="password"
-                            name="password"
-                            id="password"
-                            value={fields.password || ""}
-                            handleClick={(event) => _handleChange(event)}
-                            placeholder="Enter new password"
-                            minLength="6" 
-                        />
-                        <div className="errorMsg">{errors.password}</div>
+                      <InputBox
+                        labelStatus={true}
+                        labelValue="New Password"
+                        labelClass="mb-1"
+                        labelFor="password"
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={fields.password || ""}
+                        handleClick={(event) => _handleChange(event)}
+                        placeholder="Enter new password"
+                        minLength="6"
+                      />
+                      <div className="errorMsg">{errors.password}</div>
                     </div>
-                    
+
                     <div className="col-md-4">
-                        <InputBox
-                            labelStatus={true}
-                            labelValue="Confirm Password"
-                            labelClass="mb-1"
-                            labelFor="confirm_password"
-                            className="form-control mb-2 mr-sm-2 col-md-6" 
-                            type="password"
-                            name="confirm_password"
-                            id="confirm_password"
-                            value={fields.confirm_password || ""}
-                            handleClick={(event) => _handleChange(event)}
-                            placeholder="Enter confirm password"
-                            minLength="6" 
-                        />
-                        <div className="errorMsg">{errors.confirm_password}</div> 
+                      <InputBox
+                        labelStatus={true}
+                        labelValue="Confirm Password"
+                        labelClass="mb-1"
+                        labelFor="confirm_password"
+                        className="form-control mb-2 mr-sm-2 col-md-6"
+                        type="password"
+                        name="confirm_password"
+                        id="confirm_password"
+                        value={fields.confirm_password || ""}
+                        handleClick={(event) => _handleChange(event)}
+                        placeholder="Enter confirm password"
+                        minLength="6"
+                      />
+                      <div className="errorMsg">{errors.confirm_password}</div>
                     </div>
                   </div>
                   <div className="row mt-2">

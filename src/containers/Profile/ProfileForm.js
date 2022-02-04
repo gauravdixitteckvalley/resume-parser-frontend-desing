@@ -5,6 +5,7 @@ import { Form } from "react-bootstrap";
 import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
 import { history } from "../../utils/helper";
+import { IMAGE_URL } from './../../utils/helper'
 import validateProfileForm from "./ProfileFormValidation";
 import InputBox from "../../components/InputBox/InputBox";
 import {
@@ -16,6 +17,7 @@ import {
 import {
   submitProfileFormData,
 } from "../../actions/Profile";
+import "./style.css"
 
 const ProfileForm = (props) => {
   
@@ -29,7 +31,7 @@ const ProfileForm = (props) => {
   const dispatch = useDispatch();
   const currentId = userData.user.id;
   const [applyCheck] = useState(currentId ? false : true);
-
+console.log(userData , " userdata")
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
     // if (userData.user.id) {
@@ -86,7 +88,7 @@ const ProfileForm = (props) => {
       const postData = new FormData(event.target);
        // postData.append('frontendURL', window.location.origin);
        // dispatch(submitManualResumeFormData(postData));
-      //console.log("1")
+      console.log("1")
       
       dispatch(submitProfileFormData(currentId, postData)); //action is called to submit data
     }
@@ -191,7 +193,7 @@ const ProfileForm = (props) => {
                   <div className="row mt-2">
                     
                     <div className="col-md-6">
-                         <InputBox
+                         {/* <InputBox
                             labelStatus={true}
                             labelValue="Profile Image"
                             labelClass="mb-1"
@@ -202,11 +204,21 @@ const ProfileForm = (props) => {
                             id="profile_image"
                             handleClick={(event) => _handleChange(event)}
                             placeholder="Upload profile"
-                            value={fields.profile_image || ""}
-                        />
+
+                        />                             */}
+                        <label className="mb-1" htmlFor="profile_image">Profile Image</label>
+
+                        <input type="file" 
+                          name="profile_image"
+                            id="profile_image" 
+                            className="form-control mb-2 mr-sm-2 col-md-6"
+                            handleClick={(event) => _handleChange(event)}
+                            placeholder="Upload profile" 
+                          />
                         <div className="errorMsg">{errors.profile_image}</div> 
                     </div>
                     <div className="col-md-6">
+                      <img src={fields.profile_image ? IMAGE_URL+fields.profile_image :"/assets/img/user_icon.png"} alt="profile" className="img-fluid profile_image" />
                     </div>
                   </div>
                   <div className="row mt-2">
