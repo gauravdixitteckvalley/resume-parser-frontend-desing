@@ -39,7 +39,8 @@ export const submitUpdatePasswordFormData = (userData,postData) => {
                 displaySuccessMessage(response.data.data.data);
                 //history.push('/profile');
                 dispatch({type : 'CHANGE_LOGGED_USER_DATA'});
-                loginRedirect(userData);
+                setTimeout(function(){ loginRedirect(userData); }, 2000);
+                
             } 
         } catch(error) {
             handleHttpError(error.response);
