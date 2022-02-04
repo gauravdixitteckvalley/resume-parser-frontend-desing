@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import BlockUI from "../../components/BlockUI"
 import { history, displayErrorMessage } from '../../utils/helper'
-import { getSingleResumeData, fetchResumeData, updateResumeFormData, resetResumeData } from "../../actions/Resume"
+import { getSingleResumeData, fetchResumeData, updateResumeFormData, resetResumeData, getCountryList, getStateList } from "../../actions/Resume"
 import validateCandidateDetailsForm from './CandidateDetailsValidation';
 import './CandidateDetails.css';
 import CandidateMultistepForm from './CandidateMultistepForm';
@@ -67,6 +67,11 @@ const CandidateDetails = (props) => {
             }
             reader.readAsDataURL(imageFile);
         } else {
+          
+          if(event.target.name === 'country'){
+              let countryid = event.target.value;
+              dispatch(getStateList(countryid));    
+          }
             data[event.target.name] = event.target.value;
             setFields({...data})
         }
@@ -78,7 +83,7 @@ const CandidateDetails = (props) => {
         
         // if (_validateForm()) {
         // }
-        const {name, email, phone, skills, place, workExperience, dob, location, exp, designation, current_ctc, expected_ctc, resume_label } = event.target;
+        const {name, email, phone, skills, place, workExperience, dob, location, exp, designation, current_ctc, expected_ctc, resume_label, country, state, city, zip   } = event.target;
         const postData = {
             name    : name.value,
             email   : email.value,
@@ -93,8 +98,13 @@ const CandidateDetails = (props) => {
             designation : designation.value, 
             current_ctc : current_ctc.value, 
             expected_ctc : expected_ctc.value, 
-            resume_label : resume_label.value
+            resume_label : resume_label.value,
+            country : country.value,
+            state : state.value,
+            zip: zip.value
+
         }
+        console.log('postData',postData);
         postData.loginFor = user.isCandidateLogin ? 'candidate' : ''
         // const postData = new FormData(event.target);
         dispatch(updateResumeFormData(currentId, postData));  // action is called to submit data
