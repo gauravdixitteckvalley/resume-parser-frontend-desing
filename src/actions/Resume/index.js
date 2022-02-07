@@ -47,17 +47,13 @@ export const submitResumeData = (postData) => {
                 }
                 
                 console.log('Length: ', existEmails.length);
-                if (existEmails.length == 0) {
+                if (existEmails.length == 0 && response.data.data.preExistEmails) {
                     displaySuccessMessage(response.data.data.data);
-                    console.log('Upload Responce: ', existEmails);
-                    console.log('Exist Responce: ', response.data.data.preExistEmails);
                 } else {
                     existEmails.forEach(element => {
                         displayErrorMessage('Resume of '+ element +' is already exist with the mail id ');
                     });
                     // displaySuccessMessage(response.data.data.data);
-                    console.log('Upload Responce123: ', existEmails);
-                    console.log('Exist Responce456: ', response.data.data.preExistEmails);
                 }
                 
                 
