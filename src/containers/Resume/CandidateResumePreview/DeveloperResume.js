@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import './DeveloperResume.css'
 
@@ -7,6 +7,29 @@ import './DeveloperResume.css'
 const DeveloperResume = () => {
     return (
         <div className="resumeCanvas">
+            <div className="add-items row">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                  <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3>
+                </div>
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
+                  <NavLink to="/select-resume">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Back
+                    </button>
+                  </NavLink>
+                  <Link target="_parent" rel="noreferrer">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Download
+                    </button>
+                  </Link>
+                </div>
+              </div>
              {/* Page 1 Start */}
             <div className="page main-page" PageSize="A4" style={{backgroundImage: 'url(./assets/img/designer-resume-img/web-capability-bg.png)'}}>
                 <section id="top-head-main" style={{backgroundImage: 'url(./assets/img/designer-resume-img/top-dotted-bg.png)'}}>
@@ -439,6 +462,29 @@ const DeveloperResume = () => {
                 </div>
             </div>
              {/* Page 5 end  */}
+             <div className="add-items row mt-5">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                  {/* <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3> */}
+                </div>
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
+                  <NavLink to="/select-resume">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Back
+                    </button>
+                  </NavLink>
+                  <Link target="_parent" rel="noreferrer">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Download
+                    </button>
+                  </Link>
+                </div>
+              </div>
         </div>
     )
 }

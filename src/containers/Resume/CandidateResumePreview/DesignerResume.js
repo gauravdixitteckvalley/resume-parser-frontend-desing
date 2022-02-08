@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 import './DesignerResume.css'
 
@@ -6,6 +7,29 @@ import './DesignerResume.css'
 const DesignerResume = () => {
     return (
         <div>
+            <div className="add-items row">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                  <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3>
+                </div>
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
+                  <NavLink to="/select-resume">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Back
+                    </button>
+                  </NavLink>
+                  <Link target="_parent" rel="noreferrer">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Download
+                    </button>
+                  </Link>
+                </div>
+              </div>
             <div className="page first-page">
                 <div className="header">
                     <div className="logo_bg">
@@ -330,6 +354,29 @@ const DesignerResume = () => {
                 <div className="copyright-footer"><span className="copyright">Copyright 2021 – Virtual Employee. All Rights Reserved</span> <span className="copyright-box">6</span></div>
 
             </div>
+            <div className="add-items row mt-5">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                  {/* <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3> */}
+                </div>
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
+                  <NavLink to="/select-resume">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Back
+                    </button>
+                  </NavLink>
+                  <Link target="_parent" rel="noreferrer">
+                    <button
+                      type="button"
+                      className="btn btn-gradient-primary btn-fw mb-2"
+                    >
+                      Download
+                    </button>
+                  </Link>
+                </div>
+              </div>
         </div>
     )
 }

@@ -456,3 +456,8 @@ h1.inner-heading span:after {
 .sixth-page .inner-page p {
   margin: 7px 0 0;
 }
+@media only screen and (max-width: 768px)  {
+  .page{
+      width: 100% !important;
+  }
+}

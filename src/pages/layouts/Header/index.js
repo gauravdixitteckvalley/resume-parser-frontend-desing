@@ -53,6 +53,19 @@ const Header = (props) => {
 
     }
 
+    // var showMobileNav = false;
+    // const toggleMobileSidebar = () => {
+           
+    //     if (showMobileNav == false) {
+    //         document.sidebar.classList.add('active');
+    //         showMobileNav = !showMobileNav;
+    //     }else{
+    //         document.sidebar.classList.remove('active');            
+    //         showMobileNav = !showMobileNav;
+    //     }
+
+    // }
+
     const _getData = (data, params = {}) => {
         const queryParams = {
             page    : data ? data : 1,

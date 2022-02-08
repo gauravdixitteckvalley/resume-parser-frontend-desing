@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react"
 import { Form, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import BlockUI from "../../../components/BlockUI";
 import './SelectResume.css';
@@ -21,18 +22,28 @@ const SelectResume = () => {
                         <div className="card-body">
                             <form className="form-inline user-form">
                                 <div className="row">
-                                    <div className="col-md-12">
+                                    <div className="col-md-12 mb-4">
                                         <label className="mb-3 required" for="inlineFormInputName2">Select Candidate</label>
                                         <Form.Control as="select" name="name" > 
                                             <option value=''>Select Name</option> 
                                             <option>Sandip Ghosh</option>
                                         </Form.Control>
                                     </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label className="mb-3 required" for="inlineFormInputName2">Employee Code</label>
+                                            <input type="text" className="form-control" placeholder="TK-10758"/>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="mb-3 required" for="inlineFormInputName2">Title/Designation</label>
+                                            <input type="text" className="form-control" placeholder="Software Engineer"/>
+                                        </div>
+                                    </div>
                                     <div className="col-md-12 mt-4">
                                         <label className="mb-1 required" for="inlineFormInputName2">Select Template</label><br />
                                         <div className="check-sec">
                                             <div className="form-check form-check-inline mt-2">
-                                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+                                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="designer" />
                                                 <label className="form-check-label" for="inlineRadio1">Designer</label>
                                                 <img className="rounded" onClick={() => setDesignerShow(true)} src="./assets/img/designer-small.png" style={{width: '150px', cursor: 'pointer', marginTop: '10px'}}/>
                                                 <Modal
@@ -52,7 +63,7 @@ const SelectResume = () => {
                                                 </Modal>
                                             </div>
                                             <div className="form-check form-check-inline mt-2">
-                                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+                                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="developer" />
                                                 <label className="form-check-label" for="inlineRadio2">Developer</label>
                                                 <img className="rounded" onClick={() => setDeveloperShow(true)} src="./assets/img/developer-small.png" style={{width: '150px', cursor: 'pointer', marginTop: '10px'}}/>
                                                 <Modal
@@ -76,7 +87,7 @@ const SelectResume = () => {
                                     </div>
                                 </div>
                                 <hr className="mt-4"/>
-                                <button type="submit" className="btn btn-gradient-primary mt-3 mb-2">Download</button>
+                                <Link to="./designer-preview"><button type="submit" className="btn btn-gradient-primary mt-3 mb-2">Preview</button></Link>
                             </form>
                         </div>
                     </div>
