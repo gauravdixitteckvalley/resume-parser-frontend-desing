@@ -29,6 +29,7 @@ const DesignerResume = lazy(() => import ('../containers/Resume/CandidateResumeP
 const SelectResume = lazy(() => import ('../containers/Resume/SelectResume/SelectResume'))
 const SplashPage = lazy(() => import ('../containers/Splash/Splash'))
 const MessageListing = lazy(() => import ('../containers/Message/MessageListing'))
+const MessageDetails = lazy(() => import ('../containers/Message/MessageDetails'))
 
 
 function MainRoute() {
@@ -64,6 +65,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
                         <PrivateRoute exact path="/messages" component={Message} />
                         <PrivateRoute exact path="/message-listing" component={MessageListing} />
+                        <PrivateRoute exact path="/message-details" component={MessageDetails} />
                         <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
                         <PrivateRoute exact path="/designer-preview" component={DesignerResume} />
                         <PrivateRoute exact path="/select-resume" component={SelectResume} />
