@@ -53,7 +53,7 @@ const CandidatePreview = (props) => {
 
     //const { blocking } = userData
     const blocking = false;
-    
+   
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
@@ -90,7 +90,11 @@ const CandidatePreview = (props) => {
                         <div className="displayPreviewRow">
                             <label className="col-lg-4 col-form-label"><b>Skills</b></label>
                             <div className="col-lg-7 col-form-label">
-                                    {fields.skills || ''}
+                                   {fields.skills?.map((skill, index) => (
+                                           
+                                        <span key={index}>{ (skill.hasOwnProperty('skill') ) ? skill.skill : skill } <br /></span>
+                                    ))
+                                    }
                             </div>
                         </div>
                         <div className="displayPreviewRow">
@@ -103,7 +107,10 @@ const CandidatePreview = (props) => {
                         <div className="displayPreviewRow">
                             <label className="col-lg-4 col-form-label"><b>Company Name</b></label>
                             <div className="col-lg-7 col-form-label">
-                                    {fields.workExperience || ''}
+                                    {fields.workExperience?.map((company, index) => (
+                                        <span key={index}>{(company.hasOwnProperty('employer')) ? company.employer : company } <br /></span>
+                                    ))
+                                    }
                             </div>
                          </div>
                          
