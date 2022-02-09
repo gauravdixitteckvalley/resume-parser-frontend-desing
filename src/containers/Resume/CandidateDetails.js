@@ -121,7 +121,7 @@ const CandidateDetails = (props) => {
     // const blocking = false;
 
     const candidateEditPage = (isCandidateLogin) => {
-        if(isCandidateLogin === false){
+         if(isCandidateLogin === false){
             return (
             <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">

@@ -8,7 +8,7 @@ import StepFive from "./StepFive";
 import StepSix from "./StepSix";
 import StepSeven from "./StepSeven";
 
-function CandidateMultiStep() {
+function CandidateMultiStep(props) {
   //state for steps
   const [step, setstep] = useState(1);
 
@@ -66,7 +66,7 @@ function CandidateMultiStep() {
           <Container>
             <Row>
               <Col>
-                <StepOne nextStep={nextStep} handleFormData={handleInputData} values={formData} />
+                <StepOne nextStep={nextStep()} handleFormData={handleInputData} values={formData}   />
               </Col>
             </Row>
           </Container>

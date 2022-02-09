@@ -91,7 +91,6 @@ const CandidatePreview = (props) => {
                             <label className="col-lg-4 col-form-label"><b>Skills</b></label>
                             <div className="col-lg-7 col-form-label">
                                    {fields.skills?.map((skill, index) => (
-                                           
                                         <span key={index}>{ (skill.hasOwnProperty('skill') ) ? skill.skill : skill } <br /></span>
                                     ))
                                     }

@@ -46,11 +46,11 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                     <div key={index}>
                         <Row>
                             <Form.Group className="mb-2 col-md-6">
-                                <Form.Label>School Name</Form.Label>
+                                <Form.Label>School/College Name</Form.Label>
                                 <Form.Control
                                     style={{ border: error ? "2px solid red" : "" }}
                                     type="text"
-                                    placeholder="School Name"
+                                    placeholder="School/College Name"
                                     onChange={handleFormData("schoolName")}
                                 />
                                 {error ? (
@@ -60,41 +60,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                 ) : (
                                     ""
                                 )}
-                            </Form.Group>  
-                            <Form.Group className="mb-2 col-md-6">
-                                <Form.Label>City</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="schoolCity" defaultValue={values.schoolCity} onChange={handleFormData("schoolCity")}>
-                                    <option>Select City</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
-                                {error ? (
-                                    <Form.Text style={{ color: "red" }}>
-                                    This is a required field
-                                    </Form.Text>
-                                ) : (
-                                    ""
-                                )}
-                            </Form.Group>                     
-                        </Row>
-                        <Row>
-                            <Form.Group className="mb-2 col-md-6">
-                                <Form.Label>State</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="schoolState" defaultValue={values.schoolState} onChange={handleFormData("schoolState")}>
-                                    <option>eg. California</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
-                                {error ? (
-                                    <Form.Text style={{ color: "red" }}>
-                                    This is a required field
-                                    </Form.Text>
-                                ) : (
-                                    ""
-                                )}
-                            </Form.Group>  
+                            </Form.Group> 
                             <Form.Group className="mb-2 col-md-6">
                                 <Form.Label>Select a degree</Form.Label>
                                 <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="degree" defaultValue={values.degree} onChange={handleFormData("degree")}>
@@ -110,7 +76,58 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                 ) : (
                                     ""
                                 )}
+                            </Form.Group>                     
+                        </Row>
+                        <Row>
+                            <Form.Group className="mb-2 col-md-4">
+                                <Form.Label>Country</Form.Label>
+                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="country" defaultValue={values.country} onChange={handleFormData("country")}>
+                                    <option>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </Form.Select>
+                                {error ? (
+                                    <Form.Text style={{ color: "red" }}>
+                                    This is a required field
+                                    </Form.Text>
+                                ) : (
+                                    ""
+                                )}
                             </Form.Group>
+                            <Form.Group className="mb-2 col-md-4">
+                                <Form.Label>State</Form.Label>
+                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="state" defaultValue={values.state} onChange={handleFormData("state")}>
+                                    <option>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </Form.Select>
+                                {error ? (
+                                    <Form.Text style={{ color: "red" }}>
+                                    This is a required field
+                                    </Form.Text>
+                                ) : (
+                                    ""
+                                )}
+                            </Form.Group>
+                            <Form.Group className="mb-2 col-md-4">
+                                <Form.Label>City</Form.Label>
+                                <Form.Control
+                                    style={{ border: error ? "2px solid red" : "" }}
+                                    name="city" 
+                                    type="text"
+                                    defaultValue={values.city} 
+                                    onChange={handleFormData("city")}
+                                />
+                                {error ? (
+                                    <Form.Text style={{ color: "red" }}>
+                                    This is a required field
+                                    </Form.Text>
+                                ) : (
+                                    ""
+                                )}
+                            </Form.Group> 
                         </Row>
                         <Row>
                             <Form.Group className="mb-2 col-md-6">
