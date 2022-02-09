@@ -90,7 +90,7 @@ const CandidatePreview = (props) => {
                         <div className="displayPreviewRow">
                             <label className="col-lg-4 col-form-label"><b>Skills</b></label>
                             <div className="col-lg-7 col-form-label">
-                                    {fields.skills || ''}
+                                    {/* {fields.skills || ''} */}
                             </div>
                         </div>
                         <div className="displayPreviewRow">
@@ -103,7 +103,7 @@ const CandidatePreview = (props) => {
                         <div className="displayPreviewRow">
                             <label className="col-lg-4 col-form-label"><b>Company Name</b></label>
                             <div className="col-lg-7 col-form-label">
-                                    {fields.workExperience || ''}
+                                    {/* {fields.workExperience || ''} */}
                             </div>
                          </div>
                          
