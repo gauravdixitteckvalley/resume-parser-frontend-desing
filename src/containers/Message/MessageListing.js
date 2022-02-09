@@ -1,5 +1,6 @@
 import React, { Fragment } from "react"
-import { Link, NavLink } from "react-router-dom"
+import { Link } from "react-router-dom"
+import Pagination from "react-js-pagination"
 
 import BlockUI from "../../components/BlockUI"
 import './MessageListing.css';
@@ -72,45 +73,17 @@ const MessageListing = () => {
                                         </Link>
                                     </div>
                                 </div>
-                                
-                                {/* <table className="table msg-listing">
-                                    <tbody>
-                                        <tr style={{fontWeight: '700'}}>
-                                            <Link to="/messages">
-                                                <td><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</td>
-                                                <td> New Application for frontend developer </td>
-                                                <td> 12:22 PM </td>
-                                            </Link>
-                                        </tr>
-                                        <tr style={{fontWeight: '700'}}>
-                                            <Link to="/messages">
-                                                <td>
-                                                    <img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh
-                                                </td>
-                                                <td> Fund is not recieved </td>
-                                                <td> 12:27 PM </td>
-                                            </Link>
-                                        </tr>
-                                        <tr>
-                                            <Link to="/messages">
-                                                <td>
-                                                    <img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh
-                                                </td>
-                                                <td> Fund is not recieved </td>
-                                                <td> 12:27 PM </td>
-                                            </Link>
-                                        </tr>
-                                        <tr>
-                                            <Link to="/messages">
-                                                <td>
-                                                    <img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh
-                                                </td>
-                                                <td> Fund is not recieved </td>
-                                                <td> 12:27 PM </td>
-                                            </Link>
-                                        </tr>
-                                    </tbody>
-                                </table> */}
+                                <div className="pagination justify-content-between mt-4" aria-label="Page navigation example">
+                                    <div>Showing 0 to 10 of 50 entries</div>
+                                    <Pagination
+                                        itemClass="page-item"
+                                        itemClass="page-item"
+                                        linkClass="page-link"
+                                        prevPageText=" Previous"
+                                        innerClass="pagination justify-content-end"
+                                        nextPageText="Next"
+                                    /> 
+                                </div> 
                             </div>
                         </div>
                     </div>
