@@ -1,0 +1,22 @@
+.listings {
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+    margin-top: 12px;
+}
+.listings a {
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.listings img {
+    width: 40px;
+}
+.listings p {
+    margin-bottom: 0;
+    color: #000;
+    font-size: 0.89rem;
+}
+.bold-font {
+    font-weight: 700;
+}

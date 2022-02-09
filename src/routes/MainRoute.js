@@ -27,13 +27,15 @@ const ChangePasswordForm = lazy(() => import('../containers/Candidate/CandidateF
 const DeveloperResume = lazy(() => import ('../containers/Resume/CandidateResumePreview/DeveloperResume'))
 const DesignerResume = lazy(() => import ('../containers/Resume/CandidateResumePreview/DesignerResume'))
 const SelectResume = lazy(() => import ('../containers/Resume/SelectResume/SelectResume'))
+const SplashPage = lazy(() => import ('../containers/Splash/Splash'))
+const MessageListing = lazy(() => import ('../containers/Message/MessageListing'))
 
 
 function MainRoute() {
     return (
         <Router history={history}>
             <Switch>
-                <Route exact path="/" component={Login} />
+                <Route exact path="/" component={SplashPage} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/login/candidate" component={Login} />
                 <MainLayout>
@@ -61,6 +63,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/skills/approval" component={SkillsApproval} />
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
                         <PrivateRoute exact path="/messages" component={Message} />
+                        <PrivateRoute exact path="/message-listing" component={MessageListing} />
                         <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
                         <PrivateRoute exact path="/designer-preview" component={DesignerResume} />
                         <PrivateRoute exact path="/select-resume" component={SelectResume} />
