@@ -5,7 +5,7 @@ import BlockUI from "../../components/BlockUI"
 import { getSingleResumeData } from "../../actions/Resume"
 import { API_URL } from '../../utils/helper';
 import './CandidatePreview.css'
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
 let base64File = ''
 const CandidatePreview = (props) => {
@@ -45,7 +45,7 @@ const CandidatePreview = (props) => {
       }else if(fields.resumePath){
         return (
           <>
-            <Link to={`${API_URL}resume/view/${fields.resumePath}`} className="btn btn-primary" target="_blank" rel="noreferrer"><button type="submit" className="btn btn-gradient-primary mb-2">Download</button></Link>
+            <a href={`${API_URL}resume/view/${fields.resumePath}`} target="_blank" rel="noreferrer"><button type="button" className="btn btn-gradient-primary mb-2">Download</button></a>
           </>
         )
       }
@@ -53,7 +53,7 @@ const CandidatePreview = (props) => {
 
     //const { blocking } = userData
     const blocking = false;
-    
+   
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
@@ -90,7 +90,10 @@ const CandidatePreview = (props) => {
                         <div className="displayPreviewRow">
                             <label className="col-lg-4 col-form-label"><b>Skills</b></label>
                             <div className="col-lg-7 col-form-label">
-                                    {fields.skills || ''}
+                                   {fields.skills?.map((skill, index) => (
+                                        <span key={index}>{ (skill.hasOwnProperty('skill') ) ? skill.skill : skill } <br /></span>
+                                    ))
+                                    }
                             </div>
                         </div>
                         <div className="displayPreviewRow">
@@ -103,7 +106,10 @@ const CandidatePreview = (props) => {
                         <div className="displayPreviewRow">
                             <label className="col-lg-4 col-form-label"><b>Company Name</b></label>
                             <div className="col-lg-7 col-form-label">
-                                    {fields.workExperience || ''}
+                                    {fields.workExperience?.map((company, index) => (
+                                        <span key={index}>{(company.hasOwnProperty('employer')) ? company.employer : company } <br /></span>
+                                    ))
+                                    }
                             </div>
                          </div>
                          

@@ -163,6 +163,7 @@ export const getSingleResumeData = (params) => {
             });
 
             if (response.data.success) {
+                
                 dispatch({ type : 'GET_RESUME_DATA_SUCCESS', payload : response.data.data});
             }
         } catch (error) {

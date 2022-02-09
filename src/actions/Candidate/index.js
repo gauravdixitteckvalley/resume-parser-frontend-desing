@@ -2,9 +2,9 @@ import api from '../../axios';
 import handleHttpError,{requestTokenHeader, history, displaySuccessMessage,loginRedirect} from '../../utils/helper';
 
 /* action for submitting user record */
-export const submitProfileFormData = (id,postData) => {
+export const submitCandidateData = (id,postData) => {
     return async dispatch => {
-        dispatch({ type: 'SUBMIT_PROFILE_FORM_REQUEST' });
+        /*dispatch({ type: 'SUBMIT_CANDIDATE_FORM_REQUEST' });
         try {
             let response = '';
             if(id)
@@ -13,17 +13,17 @@ export const submitProfileFormData = (id,postData) => {
                 });
             
             if (response.data.success) {
-                dispatch({ type : 'SUBMIT_PROFILE_FORM_SUCCESS'});
+                dispatch({ type : 'SUBMIT_CANDIDATE_FORM_SUCCESS'});
                 displaySuccessMessage(response.data.data.data);
                 history.push('/profile');
             } 
         } catch(error) {
             handleHttpError(error.response);
-            dispatch({ type: 'SUBMIT_PROFILE_FORM_FAILURE' });
-        }
+            dispatch({ type: 'SUBMIT_CANDIDATE_FORM_FAILURE' });
+        }*/
     }
 }
-
+/*
 export const submitUpdatePasswordFormData = (userData,postData) => {
     return async dispatch => {
         dispatch({ type: 'SUBMIT_UPDATE_PASSWORD_FORM_REQUEST' });
@@ -47,4 +47,4 @@ export const submitUpdatePasswordFormData = (userData,postData) => {
             dispatch({ type: 'SUBMIT_UPDATE_PASSWORD_FORM_FAILURE' });
         }
     }
-}
+}*/

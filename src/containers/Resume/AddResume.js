@@ -52,7 +52,7 @@ const AddResume = (props) => {
           fileArray.splice(index, 1);
         }
 
-        dispatch(deleteResumeOnRemove({ filename: result.files[0].filename })); // action is called to submit data
+        // dispatch(deleteResumeOnRemove({ filename: result.files[0].filename })); // action is called to submit data
       }
     }
   };
