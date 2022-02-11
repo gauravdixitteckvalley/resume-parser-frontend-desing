@@ -65,7 +65,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
                         <PrivateRoute exact path="/messages" component={Message} />
                         <PrivateRoute exact path="/message-listing" component={MessageListing} />
-                        <PrivateRoute exact path="/message-details" component={MessageDetails} />
+                        <PrivateRoute exact path="/message-details/:id" component={MessageDetails} />
                         <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
                         <PrivateRoute exact path="/designer-preview" component={DesignerResume} />
                         <PrivateRoute exact path="/select-resume" component={SelectResume} />

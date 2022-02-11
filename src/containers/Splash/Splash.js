@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect} from 'react';
 
 import BlockUI from "../../components/BlockUI";
-
+import { history } from '../../utils/helper';
 const Splash = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            window.location.assign('/login');
-        }, 3000);
+            history.push('/login');
+            // window.location.assign('/login');
+        }, 2000);
     })
 
     return (
