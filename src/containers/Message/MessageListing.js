@@ -102,28 +102,28 @@ const MessageListing = () => {
                                         </Link>
                                     </div>  
                                     <div className="listings">
-                                        <Link to="#">
+                                        <Link to="/message-details">
                                             <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
                                             <p>New Application for frontend developer</p>
                                             <p>12:22 PM</p>
                                         </Link>
                                     </div> 
                                     <div className="listings">
-                                        <Link to="#">
+                                        <Link to="/message-details">
                                             <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
                                             <p>New Application for frontend developer</p>
                                             <p>12:22 PM</p>
                                         </Link>
                                     </div> 
                                     <div className="listings">
-                                        <Link to="#">
+                                        <Link to="/message-details">
                                             <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
                                             <p>New Application for frontend developer</p>
                                             <p>12:22 PM</p>
                                         </Link>
                                     </div> 
                                     <div className="listings">
-                                        <Link to="#">
+                                        <Link to="/message-details">
                                             <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
                                             <p>New Application for frontend developer</p>
                                             <p>12:22 PM</p>
