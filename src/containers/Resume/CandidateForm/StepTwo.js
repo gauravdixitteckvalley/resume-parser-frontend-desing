@@ -10,13 +10,13 @@ import {  getStateList } from "../../../actions/Resume"
 const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
    const [formValues, setFormValues] = useState([])
   const resumeData = useSelector(state => state.resume );
-  const { countryList, stateList } = resumeData;
-  //const[countryArray,setCountryArray] = useState()
-
-  //console.log(countryArray, " countryArray")
   const [error, setError] = useState(false);
+
+  //fetch data from store
+  const { countryList, stateList } = resumeData;
   const dispatch = useDispatch(); 
-    // after form submit validating the form data using validator
+
+// after form submit validating the form data using validator
   const submitFormData = (event) => {
       console.log(formValues, " formValues")
       console.log(event.target.name, " ", event.target.value , " event")
@@ -29,7 +29,10 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                 employer: "", 
                 emptitle: " demo ",  
                 country: "",
-                state: "",
+                stateName: "",
+                stateId: null,
+                stateArray: null,
+                isStateFilled: false,
                 city: "",  
                 startDate: "",  
                 endDate: "", 
@@ -39,39 +42,70 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
         }
   }, []);
   const _handleChange = (event,key ) => {
-   /* //formValues[0]{event.target.name:event.target.value};
-      console.log(key, " key")
-      console.log(formValues[0].event.target.name, " length")
-      console.log(event.target.name, " event.target.name ",event.target.value, " event.target.value ")
-    
-      formValues[0]={event.target.name:event.target.value}
-        
-     
-    let data = formValues; */
-    //formValues[0]={event.target.name:event.target.value}
-   //console.log("key ", key)
-    if(event.target.name === 'country'){
-        let countryid = event.target.value;
+      const { target } = event
+      const state = `state${key}`
+      if(target.name  === state){
+            const splitValue = target.value.match(/^(\S+)\s(.*)/).slice(1)
+            formValues[key][state] = splitValue[1]
+            formValues[key].stateId = splitValue[0]
+            formValues[key].stateArray = stateList
+            formValues[key].isStateFilled = true
+      }else{
+        formValues[key][target.name] = target.value
+      }
+
+    if(target.name === 'country'){
+        if(formValues[key].stateArray !== null){
+            formValues[key].stateName = ""
+            formValues[key].stateId = null
+            formValues[key].stateArray = null
+            formValues[key].isStateFilled = false
+        }
+        let countryid = target.value;
         dispatch(getStateList(countryid));    
     }
-
-   /*event.target.name = event.target.value;
-   
-     // setFields({...data})
-     */
+    setFormValues([...formValues])
   }
   const addFormFields = () => {
     setFormValues([...formValues, { employer: "", 
                                     emptitle: "",  
                                     country: "",
-                                    state: "",
+                                    stateName: "",
+                                    stateId: null,
+                                    stateArray: null,
                                     city: "",  
                                     startDate: "", 
                                     endDate: "", 
                                     currentWork: "", 
                                     jd: "", 
                                 }])
-    //setCountryArray([...countryArray,countryArray])
+  }
+
+  const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey) => {
+    const stateName = `state${formValuesKey}`
+    if(formValues[formValuesKey].isStateFilled){
+        const resumeListSelectedCountry = formValues[formValuesKey].stateArray
+        return resumeListSelectedCountry.map ( (state, index) => {
+        return (
+            <>
+                <option key={index} value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }>{state.name}</option>
+            </>
+        )
+    })
+    }else{
+        if(formValues[formValuesKey].country !== ""){
+        return optionsArray.map ( (state, index) => {
+            return (
+                <>
+                    <option key={index} value={ `${state._id} ${state.name}` }>{state.name}</option>
+                </>
+            )
+        })
+        
+        }
+    
+    }
+    
   }
 
   return (
@@ -123,13 +157,11 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                             <Form.Group className="mb-2 col-md-4">
                                 <Form.Label>State</Form.Label>
                                 <Form.Select aria-label="Default select example" 
-                                    name="state" 
+                                    name={ `state${key}` } 
                                     onChange={(event) => _handleChange(event,key)}
                                 >
                                     <option value="">Select State</option>
-                                    {stateList?.map((state, index) => (
-                                        <option key={index} value={state._id}>{state.name}</option>
-                                    ))}
+                                    {   selectStateOrCountryOption(formValues, stateList, key) }
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group className="mb-2 col-md-4">
