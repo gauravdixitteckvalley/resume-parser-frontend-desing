@@ -1,12 +1,24 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useState, useEffect } from "react"
+import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash';
 import { Link } from "react-router-dom"
-
 import BlockUI from "../../components/BlockUI"
+import { IMAGE_URL } from '../../utils/helper';
 
-const MessageDetails = () => {
+const MessageDetails = (props) => {
+    const currentId = props?.match?.params?.id;
+    const messages = useSelector((state) =>  { return state.message; });
+    console.log('messages',messages);
+    const { blocking, messageList } = messages;
+    console.log('messageList',messageList);
+    const currentmsg = _.filter(messageList, function(o) {
+        if (o._id === currentId) return o;
+    });
+
+
     return (
         <Fragment>
-            <BlockUI /> 
+            <BlockUI blocking={blocking} /> 
             <div className="page-header">
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
                   <h3 className="page-title" style={{fontWeight: '600'}}> Message Details</h3>
@@ -17,14 +29,14 @@ const MessageDetails = () => {
                     <div className="card">
                         <div className="card-body">
                             <div className="table-responsive">
-                                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
-                                    <p className="page-title" style={{fontWeight: '600'}}> New Application for Frontend developer</p>
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                                    <p className="page-title" style={{fontWeight: '600'}}> { (!_.isEmpty(currentmsg))?currentmsg[0].message_subject:'' }</p>
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2">
-                                    <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" style={{width: '40px'}} /> Sandip Ghosh</p>
+                                    <p><img src={currentmsg[0]?.users.profile_image ? IMAGE_URL+currentmsg[0].users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" style={{width: '40px'}} />  { (!_.isEmpty(currentmsg))?currentmsg[0].users.first_name+' '+currentmsg[0].users.last_name:'' }</p>
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p>{ (!_.isEmpty(currentmsg))?currentmsg[0].message_text:'' }</p>
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2text-right">
                                     <Link to="#">

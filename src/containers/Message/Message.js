@@ -7,15 +7,22 @@ import {history} from '../../utils/helper'
 import BlockUI from "../../components/BlockUI"
 import validateMessageForm from './MessageFormValidation'
 import "./message.css";
+import { messageSend,fetchUserData } from '../../actions/Message';
 
 const Message = (props) => {
     const [fields, setFields] = useState({});
     const [errors, setErrors] = useState({});
-    const loggedUser = useSelector(state => state.authenticatedUser);
-    const { user } = loggedUser;
+    const messages = useSelector(state => state.message);
+    console.log('messages',messages);
+    const { blocking, userList } = messages;
 
     const dispatch = useDispatch()
 
+     /**hook equivalent to componentdidmount lifecycle */
+     useEffect(() => {
+        _getUserData();
+
+    }, []);
     /* validate form */
     const _validateForm = () => {
         let formFields = fields;
@@ -32,18 +39,22 @@ const Message = (props) => {
         setFields({...data})
     }
 
+    const _getUserData = () =>{
+        dispatch(fetchUserData())
+    }
     /* submit form */
     const _handleSubmit = (event) => {
         event.preventDefault();
-        
+        console.log('asad',fields);
         if (_validateForm()) {
-            const { password } = event.target;
+            const { subject, message, to } = fields;
             const postData = {
-                password   : password.value,
-                candidateId: user.id
+                to   : to,
+                subject : subject,
+                messageText: message
             }
 
-            // dispatch(actionChangeCandidatePassword(postData, user));  // action is called to submit data
+            dispatch(messageSend(postData));  // action is called to submit data
         }
     }
 
@@ -51,11 +62,10 @@ const Message = (props) => {
     const _handleCancelForm = () => {
         history.push('/candidate/dashboard')
     }
-    const { blocking } = user
 
     return (
         <Fragment>
-            <BlockUI /> 
+            <BlockUI blocking={blocking} /> 
             <div className="page-header">
               <h3 className="page-title">Send Messages</h3>
             </div>
@@ -67,19 +77,31 @@ const Message = (props) => {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <label className="mb-1 required" for="inlineFormInputName2">Name</label>
-                                        <Form.Control as="select" name="name" > 
+                                        {/* <Form.Control as="select" name="to" onChange={(event) => _handleChange(event)} value={fields.to || ''}  > 
                                             <option value=''>Select Name</option> 
-                                            <option>Sandip Ghosh</option>
-                                        </Form.Control>
+                                            {userList?.map((data, index) => (
+                                                <option key={index} value={data._id}>{data.first_name +' '+ data.last_name }</option>
+                                            ))}
+                                        </Form.Control> */}
+
+                                        <select name="to" className="form-control mb-2 mr-sm-2 col-md-6" 
+                                        value={fields.to || ''} 
+                                        onChange={(event) => _handleChange(event.target)} 
+                                        >
+                                            <option value="">Select Country</option>
+                                            {userList?.map((data, index) => (
+                                                <option key={index} value={data._id}>{data.first_name +' '+ data.last_name }</option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div className="col-md-12 mt-2">
                                         <label className="mb-1 required" for="inlineFormInputName2">Subject</label>
-                                        <input type="text" name="Subject" className="form-control mb-2 mr-sm-2 col-md-6"  
-                                                        value={fields.oldPassword || ''} 
+                                        <input type="text" name="subject" className="form-control mb-2 mr-sm-2 col-md-6"  
+                                                        value={fields.subject || ''} 
                                                         onChange={(event) => _handleChange(event.target)}
                                                         placeholder="Subject" 
                                                         minLength="6" />
-                                        <div className="errorMsg">{errors.oldPassword}</div>
+                                        <div className="errorMsg">{errors.subject}</div>
                                     </div>
                                 </div>
                                 <div className="row">
