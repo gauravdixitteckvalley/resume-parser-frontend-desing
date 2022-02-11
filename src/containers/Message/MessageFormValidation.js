@@ -4,10 +4,10 @@ const validateUserForm = (fields) => {
     let formIsValid = true;
 
     /* condition for update form */
-    if (!fields["name"] || fields["name"].trim() === '') {
-        formIsValid = false;
-        errors["name"] = "*Please select name.";
-    }
+    // if (!fields["to"] || fields["to"].trim() === '') {
+    //     formIsValid = false;
+    //     errors["to"] = "*Please select name.";
+    // }
 
     if (!fields["subject"] || fields["subject"].trim() === '') {
         formIsValid = false;

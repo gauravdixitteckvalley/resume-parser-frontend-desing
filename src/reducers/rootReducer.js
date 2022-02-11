@@ -7,6 +7,7 @@ import { skills } from './Skills';
 import { dashboard } from './Dashboard';
 import { profile } from "./Profile";
 import { candidate } from "./Candidate";
+import { message } from "./Message";
 
 const rootReducer = combineReducers({
     authenticatedUser,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     skills,
     dashboard,
     candidate,
+    message
 });
 
 export default rootReducer;

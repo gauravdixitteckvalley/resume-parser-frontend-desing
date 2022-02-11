@@ -1,0 +1,23 @@
+
+.check-sec {
+    display: flex;
+}
+.check-sec .form-check {
+    display: flex;
+    flex-direction: row;
+}
+.check-sec .form-check img {
+    margin-left: 20px;
+}
+.check-sec .form-check label {
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 425px)  {
+    .check-sec {
+        display: block;
+    }
+    .check-sec .form-check img {
+        margin-left: 20px;
+    }
+}

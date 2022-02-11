@@ -11,14 +11,14 @@ const loginRedirect = (user = {}) => {
     let isCandidateLogin = false
     let redirectRoute
     if(Object.keys(user).length > 0 ){
-        redirectRoute = user.isCandidateLogin ? '/login/candidate' : '/'
+        redirectRoute = user.isCandidateLogin ? '/login/candidate' : '/login'
     }
     if(splitPath.length > 0){
         for(let path of splitPath){
             if(path === 'candidate')
                 isCandidateLogin = true
         }
-        redirectRoute = isCandidateLogin ? '/login/candidate' : '/'
+        redirectRoute = isCandidateLogin ? '/login/candidate' : '/login'
     }
     
     history.push(redirectRoute);

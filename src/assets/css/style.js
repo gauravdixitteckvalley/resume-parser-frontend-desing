@@ -25,12 +25,12 @@ export default styled.div`
             margin-left: -6px;
         }
 
-        .sidebar-offcanvas {
-            position: absolute;
-            top: 0;
-            width: 33%;
-            height: 100%;
-        }
+        // .sidebar-offcanvas {
+        //     position: absolute;
+        //     top: 0;
+        //     width: 33%;
+        //     height: 100%;
+        // }
     }
 
     /*
