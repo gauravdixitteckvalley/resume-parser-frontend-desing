@@ -13,7 +13,6 @@ const VideoProfile = () => {
             <div className="card">
               <div className="card-body">
                 <h4 className="page-title font-style-bold mb-2">
-                  {" "}
                   Video Profile
                 </h4>
                 <p style={{ fontSize: "13px" }}>
