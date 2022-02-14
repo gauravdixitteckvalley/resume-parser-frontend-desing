@@ -2,39 +2,42 @@ export function candidate(state = [], action) {
     switch (action.type) {
         
         /* cases for submit form starts */
-        case 'SUBMIT_PROFILE_FORM_REQUEST':
+        case 'SUBMIT_CANDIDATE_GET_DATA_REQUEST':
             return {
+                candidateInfo        : {},
                 blocking : true
             };
         
-        case 'SUBMIT_PROFILE_FORM_SUCCESS':
+        case 'SUBMIT_CANDIDATE_GET_DATA_SUCCESS':
             return {
+                candidateInfo     : action.payload.candidate,
                 blocking : false
             };
         
-        case 'SUBMIT_PROFILE_FORM_FAILURE':
+        case 'SUBMIT_CANDIDATE_GET_DATA_FAILURE':
             return {
+                candidateInfo        : {},
                 blocking : false,
             };
-    
+   
 
-            /* cases change password for submit form starts */
-        case 'SUBMIT_UPDATE_PASSWORD_FORM_REQUEST':
+        /* cases change password for submit form starts */
+        case 'SUBMIT_CANDIDATE_FORM_ONE_REQUEST':
             return {
                 blocking : true
             };
         
-        case 'SUBMIT_UPDATE_PASSWORD_FORM_SUCCESS':
+        case 'SUBMIT_CANDIDATE_FORM_ONE_SUCCESS':
             return {
                 blocking : false
             };
         
-        case 'SUBMIT_UPDATE_PASSWORD_FORM_FAILURE':
+        case 'SUBMIT_CANDIDATE_FORM_ONE_FAILURE':
             return {
                 blocking : false,
             };
         
-        case 'CHANGE_LOGGED_USER_DATA':
+        case 'CHANGE_LOGGED_CANDIDATE_DATA':
             return [];
 
         default:

@@ -11,9 +11,9 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
    const [formValues, setFormValues] = useState([])
   const resumeData = useSelector(state => state.resume );
   const { countryList, stateList } = resumeData;
-  //const[countryArray,setCountryArray] = useState()
+  const[countryArray,setCountryArray] = useState()
 
-  //console.log(countryArray, " countryArray")
+  console.log(countryArray, " countryArray")
   const [error, setError] = useState(false);
   const dispatch = useDispatch(); 
     // after form submit validating the form data using validator
@@ -21,44 +21,34 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
       console.log(formValues, " formValues")
       console.log(event.target.name, " ", event.target.value , " event")
       event.preventDefault();
-    nextStep();
+   // nextStep();
   };
   useEffect(() => {
-        if(formValues.length<1){
-            setFormValues([...formValues, { 
-                employer: "", 
-                emptitle: " demo ",  
-                country: "",
-                state: "",
-                city: "",  
-                startDate: "",  
-                endDate: "", 
-                currentWork: "", 
-                jd: "", 
-            }])
-        }
+    setFormValues([...formValues, { employer: "", 
+                                    emptitle: "",  
+                                    country: "",
+                                    state: "",
+                                    city: "",  
+                                    startDate: "", 
+                                    endDate: "", 
+                                    currentWork: "", 
+                                    jd: "", 
+                                }])
   }, []);
   const _handleChange = (event,key ) => {
-   /* //formValues[0]{event.target.name:event.target.value};
-      console.log(key, " key")
-      console.log(formValues[0].event.target.name, " length")
+      console.log(event.target, " target")
       console.log(event.target.name, " event.target.name ",event.target.value, " event.target.value ")
-    
-      formValues[0]={event.target.name:event.target.value}
-        
-     
-    let data = formValues; */
-    //formValues[0]={event.target.name:event.target.value}
+    let data = formValues;
    //console.log("key ", key)
     if(event.target.name === 'country'){
         let countryid = event.target.value;
         dispatch(getStateList(countryid));    
     }
 
-   /*event.target.name = event.target.value;
+   event.target.name = event.target.value;
    
      // setFields({...data})
-     */
+     
   }
   const addFormFields = () => {
     setFormValues([...formValues, { employer: "", 
@@ -211,7 +201,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={nextStep} >
                 Next
               </Button>
             </div>
