@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import validator from "validator";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
+import _ from "lodash";
+import {  submitCandidateData  } from "../../../actions/Candidate";
+import validateCandidateForm  from "./CandidateFromValidation";
 
 
 // creating functional component ans getting props from app.js and destucturing them
@@ -54,7 +58,7 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
                         type="text"
                         placeholder="eg. Spanish"
                         name="language"
-                        onChange={handleFormData("language")}
+                        
                     />
                     {error ? (
                         <Form.Text style={{ color: "red" }}>
@@ -66,7 +70,7 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
                 </Form.Group>  
                 <Form.Group className="mb-2 col-md-5">
                     <Form.Label>Level</Form.Label>
-                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="langLevel" defaultValue={values.langLevel} onChange={handleFormData("langLevel")}>
+                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="langLevel" >
                         <option>Select your language level</option>
                         <option value="1">Basic</option>
                         <option value="2">Proficient</option>

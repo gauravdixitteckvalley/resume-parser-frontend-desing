@@ -82,8 +82,7 @@ const validateCandidateForm = (formNumber,fields) => {
         }
     } 
     if(formNumber=="form4"){
-       console.log("fields.length ",fields.length)
-       console.log("errorFields ",errorFields)
+        
     } 
     return {
         errorFields : errorFields,
