@@ -157,7 +157,7 @@ const Header = (props) => {
                             </Link>
                             :'' }
                             <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to="#">
+                            <Link className="dropdown-item" to="/activity-log">
                             <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </Link>
                             <div className="dropdown-divider"></div>
 
