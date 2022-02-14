@@ -76,7 +76,7 @@ const StepOne = (props,{ nextStep }) => {
     } else {
       nextStep();
     }*/
-    nextStep();
+    props.nextStep();
   };
 
   return (

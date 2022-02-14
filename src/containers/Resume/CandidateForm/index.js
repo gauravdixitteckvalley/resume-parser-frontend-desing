@@ -66,7 +66,7 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-                <StepOne nextStep={nextStep()} handleFormData={handleInputData} values={formData}   />
+                <StepOne nextStep={() => nextStep()} handleFormData={handleInputData} values={formData}   />
               </Col>
             </Row>
           </Container>
