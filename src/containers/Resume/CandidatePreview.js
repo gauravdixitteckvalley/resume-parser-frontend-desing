@@ -39,7 +39,17 @@ const CandidatePreview = (props) => {
       if(user.isCandidateLogin){
         return (
           <>
-            <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer"><button type="submit" class="btn btn-gradient-primary mb-2">Edit</button></Link>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right candid-profile">
+              <Link to={`/candidate/view/career-preference/${user.id}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2">Career preference</button>
+              </Link>
+              <Link to={`/candidate/view/video-profile/${user.id}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2">Video profile</button>
+              </Link>
+              <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2">Edit</button>
+              </Link>
+            </div>
           </>
         )
         
@@ -58,8 +68,8 @@ const CandidatePreview = (props) => {
     return (
       <Fragment>
         <BlockUI blocking={blocking} />
-        <div class="page-header">
-          <h3 class="page-title">
+        <div className="page-header">
+          <h3 className="page-title">
             {" "}
             {user.isCandidateLogin ? "My Profile" : "Candidate Preview"}
           </h3>
@@ -493,27 +503,30 @@ const CandidatePreview = (props) => {
                   LANGUAGES
                 </h3>
                 <hr className="mb-4" />  
-                {/* {fields.language.map((lang) => {
-                        <div className="row">
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>Language</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">
-                            {lang.content || ""}
-                          </div>
-                        </div>
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>Level</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">
+                {fields.language?.map((lang, index) => {
+                        return (
+                          <div className="row" key={index}>
+                            <div className="displayPreviewRow col-md-6">
+                              <label className="col-lg-4 col-form-label">
+                                <b>Language</b>
+                              </label>
+                              <div className="col-lg-7 col-form-label">
+                                {lang.content || ""}
+                              </div>
+                            </div>
+                            <div className="displayPreviewRow col-md-6">
+                              <label className="col-lg-4 col-form-label">
+                                <b>Level</b>
+                              </label>
+                              <div className="col-lg-7 col-form-label">
                                 {lang.level || ""}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                })}  */}
-                {console.log(fields.language)}
+                        );
+                        
+                })} 
+                {console.log(fields)}
               </div>
             </div>
           </div>

@@ -1,0 +1,16 @@
+.table th, .table td {
+    padding: 0.9375rem !important;
+}
+.table>:not(:first-child) {
+    border-top: 1px solid currentColor !important;
+}
+.activity th {
+    font-weight: 600 !important;
+}
+button.icon-up, button.icon-down {
+    margin-left: 2px;
+    border: 0;
+}
+.table thead th i {
+    margin-left: 0 !important;
+}

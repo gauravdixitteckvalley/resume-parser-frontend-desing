@@ -60,7 +60,24 @@ export function message(state = [], action){
             return {
                 blocking : true,
                 userList : []
-            };             
+            };  
+        case 'MESSAGE_DETAIL_REQUEST':
+            return {
+                blocking : true,
+                messageDetail : {}
+            };
+        
+        case 'MESSAGE_DETAIL_SUCCESS':
+            return {
+                blocking : false,
+                messageDetail     : action.payload.message
+            };
+            
+        case 'MESSAGE_DETAIL_FAILURE':
+            return {
+                blocking : true,
+                messageDetail : {}
+            };                       
         default:
             return state;
     }
