@@ -99,7 +99,12 @@ console.log('filData',filData);
           <Container>
             <Row>
               <Col>
-                <StepOne nextStep={() => nextStep()} handleFormData={filData} dataName={filData ? filData.name : ""} cdId={cdId} />
+                <StepOne 
+                  nextStep={() => nextStep()} 
+                  handleFormData={filData} 
+                  dataName={filData ? filData.name : ""} 
+                  cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>
@@ -112,7 +117,12 @@ console.log('filData',filData);
           <Container>
             <Row>
               <Col  md={{ span: 12 }}>
-                <StepTwo nextStep={nextStep} prevStep={prevStep} handleFormData={filData} values={formData} />
+                <StepTwo 
+                  nextStep={nextStep} 
+                  prevStep={prevStep} 
+                  handleFormData={filData} 
+                  values={formData} 
+                />
               </Col>
             </Row>
           </Container>

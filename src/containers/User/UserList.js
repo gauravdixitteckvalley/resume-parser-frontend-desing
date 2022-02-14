@@ -21,7 +21,7 @@ const UserList = (props) => {
     /**fetched data from redux store */
     const users = useSelector(state => state.user);
     const dispatch = useDispatch();
-
+    console.log('users',users);
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
         _getData();

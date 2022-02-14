@@ -8,7 +8,7 @@ import { resetLoggedUserData } from '../../../actions/Login';
 import { fetchResumeData, resetResumeData,updateStatusField } from "../../../actions/Resume";
 import { history, displayErrorMessage,IMAGE_URL } from '../../../utils/helper';
 import { Link } from "react-router-dom";
-
+import moment from 'moment'
 
 const Header = (props) => {
     const dispatch = useDispatch();
@@ -53,6 +53,19 @@ const Header = (props) => {
 
     }
 
+    // var showMobileNav = false;
+    // const toggleMobileSidebar = () => {
+           
+    //     if (showMobileNav == false) {
+    //         document.sidebar.classList.add('active');
+    //         showMobileNav = !showMobileNav;
+    //     }else{
+    //         document.sidebar.classList.remove('active');            
+    //         showMobileNav = !showMobileNav;
+    //     }
+
+    // }
+
     const _getData = (data, params = {}) => {
         const queryParams = {
             page    : data ? data : 1,
@@ -80,7 +93,7 @@ const Header = (props) => {
             )
         }
     }
-
+    
     return (
         <>
             <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
@@ -163,37 +176,23 @@ const Header = (props) => {
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                                 <h6 className="p-3 mb-0">Messages</h6>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <img src="../../assets/img/faces/face4.jpg" alt="image" className="profile-pic" />
-                                </div>
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
-                                    <p className="text-gray mb-0"> 1 Minutes ago </p>
-                                </div>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <img src="../../assets/img/faces/face2.jpg" alt="image" className="profile-pic" />
-                                </div>
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
-                                    <p className="text-gray mb-0"> 15 Minutes ago </p>
-                                </div>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <img src="../../assets/img/faces/face3.jpg" alt="image" className="profile-pic" />
-                                </div>
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
-                                    <p className="text-gray mb-0"> 18 Minutes ago </p>
-                                </div>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <h6 className="p-3 mb-0 text-center">4 new messages</h6>
+                                {  loggedUser.user?.message.map((data, index) => (
+                                        <>
+                                        <Link className="dropdown-item preview-item">
+                                        <div className="preview-thumbnail">
+                                            <img src={ data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} alt="image" className="profile-pic" />
+                                        </div>
+                                        <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                            <h6 className="preview-subject ellipsis mb-1 font-weight-normal">{ data.users.first_name +' '+ data.users.last_name}</h6>
+                                            <p className="text-gray mb-0"> { moment(data.createdAt).calendar() }  </p>
+                                        </div>
+                                        </Link>
+                                        <div className="dropdown-divider"></div>
+                                        </>
+                                ))
+                                }
+                                
+                                <Link to={'/message-listing'}><h6 className="p-3 mb-0 text-center">messages</h6></Link>
                             </div>
                         </li>
                         <li className="nav-item dropdown">

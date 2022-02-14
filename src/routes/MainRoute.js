@@ -24,13 +24,19 @@ const Profile = lazy(() => import ('../containers/Profile/Profile'))
 const Message = lazy(() => import ('../containers/Message/Message'))
 const ChangePassword = lazy(() => import ('../containers/Profile/ChangePassword'))
 const ChangePasswordForm = lazy(() => import('../containers/Candidate/CandidateForm/ChangePasswordForm'))
+const DeveloperResume = lazy(() => import ('../containers/Resume/CandidateResumePreview/DeveloperResume'))
+const DesignerResume = lazy(() => import ('../containers/Resume/CandidateResumePreview/DesignerResume'))
+const SelectResume = lazy(() => import ('../containers/Resume/SelectResume/SelectResume'))
+const SplashPage = lazy(() => import ('../containers/Splash/Splash'))
+const MessageListing = lazy(() => import ('../containers/Message/MessageListing'))
+const MessageDetails = lazy(() => import ('../containers/Message/MessageDetails'))
 
 
 function MainRoute() {
     return (
         <Router history={history}>
             <Switch>
-                <Route exact path="/" component={Login} />
+                <Route exact path="/" component={SplashPage} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/login/candidate" component={Login} />
                 <MainLayout>
@@ -58,6 +64,11 @@ function MainRoute() {
                         <PrivateRoute exact path="/skills/approval" component={SkillsApproval} />
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
                         <PrivateRoute exact path="/messages" component={Message} />
+                        <PrivateRoute exact path="/message-listing" component={MessageListing} />
+                        <PrivateRoute exact path="/message-details/:id" component={MessageDetails} />
+                        <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
+                        <PrivateRoute exact path="/designer-preview" component={DesignerResume} />
+                        <PrivateRoute exact path="/select-resume" component={SelectResume} />
                         {/*Page Not Found*/}
                         <Route component={NotFound} />
                     </Switch>

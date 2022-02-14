@@ -10,7 +10,7 @@ const MainLayout = (props) => {
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
         const canvas = document.querySelector('[data-toggle=offcanvas]');
-        const row = document.querySelector('.row-offcanvas');
+        const row = document.querySelector('.sidebar-offcanvas');
         canvas.addEventListener('click', function(){
             row.classList.toggle('active');
         })
