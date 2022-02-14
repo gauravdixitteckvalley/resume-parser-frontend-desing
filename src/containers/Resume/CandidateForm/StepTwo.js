@@ -21,7 +21,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
       console.log(formValues, " formValues")
       console.log(event.target.name, " ", event.target.value , " event")
       event.preventDefault();
-    nextStep();
+   // nextStep();
   };
   useEffect(() => {
         if(formValues.length<1){
@@ -243,7 +243,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={nextStep} >
                 Next
               </Button>
             </div>

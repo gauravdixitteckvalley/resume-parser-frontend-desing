@@ -1,5 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -7,10 +7,42 @@ import StepFour from "./StepFour";
 import StepFive from "./StepFive";
 import StepSix from "./StepSix";
 import StepSeven from "./StepSeven";
+import { useSelector, useDispatch } from "react-redux";
+import {  fetchCandidateData  } from "../../../actions/Candidate";
+import _ from 'lodash';
 
-function CandidateMultiStep(props) {
+function CandidateMultiStep() {
+
+  
   //state for steps
   const [step, setstep] = useState(1);
+  const cdIdData = JSON.parse(localStorage.getItem("data"));
+  const [filData,setFilData] = useState()
+  const [isData,setIsData] = useState(false)
+  const cdId =cdIdData.id;
+  const dispatch = useDispatch(); 
+
+  useEffect(() => {
+    return () => {
+      dispatch(fetchCandidateData(cdId));
+    }
+
+  }, []);
+  const userData = useSelector( (state) => {  return state.candidate});
+  const { candidateInfo, blocking } = userData;
+  // console.log('candidateInfo',candidateInfo,isData);
+  if(!_.isEmpty(candidateInfo && isData === false)){
+    
+     setIsData(true) 
+      setFilData(candidateInfo)
+      // console.log('candidateInfo1',candidateInfo,isData);
+    
+    // setTimeout(function(){  }, 200);
+  }
+
+  
+
+
 
   //state for form data
   const [formData, setFormData] = useState({
@@ -56,6 +88,7 @@ function CandidateMultiStep(props) {
   }));
   }
 
+console.log('filData',filData);
 
 // javascript switch case to show different form in each step
   switch (step) {
@@ -66,7 +99,12 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-                <StepOne nextStep={() => nextStep()} handleFormData={handleInputData} values={formData}   />
+                <StepOne 
+                  nextStep={() => nextStep()} 
+                  handleFormData={filData} 
+                  dataName={filData ? filData.name : ""} 
+                  cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>
@@ -79,7 +117,12 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col  md={{ span: 12 }}>
-                <StepTwo nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+                <StepTwo 
+                  nextStep={nextStep} 
+                  prevStep={prevStep} 
+                  handleFormData={filData} 
+                  values={formData} 
+                />
               </Col>
             </Row>
           </Container>
@@ -91,7 +134,12 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-                <StepThree nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+                <StepThree 
+                   nextStep={() => nextStep()} 
+                   prevStep={prevStep} 
+                   handleFormData={handleInputData} 
+                   cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>
@@ -103,7 +151,12 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-                <StepFour nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+                <StepFour 
+                  nextStep={() => nextStep()} 
+                  prevStep={prevStep} 
+                  handleFormData={handleInputData} 
+                  cdId={cdId} 
+                />
               </Col>
             </Row>
           </Container>
@@ -115,7 +168,12 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-                <StepFive nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+                <StepFive 
+                   nextStep={() => nextStep()} 
+                   prevStep={prevStep} 
+                   handleFormData={handleInputData} 
+                   cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>
@@ -127,7 +185,12 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-                <StepSix nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+                <StepSix
+                   nextStep={() => nextStep()} 
+                   prevStep={prevStep} 
+                   handleFormData={handleInputData} 
+                   cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>
@@ -140,7 +203,12 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-                <StepSeven nextStep={nextStep} prevStep={prevStep} handleFormData={handleInputData} values={formData} />
+                <StepSeven 
+                   nextStep={() => nextStep()} 
+                   prevStep={prevStep} 
+                   handleFormData={handleInputData} 
+                   cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>

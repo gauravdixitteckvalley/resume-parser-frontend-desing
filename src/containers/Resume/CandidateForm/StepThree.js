@@ -63,7 +63,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                             </Form.Group> 
                             <Form.Group className="mb-2 col-md-6">
                                 <Form.Label>Select a degree</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="degree" defaultValue={values.degree} onChange={handleFormData("degree")}>
+                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="degree"  >
                                     <option>Select a degree</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -81,7 +81,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                         <Row>
                             <Form.Group className="mb-2 col-md-4">
                                 <Form.Label>Country</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="country" defaultValue={values.country} onChange={handleFormData("country")}>
+                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="country" >
                                     <option>Open this select menu</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -97,7 +97,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                             </Form.Group>
                             <Form.Group className="mb-2 col-md-4">
                                 <Form.Label>State</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="state" defaultValue={values.state} onChange={handleFormData("state")}>
+                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="state" >
                                     <option>Open this select menu</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -117,8 +117,6 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                     style={{ border: error ? "2px solid red" : "" }}
                                     name="city" 
                                     type="text"
-                                    defaultValue={values.city} 
-                                    onChange={handleFormData("city")}
                                 />
                                 {error ? (
                                     <Form.Text style={{ color: "red" }}>
@@ -150,7 +148,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                 <Row>
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Graduation month</Form.Label>
-                                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="gradMonth" defaultValue={values.gradMonth} onChange={handleFormData("gradMonth")}>
+                                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="gradMonth" >
                                         <option>Month</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -166,7 +164,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Graduation year</Form.Label>
-                                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="gradYear" defaultValue={values.gradYear} onChange={handleFormData("gradYear")}>
+                                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="gradYear" >
                                         <option>Year</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>

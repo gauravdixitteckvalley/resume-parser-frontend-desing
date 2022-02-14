@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
 import validator from "validator";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
+import _ from "lodash";
+import {  submitCandidateData  } from "../../../actions/Candidate";
+import validateCandidateForm  from "./CandidateFromValidation";
 
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepFour = (props) => {
+  const currentId = props.cdId;
    //creating error state for validation
   const [error, setError] = useState(false);
+  const [errorFields, setErrorFields] = useState({});
   const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
-
-    // after form submit validating the form data using validator
-  const submitFormData = (e) => {
-    e.preventDefault();
-
-     // checking if value of first name and last name is empty show error else take to next step
-    if (
-        validator.isEmpty(values.skill) || 
-        validator.isEmpty(values.skillLevel) 
-        )
-        {
-      setError(true);
-    } else {
-      nextStep();
-    }
-  };
 
   const addFormFields = () => {
     setFormValues([...formValues, { skill: "", skillLevel: "" }])
@@ -36,6 +26,37 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
         newFormValues.splice(i, 1);
         setFormValues(newFormValues)
   }
+  const _handleChange = (event,key) => {
+    console.log("key ",key)
+    console.log("event.target.name ",event.target.name," event.target.value ",event.target.value)
+    if(formValues[key]){
+      if(event.target.name == "skill"){
+        formValues[key] = {
+          ...formValues[key],
+          skill:event.target.value,
+        }
+      }
+      if(event.target.name == "skillLevel"){
+        formValues[key] = {
+          ...formValues[key],
+          skillLevel:event.target.value,
+        }
+      }
+    }
+    console.log("formValues ",formValues)
+};
+const _validateForm = () => {
+  let formNumber = "form4";
+  let formFields = formValues;
+  let response = validateCandidateForm(formNumber,formFields);
+  setErrorFields(response.errorFields);
+  return response.formIsValid;
+};
+const submitFormData = (e) => {
+  e.preventDefault();
+  if (_validateForm()) {
+  }
+};
 
   return (
     <>
@@ -43,17 +64,20 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
         <Card.Body>
         <h3 className="page-title font-style-bold mb-2">SKILLS </h3>
         <p style={{fontSize: '13px'}}>Highlight 6-8 of you top skills.</p>
-          <Form onSubmit={submitFormData} className="mt-4">
-            {formValues.map((index) => {
+          {/* <Form onSubmit={submitFormData} className="mt-4"> */}
+          <Form onSubmit={submitFormData}>
+            {formValues.map((index, key) => {
               return (
-                <Row key={index}>
+                <Row key={key}>
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Skill</Form.Label>
                     <Form.Control
                         style={{ border: error ? "2px solid red" : "" }}
                         type="text"
-                        placeholder="School Name"
-                        onChange={handleFormData("skill")}
+                        placeholder="Skills"
+                        name="skill"
+                        //onChange={handleFormData("skill")}
+                        onChange={(event) => _handleChange(event,key)} 
                     />
                     {error ? (
                         <Form.Text style={{ color: "red" }}>
@@ -65,14 +89,19 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
                 </Form.Group>  
                 <Form.Group className="mb-2 col-md-5">
                     <Form.Label>Level</Form.Label>
-                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="skillLevel" defaultValue={values.skillLevel} onChange={handleFormData("skillLevel")}>
-                        <option>Select your skill level</option>
-                        <option value="1">Novice</option>
-                        <option value="2">Beginner</option>
-                        <option value="3">Skillful</option>
-                        <option value="3">Experienced</option>
-                        <option value="3">Expert</option>
-                        <option value="3">- Don't show level</option>
+                    <Form.Select 
+                      aria-label="Default select example" 
+                      style={{ border: error ? "2px solid red" : "" }} 
+                      name="skillLevel" 
+                      onChange={(event) => _handleChange(event,key)}
+                    >
+                        <option value=''>Select your skill level</option>
+                        <option value="Novice">Novice</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Skillful">Skillful</option>
+                        <option value="Experienced">Experienced</option>
+                        <option value="Expert">Expert</option>
+                        <option value="Don't show level">Don't show level</option>
                     </Form.Select>
                     {error ? (
                         <Form.Text style={{ color: "red" }}>
@@ -113,11 +142,11 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
             <hr className="mb-4"/>
             
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" onClick={nextStep} type="submit" >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2"  type="submit" >
                 Next
               </Button>
             </div>

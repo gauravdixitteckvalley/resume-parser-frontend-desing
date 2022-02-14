@@ -176,9 +176,11 @@ const Header = (props) => {
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                                 <h6 className="p-3 mb-0">Messages</h6>
                                 <div className="dropdown-divider"></div>
-                                { loggedUser.user?.message.map((data, index) => (
+                               
+                                { (loggedUser.user?.message.length > 0 )?
+                                 loggedUser.user?.message.map((data, index) => (
                                         <>
-                                        <Link className="dropdown-item preview-item">
+                                        <Link to={`/message-details/${data._id}`}  className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
                                             <img src={ data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} alt="image" className="profile-pic" />
                                         </div>
@@ -190,6 +192,17 @@ const Header = (props) => {
                                         <div className="dropdown-divider"></div>
                                         </>
                                 ))
+                                : 
+                                <>
+                                <Link  className="dropdown-item preview-item">
+                                
+                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                    <h6 className="preview-subject ellipsis mb-1 font-weight-normal">No Message</h6>
+                                    
+                                </div>
+                                </Link>
+                                <div className="dropdown-divider"></div>
+                                </> 
                                 }
                                 
                                 <Link to={'/message-listing'}><h6 className="p-3 mb-0 text-center">messages</h6></Link>
