@@ -105,7 +105,7 @@ const CandidateDetails = (props) => {
             zip: zip.value
 
         }
-        console.log('postData',postData);
+       
         postData.loginFor = user.isCandidateLogin ? 'candidate' : ''
         // const postData = new FormData(event.target);
         dispatch(updateResumeFormData(currentId, postData));  // action is called to submit data

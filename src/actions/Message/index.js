@@ -54,3 +54,21 @@ export const fetchUserData = (params) => {
         }
     }
 }
+
+/* action for fetching message detail */
+export const fetchMessageDetail = (id) => {
+    return async dispatch => {
+        dispatch({ type: 'MESSAGE_DETAIL_REQUEST' });
+        try {
+            const response = await api.get(`message/message-detail/${id}`,{
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'MESSAGE_DETAIL_SUCCESS', payload : response.data.data});
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'MESSAGE_DETAIL_FAILURE'});
+        }
+    }
+}
