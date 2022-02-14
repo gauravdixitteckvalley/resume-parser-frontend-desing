@@ -176,7 +176,7 @@ const Header = (props) => {
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                                 <h6 className="p-3 mb-0">Messages</h6>
                                 <div className="dropdown-divider"></div>
-                                { loggedUser.user?.message.map((data, index) => (
+                                {  loggedUser.user?.message.map((data, index) => (
                                         <>
                                         <Link className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
