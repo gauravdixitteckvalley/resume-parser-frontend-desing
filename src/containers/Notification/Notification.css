@@ -1,0 +1,22 @@
+.notification-container a {
+    text-decoration: none;
+    color: #000;
+}
+.notification-container {
+    border-bottom: 1px solid #c8c9ca;
+    margin: 0 auto;
+}
+.notification-main {
+    display: flex;
+    align-items: flex-start;
+}
+.notification-main img {
+    max-width: 35px;
+    margin-right: 10px;
+}
+.content-area p:nth-child(1) {
+    margin-bottom: 7px;
+}
+.content-area p:nth-child(2) {
+    color: #c8c9ca;
+}

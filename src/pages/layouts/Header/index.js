@@ -252,7 +252,7 @@ const Header = (props) => {
                                     </div>
                                 </Link>
                                 <div className="dropdown-divider"></div>
-                                <h6 className="p-3 mb-0 text-center">See all notifications</h6>
+                                <Link to="/notifications" style={{textDecoration: 'none', color: '#000'}}><h6 className="p-3 mb-0 text-center">See all notifications</h6></Link>
                             </div>
                         </li>
                         <li className="nav-item nav-logout d-none d-lg-block">

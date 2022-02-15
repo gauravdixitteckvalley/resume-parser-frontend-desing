@@ -165,4 +165,8 @@
               color: #555555; }
           .sidebar .nav.sub-menu .nav-item:hover {
             background: transparent; }
-  
+@media (min-width: 769px) { 
+  .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown {
+    left: -135px;
+  }
+}
