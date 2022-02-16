@@ -15,12 +15,14 @@ const StepSix = (props) => {
     publication: "",
     step:6
   });
- useEffect(() => {
-    setFields({
-        award:props?.handleFormData?.award,
-        publication: props?.handleFormData?.publication,
-        step:6
-    })
+  useEffect(() => {
+    if(!_.isEmpty(props.handleFormData)){
+      setFields({
+          award:props?.handleFormData?.award,
+          publication: props?.handleFormData?.publication,
+          step:6
+      })
+    }
   }, []);
   const _handleChange = (event) => {
     event.preventDefault();
@@ -51,7 +53,7 @@ const StepSix = (props) => {
                         name="award"
                         as="textarea"
                         //value={fields.award ? fields.award:''}
-                        value={fields.award ? fields.award : props?.handleFormData?.award}
+                        value={fields.award}
                         placeholder="Any Awards"
                         onChange={(event) => _handleChange(event)} 
                     />
@@ -67,7 +69,7 @@ const StepSix = (props) => {
                         name="publication"
                         as="textarea"
                         placeholder="Any Publications"
-                        value={fields.publication ? fields.publication : props?.handleFormData?.publication}
+                        value={fields.publication}
                         onChange={(event) => _handleChange(event)} 
                     />
                 </Form.Group>

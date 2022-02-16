@@ -19,7 +19,7 @@ const StepFive = (props) => {
     // after form submit validating the form data using validator
   const submitFormData = (e) => {
     e.preventDefault();
-    props.nextStep()
+    //props.nextStep()
   };
 
 const addFormFields = () => {

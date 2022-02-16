@@ -8,33 +8,44 @@ import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepTwo = (props) => {
+    
     const currentId = props.cdId;
     const [formValues, setFormValues] = useState([])
     const resumeData = useSelector(state => state.resume );
     const [error, setError] = useState(false);
   //fetch data from store
     const { countryList, stateList } = resumeData;
+    const [status,setStatus] =useState(true);
     const dispatch = useDispatch(); 
 
 // after form submit validating the form data using validator
   
   useEffect(() => {
         if(formValues.length<1){
-            setFormValues([...formValues, { 
-                employer: "", 
-                emptitle: " demo ",  
-                country: "",
-                stateName: "",
-                stateId: null,
-                stateArray: null,
-                isStateFilled: false,
-                city: "",  
-                startDate: "",  
-                endDate: "", 
-                currentWork: "", 
-                jd: "", 
-            }])
+            if(!_.isEmpty(props.handleFormData)){
+                console.log("props.handleFormData " ,props.handleFormData)
+                    setFormValues([...formValues, props.handleFormData.workExperience])
+                    setStatus(false)
+                }else{
+                    setFormValues([...formValues, { 
+                        employer: "", 
+                        emptitle: " demo ",  
+                        country: "",
+                        stateName: "",
+                        stateId: null,
+                        stateArray: null,
+                        isStateFilled: false,
+                        city: "",  
+                        startDate: "",  
+                        endDate: "", 
+                        currentWork: "", 
+                        jd: "", 
+                    }])
+                }
+            
         }
+        console.log("formValues ", formValues)
+        
   }, []);
   const _handleChange = (event,key ) => {
       const { target } = event
@@ -47,6 +58,7 @@ const StepTwo = (props) => {
             formValues[key].isStateFilled = true
       }else{
         formValues[key][target.name] = target.value
+        console.log("check ",formValues[key][target.name] = target.value)
       }
 
     if(target.name === 'country'){
@@ -105,15 +117,24 @@ const StepTwo = (props) => {
   const submitFormData = (event) => {
     /*console.log(formValues, " formValues")
     console.log(event.target.name, " ", event.target.value , " event")
-    event.preventDefault();
-    let postData = {formValues,step:2};
     console.log("valid ", postData)
-    if(currentId){
+    */
+    event.preventDefault();
+    let postData = {"workExperience":formValues,step:2};
+    if (!_.isEmpty(postData)) {       
+        //let postData = fields;
+        console.log("valid ")
+        if(currentId){
+            dispatch(submitCandidateData(currentId, postData));
+            setTimeout(function(){  props.nextStep(); }, 2000);
+        }
+    }
+    /*if(currentId){
         dispatch(submitCandidateData(currentId, postData));
         setTimeout(function(){  props.nextStep(); }, 2000);
        console.log("valid ")
     }*/
-  props.nextStep();
+  //props.nextStep();
 };
   return (
     <>
@@ -133,6 +154,7 @@ const StepTwo = (props) => {
                                     type="text"
                                     placeholder="eg. IBM"
                                     name="employer"
+                                    value={formValues[key][key].employer}
                                     onChange={(event) => _handleChange(event,key)}
                                 />
                             </Form.Group>  

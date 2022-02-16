@@ -19,11 +19,11 @@ const validateCandidateForm = (formNumber,fields) => {
             errorFields["lastName"] = "";
         }
 
-        if (!fields["location"] || fields["location"].trim() === '') {
+        if (!fields["address"] || fields["address"].trim() === '') {
             formIsValid = false;
-            errorFields["location"] = "*Please enter your address.";
+            errorFields["address"] = "*Please enter your address.";
         }else{
-            errorFields["location"] = "";
+            errorFields["address"] = "";
         }
 
         if (!fields["email"] || fields["email"].trim() === '') {

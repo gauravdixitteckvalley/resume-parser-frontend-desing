@@ -26,7 +26,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
         {
       setError(true);
     } else {
-      nextStep();
+     // nextStep();
     }
   };
 

@@ -81,7 +81,7 @@ const _validateForm = () => {
 };
 const submitFormData = (e) => {
   //console.log("formValues ",formValues)
-  props.nextStep()
+ // props.nextStep()
   e.preventDefault();
   if (_validateForm()) {
 

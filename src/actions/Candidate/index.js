@@ -34,8 +34,11 @@ export const submitCandidateData = (id,postData) => {
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_CANDIDATE_FORM_ONE_SUCCESS'});
                 displaySuccessMessage(response.data.data.data);
+                //let newid=postData.step+1
                 if(postData.step==7){
                     history.push(`/candidate/view/${id}`);   
+                }else{
+                    //newid
                 }
             } 
         } catch(error) {
