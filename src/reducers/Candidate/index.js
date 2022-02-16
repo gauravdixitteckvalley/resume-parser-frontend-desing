@@ -1,8 +1,8 @@
 export function candidate(state = [], action) {
     switch (action.type) {
-        
         /* cases for submit form starts */
         case 'SUBMIT_CANDIDATE_GET_DATA_REQUEST':
+           
             return {
                 candidateInfo        : {},
                 blocking : true
@@ -24,11 +24,13 @@ export function candidate(state = [], action) {
         /* cases change password for submit form starts */
         case 'SUBMIT_CANDIDATE_FORM_ONE_REQUEST':
             return {
+                ...state,
                 blocking : true
             };
         
         case 'SUBMIT_CANDIDATE_FORM_ONE_SUCCESS':
             return {
+                ...state,
                 blocking : false
             };
         

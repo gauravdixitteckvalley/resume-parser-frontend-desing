@@ -1,27 +1,40 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import validator from "validator";
 import './CandidateMultiForm.css';
-
+import { useDispatch } from "react-redux";
+import _ from "lodash";
+import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepSix = ({ nextStep, handleFormData, prevStep, values }) => {
-   //creating error state for validation
-  const [error, setError] = useState(false);
+const StepSix = (props) => {
+  console.log("props ",props)
+  const currentId = props.cdId;
+  const dispatch = useDispatch(); 
+  const [fields, setFields] = useState({
+    award:"",
+    publication: "",
+    step:6
+  });
+ useEffect(() => {
+    setFields({
+        award:props?.handleFormData?.award,
+        publication: props?.handleFormData?.publication,
+        step:6
+    })
+  }, []);
+  const _handleChange = (event) => {
+    event.preventDefault();
+    let data = fields;
+      data[event.target.name] = event.target.value;
+      setFields({...data}) 
+  }
 
-    // after form submit validating the form data using validator
   const submitFormData = (e) => {
     e.preventDefault();
-
-     // checking if value of first name and last name is empty show error else take to next step
-    if (
-        validator.isEmpty(values.awards) || 
-        validator.isEmpty(values.publications) 
-        )
-        {
-      setError(true);
-    } else {
-      nextStep();
+    let postData = fields;
+    if(currentId){
+      dispatch(submitCandidateData(currentId, postData));
+      setTimeout(function(){  props.nextStep(); }, 2000); 
     }
   };
   return (
@@ -34,20 +47,15 @@ const StepSix = ({ nextStep, handleFormData, prevStep, values }) => {
                 <Form.Group className="mb-2 col-md-12">
                 <Form.Label>Content</Form.Label>
                     <Form.Control
-                        style={{ border: error ? "2px solid red" : "", height: '150px' }}
-                        name="awards"
-                        defaultValue={values.awards}
+                        style={{ height: '150px' }}
+                        name="award"
                         as="textarea"
+                        //value={fields.award ? fields.award:''}
+                        value={fields.award ? fields.award : props?.handleFormData?.award}
                         placeholder="Any Awards"
-                        onChange={handleFormData("awards")}
+                        onChange={(event) => _handleChange(event)} 
                     />
-                    {error ? (
-                        <Form.Text style={{ color: "red" }}>
-                        This is a required field
-                        </Form.Text>
-                    ) : (
-                        ""
-                    )}
+                    
                 </Form.Group>
             </Row>
             <Row>
@@ -55,30 +63,23 @@ const StepSix = ({ nextStep, handleFormData, prevStep, values }) => {
                 <Form.Group className="mb-2 col-md-12">
                 <Form.Label>Content</Form.Label>
                     <Form.Control
-                        style={{ border: error ? "2px solid red" : "", height: '150px' }}
-                        name="publications"
-                        defaultValue={values.publications}
+                        style={{ height: '150px' }}
+                        name="publication"
                         as="textarea"
                         placeholder="Any Publications"
-                        onChange={handleFormData("publications")}
+                        value={fields.publication ? fields.publication : props?.handleFormData?.publication}
+                        onChange={(event) => _handleChange(event)} 
                     />
-                    {error ? (
-                        <Form.Text style={{ color: "red" }}>
-                        This is a required field
-                        </Form.Text>
-                    ) : (
-                        ""
-                    )}
                 </Form.Group>
             </Row>
             
             
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit"  onClick={props.prevStep} >
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" onClick={nextStep} type="submit" >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2"  type="submit" >
                 Next
               </Button>
             </div>

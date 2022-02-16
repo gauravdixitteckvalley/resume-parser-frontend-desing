@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import validator from "validator";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
 import _ from "lodash";
@@ -28,18 +27,18 @@ let errorCheck = true;
         setFormValues(newFormValues)
   }
   const _handleChange = (event,key) => {
-    console.log("key ",key)
-    console.log("event.target.name ",event.target.name," event.target.value ",event.target.value)
+    //console.log("key ",key)
+    //console.log("event.target.name ",event.target.name," event.target.value ",event.target.value)
     if(formValues[key]){
-      if(event.target.name == "skill"){
+      if(event.target.name ==  `skill${key}`){
         formValues[key] = {
-          ...formValues[key],
           skill:event.target.value,
+          skillLevel:formValues[key].skillLevel
         }
       }
-      if(event.target.name == "skillLevel"){
+      if(event.target.name == `skillLevel${key}`){
         formValues[key] = {
-          ...formValues[key],
+          skill:formValues[key].skill,
           skillLevel:event.target.value,
         }
       }
@@ -81,7 +80,8 @@ const _validateForm = () => {
   //return response.formIsValid;
 };
 const submitFormData = (e) => {
- // props.nextStep()
+  //console.log("formValues ",formValues)
+  props.nextStep()
   e.preventDefault();
   if (_validateForm()) {
 
@@ -105,7 +105,8 @@ const submitFormData = (e) => {
                         style={{ border: error ? "2px solid red" : "" }}
                         type="text"
                         placeholder="Skills"
-                        name="skill"
+                        name={`skill${key}`}
+                        
                         onChange={(event) => _handleChange(event,key)} 
                     />
                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -117,7 +118,7 @@ const submitFormData = (e) => {
                     <Form.Select 
                       aria-label="Default select example" 
                       style={{ border: error ? "2px solid red" : "" }} 
-                      name="skillLevel" 
+                      name={`skillLevel${key}`} 
                       onChange={(event) => _handleChange(event,key)}
                     >
                         <option value=''>Select your skill level</option>
@@ -136,7 +137,7 @@ const submitFormData = (e) => {
                   index ? 
                   <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
                       <Link to="#" onClick={() => removeFormFields(index)}>
-                          <i class="mdi mdi-delete"></i>
+                          <i className="mdi mdi-delete"></i>
                       </Link>
                   </div>
                   : null
