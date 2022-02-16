@@ -475,7 +475,7 @@ const CandidatePreview = (props) => {
                       <b>Skill</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
-                      React
+                      {fields.skills}
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -503,29 +503,24 @@ const CandidatePreview = (props) => {
                   LANGUAGES
                 </h3>
                 <hr className="mb-4" />  
-                {fields.language?.map((lang, index) => {
-                        return (
-                          <div className="row" key={index}>
-                            <div className="displayPreviewRow col-md-6">
-                              <label className="col-lg-4 col-form-label">
-                                <b>Language</b>
-                              </label>
-                              <div className="col-lg-7 col-form-label">
-                                {lang.content || ""}
-                              </div>
-                            </div>
-                            <div className="displayPreviewRow col-md-6">
-                              <label className="col-lg-4 col-form-label">
-                                <b>Level</b>
-                              </label>
-                              <div className="col-lg-7 col-form-label">
-                                {lang.level || ""}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                        
-                })} 
+                    <div className="row">
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>Language</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          {fields.language}
+                        </div>
+                      </div>
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>Level</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          Expert
+                        </div>
+                      </div>
+                    </div> 
                 {console.log(fields)}
               </div>
             </div>
