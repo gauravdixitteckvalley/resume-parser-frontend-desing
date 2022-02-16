@@ -5,12 +5,12 @@ import Pagination from "react-js-pagination"
 
 import BlockUI from "../../components/BlockUI"
 import './MessageListing.css';
-import { fetchMessageData } from '../../actions/Message';
+import { fetchSentMessageData } from '../../actions/Message';
 import _ from 'lodash';
-import { displayRecordNotFound, API_URL, displayErrorMessage,IMAGE_URL } from '../../utils/helper';
+import { displayRecordNotFound, IMAGE_URL } from '../../utils/helper';
 import moment from 'moment'
 
-const MessageListing = () => {
+const SentMessageListing = () => {
 
     const [searchTitle, setSearchTitle] = useState('');
     const [sortingOption, setSortingOption] = useState({})
@@ -32,7 +32,7 @@ const MessageListing = () => {
             search  : searchTitle,
             sortingData : sortingOption
         }
-        dispatch(fetchMessageData(params));
+        dispatch(fetchSentMessageData(params));
     }
     
     /**method for calling api based on page change  */
@@ -45,7 +45,7 @@ const MessageListing = () => {
             <> 
             { data.map((data, index) => ( 
                 
-                <div className="listings" key={index} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }}  >
+                <div className="listings" key={index}   >
                     <Link to={`/message-details/${data._id}`}  className="bold-font">
                         <p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p>
                         <p>{ data.message_subject }</p>
@@ -62,7 +62,7 @@ const MessageListing = () => {
           }
     }
     // const { blocking, messageList } = messages;
-    const { totalRecords, per_page , blocking, messageList,currentPage } = messages;
+    const { totalRecords, per_page , blocking, sentMessageList,currentPage } = messages;
     let total = 0;
     if(typeof totalRecords != 'undefined')
         total = totalRecords;
@@ -72,24 +72,15 @@ const MessageListing = () => {
             <BlockUI blocking={blocking} />
             <div className="page-header">
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  <h3 className="page-title" style={{fontWeight: '600'}}> Message listing</h3>
+                  <h3 className="page-title" style={{fontWeight: '600'}}> Sent Items</h3>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-               
-                <Link to="/sent-item">
+                  <Link to="/message-listing">
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"
                     >
-                      Sent Item
-                    </button>
-                  </Link>
-                  <Link to="/messages">
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Compose
+                      View All
                     </button>
                   </Link>
                 </div>
@@ -101,43 +92,8 @@ const MessageListing = () => {
                             <div className="table-responsive">
                                 <div className="message-listing">
 
-                                    { _buildList(messageList) }
+                                    { _buildList(sentMessageList) }
                                     
-                                    {/* <div className="listings">
-                                        <Link to="#" className="bold-font">
-                                            <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
-                                            <p>New Application for frontend developer</p>
-                                            <p>12:22 PM</p>
-                                        </Link>
-                                    </div>  
-                                    <div className="listings">
-                                        <Link to="/message-details">
-                                            <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
-                                            <p>New Application for frontend developer</p>
-                                            <p>12:22 PM</p>
-                                        </Link>
-                                    </div> 
-                                    <div className="listings">
-                                        <Link to="/message-details">
-                                            <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
-                                            <p>New Application for frontend developer</p>
-                                            <p>12:22 PM</p>
-                                        </Link>
-                                    </div> 
-                                    <div className="listings">
-                                        <Link to="/message-details">
-                                            <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
-                                            <p>New Application for frontend developer</p>
-                                            <p>12:22 PM</p>
-                                        </Link>
-                                    </div> 
-                                    <div className="listings">
-                                        <Link to="/message-details">
-                                            <p><img src="./assets/img/user_icon.png" className="me-2" alt="image" /> Sandip Ghosh</p>
-                                            <p>New Application for frontend developer</p>
-                                            <p>12:22 PM</p>
-                                        </Link>
-                                    </div> */}
                                 </div>
                                 {(total > per_page) ? 
                             <div className="pagination mb-3" style={{"justifyContent" : "space-between"}}>
@@ -166,4 +122,4 @@ const MessageListing = () => {
     )
 }
 
-export default MessageListing;
+export default SentMessageListing;

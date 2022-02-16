@@ -9,11 +9,13 @@ export function message(state = [], action){
         
         case 'SUBMIT_MESSAGE_SUCCESS':
             return {
+                ...state,
                 blocking : false
             };
             
         case 'SUBMIT_MESSAGE_FAILURE':
             return {
+                ...state,
                 blocking : true
             };
 
@@ -64,7 +66,7 @@ export function message(state = [], action){
         case 'MESSAGE_DETAIL_REQUEST':
             return {
                 blocking : true,
-                messageDetail : {}
+                messageDetail : []
             };
         
         case 'MESSAGE_DETAIL_SUCCESS':
@@ -76,8 +78,35 @@ export function message(state = [], action){
         case 'MESSAGE_DETAIL_FAILURE':
             return {
                 blocking : true,
-                messageDetail : {}
-            };                       
+                messageDetail : []
+            }; 
+            
+        case 'SENT_MESSAGE_LIST_REQUEST':
+            return {
+                blocking : true,
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+                sentMessageList : []
+            };
+        
+        case 'SENT_MESSAGE_LIST_SUCCESS':
+            return {
+                blocking : false,
+                totalRecords    : action.payload.total,
+                per_page        : action.payload.per_page,
+                currentPage     : action.payload.current_page,
+                sentMessageList : action.payload.message
+            };
+            
+        case 'SENT_MESSAGE_LIST_FAILURE':
+            return {
+                blocking : true,
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+                sentMessageList : []
+            };             
         default:
             return state;
     }

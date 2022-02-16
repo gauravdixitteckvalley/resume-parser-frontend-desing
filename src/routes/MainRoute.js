@@ -30,7 +30,7 @@ const SelectResume = lazy(() => import ('../containers/Resume/SelectResume/Selec
 const SplashPage = lazy(() => import ('../containers/Splash/Splash'))
 const MessageListing = lazy(() => import ('../containers/Message/MessageListing'))
 const MessageDetails = lazy(() => import ('../containers/Message/MessageDetails'))
-
+const SentMessageListing = lazy(() => import ('../containers/Message/SentMessageList'))
 
 function MainRoute() {
     return (
@@ -65,6 +65,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
                         <PrivateRoute exact path="/messages" component={Message} />
                         <PrivateRoute exact path="/message-listing" component={MessageListing} />
+                        <PrivateRoute exact path="/sent-item" component={SentMessageListing} />
                         <PrivateRoute exact path="/message-details/:id" component={MessageDetails} />
                         <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
                         <PrivateRoute exact path="/designer-preview" component={DesignerResume} />
