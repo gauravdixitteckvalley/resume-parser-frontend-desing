@@ -33,6 +33,8 @@ const MessageDetails = lazy(() => import ('../containers/Message/MessageDetails'
 const CareerPreference = lazy(() => import ('../containers/Resume/CareerPreference'))
 const VideoProfile = lazy(() => import ('../containers/Resume/VideoProfile'))
 const ActivityLog = lazy(() => import ('../containers/Resume/ActivityLog/ActivityLog'))
+const Notice = lazy(() => import ('../containers/Notice/Notice'))
+const Notification = lazy(() => import ('../containers/Notification/Notification'))
 
 
 function MainRoute() {
@@ -75,6 +77,8 @@ function MainRoute() {
                         <PrivateRoute exact path="/candidate/view/career-preference/:id" component={CareerPreference} />
                         <PrivateRoute exact path="/candidate/view/video-profile/:id" component={VideoProfile} />
                         <PrivateRoute exact path="/activity-log" component={ActivityLog} />
+                        <PrivateRoute exact path="/notices" component={Notice} />
+                        <PrivateRoute exact path="/notifications" component={Notification} />
                         {/*Page Not Found*/}
                         <Route component={NotFound} />
                     </Switch>
