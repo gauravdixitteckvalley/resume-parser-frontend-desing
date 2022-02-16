@@ -209,7 +209,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                         aria-label="Default select example" 
                                         style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }} 
                                         name="degree" 
-                                        defaultValue={values.degree} 
+                                        defaultValue={values?.degree} 
                                         onChange={ (event) => _handleChange(event, key) }
                                     >
                                         <option>Select a degree</option>
@@ -275,7 +275,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                         style={{ border: errors[key]?.city ? "2px solid red" : "" }}
                                         name="city" 
                                         type="text"
-                                        defaultValue={values.city} 
+                                        defaultValue={values?.city} 
                                         onChange={(event) => _handleChange(event, key)}
                                     />
                                     {errors[key]?.city ? (
@@ -313,7 +313,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                             aria-label="Default select example" 
                                             style={{ border: errors[key]?.gradMonth ? "2px solid red" : "" }} 
                                             name="gradMonth" 
-                                            defaultValue={values.gradMonth} 
+                                            defaultValue={values?.gradMonth} 
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
                                             <option>Month</option>
@@ -335,7 +335,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                             aria-label="Default select example" 
                                             style={{ border: errors[key]?.gradYear ? "2px solid red" : "" }} 
                                             name="gradYear" 
-                                            defaultValue={values.gradYear} 
+                                            defaultValue={values?.gradYear} 
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
                                             <option>Year</option>

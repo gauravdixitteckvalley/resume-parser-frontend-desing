@@ -1,10 +1,10 @@
 import React, { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import validator from "validator";
 import './CandidateMultiForm.css';
 import _ from "lodash";
 import {  getStateList } from "../../../actions/Resume"
+import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
@@ -270,7 +270,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         name="city" 
                                         style={{ border: errors[key]?.city ? "2px solid red" : "" }}
                                         type="text"
-                                        onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event, key)}
                                     />
                                     {errors[key]?.city ? (
                                         <Form.Text style={{ color: "red" }}>
@@ -289,7 +289,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                             style={{ border: errors[key]?.startDate ? "2px solid red" : "" }}
                                             name="startDate"
                                             placeholder="Start Date"
-                                            onChange={(event) => _handleChange(event)}
+                                            onChange={(event) => _handleChange(event,key)}
                                         />
                                         {errors[key]?.startDate ? (
                                             <Form.Text style={{ color: "red" }}>
@@ -307,7 +307,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                             style={{ border: errors[key]?.endDate ? "2px solid red" : "" }}
                                             name="endDate"
                                             placeholder="End Date"
-                                            onChange={(event) => _handleChange(event)}
+                                            onChange={(event) => _handleChange(event, key)}
                                         />
                                         {errors[key]?.endDate ? (
                                             <Form.Text style={{ color: "red" }}>
@@ -324,7 +324,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                             className="my-check mt-1" 
                                             label="I currently work here" 
                                             name="currentWork" 
-                                            onChange={(event) => _handleChange(event)}
+                                            onChange={(event) => _handleChange(event, key)}
                                         />
                                     </Form.Group>
                                 </Row>
@@ -338,7 +338,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         name="jd"
                                         as="textarea"
                                         placeholder="Describe Your Job"
-                                        onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event, key)}
                                     />
                                     {errors[key]?.jd ? (
                                         <Form.Text style={{ color: "red" }}>

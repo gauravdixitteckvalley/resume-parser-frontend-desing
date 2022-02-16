@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import validator from "validator";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
+import _ from "lodash";
+import {  submitCandidateData  } from "../../../actions/Candidate";
+import validateCandidateForm  from "./CandidateFromValidation";
 
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepFour = (props) => {
+  const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
@@ -51,7 +55,7 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
 
      // checking if value of first name and last name is empty show error else take to next step
     if (_validateForm()){
-      nextStep();
+      props.nextStep();
     }
   };
 
@@ -73,16 +77,23 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
     setFormValues(newFormValues)
   }
 
+  const _handleChange = (event,key) => {
+    const { target } = event
+    formValues[key][target.name] = target.value
+    setFormValues([...formValues])
+  };
+
   return (
     <>
       <Card>
         <Card.Body>
         <h3 className="page-title font-style-bold mb-2">SKILLS </h3>
         <p style={{fontSize: '13px'}}>Highlight 6-8 of you top skills.</p>
-          <Form onSubmit={submitFormData} className="mt-4">
+          {/* <Form onSubmit={submitFormData} className="mt-4"> */}
+          <Form onSubmit={submitFormData}>
             {formValues.map((index, key) => {
               return (
-                <Row key={index}>
+                <Row key={key}>
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Skill</Form.Label>
                     <Form.Control
@@ -90,7 +101,7 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
                         type="text"
                         name="skill"
                         placeholder="School Name"
-                        onChange={handleFormData("skill")}
+                        onChange={(event) => _handleChange(event,key)} 
                     />
                     {errors[key]?.skill ? (
                         <Form.Text style={{ color: "red" }}>
@@ -106,8 +117,7 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
                       aria-label="Default select example" 
                       style={{ border: errors[key]?.skillLevel ? "2px solid red" : "" }} 
                       name="skillLevel" 
-                      defaultValue={values.skillLevel} 
-                      onChange={handleFormData("skillLevel")} 
+                      onChange={(event) => _handleChange(event,key)} 
                     >
                         <option>Select your skill level</option>
                         <option value="1">Novice</option>
@@ -156,11 +166,11 @@ const StepFour = ({ nextStep, handleFormData, prevStep, values }) => {
             <hr className="mb-4"/>
             
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2"  type="submit" >
                 Next
               </Button>
             </div>

@@ -13,7 +13,7 @@ const Message = (props) => {
     const [fields, setFields] = useState({});
     const [errors, setErrors] = useState({});
     const messages = useSelector(state => state.message);
-    console.log('messages',messages);
+    
     const { blocking, userList } = messages;
 
     const dispatch = useDispatch()
@@ -45,7 +45,7 @@ const Message = (props) => {
     /* submit form */
     const _handleSubmit = (event) => {
         event.preventDefault();
-        console.log('asad',fields);
+   
         if (_validateForm()) {
             const { subject, message, to } = fields;
             const postData = {
@@ -77,18 +77,11 @@ const Message = (props) => {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <label className="mb-1 required" for="inlineFormInputName2">Name</label>
-                                        {/* <Form.Control as="select" name="to" onChange={(event) => _handleChange(event)} value={fields.to || ''}  > 
-                                            <option value=''>Select Name</option> 
-                                            {userList?.map((data, index) => (
-                                                <option key={index} value={data._id}>{data.first_name +' '+ data.last_name }</option>
-                                            ))}
-                                        </Form.Control> */}
-
                                         <select name="to" className="form-control mb-2 mr-sm-2 col-md-6" 
                                         value={fields.to || ''} 
                                         onChange={(event) => _handleChange(event.target)} 
                                         >
-                                            <option value="">Select Country</option>
+                                            <option value="">Select User</option>
                                             {userList?.map((data, index) => (
                                                 <option key={index} value={data._id}>{data.first_name +' '+ data.last_name }</option>
                                             ))}

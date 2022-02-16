@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import validator from "validator";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
+import _ from "lodash";
+import {  submitCandidateData  } from "../../../actions/Candidate";
+import validateCandidateForm  from "./CandidateFromValidation";
 
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepFive = (props) => {
+  console.log(props)
+  const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
@@ -52,7 +57,7 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
 
      // checking if value of first name and last name is empty show error else take to next step
     if (_validateForm()){
-      nextStep();
+      props.nextStep();
     }
   };
 
@@ -72,7 +77,13 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
     newFormValues.splice(index, 1);
     setFormValues(newFormValues)
   }
-  
+
+  const _handleChange = (event,key ) => {
+    const { target } = event
+    formValues[key][target.name] = target.value
+    setFormValues([...formValues])
+  }
+
   return (
     <>
       <Card>
@@ -90,7 +101,7 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
                             type="text"
                             placeholder="eg. Spanish"
                             name="language"
-                            onChange={handleFormData("language")}
+                            onChange={event => _handleChange(event, key)}
                         />
                         {errors[key]?.language ? (
                             <Form.Text style={{ color: "red" }}>
@@ -105,9 +116,8 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
                         <Form.Select 
                           aria-label="Default select example" 
                           style={{ border: errors[key]?.langLevel ? "2px solid red" : "" }} 
-                          name="langLevel" 
-                          defaultValue={values.langLevel} 
-                          onChange={handleFormData("langLevel")} 
+                          name="langLevel"  
+                          onChange={event => _handleChange(event, key)}
                         >
                             <option>Select your language level</option>
                             <option value="1">Basic</option>
@@ -155,11 +165,11 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
             <hr className="mb-4"/>
             
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2"  type="submit" >
                 Next
               </Button>
             </div>

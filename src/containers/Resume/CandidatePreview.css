@@ -6,3 +6,6 @@
     display: flex;
     flex-direction: column;
 }
+.candid-profile a {
+    margin-left: 5px;
+}

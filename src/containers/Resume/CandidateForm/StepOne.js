@@ -4,44 +4,66 @@ import { Form, Row, Button } from "react-bootstrap";
 import _ from "lodash";
 import validateCandidateForm  from "./CandidateFromValidation";
 import {  getStateList } from "../../../actions/Resume"
-
+import {  submitCandidateData  } from "../../../actions/Candidate";
 
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepOne = (props,{ nextStep }) => {
-    const currentId = props?.match?.params?.id;
+const StepOne = (props) => {
+    const currentId = props.cdId;
     const [errorFields, setErrorFields] = useState({});
     const resumeData = useSelector(state => state.resume );
     const { countryList, stateList } = resumeData;
+    let name = props.handleFormData.name;
+    const [status,setStatus] =useState(true);
     const [fields, setFields] = useState({
-        firstName: "",
-        lastName: "",
-        location: "",
+        firstName: " ",
+        lastName:  "",
+        address: "",
         country: "",
         state: "",
         city: "",
         zip: "",
         email: "",
-        phone: ""
+        phone: "",
+        step:1
     });
+
     const [error, setError] = useState(false);
     const dispatch = useDispatch(); 
   
-    if(currentId && typeof resumeData != "undefined" && (_.size(resumeData) > 0))
-        if (_.size(resumeData.resumeDetails) !== _.size(fields))
-            setFields({...resumeData.resumeDetails})
-
-  // after form submit validating the form data using validator
-  const _handleChange = (event) => {
-    let data = fields;
-    if(event.target.name === 'country'){
-        let countryid = event.target.value;
-        dispatch(getStateList(countryid));    
+    const _handleChange = (event) => {
+        let data = fields;
+        if(event.target.name === 'country'){
+            let countryid = event.target.value;
+            dispatch(getStateList(countryid));    
+        }
+        data[event.target.name] = event.target.value;
+        setFields({...data})      
     }
-
-    data[event.target.name] = event.target.value;
-    setFields({...data})
-  }
+    useEffect(() => {
+        if(!_.isEmpty(props.handleFormData)){
+            let fname=''
+            let lname=''
+            if(name){
+                let fulname =  name.split(" ");
+                fname=fulname[0]
+                lname=fulname[1]
+            }
+            setFields({
+                firstName:fname,
+                lastName: lname,
+                address: props.handleFormData.location,
+                country: props?.handleFormData?.country,
+                state: props?.handleFormData?.state,
+                city: props?.handleFormData?.place,
+                zip: props?.handleFormData?.zip,
+                email: props?.handleFormData?.email,
+                phone: props?.handleFormData?.phone,
+                step:1
+            })
+            setStatus(false)
+        }
+    }, []);
 
     const _validateForm = () => {
         let formNumber = "form1";
@@ -49,15 +71,18 @@ const StepOne = (props,{ nextStep }) => {
         let response = validateCandidateForm(formNumber,formFields);
         setErrorFields(response.errorFields);
         return response.formIsValid;
-
     };
-  const submitFormData = (e) => {
-    e.preventDefault();
     
-    if (_validateForm()) {
-        props.nextStep();
-    }
-  };
+    const submitFormData = (e) => {
+        e.preventDefault();
+        
+        if (_validateForm()) {
+            if(currentId){
+                dispatch(submitCandidateData(currentId, fields));
+                setTimeout(function(){  props.nextStep(); }, 2000);
+            }
+        }
+    };
 
   return (
       
@@ -83,6 +108,7 @@ const StepOne = (props,{ nextStep }) => {
                                         name="firstName"
                                         type="text"
                                         placeholder="First Name"
+                                        value={fields.firstName}
                                         onChange={(event) => _handleChange(event)} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -95,6 +121,7 @@ const StepOne = (props,{ nextStep }) => {
                                         style={{ border: errorFields?.lastName ? "2px solid red" : "" }}
                                         name="lastName"
                                        // defaultValue={values.lastName}
+                                       value={fields.lastName}
                                         type="text"
                                         placeholder="Last Name"
                                         onChange={(event) => _handleChange(event)}
@@ -109,8 +136,8 @@ const StepOne = (props,{ nextStep }) => {
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control
                                         style={{ border: errorFields?.location ? "2px solid red" : "" }}
-                                        name="location"
-                                       // defaultValue={values.location}
+                                        name="address"
+                                        value={fields.address}
                                         as="textarea"
                                         placeholder="Address"
                                         onChange={(event) => _handleChange(event)} 
@@ -132,7 +159,7 @@ const StepOne = (props,{ nextStep }) => {
                                     >
                                         <option value="">Select Country</option>
                                         {countryList?.map((country, index) => (
-                                            <option key={index} value={country._id}>{country.name}</option>
+                                            <option key={index} selected={country._id == fields.country ? true :false } value={country._id}>{country.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -150,7 +177,7 @@ const StepOne = (props,{ nextStep }) => {
                                     >
                                         <option value="">Select State</option>
                                         {stateList?.map((state, index) => (
-                                            <option key={index} value={state._id}>{state.name}</option>
+                                            <option key={index} selected={state._id == fields.state ? true :false } value={state._id}>{state.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -164,7 +191,9 @@ const StepOne = (props,{ nextStep }) => {
                                         name="city" 
                                         type="text"
                                         placeholder="City"
-                                        onChange={(event) => _handleChange(event)} 
+                                        onChange={(event) => _handleChange(event)}
+                                        //value={fields.city ? fields.city : props?.handleFormData?.place} 
+                                        value={fields.city} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
                                         {errorFields.city}
@@ -181,6 +210,8 @@ const StepOne = (props,{ nextStep }) => {
                                         type="text"
                                         placeholder="Zip Code"
                                         onChange={(event) => _handleChange(event)} 
+                                        //value={fields.zip ? fields.zip : props?.handleFormData?.zip}
+                                        value={fields.zip}
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
                                         {errorFields.zip}
@@ -194,7 +225,9 @@ const StepOne = (props,{ nextStep }) => {
                                             //defaultValue={values.email}
                                             type="email"
                                             placeholder="Email"
+                                            value={fields.email}
                                             onChange={(event) => _handleChange(event)} 
+                                           // value={fields.email ? fields.email : props?.handleFormData?.email}
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
                                             {errorFields.email}
@@ -208,6 +241,8 @@ const StepOne = (props,{ nextStep }) => {
                                             type="text"
                                             placeholder="Phone"
                                             onChange={(event) => _handleChange(event)} 
+                                            value={fields.phone}
+                                           // value={fields.phone ? fields.phone : props?.handleFormData?.phone}
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
                                             {errorFields.phone}
