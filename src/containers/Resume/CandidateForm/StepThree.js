@@ -51,7 +51,6 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                     style={{ border: error ? "2px solid red" : "" }}
                                     type="text"
                                     placeholder="School/College Name"
-                                    onChange={handleFormData("schoolName")}
                                 />
                                 {error ? (
                                     <Form.Text style={{ color: "red" }}>
@@ -134,7 +133,6 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                         style={{ border: error ? "2px solid red" : "" }}
                                         type="text"
                                         placeholder="eg. Engineering"
-                                        onChange={handleFormData("studyField")}
                                         />
                                     {error ? (
                                         <Form.Text style={{ color: "red" }}>
@@ -179,7 +177,13 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                     )}
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Check aria-label="Default select example" type="checkbox" className="my-check mt-1" label="I presently attend here" name="currentWork" onChange={handleFormData("currentWork")} />
+                                    <Form.Check 
+                                        aria-label="Default select example" 
+                                        type="checkbox" 
+                                        className="my-check mt-1" 
+                                        label="I presently attend here" 
+                                        name="currentWork" 
+                                    />
                                 </Form.Group>
                                 </Row>
                             </Form.Group>  

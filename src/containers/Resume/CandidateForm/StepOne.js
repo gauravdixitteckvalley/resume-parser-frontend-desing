@@ -9,13 +9,18 @@ import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepOne = (props) => {
+    //console.log("props ",props ) 
     const currentId = props.cdId;
     const [errorFields, setErrorFields] = useState({});
     const resumeData = useSelector(state => state.resume );
     const { countryList, stateList } = resumeData;
-    // let name = props.dataName.split(" ");
+     let name = " " + " ";
+     name = props.name
     // let fName=name[0];
     // let lName=name[1];
+    // const {fname, lname } =  name.name.split(" ");
+   // console.log("fname ", fname, " lname ",lname);
+   //const [first, last] = props?.name.split(' ');
 
     const [fields, setFields] = useState({
         firstName:"",
@@ -25,26 +30,20 @@ const StepOne = (props) => {
         state: "",
         city: "",
         zip: "",
-        email: "",
-        phone: "",
+        email: props.handleFormDat?.email,
+        phone: props.handleFormData?.phone,
         step:1
     });
-    //console.log("fields " ,fields)
+
     const [error, setError] = useState(false);
     const dispatch = useDispatch(); 
-  /*
-    if(currentId && typeof resumeData != "undefined" && (_.size(resumeData) > 0))
-        if (_.size(resumeData.resumeDetails) !== _.size(fields))
-            setFields({...resumeData.resumeDetails})
-*/
-  // after form submit validating the form data using validator
+  
   const _handleChange = (event) => {
     let data = fields;
     if(event.target.name === 'country'){
         let countryid = event.target.value;
         dispatch(getStateList(countryid));    
     }
-    //console.log("event.target.name : ",event.target.name," event.target.value : ",event.target.value)
 
       data[event.target.name] = event.target.value;
       setFields({...data})
@@ -53,18 +52,18 @@ const StepOne = (props) => {
   useEffect(() => {
     setFields({
         firstName:props.handleFormData?.name,
-        lastName: "",
-        location: "",
-        country: "",
-        state: "",
-        city: "",
-        zip: "",
-        email: props.handleFormDat?.email,
-        phone: props.handleFormData?.phone,
+        lastName: props?.handleFormData?.name,
+        location: props?.handleFormData?.location,
+        country: props?.handleFormData?.country,
+        state: props?.handleFormData?.state,
+        city: props?.handleFormData?.place,
+        zip: props?.handleFormData?.zip,
+        email: props?.handleFormData?.email,
+        phone: props?.handleFormData?.phone,
         step:1
     })
   }, []);
- console.log('fields ',fields)
+ //console.log('fields ',fields)
     const _validateForm = () => {
         let formNumber = "form4";
         let formFields = fields;

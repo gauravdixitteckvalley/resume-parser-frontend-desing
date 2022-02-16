@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import validator from "validator";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
 import _ from "lodash";
@@ -10,37 +9,35 @@ import validateCandidateForm  from "./CandidateFromValidation";
 
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepFive = (props) => {
+  const currentId = props.cdId;
    //creating error state for validation
   const [error, setError] = useState(false);
+  const [errorFields, setErrorFields] = useState([{language: "", langLevel : ""}]);
   const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
 
     // after form submit validating the form data using validator
   const submitFormData = (e) => {
     e.preventDefault();
-
-     // checking if value of first name and last name is empty show error else take to next step
-    if (
-        validator.isEmpty(values.language) || 
-        validator.isEmpty(values.langLevel) 
-        )
-        {
-      setError(true);
-    } else {
-      nextStep();
-    }
+    props.nextStep()
   };
 
-  const addFormFields = () => {
-    setFormValues([...formValues, { language: "", langLevel: "" }])
-  }
+const addFormFields = () => {
+  setFormValues([...formValues, { language: "", langLevel: "" }])
+}
 
-  const removeFormFields = (i) => {
-    let newFormValues = [...formValues];
-        newFormValues.splice(i, 1);
-        setFormValues(newFormValues)
-  }
-  
+const removeFormFields = (i) => {
+  let newFormValues = [...formValues];
+      newFormValues.splice(i, 1);
+      setFormValues(newFormValues)
+}
+const _handleChange = (event,key) => {
+  console.log("key ",key)
+  console.log("event.target.name ",event.target.name," event.target.value ",event.target.value)
+};
+const _validateForm = () => {
+ 
+};
   return (
     <>
       <Card>
@@ -90,7 +87,7 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
                   index ? 
                   <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
                       <Link to="#" onClick={() => removeFormFields(index)}>
-                          <i class="mdi mdi-delete"></i>
+                          <i className="mdi mdi-delete"></i>
                       </Link>
                   </div>
                   : null
@@ -117,11 +114,11 @@ const StepFive = ({ nextStep, handleFormData, prevStep, values }) => {
             <hr className="mb-4"/>
             
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" onClick={nextStep} type="submit" >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2"  type="submit" >
                 Next
               </Button>
             </div>
