@@ -84,7 +84,7 @@ const MessageListing = () => {
                       Sent Item
                     </button>
                   </Link>
-                  <Link to="/messages">
+                  <Link to="/messages" style={{ marginLeft: "10px" }}>
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"
