@@ -7,7 +7,9 @@ import {  getStateList } from "../../../actions/Resume"
 import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepTwo = (props) => {
+    //console.log("props ",props.workExperience )
+    const currentId = props.cdId;
     const [formValues, setFormValues] = useState([])
     const resumeData = useSelector(state => state.resume );
     const [errors, setErrors] = useState(false);
@@ -32,8 +34,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                     jd: "", 
                 }])
             }
+            /*
+            if(!_.isEmpty(props.handleFormData)){
+                setFormValues(props.workExperience)
+            }
+            */
     }, []);
-
+/*
     const validateForm = (formValuesArray) => {
         let errors = [];
         let formIsValid = true;
@@ -92,21 +99,26 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
             formIsValid : formIsValid
         };
     }
-
+*/
     /* validate form */
-    const _validateForm = () => {
+ /*   const _validateForm = () => {
         let response = validateForm(formValues);
         setErrors(response.errors)
         return response.formIsValid;
     }
-
+*/
     // after form submit validating the form data using validator
     const submitFormData = (event) => {
         event.preventDefault();
-
-        if(_validateForm()){
-            nextStep();
+        let postData = formValues;
+        console.log("postData ",postData)
+        if(currentId){
+            dispatch(submitCandidateData(currentId, {workExperience:postData,step:2}));
+            setTimeout(function(){  props.nextStep(); }, 2000);
         }
+       // if(_validateForm()){
+          //  nextStep();
+       // }
     };
 
     
@@ -198,13 +210,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         name="employer"
                                         onChange={(event) => _handleChange(event,key)}
                                     />
-                                    {errors[key]?.employer ? (
+                                    {/* {errors[key]?.employer ? (
                                         <Form.Text style={{ color: "red" }}>
                                         { errors[key]?.employer }
                                         </Form.Text>
                                     ) : (
                                         ""
-                                    )}
+                                    )} */}
                                 </Form.Group>  
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Job Title</Form.Label>
@@ -215,13 +227,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         name="emptitle"
                                         onChange={(event) => _handleChange(event,key)}
                                     />
-                                    {errors[key]?.emptitle ? (
+                                    {/* {errors[key]?.emptitle ? (
                                         <Form.Text style={{ color: "red" }}>
                                         { errors[key]?.emptitle }
                                         </Form.Text>
                                     ) : (
                                         ""
-                                    )}
+                                    )} */}
                                 </Form.Group>                     
                             </Row>
                             <Row>
@@ -238,13 +250,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                             <option key={index} value={country._id}>{country.name}</option>
                                         ))}
                                     </Form.Select>
-                                    {errors[key]?.country ? (
+                                    {/* {errors[key]?.country ? (
                                         <Form.Text style={{ color: "red" }}>
                                         { errors[key]?.country }
                                         </Form.Text>
                                     ) : (
                                         ""
-                                    )}
+                                    )} */}
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>State</Form.Label>
@@ -256,13 +268,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         <option value="">Select State</option>
                                         {   selectStateOrCountryOption(formValues, stateList, key) }
                                     </Form.Select>
-                                    {errors[key]?.[`state${key}`] ? (
+                                    {/* {errors[key]?.[`state${key}`] ? (
                                         <Form.Text style={{ color: "red" }}>
                                         { errors[key]?.[`state${key}`] }
                                         </Form.Text>
                                     ) : (
                                         ""
-                                    )}
+                                    )} */}
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>City</Form.Label>
@@ -272,13 +284,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         type="text"
                                         onChange={(event) => _handleChange(event, key)}
                                     />
-                                    {errors[key]?.city ? (
+                                    {/* {errors[key]?.city ? (
                                         <Form.Text style={{ color: "red" }}>
                                         { errors[key]?.city }
                                         </Form.Text>
                                     ) : (
                                         ""
-                                    )}
+                                    )} */}
                                 </Form.Group>
                             </Row>
                             <Row>
@@ -291,13 +303,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                             placeholder="Start Date"
                                             onChange={(event) => _handleChange(event,key)}
                                         />
-                                        {errors[key]?.startDate ? (
+                                        {/* {errors[key]?.startDate ? (
                                             <Form.Text style={{ color: "red" }}>
                                             { errors[key]?.startDate }
                                             </Form.Text>
                                         ) : (
                                             ""
-                                        )}
+                                        )} */}
                                     </Form.Group>
                                 
                                     <Form.Group className="mb-2 col-md-6">
@@ -309,13 +321,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                             placeholder="End Date"
                                             onChange={(event) => _handleChange(event, key)}
                                         />
-                                        {errors[key]?.endDate ? (
+                                        {/* {errors[key]?.endDate ? (
                                             <Form.Text style={{ color: "red" }}>
                                             { errors[key]?.endDate }
                                             </Form.Text>
                                         ) : (
                                             ""
-                                        )}
+                                        )} */}
                                     </Form.Group>
                                     <Form.Group className="mb-2 col-md-6"></Form.Group>
                                     <Form.Group className="mb-2 col-md-6">
@@ -340,13 +352,13 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         placeholder="Describe Your Job"
                                         onChange={(event) => _handleChange(event, key)}
                                     />
-                                    {errors[key]?.jd ? (
+                                    {/* {errors[key]?.jd ? (
                                         <Form.Text style={{ color: "red" }}>
                                         { errors[key]?.jd }
                                         </Form.Text>
                                     ) : (
                                         ""
-                                    )}
+                                    )} */}
                                 </Form.Group>
                             </Row>
                             <hr className="mb-4 mt-4"/>
@@ -371,7 +383,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                 <hr className="mb-4"/>
                 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+                <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
                     Previous
                 </Button>
 

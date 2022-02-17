@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -15,6 +15,8 @@ const StepFive = (props) => {
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
+  const dispatch = useDispatch(); 
+  const [status,setStatus] =useState(true);
 
   const validateForm = (formValuesArray) => {
     let errors = [];
@@ -54,10 +56,15 @@ const StepFive = (props) => {
   // after form submit validating the form data using validator
   const submitFormData = (e) => {
     e.preventDefault();
-
+    let postData = formValues; 
      // checking if value of first name and last name is empty show error else take to next step
     if (_validateForm()){
-      props.nextStep();
+      console.log("postData4 ",postData)
+      if(currentId){
+          dispatch(submitCandidateData(currentId, {language:postData,step:5}));
+          setTimeout(function(){  props.nextStep(); }, 2000);
+      }
+     // props.nextStep();
     }
   };
 
@@ -84,6 +91,13 @@ const StepFive = (props) => {
     setFormValues([...formValues])
   }
 
+useEffect(() => {
+  if(!_.isEmpty(props.handleFormData)){
+    setFormValues(props.handleFormData.langauge)
+    setStatus(false)
+  }
+}, []);
+
   return (
     <>
       <Card>
@@ -101,6 +115,7 @@ const StepFive = (props) => {
                             type="text"
                             placeholder="eg. Spanish"
                             name="language"
+                            value={index.language}
                             onChange={event => _handleChange(event, key)}
                         />
                         {errors[key]?.language ? (
@@ -120,11 +135,31 @@ const StepFive = (props) => {
                           onChange={event => _handleChange(event, key)}
                         >
                             <option>Select your language level</option>
-                            <option value="1">Basic</option>
-                            <option value="2">Proficient</option>
-                            <option value="3">Conversational</option>
-                            <option value="3">Fluent</option>
-                            <option value="3">Native speaker</option>
+                            <option 
+                              selected={(index.langLevel == "Basic") ? true :false }
+                              value="Basic"
+                              >Basic
+                            </option>
+                            <option 
+                              value="Proficient"
+                              selected={(index.langLevel == "Proficient") ? true :false }
+                              >Proficient
+                            </option>
+                            <option 
+                              value="Conversational"
+                              selected={(index.langLevel == "Conversational") ? true :false }
+                              >Conversational
+                            </option>
+                            <option 
+                              value="Fluent"
+                              selected={(index.langLevel == "Conversational") ? true :false }
+                              >Fluent
+                            </option>
+                            <option 
+                              value="Native speaker"
+                              selected={(index.langLevel == "Native speaker") ? true :false }
+                              >Native speaker
+                            </option>
                         </Form.Select>
                         {errors[key]?.langLevel ? (
                             <Form.Text style={{ color: "red" }}>
@@ -138,7 +173,7 @@ const StepFive = (props) => {
                       index ? 
                       <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
                           <Link to="#" onClick={(event) => removeFormFields(event, key)}>
-                              <i class="mdi mdi-delete"></i>
+                              <i className="mdi mdi-delete"></i>
                           </Link>
                       </div>
                       : null

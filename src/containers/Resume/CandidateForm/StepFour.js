@@ -14,7 +14,8 @@ const StepFour = (props) => {
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
-
+  const dispatch = useDispatch(); 
+  const [status,setStatus] =useState(true);
 
   const validateForm = (formValuesArray) => {
     let errors = [];
@@ -49,13 +50,24 @@ const StepFour = (props) => {
     return response.formIsValid;
   }
 
+useEffect(() => {
+    if(!_.isEmpty(props.handleFormData)){
+    setFormValues(props.handleFormData.skills)
+    setStatus(false)
+    }
+}, []);
+
   // after form submit validating the form data using validator
   const submitFormData = (e) => {
     e.preventDefault();
-
-     // checking if value of first name and last name is empty show error else take to next step
+    let postData = formValues;    
     if (_validateForm()){
-      props.nextStep();
+      //props.nextStep();
+      console.log("postData4 ",postData)
+      if(currentId){
+          dispatch(submitCandidateData(currentId, {skills:postData,step:4}));
+          setTimeout(function(){  props.nextStep(); }, 2000);
+      }
     }
   };
 
@@ -101,6 +113,7 @@ const StepFour = (props) => {
                         type="text"
                         name="skill"
                         placeholder="School Name"
+                        value={index.skill}
                         onChange={(event) => _handleChange(event,key)} 
                     />
                     {errors[key]?.skill ? (
@@ -120,12 +133,36 @@ const StepFour = (props) => {
                       onChange={(event) => _handleChange(event,key)} 
                     >
                         <option>Select your skill level</option>
-                        <option value="1">Novice</option>
-                        <option value="2">Beginner</option>
-                        <option value="3">Skillful</option>
-                        <option value="3">Experienced</option>
-                        <option value="3">Expert</option>
-                        <option value="3">- Don't show level</option>
+                        <option 
+                          value="Novice" 
+                          selected={(index.skillLevel == "Novice") ? true :false }>
+                            Novice
+                        </option>
+                        <option 
+                          value="Beginner" 
+                          selected={(index.skillLevel == "Beginner") ? true :false }>
+                            Beginner
+                        </option>
+                        <option 
+                          value="Skillful" 
+                          selected={(index.skillLevel == "Skillful") ? true :false }>
+                            Skillful
+                        </option>
+                        <option 
+                          value="Experienced" 
+                          selected={(index.skillLevel == "Experienced") ? true :false }>
+                            Experienced
+                        </option>
+                        <option 
+                          value="Expert" 
+                          selected={(index.skillLevel == "Expert") ? true :false }>
+                            Expert
+                        </option>
+                        <option 
+                          value="- Don't show level" 
+                          selected={(index.skillLevel == "- Don't show level") ? true :false }>
+                            - Don't show level
+                        </option>
                     </Form.Select>
                     {errors[key]?.skillLevel ? (
                         <Form.Text style={{ color: "red" }}>
@@ -139,7 +176,7 @@ const StepFour = (props) => {
                   index ? 
                   <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
                       <Link to="#" onClick={(event) => removeFormFields(event, key)}>
-                          <i class="mdi mdi-delete"></i>
+                          <i className="mdi mdi-delete"></i>
                       </Link>
                   </div>
                   : null
