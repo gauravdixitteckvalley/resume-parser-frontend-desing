@@ -72,7 +72,7 @@ const MessageListing = () => {
             <BlockUI blocking={blocking} />
             <div className="page-header">
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  <h3 className="page-title" style={{fontWeight: '600'}}> Message listing</h3>
+                  <h3 className="page-title" style={{fontWeight: '600'}}> Message Inbox</h3>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
                
