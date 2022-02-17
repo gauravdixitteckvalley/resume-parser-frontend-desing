@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import validator from "validator";
 import {  getStateList } from "../../../actions/Resume"
+import { displayErrorMessage } from '../../../utils/helper';
 
 
 // creating functional component ans getting props from app.js and destucturing them
@@ -15,7 +16,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                     studyField: "", 
                                     gradMonth: "", 
                                     gradYear: "", 
-                                    currentWork: false,
+                                    presentAttend: false,
                                     country: "" ,
                                     stateId: null,
                                     stateArray: null,
@@ -95,12 +96,27 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
         return response.formIsValid;
     }
 
+    /* Checking is there any present attend here or not */
+    const _isPresentlyAttendChecked = () => {
+        let count = 0
+        formValues.map( (data) => {
+            if(data.presentAttend === true){
+                count = count + 1
+            }
+        })
+        if(count === 0){
+            displayErrorMessage('Please select your present attend')
+            return false
+        }
+        return true
+    }
+
     // after form submit validating the form data using validator
     const submitFormData = (e) => {
         e.preventDefault();
 
         // validate the fields and then move to next form
-        if (_validateForm()){
+        if (_validateForm() && _isPresentlyAttendChecked()){
             nextStep()
         }
     };
@@ -114,11 +130,21 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
             formValues[key].stateId = splitValue[0]
             formValues[key].stateArray = stateList
             formValues[key].isStateFilled = true
-        }else if(target.name === "currentWork"){
-            formValues[key].currentWork = target.value === "on" ? "off" : "on"
-        }else{
+        }
+        else if(target.name === "presentAttend"){
+            formValues[key][target.name] = target.checked
+            if(formValues.length > 0){
+                formValues.map( (data, index) => {
+                    if(index !== key && formValues[index][target.name] === true){
+                        formValues[index][target.name] = false
+                    }
+                })
+            }
+        }
+        else{
             formValues[key][target.name] = target.value
         }
+
         if(target.name === 'country'){
             if(formValues[key].stateArray !== null){
                 formValues[key].stateName = ""
@@ -167,7 +193,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                         studyField: "", 
                                         gradMonth: "", 
                                         gradYear: "", 
-                                        currentWork: false,
+                                        presentAttend: false,
                                         country: "" ,
                                         stateId: null,
                                         stateArray: null,
@@ -357,8 +383,8 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                             type="checkbox" 
                                             className="my-check mt-1" 
                                             label="I presently attend here" 
-                                            name="currentWork" 
-                                            checked= {formValues[key].currentWork}
+                                            name="presentAttend"
+                                            checked= {formValues[key].presentAttend}
                                             onChange={ (event) => _handleChange(event, key) } 
                                         />
                                     </Form.Group>
