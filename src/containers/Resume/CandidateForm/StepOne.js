@@ -42,7 +42,6 @@ const StepOne = (props) => {
     }
     useEffect(() => {
         if(!_.isEmpty(props.handleFormData)){
-            console.log("props.handleFormData " ,props.handleFormData)
             let fname=''
             let lname=''
             if(name){
@@ -73,15 +72,13 @@ const StepOne = (props) => {
         setErrorFields(response.errorFields);
         return response.formIsValid;
     };
+    
     const submitFormData = (e) => {
-        e.preventDefault();  
-        let postData = fields;
-       // console.log("hello ",postData)  
-        if (_validateForm() &&  !_.isEmpty(postData)) {       
-            let postData = fields;
-            //console.log("valid ")
+        e.preventDefault();
+        
+        if (_validateForm()) {
             if(currentId){
-                dispatch(submitCandidateData(currentId, postData));
+                dispatch(submitCandidateData(currentId, fields));
                 setTimeout(function(){  props.nextStep(); }, 2000);
             }
         }
@@ -107,7 +104,7 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>First Name</Form.Label>
                                     <Form.Control
-                                        style={{ border: error ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.firstName ? "2px solid red" : "" }}
                                         name="firstName"
                                         type="text"
                                         placeholder="First Name"
@@ -121,7 +118,7 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Last Name</Form.Label>
                                     <Form.Control
-                                        style={{ border: error ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.lastName ? "2px solid red" : "" }}
                                         name="lastName"
                                        // defaultValue={values.lastName}
                                        value={fields.lastName}
@@ -138,11 +135,9 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-12">
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control
-                                        style={{ border: error ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.location ? "2px solid red" : "" }}
                                         name="address"
-                                       // defaultValue={values.location}
-                                       //value={fields.place ? fields.location : props?.handleFormData?.location}
-                                       value={fields.address}
+                                        value={fields.address}
                                         as="textarea"
                                         placeholder="Address"
                                         onChange={(event) => _handleChange(event)} 
@@ -157,7 +152,7 @@ const StepOne = (props) => {
                                     <Form.Label>Country</Form.Label>
                                     <Form.Select 
                                         aria-label="Default select example" 
-                                        style={{ border: error ? "2px solid red" : "" }} 
+                                        style={{ border: errorFields?.country ? "2px solid red" : "" }} 
                                         name="country" 
                                         onChange={(event) => _handleChange(event)} 
                                         //defaultValue={values.country} onChange={handleFormData("country")}
@@ -175,7 +170,7 @@ const StepOne = (props) => {
                                     <Form.Label>State</Form.Label>
                                     <Form.Select 
                                         aria-label="Default select example" 
-                                        style={{ border: error ? "2px solid red" : "" }} 
+                                        style={{ border: errorFields?.state ? "2px solid red" : "" }} 
                                         name="state" 
                                         onChange={(event) => _handleChange(event)} 
                                         //defaultValue={values.state} onChange={handleFormData("state")}
@@ -192,7 +187,7 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>City</Form.Label>
                                     <Form.Control
-                                        style={{ border: error ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.city ? "2px solid red" : "" }}
                                         name="city" 
                                         type="text"
                                         placeholder="City"
@@ -209,7 +204,7 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Zip Code</Form.Label>
                                     <Form.Control
-                                        style={{ border: error ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.zip ? "2px solid red" : "" }}
                                         name="zip"
                                         //defaultValue={values.zip}
                                         type="text"
@@ -225,7 +220,7 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Email</Form.Label>
                                         <Form.Control
-                                            style={{ border: error ? "2px solid red" : "" }}
+                                            style={{ border: errorFields?.email ? "2px solid red" : "" }}
                                             name="email"
                                             //defaultValue={values.email}
                                             type="email"
@@ -241,9 +236,8 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Phone</Form.Label>
                                         <Form.Control
-                                            style={{ border: error ? "2px solid red" : "" }}
+                                            style={{ border: errorFields?.phone ? "2px solid red" : "" }}
                                             name="phone"
-                                            //defaultValue={values.phone}
                                             type="text"
                                             placeholder="Phone"
                                             onChange={(event) => _handleChange(event)} 

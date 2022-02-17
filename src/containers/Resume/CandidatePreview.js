@@ -327,7 +327,8 @@ const CandidatePreview = (props) => {
                   EXPERIENCE
                 </h3>
                 <hr className="mb-4" />
-
+                {/* {fields.workExperience?.map((company, index) => ( */}
+                  <>
                 <div className="row">
                   <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
@@ -389,74 +390,76 @@ const CandidatePreview = (props) => {
                     <div className="col-lg-7 col-form-label">This is just a test</div>
                   </div>
                 </div>
+                </>
+                 {/* ))} */}
               </div>
             </div>
           </div>
         </div>
+        
+          <div className="row">
+            <div className="col-lg-12 grid-margin stretch-card">
+              <div className="card">
+                <div className="card-body">
+                  <h3 className="page-title font-style-bold mb-4">
+                    <span className="page-title-icon bg-gradient-primary text-white me-2">
+                      <i className="mdi mdi-checkbox-marked"></i>
+                    </span>
+                    EDUCATION
+                  </h3>
+                  <hr className="mb-4" />
 
-        <div className="row">
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h3 className="page-title font-style-bold mb-4">
-                  <span className="page-title-icon bg-gradient-primary text-white me-2">
-                    <i className="mdi mdi-checkbox-marked"></i>
-                  </span>
-                  EDUCATION
-                </h3>
-                <hr className="mb-4" />
-
-                <div className="row">
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
-                      <b>School Name</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">
-                      xyz
+                  <div className="row">
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>School Name</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        xyz
+                      </div>
+                    </div>
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>City</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        noida
+                      </div>
                     </div>
                   </div>
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
-                      <b>City</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">
-                      noida
+                  <div className="row">
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>State</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">UP</div>
+                    </div>
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Degree</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">BCA</div>
                     </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
-                      <b>State</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">UP</div>
-                  </div>
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
-                      <b>Degree</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">BCA</div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
-                      <b>Field of study</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">CS</div>
-                  </div>
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
-                      <b>Graduation Date</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">2014</div>
+                  <div className="row">
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Field of study</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">CS</div>
+                    </div>
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Graduation Date</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">2014</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
+         
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
@@ -468,14 +471,14 @@ const CandidatePreview = (props) => {
                   SKILLS
                 </h3>
                 <hr className="mb-4" />
-
-                <div className="row">
+                {fields.skills?.map((index,key) => (
+                <div className="row" key={`${key}`}>
                   <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
                       <b>Skill</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
-                      {fields.skills}
+                      {index.skill}
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -483,10 +486,11 @@ const CandidatePreview = (props) => {
                       <b>Level</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
-                      Expert
+                      {index.skillLevel}
                     </div>
                   </div>
                 </div>
+                ))}
               </div>
             </div>
           </div>
@@ -503,13 +507,14 @@ const CandidatePreview = (props) => {
                   LANGUAGES
                 </h3>
                 <hr className="mb-4" />  
-                    <div className="row">
+                {fields.langauge?.map((index,key) => (
+                    <div className="row" key={`${key}`}>
                       <div className="displayPreviewRow col-md-6">
                         <label className="col-lg-4 col-form-label">
                           <b>Language</b>
                         </label>
                         <div className="col-lg-7 col-form-label">
-                          {fields.language}
+                          {index.language}
                         </div>
                       </div>
                       <div className="displayPreviewRow col-md-6">
@@ -517,10 +522,11 @@ const CandidatePreview = (props) => {
                           <b>Level</b>
                         </label>
                         <div className="col-lg-7 col-form-label">
-                          Expert
+                          {index.langLevel}
                         </div>
                       </div>
                     </div> 
+                ))}
                 {console.log(fields)}
               </div>
             </div>

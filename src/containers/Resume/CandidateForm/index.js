@@ -13,8 +13,6 @@ import _ from 'lodash';
 import BlockUI from "../../../components/BlockUI";
 
 function CandidateMultiStep(props) {
-
-  console.log(props, "  props")
   //state for steps
   const [step, setstep] = useState(1);
   const cdIdData = JSON.parse(localStorage.getItem("data"));
@@ -167,12 +165,12 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           <Container>
             <Row>
               <Col>
-                <StepFour 
+                { !_.isEmpty(userData.candidateInfo) ? <StepFour 
                   nextStep={() => nextStep()} 
                   prevStep={prevStep} 
                   handleFormData={userData?.candidateInfo} 
-                  cdId={cdId} 
-                />
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>
@@ -185,12 +183,12 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           <Container>
             <Row>
               <Col>
-                <StepFive 
-                   nextStep={() => nextStep()} 
-                   prevStep={prevStep} 
-                   handleFormData={userData?.candidateInfo} 
-                   cdId={cdId}
-                />
+                { !_.isEmpty(userData.candidateInfo) ? <StepFive 
+                  nextStep={() => nextStep()} 
+                  prevStep={prevStep} 
+                  handleFormData={userData?.candidateInfo} 
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>

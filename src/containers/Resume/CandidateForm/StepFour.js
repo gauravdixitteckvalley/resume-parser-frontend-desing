@@ -12,81 +12,88 @@ import validateCandidateForm  from "./CandidateFromValidation";
 const StepFour = (props) => {
   const currentId = props.cdId;
    //creating error state for validation
-  const [error, setError] = useState(false);
-  const [errorFields, setErrorFields] = useState([{skill: "", skillLevel : ""}]);
+  const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
-let errorCheck = true;
+  const dispatch = useDispatch(); 
+  const [status,setStatus] =useState(true);
+
+  const validateForm = (formValuesArray) => {
+    let errors = [];
+    let formIsValid = true;
+    formValuesArray.map ( (fields, index) => {
+        let error = {}
+        if (!fields["skill"] || fields["skill"].trim() === '') {
+            formIsValid = false;
+            error["skill"] = "*Please enter your School Name.";
+        }
+    
+        if (!fields["skillLevel"] || fields["skillLevel"].trim() === '') {
+            formIsValid = false;
+            error["skillLevel"] = "*Please select your Skill Level.";
+        }
+        if(Object.keys(error).length > 0){
+            errors[index]= error
+        }
+        
+    })
+
+    return {
+        errors : errors,
+        formIsValid : formIsValid
+    };
+  }
+
+  /* validate form */
+  const _validateForm = () => {
+    let response = validateForm(formValues);
+    setErrors(response.errors)
+    return response.formIsValid;
+  }
+
+useEffect(() => {
+    if(!_.isEmpty(props.handleFormData)){
+    setFormValues(props.handleFormData.skills)
+    setStatus(false)
+    }
+}, []);
+
+  // after form submit validating the form data using validator
+  const submitFormData = (e) => {
+    e.preventDefault();
+    let postData = formValues;    
+    if (_validateForm()){
+      //props.nextStep();
+      console.log("postData4 ",postData)
+      if(currentId){
+          dispatch(submitCandidateData(currentId, {skills:postData,step:4}));
+          setTimeout(function(){  props.nextStep(); }, 2000);
+      }
+    }
+  };
+
   const addFormFields = () => {
     setFormValues([...formValues, { skill: "", skillLevel: "" }])
-    setErrorFields([...errorFields, { skill: "", skillLevel: "" }])
   }
 
-  const removeFormFields = (i) => {
+  const removeFormFields = (event, index) => {
+    event.preventDefault()
+
+    if(errors !== false){
+      let newErrors = [...errors];
+      newErrors.splice(index, 1);
+      setFormValues(newErrors)
+    }
+
     let newFormValues = [...formValues];
-        newFormValues.splice(i, 1);
-        setFormValues(newFormValues)
+    newFormValues.splice(index, 1);
+    setFormValues(newFormValues)
   }
-  const _handleChange = (event,key) => {
-    //console.log("key ",key)
-    //console.log("event.target.name ",event.target.name," event.target.value ",event.target.value)
-    if(formValues[key]){
-      if(event.target.name ==  `skill${key}`){
-        formValues[key] = {
-          skill:event.target.value,
-          skillLevel:formValues[key].skillLevel
-        }
-      }
-      if(event.target.name == `skillLevel${key}`){
-        formValues[key] = {
-          skill:formValues[key].skill,
-          skillLevel:event.target.value,
-        }
-      }
-    }
-    //console.log("formValues ",formValues)
-};
-const _validateForm = () => {
-  let formNumber = "form4";
-  let formFields = formValues;
- // let response = validateCandidateForm(formNumber,formFields,errorFields);
- formValues.map((index,key)=>{
-    if(formValues[key].skill == ""){
-      errorCheck = false;
-      errorFields[key]={
-        skill: "* Please Enter your skill. ",
-        skillLevel:errorFields[key].skillLevel
-      } 
-    }else{
-      errorFields[key]={
-        skill: "",
-        skillLevel:errorFields[key].skillLevel
-      } 
-    }
-    if(formValues[key].skillLevel == ""){
-      errorCheck = false;
-      errorFields[key]={
-        skill: errorFields[key].skill,
-        skillLevel:"* Please select your skill level. "
-      } 
-    }else{
-      errorFields[key]={
-        skill: errorFields[key].skill,
-        skillLevel:"* Please select your skill level. "
-      } 
-    }
- })
- console.log("errorFields ",errorFields)
-  //setErrorFields(response.errorFields);
-  //return response.formIsValid;
-};
-const submitFormData = (e) => {
-  //console.log("formValues ",formValues)
- // props.nextStep()
-  e.preventDefault();
-  if (_validateForm()) {
 
-  }
-};
+  const _handleChange = (event,key) => {
+    const { target } = event
+    formValues[key][target.name] = target.value
+    setFormValues([...formValues])
+  };
 
   return (
     <>
@@ -102,41 +109,73 @@ const submitFormData = (e) => {
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Skill</Form.Label>
                     <Form.Control
-                        style={{ border: error ? "2px solid red" : "" }}
+                        style={{ border: errors[key]?.skill ? "2px solid red" : "" }}
                         type="text"
-                        placeholder="Skills"
-                        name={`skill${key}`}
-                        
+                        name="skill"
+                        placeholder="School Name"
+                        value={index.skill}
                         onChange={(event) => _handleChange(event,key)} 
                     />
-                    <Form.Text className="errorMsg" style={{ color: "red" }}>
-                      {errorFields[key].skill}
-                    </Form.Text>
+                    {errors[key]?.skill ? (
+                        <Form.Text style={{ color: "red" }}>
+                        { errors[key]?.skill }
+                        </Form.Text>
+                    ) : (
+                        ""
+                    )}
                 </Form.Group>  
                 <Form.Group className="mb-2 col-md-5">
                     <Form.Label>Level</Form.Label>
                     <Form.Select 
                       aria-label="Default select example" 
-                      style={{ border: error ? "2px solid red" : "" }} 
-                      name={`skillLevel${key}`} 
-                      onChange={(event) => _handleChange(event,key)}
+                      style={{ border: errors[key]?.skillLevel ? "2px solid red" : "" }} 
+                      name="skillLevel" 
+                      onChange={(event) => _handleChange(event,key)} 
                     >
-                        <option value=''>Select your skill level</option>
-                        <option value="Novice">Novice</option>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Skillful">Skillful</option>
-                        <option value="Experienced">Experienced</option>
-                        <option value="Expert">Expert</option>
-                        <option value="Don't show level">Don't show level</option>
+                        <option>Select your skill level</option>
+                        <option 
+                          value="Novice" 
+                          selected={(index.skillLevel == "Novice") ? true :false }>
+                            Novice
+                        </option>
+                        <option 
+                          value="Beginner" 
+                          selected={(index.skillLevel == "Beginner") ? true :false }>
+                            Beginner
+                        </option>
+                        <option 
+                          value="Skillful" 
+                          selected={(index.skillLevel == "Skillful") ? true :false }>
+                            Skillful
+                        </option>
+                        <option 
+                          value="Experienced" 
+                          selected={(index.skillLevel == "Experienced") ? true :false }>
+                            Experienced
+                        </option>
+                        <option 
+                          value="Expert" 
+                          selected={(index.skillLevel == "Expert") ? true :false }>
+                            Expert
+                        </option>
+                        <option 
+                          value="- Don't show level" 
+                          selected={(index.skillLevel == "- Don't show level") ? true :false }>
+                            - Don't show level
+                        </option>
                     </Form.Select>
-                    <Form.Text className="errorMsg" style={{ color: "red" }}>
-                      {errorFields[key].skillLevel}
-                    </Form.Text>
+                    {errors[key]?.skillLevel ? (
+                        <Form.Text style={{ color: "red" }}>
+                        { errors[key]?.skillLevel }
+                        </Form.Text>
+                    ) : (
+                        ""
+                    )}
                 </Form.Group> 
                 {
                   index ? 
                   <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
-                      <Link to="#" onClick={() => removeFormFields(index)}>
+                      <Link to="#" onClick={(event) => removeFormFields(event, key)}>
                           <i className="mdi mdi-delete"></i>
                       </Link>
                   </div>
