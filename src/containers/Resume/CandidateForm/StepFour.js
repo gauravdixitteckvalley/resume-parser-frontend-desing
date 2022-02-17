@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import validator from "validator";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
 import _ from "lodash";
@@ -14,11 +13,12 @@ const StepFour = (props) => {
   const currentId = props.cdId;
    //creating error state for validation
   const [error, setError] = useState(false);
-  const [errorFields, setErrorFields] = useState({});
+  const [errorFields, setErrorFields] = useState([{skill: "", skillLevel : ""}]);
   const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
-
+let errorCheck = true;
   const addFormFields = () => {
     setFormValues([...formValues, { skill: "", skillLevel: "" }])
+    setErrorFields([...errorFields, { skill: "", skillLevel: "" }])
   }
 
   const removeFormFields = (i) => {
@@ -27,34 +27,64 @@ const StepFour = (props) => {
         setFormValues(newFormValues)
   }
   const _handleChange = (event,key) => {
-    console.log("key ",key)
-    console.log("event.target.name ",event.target.name," event.target.value ",event.target.value)
+    //console.log("key ",key)
+    //console.log("event.target.name ",event.target.name," event.target.value ",event.target.value)
     if(formValues[key]){
-      if(event.target.name == "skill"){
+      if(event.target.name ==  `skill${key}`){
         formValues[key] = {
-          ...formValues[key],
           skill:event.target.value,
+          skillLevel:formValues[key].skillLevel
         }
       }
-      if(event.target.name == "skillLevel"){
+      if(event.target.name == `skillLevel${key}`){
         formValues[key] = {
-          ...formValues[key],
+          skill:formValues[key].skill,
           skillLevel:event.target.value,
         }
       }
     }
-    console.log("formValues ",formValues)
+    //console.log("formValues ",formValues)
 };
 const _validateForm = () => {
   let formNumber = "form4";
   let formFields = formValues;
-  let response = validateCandidateForm(formNumber,formFields);
-  setErrorFields(response.errorFields);
-  return response.formIsValid;
+ // let response = validateCandidateForm(formNumber,formFields,errorFields);
+ formValues.map((index,key)=>{
+    if(formValues[key].skill == ""){
+      errorCheck = false;
+      errorFields[key]={
+        skill: "* Please Enter your skill. ",
+        skillLevel:errorFields[key].skillLevel
+      } 
+    }else{
+      errorFields[key]={
+        skill: "",
+        skillLevel:errorFields[key].skillLevel
+      } 
+    }
+    if(formValues[key].skillLevel == ""){
+      errorCheck = false;
+      errorFields[key]={
+        skill: errorFields[key].skill,
+        skillLevel:"* Please select your skill level. "
+      } 
+    }else{
+      errorFields[key]={
+        skill: errorFields[key].skill,
+        skillLevel:"* Please select your skill level. "
+      } 
+    }
+ })
+ console.log("errorFields ",errorFields)
+  //setErrorFields(response.errorFields);
+  //return response.formIsValid;
 };
 const submitFormData = (e) => {
+  //console.log("formValues ",formValues)
+ // props.nextStep()
   e.preventDefault();
   if (_validateForm()) {
+
   }
 };
 
@@ -75,24 +105,20 @@ const submitFormData = (e) => {
                         style={{ border: error ? "2px solid red" : "" }}
                         type="text"
                         placeholder="Skills"
-                        name="skill"
-                        //onChange={handleFormData("skill")}
+                        name={`skill${key}`}
+                        
                         onChange={(event) => _handleChange(event,key)} 
                     />
-                    {error ? (
-                        <Form.Text style={{ color: "red" }}>
-                        This is a required field
-                        </Form.Text>
-                    ) : (
-                        ""
-                    )}
+                    <Form.Text className="errorMsg" style={{ color: "red" }}>
+                      {errorFields[key].skill}
+                    </Form.Text>
                 </Form.Group>  
                 <Form.Group className="mb-2 col-md-5">
                     <Form.Label>Level</Form.Label>
                     <Form.Select 
                       aria-label="Default select example" 
                       style={{ border: error ? "2px solid red" : "" }} 
-                      name="skillLevel" 
+                      name={`skillLevel${key}`} 
                       onChange={(event) => _handleChange(event,key)}
                     >
                         <option value=''>Select your skill level</option>
@@ -103,19 +129,15 @@ const submitFormData = (e) => {
                         <option value="Expert">Expert</option>
                         <option value="Don't show level">Don't show level</option>
                     </Form.Select>
-                    {error ? (
-                        <Form.Text style={{ color: "red" }}>
-                        This is a required field
-                        </Form.Text>
-                    ) : (
-                        ""
-                    )}
+                    <Form.Text className="errorMsg" style={{ color: "red" }}>
+                      {errorFields[key].skillLevel}
+                    </Form.Text>
                 </Form.Group> 
                 {
                   index ? 
                   <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
                       <Link to="#" onClick={() => removeFormFields(index)}>
-                          <i class="mdi mdi-delete"></i>
+                          <i className="mdi mdi-delete"></i>
                       </Link>
                   </div>
                   : null

@@ -10,35 +10,45 @@ import StepSeven from "./StepSeven";
 import { useSelector, useDispatch } from "react-redux";
 import {  fetchCandidateData  } from "../../../actions/Candidate";
 import _ from 'lodash';
+import BlockUI from "../../../components/BlockUI";
 
-function CandidateMultiStep() {
+function CandidateMultiStep(props) {
 
-  
+  console.log(props, "  props")
   //state for steps
   const [step, setstep] = useState(1);
   const cdIdData = JSON.parse(localStorage.getItem("data"));
-  const [filData,setFilData] = useState()
+  const [filData,setFilData] = useState(null)
   const [isData,setIsData] = useState(false)
   const cdId =cdIdData.id;
   const dispatch = useDispatch(); 
+  const userData = useSelector( (state) => state.candidate);
+  const { candidateInfo, blocking } = userData;
 
   useEffect(() => {
-    return () => {
       dispatch(fetchCandidateData(cdId));
-    }
-
   }, []);
-  const userData = useSelector( (state) => {  return state.candidate});
-  const { candidateInfo, blocking } = userData;
-  // console.log('candidateInfo',candidateInfo,isData);
-  if(!_.isEmpty(candidateInfo && isData === false)){
+ 
+ 
+ if(cdIdData && typeof userData != "undefined" && (_.size(userData) > 0)){
+     // console.log("demo ",typeof userData)
+     
+        if (filData !== null){
+          setFilData(userData)
+        }
+}
+   console.log('candidateInfo  ',userData);
+   /*if(userData){
+     console.log("userData ", userData)
+   }
+ if(!_.isEmpty(candidateInfo && isData === false)){
     
      setIsData(true) 
-      setFilData(candidateInfo)
-      // console.log('candidateInfo1',candidateInfo,isData);
+      
+     console.log('candidateInfo1',candidateInfo,isData);
     
-    // setTimeout(function(){  }, 200);
-  }
+   setTimeout(function(){ setFilData(candidateInfo) }, 200);
+  }*/
 
   
 
@@ -77,6 +87,7 @@ function CandidateMultiStep() {
   };
 
   // handling form input data by taking onchange value and updating our previous form data state
+ 
   const handleInputData = input => e => {
     // input value from the form
     const {value } = e.target;
@@ -87,8 +98,9 @@ function CandidateMultiStep() {
       [input]: value
   }));
   }
+  
 
-console.log('filData',filData);
+console.log('userData.candidateInfo',userData.candidateInfo);
 
 // javascript switch case to show different form in each step
   switch (step) {
@@ -96,15 +108,16 @@ console.log('filData',filData);
     case 1:
       return (
         <div className="App">
+          <BlockUI blocking={blocking} />
           <Container>
             <Row>
               <Col>
-                <StepOne 
+            { !_.isEmpty(userData.candidateInfo) ? <StepOne 
                   nextStep={() => nextStep()} 
-                  handleFormData={filData} 
-                  dataName={filData ? filData.name : ""} 
+                  handleFormData={userData?.candidateInfo} 
+                  name={userData?.candidateInfo?.name} 
                   cdId={cdId}
-                />
+                /> :'' }
               </Col>
             </Row>
           </Container>
@@ -114,15 +127,16 @@ console.log('filData',filData);
     case 2:
       return (
         <div className="App">
+          <BlockUI blocking={blocking} />
           <Container>
             <Row>
               <Col  md={{ span: 12 }}>
-                <StepTwo 
-                  nextStep={nextStep} 
+              { !_.isEmpty(userData.candidateInfo) ? <StepTwo 
+                  nextStep={() => nextStep()} 
                   prevStep={prevStep} 
-                  handleFormData={filData} 
-                  values={formData} 
-                />
+                  handleFormData={userData?.candidateInfo} 
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>
@@ -131,13 +145,14 @@ console.log('filData',filData);
       case 3:
       return (
         <div className="App">
+          <BlockUI blocking={blocking} />
           <Container>
             <Row>
               <Col>
                 <StepThree 
                    nextStep={() => nextStep()} 
                    prevStep={prevStep} 
-                   handleFormData={handleInputData} 
+                   handleFormData={userData?.candidateInfo} 
                    cdId={cdId}
                 />
               </Col>
@@ -148,13 +163,14 @@ console.log('filData',filData);
       case 4:
       return (
         <div className="App">
+          <BlockUI blocking={blocking} />
           <Container>
             <Row>
               <Col>
                 <StepFour 
                   nextStep={() => nextStep()} 
                   prevStep={prevStep} 
-                  handleFormData={handleInputData} 
+                  handleFormData={userData?.candidateInfo} 
                   cdId={cdId} 
                 />
               </Col>
@@ -165,13 +181,14 @@ console.log('filData',filData);
       case 5:
       return (
         <div className="App">
+          <BlockUI blocking={blocking} />
           <Container>
             <Row>
               <Col>
                 <StepFive 
                    nextStep={() => nextStep()} 
                    prevStep={prevStep} 
-                   handleFormData={handleInputData} 
+                   handleFormData={userData?.candidateInfo} 
                    cdId={cdId}
                 />
               </Col>
@@ -182,15 +199,16 @@ console.log('filData',filData);
       case 6:
       return (
         <div className="App">
+          <BlockUI blocking={blocking} />
           <Container>
             <Row>
               <Col>
-                <StepSix
-                   nextStep={() => nextStep()} 
-                   prevStep={prevStep} 
-                   handleFormData={handleInputData} 
-                   cdId={cdId}
-                />
+              { !_.isEmpty(userData.candidateInfo) ? <StepSix 
+                  nextStep={() => nextStep()} 
+                  prevStep={prevStep} 
+                  handleFormData={userData?.candidateInfo} 
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>
@@ -200,15 +218,16 @@ console.log('filData',filData);
     case 7:
       return (
         <div className="App">
+          <BlockUI blocking={blocking} />
           <Container>
             <Row>
               <Col>
-                <StepSeven 
-                   nextStep={() => nextStep()} 
-                   prevStep={prevStep} 
-                   handleFormData={handleInputData} 
-                   cdId={cdId}
-                />
+                { !_.isEmpty(userData.candidateInfo) ? <StepSeven 
+                  nextStep={() => nextStep()} 
+                  prevStep={prevStep} 
+                  handleFormData={userData?.candidateInfo} 
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>

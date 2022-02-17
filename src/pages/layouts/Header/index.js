@@ -157,7 +157,7 @@ const Header = (props) => {
                             </Link>
                             :'' }
                             <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to="#">
+                            <Link className="dropdown-item" to="/activity-log">
                             <i className="mdi mdi-cached me-2 text-success"></i> Activity Log </Link>
                             <div className="dropdown-divider"></div>
 
@@ -252,7 +252,7 @@ const Header = (props) => {
                                     </div>
                                 </Link>
                                 <div className="dropdown-divider"></div>
-                                <h6 className="p-3 mb-0 text-center">See all notifications</h6>
+                                <Link to="/notifications" style={{textDecoration: 'none', color: '#000'}}><h6 className="p-3 mb-0 text-center">See all notifications</h6></Link>
                             </div>
                         </li>
                         <li className="nav-item nav-logout d-none d-lg-block">

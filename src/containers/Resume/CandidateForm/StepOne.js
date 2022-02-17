@@ -13,14 +13,12 @@ const StepOne = (props) => {
     const [errorFields, setErrorFields] = useState({});
     const resumeData = useSelector(state => state.resume );
     const { countryList, stateList } = resumeData;
-    // let name = props.dataName.split(" ");
-    // let fName=name[0];
-    // let lName=name[1];
-
+    let name = props.handleFormData.name;
+    const [status,setStatus] =useState(true);
     const [fields, setFields] = useState({
-        firstName:"",
-        lastName: "",
-        location: "",
+        firstName: " ",
+        lastName:  "",
+        address: "",
         country: "",
         state: "",
         city: "",
@@ -29,64 +27,65 @@ const StepOne = (props) => {
         phone: "",
         step:1
     });
-    //console.log("fields " ,fields)
+
     const [error, setError] = useState(false);
     const dispatch = useDispatch(); 
-  /*
-    if(currentId && typeof resumeData != "undefined" && (_.size(resumeData) > 0))
-        if (_.size(resumeData.resumeDetails) !== _.size(fields))
-            setFields({...resumeData.resumeDetails})
-*/
-  // after form submit validating the form data using validator
-  const _handleChange = (event) => {
-    let data = fields;
-    if(event.target.name === 'country'){
-        let countryid = event.target.value;
-        dispatch(getStateList(countryid));    
+  
+    const _handleChange = (event) => {
+        let data = fields;
+        if(event.target.name === 'country'){
+            let countryid = event.target.value;
+            dispatch(getStateList(countryid));    
+        }
+        data[event.target.name] = event.target.value;
+        setFields({...data})      
     }
-    //console.log("event.target.name : ",event.target.name," event.target.value : ",event.target.value)
+    useEffect(() => {
+        if(!_.isEmpty(props.handleFormData)){
+            console.log("props.handleFormData " ,props.handleFormData)
+            let fname=''
+            let lname=''
+            if(name){
+                let fulname =  name.split(" ");
+                fname=fulname[0]
+                lname=fulname[1]
+            }
+            setFields({
+                firstName:fname,
+                lastName: lname,
+                address: props.handleFormData.location,
+                country: props?.handleFormData?.country,
+                state: props?.handleFormData?.state,
+                city: props?.handleFormData?.place,
+                zip: props?.handleFormData?.zip,
+                email: props?.handleFormData?.email,
+                phone: props?.handleFormData?.phone,
+                step:1
+            })
+            setStatus(false)
+        }
+    }, []);
 
-      data[event.target.name] = event.target.value;
-      setFields({...data})
-      
-  }
-  useEffect(() => {
-    setFields({
-        firstName:props.handleFormData?.name,
-        lastName: "",
-        location: "",
-        country: "",
-        state: "",
-        city: "",
-        zip: "",
-        email: props.handleFormDat?.email,
-        phone: props.handleFormData?.phone,
-        step:1
-    })
-  }, []);
- console.log('fields ',fields)
     const _validateForm = () => {
-        let formNumber = "form4";
+        let formNumber = "form1";
         let formFields = fields;
         let response = validateCandidateForm(formNumber,formFields);
         setErrorFields(response.errorFields);
         return response.formIsValid;
     };
-  const submitFormData = (e) => {
-    e.preventDefault();    
-    if (_validateForm()) {
-        /*
+    const submitFormData = (e) => {
+        e.preventDefault();  
         let postData = fields;
-        console.log("valid ")
-        if(currentId){
-            dispatch(submitCandidateData(currentId, postData));
-            setTimeout(function(){  props.nextStep(); }, 2000);
-           
+       // console.log("hello ",postData)  
+        if (_validateForm() &&  !_.isEmpty(postData)) {       
+            let postData = fields;
+            //console.log("valid ")
+            if(currentId){
+                dispatch(submitCandidateData(currentId, postData));
+                setTimeout(function(){  props.nextStep(); }, 2000);
+            }
         }
-        */
-    }
-    props.nextStep()
-  };
+    };
 
   return (
       
@@ -125,6 +124,7 @@ const StepOne = (props) => {
                                         style={{ border: error ? "2px solid red" : "" }}
                                         name="lastName"
                                        // defaultValue={values.lastName}
+                                       value={fields.lastName}
                                         type="text"
                                         placeholder="Last Name"
                                         onChange={(event) => _handleChange(event)}
@@ -139,8 +139,10 @@ const StepOne = (props) => {
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control
                                         style={{ border: error ? "2px solid red" : "" }}
-                                        name="location"
+                                        name="address"
                                        // defaultValue={values.location}
+                                       //value={fields.place ? fields.location : props?.handleFormData?.location}
+                                       value={fields.address}
                                         as="textarea"
                                         placeholder="Address"
                                         onChange={(event) => _handleChange(event)} 
@@ -162,7 +164,7 @@ const StepOne = (props) => {
                                     >
                                         <option value="">Select Country</option>
                                         {countryList?.map((country, index) => (
-                                            <option key={index} value={country._id}>{country.name}</option>
+                                            <option key={index} selected={country._id == fields.country ? true :false } value={country._id}>{country.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -180,7 +182,7 @@ const StepOne = (props) => {
                                     >
                                         <option value="">Select State</option>
                                         {stateList?.map((state, index) => (
-                                            <option key={index} value={state._id}>{state.name}</option>
+                                            <option key={index} selected={state._id == fields.state ? true :false } value={state._id}>{state.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -194,7 +196,9 @@ const StepOne = (props) => {
                                         name="city" 
                                         type="text"
                                         placeholder="City"
-                                        onChange={(event) => _handleChange(event)} 
+                                        onChange={(event) => _handleChange(event)}
+                                        //value={fields.city ? fields.city : props?.handleFormData?.place} 
+                                        value={fields.city} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
                                         {errorFields.city}
@@ -211,6 +215,8 @@ const StepOne = (props) => {
                                         type="text"
                                         placeholder="Zip Code"
                                         onChange={(event) => _handleChange(event)} 
+                                        //value={fields.zip ? fields.zip : props?.handleFormData?.zip}
+                                        value={fields.zip}
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
                                         {errorFields.zip}
@@ -226,6 +232,7 @@ const StepOne = (props) => {
                                             placeholder="Email"
                                             value={fields.email}
                                             onChange={(event) => _handleChange(event)} 
+                                           // value={fields.email ? fields.email : props?.handleFormData?.email}
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
                                             {errorFields.email}
@@ -240,6 +247,8 @@ const StepOne = (props) => {
                                             type="text"
                                             placeholder="Phone"
                                             onChange={(event) => _handleChange(event)} 
+                                            value={fields.phone}
+                                           // value={fields.phone ? fields.phone : props?.handleFormData?.phone}
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
                                             {errorFields.phone}

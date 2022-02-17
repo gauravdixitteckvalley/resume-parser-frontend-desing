@@ -1,45 +1,51 @@
 import React, { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import validator from "validator";
 import './CandidateMultiForm.css';
 import _ from "lodash";
 import {  getStateList } from "../../../actions/Resume"
+import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
-   const [formValues, setFormValues] = useState([])
-  const resumeData = useSelector(state => state.resume );
-  const [error, setError] = useState(false);
-
+const StepTwo = (props) => {
+    
+    const currentId = props.cdId;
+    const [formValues, setFormValues] = useState([])
+    const resumeData = useSelector(state => state.resume );
+    const [error, setError] = useState(false);
   //fetch data from store
-  const { countryList, stateList } = resumeData;
-  const dispatch = useDispatch(); 
+    const { countryList, stateList } = resumeData;
+    const [status,setStatus] =useState(true);
+    const dispatch = useDispatch(); 
 
 // after form submit validating the form data using validator
-  const submitFormData = (event) => {
-      console.log(formValues, " formValues")
-      console.log(event.target.name, " ", event.target.value , " event")
-      event.preventDefault();
-   // nextStep();
-  };
+  
   useEffect(() => {
         if(formValues.length<1){
-            setFormValues([...formValues, { 
-                employer: "", 
-                emptitle: " demo ",  
-                country: "",
-                stateName: "",
-                stateId: null,
-                stateArray: null,
-                isStateFilled: false,
-                city: "",  
-                startDate: "",  
-                endDate: "", 
-                currentWork: "", 
-                jd: "", 
-            }])
+            if(!_.isEmpty(props.handleFormData)){
+                console.log("props.handleFormData " ,props.handleFormData)
+                    setFormValues([...formValues, props.handleFormData.workExperience])
+                    setStatus(false)
+                }else{
+                    setFormValues([...formValues, { 
+                        employer: "", 
+                        emptitle: " demo ",  
+                        country: "",
+                        stateName: "",
+                        stateId: null,
+                        stateArray: null,
+                        isStateFilled: false,
+                        city: "",  
+                        startDate: "",  
+                        endDate: "", 
+                        currentWork: "", 
+                        jd: "", 
+                    }])
+                }
+            
         }
+        console.log("formValues ", formValues)
+        
   }, []);
   const _handleChange = (event,key ) => {
       const { target } = event
@@ -52,6 +58,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
             formValues[key].isStateFilled = true
       }else{
         formValues[key][target.name] = target.value
+        console.log("check ",formValues[key][target.name] = target.value)
       }
 
     if(target.name === 'country'){
@@ -107,7 +114,28 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
     }
     
   }
-
+  const submitFormData = (event) => {
+    /*console.log(formValues, " formValues")
+    console.log(event.target.name, " ", event.target.value , " event")
+    console.log("valid ", postData)
+    */
+    event.preventDefault();
+    let postData = {"workExperience":formValues,step:2};
+    if (!_.isEmpty(postData)) {       
+        //let postData = fields;
+        console.log("valid ")
+        if(currentId){
+            dispatch(submitCandidateData(currentId, postData));
+            setTimeout(function(){  props.nextStep(); }, 2000);
+        }
+    }
+    /*if(currentId){
+        dispatch(submitCandidateData(currentId, postData));
+        setTimeout(function(){  props.nextStep(); }, 2000);
+       console.log("valid ")
+    }*/
+  //props.nextStep();
+};
   return (
     <>
       <Card>
@@ -126,6 +154,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                     type="text"
                                     placeholder="eg. IBM"
                                     name="employer"
+                                    value={formValues[key][key].employer}
                                     onChange={(event) => _handleChange(event,key)}
                                 />
                             </Form.Group>  
@@ -169,7 +198,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                 <Form.Control
                                     name="city" 
                                     type="text"
-                                    onChange={(event) => _handleChange(event)}
+                                    onChange={(event) => _handleChange(event,key)}
                                 />
                             </Form.Group>
                         </Row>
@@ -180,7 +209,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         type="date"
                                         name="startDate"
                                         placeholder="Start Date"
-                                        onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event,key)}
                                     />
                                 </Form.Group>
                                
@@ -190,7 +219,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         type="date"
                                         name="endDate"
                                         placeholder="End Date"
-                                        onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event,key)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-6"></Form.Group>
@@ -200,7 +229,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                         className="my-check mt-1" 
                                         label="I currently work here" 
                                         name="currentWork" 
-                                        onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event,key)}
                                     />
                                 </Form.Group>
                             </Row>
@@ -213,7 +242,7 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
                                     name="jd"
                                     as="textarea"
                                     placeholder="Describe Your Job"
-                                    onChange={(event) => _handleChange(event)}
+                                    onChange={(event) => _handleChange(event,key)}
                                 />
                             </Form.Group>
                         </Row>
@@ -239,11 +268,11 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
             <hr className="mb-4"/>
             
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
                 Previous
               </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={nextStep} >
+              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit"  >
                 Next
               </Button>
             </div>

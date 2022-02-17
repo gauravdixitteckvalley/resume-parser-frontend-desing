@@ -1,13 +1,33 @@
 export function message(state = [], action){
-    // console.log('action',action.payload);
+    
     switch (action.type) {
+      
+        case 'USER_LIST_REQUEST':
+            return {
+                blocking : true,
+                userList : []
+            };
         
+        case 'USER_LIST_SUCCESS':
+            return {
+                blocking : false,
+                userList : action.payload.user
+            };
+            
+        case 'USER_LIST_FAILURE':
+            return {
+                blocking : true,
+                userList : []
+            }; 
+
         case 'SUBMIT_MESSAGE_REQUEST':
             return {
+                ...state,
                 blocking : true
             };
         
         case 'SUBMIT_MESSAGE_SUCCESS':
+            
             return {
                 ...state,
                 blocking : false
@@ -15,7 +35,6 @@ export function message(state = [], action){
             
         case 'SUBMIT_MESSAGE_FAILURE':
             return {
-                ...state,
                 blocking : true
             };
 
@@ -46,31 +65,17 @@ export function message(state = [], action){
                 messageList : []
             }; 
             
-        case 'USER_LIST_REQUEST':
-            return {
-                blocking : true,
-                userList : []
-            };
-        
-        case 'USER_LIST_SUCCESS':
-            return {
-                blocking : false,
-                userList     : action.payload.user
-            };
-            
-        case 'USER_LIST_FAILURE':
-            return {
-                blocking : true,
-                userList : []
-            };  
+ 
         case 'MESSAGE_DETAIL_REQUEST':
             return {
+                ...state,
                 blocking : true,
                 messageDetail : []
             };
         
         case 'MESSAGE_DETAIL_SUCCESS':
             return {
+                ...state,
                 blocking : false,
                 messageDetail     : action.payload.message
             };

@@ -13,6 +13,8 @@ const MessageDetails = (props) => {
     const [isReply,setIsReply] = useState(false);
     const [showReply,setShowReply] = useState(true);
     const [replyMessage,setReplyMessage] = useState(false);
+    const [replyTo,setReplyTo] = useState();
+    const [replyOn,setReplyOn] = useState();
 
     useEffect(()=>{
         dispatch(fetchMessageDetail(currentId));
@@ -34,12 +36,14 @@ const MessageDetails = (props) => {
         if(replyMessage!== ''){
 
             const postData = {
-                to   : messageDetail[0].users._id,
-                subject : messageDetail[0].message_subject,
+                to   : messageDetail[messageDetail.length-1].users._id,
+                subject : messageDetail[messageDetail.length-1].message_subject,
                 messageText: replyMessage,
-                reply: messageDetail[0]._id,
+                reply: messageDetail[messageDetail.length-1]._id,
             }
             dispatch(messageSend(postData)); 
+            setIsReply(false)
+            setShowReply(true)
         }
 
     }
@@ -62,7 +66,9 @@ const MessageDetails = (props) => {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2">
                         <p>{ data.message_text }</p>
                     </div>
+                    
                     </>
+                    
                     
                 )) }    
                 </>  
@@ -74,7 +80,7 @@ const MessageDetails = (props) => {
               }
     }
     const { blocking, messageDetail } = messages;
-    console.log('messageDetail',messageDetail);
+    // console.log('messageDetail',messageDetail);
     return (
         <Fragment>
             <BlockUI blocking={blocking} /> 

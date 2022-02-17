@@ -46,7 +46,7 @@ const SentMessageListing = () => {
             { data.map((data, index) => ( 
                 
                 <div className="listings" key={index}   >
-                    <Link to={`/message-details/${data._id}`}  className="bold-font">
+                    <Link to={`/sent-message-details/${data._id}`}  className="bold-font">
                         <p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p>
                         <p>{ data.message_subject }</p>
                         <p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p>
