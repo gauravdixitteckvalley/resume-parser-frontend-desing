@@ -335,13 +335,13 @@ const CandidatePreview = (props) => {
                       <b>Employer</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
-                      {fields.workExperience?.map((company, index) => (
-                        <span key={index}>
-                          {company.hasOwnProperty("employer")
-                            ? company.employer
-                            : company}{" "}
-                          <br />
-                        </span>
+                      {fields.workExperience?.map((company, index) => ( console.log('company',company) 
+                        // <span key={index}>
+                        //   {company.hasOwnProperty("employer")
+                        //     ? company.employer
+                        //     : company }{" "}
+                        //   <br />
+                        // </span>
                       ))}
                     </div>
                   </div>

@@ -49,7 +49,7 @@ export const fetchUserData = (params) => {
                 dispatch({ type : 'USER_LIST_SUCCESS', payload : response.data.data});
             } 
         } catch(error) {
-            // handleHttpError(error.response);
+            handleHttpError(error.response);
             dispatch({ type: 'USER_LIST_FAILURE'});
         }
     }
@@ -57,18 +57,43 @@ export const fetchUserData = (params) => {
 
 /* action for fetching message detail */
 export const fetchMessageDetail = (id) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         dispatch({ type: 'MESSAGE_DETAIL_REQUEST' });
         try {
             const response = await api.get(`message/message-detail/${id}`,{
                 headers : requestTokenHeader(),
             });
             if (response.data.success) {
+               
+                
+                const updatedUsersList =  getState().authenticatedUser.user.message.map((user) =>{ if (id===user._id){ return { ...user,is_view: true } }else{ return user }  });
+                getState().authenticatedUser.user.message= updatedUsersList;
+                dispatch({ type : 'LOGIN_SUCCESS', payload : { ...getState().authenticatedUser.user} });
                 dispatch({ type : 'MESSAGE_DETAIL_SUCCESS', payload : response.data.data});
+                localStorage.setItem('data', JSON.stringify({ ...getState().authenticatedUser.user}));
             } 
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'MESSAGE_DETAIL_FAILURE'});
+        }
+    }
+}
+
+/* action for fetching sent message records */
+export const fetchSentMessageData = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'SENT_MESSAGE_LIST_REQUEST' });
+        try {
+            const response = await api.get('message/sent-item',{
+                params: params,
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'SENT_MESSAGE_LIST_SUCCESS', payload : response.data.data});
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SENT_MESSAGE_LIST_FAILURE'});
         }
     }
 }
