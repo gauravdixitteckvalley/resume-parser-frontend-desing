@@ -8,7 +8,6 @@ import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepTwo = (props) => {
-    //console.log("props ",props.workExperience )
     const currentId = props.cdId;
     const [formValues, setFormValues] = useState([])
     const resumeData = useSelector(state => state.resume );
@@ -19,7 +18,13 @@ const StepTwo = (props) => {
     const dispatch = useDispatch(); 
 
     useEffect(() => {
-            if(formValues.length<1){
+
+        if(!_.isEmpty(props.handleFormData)){
+            console.log("props.workExperience ",props.handleFormData.workExperience);
+            if(props.handleFormData.workExperience.length >0 && formValues.length === 0 ){
+                setFormValues(props.handleFormData.workExperience)
+            }
+            else if(formValues.length === 0){
                 setFormValues([...formValues, { 
                     employer: "", 
                     emptitle: "",  
@@ -34,11 +39,8 @@ const StepTwo = (props) => {
                     jd: "", 
                 }])
             }
-            /*
-            if(!_.isEmpty(props.handleFormData)){
-                setFormValues(props.workExperience)
-            }
-            */
+        }
+            
     }, []);
 /*
     const validateForm = (formValuesArray) => {
@@ -160,14 +162,19 @@ const StepTwo = (props) => {
                                     }])
     }
 
-    const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey) => {
+    const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey,selectedState) => {
         const stateName = `state${formValuesKey}`
         if(formValues[formValuesKey].isStateFilled){
             const resumeListSelectedCountry = formValues[formValuesKey].stateArray
             return resumeListSelectedCountry.map ( (state, index) => {
             return (
                 <>
-                    <option key={index} value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }>{state.name}</option>
+                    <option 
+                        key={index} 
+                        
+                        value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }
+                        selected={selectedState-1 == index ? true :false }
+                    >{state.name} </option>
                 </>
             )
         })
@@ -176,7 +183,11 @@ const StepTwo = (props) => {
             return optionsArray.map ( (state, index) => {
                 return (
                     <>
-                        <option key={index} value={ `${state._id} ${state.name}` }>{state.name}</option>
+                        <option 
+                            key={index} 
+                            value={ `${state._id} ${state.name}` }
+                            selected={selectedState-1 == index ? true :false }
+                        >{state.name}</option>
                     </>
                 )
             })
@@ -206,6 +217,7 @@ const StepTwo = (props) => {
                                         style={{ border: errors[key]?.employer ? "2px solid red" : "" }}
                                         placeholder="eg. IBM"
                                         name="employer"
+                                        value={index.employer}
                                         onChange={(event) => _handleChange(event,key)}
                                     />
                                     {/* {errors[key]?.employer ? (
@@ -223,6 +235,7 @@ const StepTwo = (props) => {
                                         style={{ border: errors[key]?.emptitle ? "2px solid red" : "" }}
                                         placeholder="eg. Engineer"
                                         name="emptitle"
+                                        value={index.emptitle}
                                         onChange={(event) => _handleChange(event,key)}
                                     />
                                     {/* {errors[key]?.emptitle ? (
@@ -244,8 +257,11 @@ const StepTwo = (props) => {
                                     >
                                         <option value="">Select Country</option>
                                         
-                                        {countryList?.map((country, index) => (
-                                            <option key={index} value={country._id}>{country.name}</option>
+                                        {countryList?.map((country, key) => (
+                                            <option 
+                                                key={key} 
+                                                selected={index.country == country._id ? true :false }
+                                                value={country._id}>{country.name}</option>
                                         ))}
                                     </Form.Select>
                                     {/* {errors[key]?.country ? (
@@ -264,7 +280,7 @@ const StepTwo = (props) => {
                                         onChange={(event) => _handleChange(event,key)}
                                     >
                                         <option value="">Select State</option>
-                                        {   selectStateOrCountryOption(formValues, stateList, key) }
+                                        {   selectStateOrCountryOption(formValues, stateList, key,index.stateId) }
                                     </Form.Select>
                                     {/* {errors[key]?.[`state${key}`] ? (
                                         <Form.Text style={{ color: "red" }}>
@@ -281,6 +297,7 @@ const StepTwo = (props) => {
                                         style={{ border: errors[key]?.city ? "2px solid red" : "" }}
                                         type="text"
                                         onChange={(event) => _handleChange(event, key)}
+                                        value={index.city}
                                     />
                                     {/* {errors[key]?.city ? (
                                         <Form.Text style={{ color: "red" }}>
@@ -300,6 +317,7 @@ const StepTwo = (props) => {
                                             name="startDate"
                                             placeholder="Start Date"
                                             onChange={(event) => _handleChange(event,key)}
+                                            value={index.startDate}
                                         />
                                         {/* {errors[key]?.startDate ? (
                                             <Form.Text style={{ color: "red" }}>
@@ -317,6 +335,7 @@ const StepTwo = (props) => {
                                             style={{ border: errors[key]?.endDate ? "2px solid red" : "" }}
                                             name="endDate"
                                             placeholder="End Date"
+                                            value={index.endDate}
                                             onChange={(event) => _handleChange(event, key)}
                                         />
                                         {/* {errors[key]?.endDate ? (
@@ -349,6 +368,7 @@ const StepTwo = (props) => {
                                         name="jd"
                                         as="textarea"
                                         placeholder="Describe Your Job"
+                                        value={index.jd}
                                         onChange={(event) => _handleChange(event, key)}
                                     />
                                     {/* {errors[key]?.jd ? (

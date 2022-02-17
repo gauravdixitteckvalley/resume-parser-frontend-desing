@@ -14,7 +14,7 @@ import BlockUI from "../../../components/BlockUI";
 
 function CandidateMultiStep(props) {
   //state for steps
-  const [step, setstep] = useState(1);
+  const [step, setstep] = useState(3);
   const cdIdData = JSON.parse(localStorage.getItem("data"));
   const [filData,setFilData] = useState(null)
   const [isData,setIsData] = useState(false)
@@ -147,12 +147,12 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           <Container>
             <Row>
               <Col>
-                <StepThree 
-                   nextStep={() => nextStep()} 
-                   prevStep={prevStep} 
-                   handleFormData={userData?.candidateInfo} 
-                   cdId={cdId}
-                />
+                { !_.isEmpty(userData.candidateInfo) ? <StepThree 
+                  nextStep={() => nextStep()} 
+                  prevStep={prevStep} 
+                  handleFormData={userData?.candidateInfo} 
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>

@@ -5,10 +5,10 @@ import { Form, Card, Button, Row } from "react-bootstrap";
 import validator from "validator";
 import {  getStateList } from "../../../actions/Resume"
 import { displayErrorMessage } from '../../../utils/helper';
-
+import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
    //creating error state for validation
     const [formValues, setFormValues] = useState([ { 
                                     schoolOrCollege: "",
@@ -27,6 +27,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
     //fetch data from store
     const resumeData = useSelector(state => state.resume );
     const { countryList, stateList } = resumeData;
+    const currentId = props.cdId;
     const dispatch = useDispatch();
 
 
@@ -117,7 +118,13 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
 
         // validate the fields and then move to next form
         if (_validateForm() && _isPresentlyAttendChecked()){
-            nextStep()
+            
+            if(currentId){
+               // dispatch(submitCandidateData(currentId, fields));
+                //setTimeout(function(){  props.nextStep(); }, 2000);
+            }
+         
+           // nextStep()
         }
     };
 
@@ -163,7 +170,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
         if(formValues[formValuesKey].isStateFilled){
             const resumeListSelectedCountry = formValues[formValuesKey].stateArray
             return resumeListSelectedCountry.map ( (state, index) => {
-                return (
+                return`1` (
                     <>
                         <option key={index + formValuesKey} value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }>{state.name}</option>
                     </>
@@ -234,8 +241,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                     <Form.Select 
                                         aria-label="Default select example" 
                                         style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }} 
-                                        name="degree" 
-                                        defaultValue={values?.degree} 
+                                        name="degree"  
                                         onChange={ (event) => _handleChange(event, key) }
                                     >
                                         <option>Select a degree</option>
@@ -301,7 +307,6 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                         style={{ border: errors[key]?.city ? "2px solid red" : "" }}
                                         name="city" 
                                         type="text"
-                                        defaultValue={values?.city} 
                                         onChange={(event) => _handleChange(event, key)}
                                     />
                                     {errors[key]?.city ? (
@@ -339,7 +344,6 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                             aria-label="Default select example" 
                                             style={{ border: errors[key]?.gradMonth ? "2px solid red" : "" }} 
                                             name="gradMonth" 
-                                            defaultValue={values?.gradMonth} 
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
                                             <option>Month</option>
@@ -360,8 +364,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                                         <Form.Select 
                                             aria-label="Default select example" 
                                             style={{ border: errors[key]?.gradYear ? "2px solid red" : "" }} 
-                                            name="gradYear" 
-                                            defaultValue={values?.gradYear} 
+                                            name="gradYear"  
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
                                             <option>Year</option>
@@ -414,7 +417,7 @@ const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
                 <hr className="mb-4"/>
                 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
+                <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
                     Previous
                 </Button>
 
