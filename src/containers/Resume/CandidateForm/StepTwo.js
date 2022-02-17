@@ -30,7 +30,7 @@ const StepTwo = (props) => {
                     city: "",  
                     startDate: "",  
                     endDate: "", 
-                    currentWork: "", 
+                    currentWork: false, 
                     jd: "", 
                 }])
             }
@@ -45,68 +45,68 @@ const StepTwo = (props) => {
         let errors = [];
         let formIsValid = true;
     
-        formValuesArray.map ( (fields, index) => {
-            let error = {}
-            const state = `state${index}`
-            if (!fields["employer"] || fields["employer"].trim() === '') {
-                formIsValid = false;
-                error["employer"] = "*Please enter your Employer.";
-            }
+    //     formValuesArray.map ( (fields, index) => {
+    //         let error = {}
+    //         const state = `state${index}`
+    //         if (!fields["employer"] || fields["employer"].trim() === '') {
+    //             formIsValid = false;
+    //             error["employer"] = "*Please enter your Employer.";
+    //         }
         
-            if (!fields["emptitle"] || fields["emptitle"].trim() === '') {
-                formIsValid = false;
-                error["emptitle"] = "*Please select you Employee Title.";
-            }
+    //         if (!fields["emptitle"] || fields["emptitle"].trim() === '') {
+    //             formIsValid = false;
+    //             error["emptitle"] = "*Please select you Employee Title.";
+    //         }
         
-            if (!fields["startDate"] || fields["startDate"].trim() === '') {
-                formIsValid = false;
-                error["startDate"] = "*Please enter your Start Date.";
-            }
+    //         if (!fields["startDate"] || fields["startDate"].trim() === '') {
+    //             formIsValid = false;
+    //             error["startDate"] = "*Please enter your Start Date.";
+    //         }
         
-            if (!fields["endDate"] || fields["endDate"].trim() === '') {
-                formIsValid = false;
-                error["endDate"] = "*Please select your End Date.";
-            }
+    //         if (!fields["endDate"] || fields["endDate"].trim() === '') {
+    //             formIsValid = false;
+    //             error["endDate"] = "*Please select your End Date.";
+    //         }
         
-            if (!fields["jd"] || fields["jd"].trim() === '') {
-                formIsValid = false;
-                error["jd"] = "*Please describe your Job.";
-            }
+    //         if (!fields["jd"] || fields["jd"].trim() === '') {
+    //             formIsValid = false;
+    //             error["jd"] = "*Please describe your Job.";
+    //         }
         
-            if (!fields["country"] || fields["country"].trim() === '') {
-                formIsValid = false;
-                error["country"] = "*Please select your Country.";
-            }
+    //         if (!fields["country"] || fields["country"].trim() === '') {
+    //             formIsValid = false;
+    //             error["country"] = "*Please select your Country.";
+    //         }
             
-            if (!fields[state] || fields[state].trim() === '') {
-                formIsValid = false;
-                error[state] = "*Please select your State.";
-            }
+    //         if (!fields[state] || fields[state].trim() === '') {
+    //             formIsValid = false;
+    //             error[state] = "*Please select your State.";
+    //         }
         
-            if (!fields["city"] || fields["city"].trim() === '') {
-                formIsValid = false;
-                error["city"] = "*Please enter your City.";
-            }
+    //         if (!fields["city"] || fields["city"].trim() === '') {
+    //             formIsValid = false;
+    //             error["city"] = "*Please enter your City.";
+    //         }
 
-            if(Object.keys(error).length > 0){
-                errors[index]= error
-            }
+    //         if(Object.keys(error).length > 0){
+    //             errors[index]= error
+    //         }
             
-        })
+    //     })
     
-        return {
-            errors : errors,
-            formIsValid : formIsValid
-        };
-    }
-*/
-    /* validate form */
- /*   const _validateForm = () => {
-        let response = validateForm(formValues);
-        setErrors(response.errors)
-        return response.formIsValid;
-    }
-*/
+    //     return {
+    //         errors : errors,
+    //         formIsValid : formIsValid
+    //     };
+    // }
+
+    // /* validate form */
+    // const _validateForm = () => {
+    //     let response = validateForm(formValues);
+    //     setErrors(response.errors)
+    //     return response.formIsValid;
+    // }
+
     // after form submit validating the form data using validator
     const submitFormData = (event) => {
         event.preventDefault();
@@ -116,9 +116,6 @@ const StepTwo = (props) => {
             dispatch(submitCandidateData(currentId, {workExperience:postData,step:2}));
             setTimeout(function(){  props.nextStep(); }, 2000);
         }
-       // if(_validateForm()){
-          //  nextStep();
-       // }
     };
 
     
@@ -132,8 +129,9 @@ const StepTwo = (props) => {
                 formValues[key].stateId = splitValue[0]
                 formValues[key].stateArray = stateList
                 formValues[key].isStateFilled = true
-        }else{
-            formValues[key][target.name] = target.value
+        }
+        else{
+            formValues[key][target.name] = target.value  
         }
 
         if(target.name === 'country'){
@@ -157,7 +155,7 @@ const StepTwo = (props) => {
                                         city: "",  
                                         startDate: "", 
                                         endDate: "", 
-                                        currentWork: "", 
+                                        currentWork: false, 
                                         jd: "", 
                                     }])
     }
@@ -335,7 +333,8 @@ const StepTwo = (props) => {
                                             type="checkbox" 
                                             className="my-check mt-1" 
                                             label="I currently work here" 
-                                            name="currentWork" 
+                                            name="currentWork"
+                                            checked={formValues[key].currentWork} 
                                             onChange={(event) => _handleChange(event, key)}
                                         />
                                     </Form.Group>
