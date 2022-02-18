@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Form, Card, Button, Row } from "react-bootstrap";
 import validator from "validator";
+import _ from "lodash";
 import {  getStateList } from "../../../actions/Resume"
 import { displayErrorMessage } from '../../../utils/helper';
 import {  submitCandidateData  } from "../../../actions/Candidate";
@@ -115,16 +116,14 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
     // after form submit validating the form data using validator
     const submitFormData = (e) => {
         e.preventDefault();
-
+        //console.log("formValues ",formValues)
+        let postData = formValues;
         // validate the fields and then move to next form
         if (_validateForm() && _isPresentlyAttendChecked()){
-            
             if(currentId){
-               // dispatch(submitCandidateData(currentId, fields));
-                //setTimeout(function(){  props.nextStep(); }, 2000);
+                dispatch(submitCandidateData(currentId, {education:postData,step:3}));
+                setTimeout(function(){  props.nextStep(); }, 2000);
             }
-         
-           // nextStep()
         }
     };
 
@@ -165,14 +164,19 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
         setFormValues([...formValues])
     }
 
-    const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey) => {
+    const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey,selectedState) => {
         const stateName = `state${formValuesKey}`
         if(formValues[formValuesKey].isStateFilled){
             const resumeListSelectedCountry = formValues[formValuesKey].stateArray
             return resumeListSelectedCountry.map ( (state, index) => {
-                return`1` (
+                return (
                     <>
-                        <option key={index + formValuesKey} value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }>{state.name}</option>
+                        <option 
+                            key={index + formValuesKey} 
+                            value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }
+                            selected={selectedState-1 == index ? true :false }
+                            >{state.name}
+                        </option>
                     </>
                 )
         })
@@ -181,15 +185,17 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
             return optionsArray.map ( (state, index) => {
                 return (
                     <>
-                        <option key={index + formValuesKey} value={ `${state._id} ${state.name}` }>{state.name}</option>
+                        <option 
+                            selected={selectedState-1 == index ? true :false }
+                            key={index + formValuesKey} 
+                            value={ `${state._id} ${state.name}` }
+                            >{state.name}
+                        </option>
                     </>
                 )
             })
-            
             }
-        
         }
-        
     }
 
     //add form fields object
@@ -207,6 +213,15 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         city: null
                                     }])
     }
+
+    useEffect(() => {
+        if(!_.isEmpty(props.handleFormData)){
+            //console.log("props.workExperience ",props.handleFormData.workExperience);
+            //if(props.handleFormData.workExperience.length >0 && formValues.length === 0 ){
+                setFormValues(props.handleFormData.education)
+            //}
+        }   
+    }, []);
 
     return (
         <>
@@ -226,6 +241,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         type="text"
                                         name="schoolOrCollege"
                                         placeholder="School/College Name"
+                                        value={index.schoolOrCollege}
                                         onChange={ (event) => _handleChange(event, key) }
                                     />
                                     {errors[key]?.schoolOrCollege ? (
@@ -237,7 +253,16 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                     )}
                                 </Form.Group> 
                                 <Form.Group className="mb-2 col-md-6">
-                                    <Form.Label>Select a degree</Form.Label>
+                                    <Form.Label>Degree</Form.Label>
+                                    <Form.Control
+                                        style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }}
+                                        type="text"
+                                        name="degree" 
+                                        placeholder="Enter your degree"
+                                        value={index.degree}
+                                        onChange={ (event) => _handleChange(event, key) }
+                                    />
+{/*                                     
                                     <Form.Select 
                                         aria-label="Default select example" 
                                         style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }} 
@@ -248,7 +273,8 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
-                                    </Form.Select>
+                                    </Form.Select> */}
+
                                     {errors[key]?.schoolOrCollege ? (
                                         <Form.Text style={{ color: "red" }}>
                                             { errors[key]?.schoolOrCollege }
@@ -268,8 +294,13 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                     >
                                         <option value="">Select Country</option>
                                         
-                                        {countryList?.map((country, index) => (
-                                            <option key={index + key} value={country._id}>{country.name}</option>
+                                        {countryList?.map((country, index2) => (
+                                            <option 
+                                                key={index2 + key} 
+                                                value={country._id} 
+                                                selected={index.country == country._id ? true :false }
+                                                >{country.name}
+                                            </option>
                                         ))}
                                     </Form.Select>
                                     {errors[key]?.country ? (
@@ -288,9 +319,9 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         name={ `state${key}` } 
                                         onChange={ (event) => _handleChange(event, key) } 
                                     >
-                                        <option>Open this select menu</option>
+                                        <option>Select State</option>
 
-                                        { selectStateOrCountryOption(formValues, stateList, key)}
+                                        { selectStateOrCountryOption(formValues, stateList, key,index.stateId)}
 
                                     </Form.Select>
                                     {errors[key]?.[`state${key}`] ? (
@@ -307,6 +338,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         style={{ border: errors[key]?.city ? "2px solid red" : "" }}
                                         name="city" 
                                         type="text"
+                                        value={index.city}
                                         onChange={(event) => _handleChange(event, key)}
                                     />
                                     {errors[key]?.city ? (
@@ -326,6 +358,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             type="text"
                                             name="studyField"
                                             placeholder="eg. Engineering"
+                                            value={index.studyField}
                                             onChange={ (event) => _handleChange(event, key) }
                                             />
                                         {errors[key]?.studyField ? (
@@ -347,9 +380,14 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
                                             <option>Month</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="1" 
+                                                selected={index.gradMonth=="1" ? true : false}>One</option>
+                                            <option value="2"
+                                                selected={index.gradMonth=="2" ? true : false}
+                                                >Two</option>
+                                            <option value="3"
+                                                selected={index.gradMonth=="3" ? true : false}
+                                                >Three</option>
                                         </Form.Select>
                                         {errors[key]?.gradMonth ? (
                                             <Form.Text style={{ color: "red" }}>
@@ -368,9 +406,15 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
                                             <option>Year</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="1"
+                                                selected={index.gradYear=="1" ? true : false}
+                                                >One</option>
+                                            <option value="2"
+                                                selected={index.gradYear=="2" ? true : false}
+                                                >Two</option>
+                                            <option value="3"
+                                                selected={index.gradYear=="3" ? true : false}
+                                                >Three</option>
                                         </Form.Select>
                                         {errors[key]?.gradYear ? (
                                             <Form.Text style={{ color: "red" }}>
