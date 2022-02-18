@@ -94,29 +94,22 @@ const AddResume = (props) => {
   return (
     <Fragment>
       <BlockUI blocking={blocking} />
-
+      <div className="page-header">
+        <h3 className="page-title"> Add Resume</h3>
+      </div>
       <div className="row">
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
               <div className="add-items row">
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  <h3 className="page-title" style={{fontWeight: '600'}}> Add Resume</h3>
-                </div>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
                   <NavLink to={"/resume/manual/add"}>
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
+                    <button type="button" className="btn btn-gradient-primary btn-fw mb-2" >
                       Manual Upload Resume
                     </button>
                   </NavLink>
                   <Link to={resumeSampleFile} target="_parent" rel="noreferrer">
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
+                    <button type="button" className="btn btn-gradient-primary btn-fw mb-2">
                       Download Sample
                     </button>
                   </Link>

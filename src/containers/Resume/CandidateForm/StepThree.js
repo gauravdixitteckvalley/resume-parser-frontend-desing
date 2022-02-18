@@ -13,13 +13,17 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
    //creating error state for validation
     const [formValues, setFormValues] = useState([])
     const [errors, setErrors] = useState([]);
-
+    const d = new Date();
+    let currentYear = d.getFullYear();
+    let oldYear = 1950;
+    //console.log("year ",year)
+    let years = [];
     //fetch data from store
     const resumeData = useSelector(state => state.resume );
     const { countryList, stateList } = resumeData;
     const currentId = props.cdId;
     const dispatch = useDispatch();
-    
+    let months=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     useEffect(() => {
 
         if(!_.isEmpty(props?.handleFormData)){
@@ -234,7 +238,12 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         city: null
                                     }])
     }
-
+    if(years.length === 0){
+        for(let i = oldYear; i <= currentYear; i++){
+            years.push(i);
+        }
+    }  
+    //console.log("years " , years)
     return (
         <>
         <Card>
@@ -392,14 +401,15 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
                                             <option>Month</option>
-                                            <option value="1" 
-                                                selected={index.gradMonth=="1" ? true : false}>One</option>
-                                            <option value="2"
-                                                selected={index.gradMonth=="2" ? true : false}
-                                                >Two</option>
-                                            <option value="3"
-                                                selected={index.gradMonth=="3" ? true : false}
-                                                >Three</option>
+                                            {months?.map((month, index2) => (
+                                            <option 
+                                                key={index2 + key} 
+                                                value={month} 
+                                                selected={index.gradMonth == month ? true :false }
+                                                >{month}
+                                            </option>
+                                        ))}
+                                            
                                         </Form.Select>
                                         {errors[key]?.gradMonth ? (
                                             <Form.Text style={{ color: "red" }}>
@@ -417,16 +427,16 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             name="gradYear"  
                                             onChange={ (event) => _handleChange(event, key) }
                                         >
+                                           
                                             <option>Year</option>
-                                            <option value="1"
-                                                selected={index.gradYear=="1" ? true : false}
-                                                >One</option>
-                                            <option value="2"
-                                                selected={index.gradYear=="2" ? true : false}
-                                                >Two</option>
-                                            <option value="3"
-                                                selected={index.gradYear=="3" ? true : false}
-                                                >Three</option>
+                                            {years?.map((year, index2) => (
+                                            <option 
+                                                key={index2 + key} 
+                                                value={year} 
+                                                selected={index.gradYear == year ? true :false }
+                                                >{year}
+                                            </option>
+                                            ))}
                                         </Form.Select>
                                         {errors[key]?.gradYear ? (
                                             <Form.Text style={{ color: "red" }}>
@@ -470,6 +480,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                 </Form.Group>
                 
                 </Row>
+             
                 <hr className="mb-4"/>
                 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>

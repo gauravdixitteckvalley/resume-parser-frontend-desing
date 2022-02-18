@@ -77,7 +77,7 @@ const SentMessageListing = () => {
                   <h3 className="page-title" style={{fontWeight: '600'}}> Sent Items</h3>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                  <Link to="/message-listing">
+                  <Link to="/message">
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"

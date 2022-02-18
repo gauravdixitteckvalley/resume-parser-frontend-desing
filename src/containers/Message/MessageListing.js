@@ -75,9 +75,26 @@ const MessageListing = () => {
             <BlockUI blocking={blocking} />
             <div className="page-header">
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  <h3 className="page-title" style={{fontWeight: '600'}}> Message Inbox</h3>
+                  <h3 className="page-title"> Message Inbox</h3>
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
+                
+            </div>
+            <div className="row">
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                        <div className="card-body">
+                        <div className="add-items row">
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                                <Link to="/message/sent-item">
+                                    <button type="button" className="btn btn-gradient-primary btn-fw mb-2"> Sent Item </button>
+                                </Link>
+                                <Link to="/message/compose" >
+                                    <button type="button" className="btn btn-gradient-primary btn-fw mb-2" > Compose </button>
+                                </Link>
+                            </div>
+                        </div>    
+                        {/* <div className="add-items row">
+                            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
                
                 <Link to="/sent-item">
                     <button
@@ -87,7 +104,7 @@ const MessageListing = () => {
                       Sent Item
                     </button>
                   </Link>
-                  <Link to="/messages" style={{ marginLeft: "10px" }}>
+                  <Link to="/messages" >
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"
@@ -96,11 +113,7 @@ const MessageListing = () => {
                     </button>
                   </Link>
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-lg-12 grid-margin stretch-card">
-                    <div className="card">
-                        <div className="card-body">
+                </div> */}
                             <div>
                                 <div className="message-listing mb-3">
 
