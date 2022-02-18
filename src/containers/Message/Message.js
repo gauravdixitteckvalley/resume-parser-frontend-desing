@@ -67,7 +67,7 @@ const Message = (props) => {
         <Fragment>
             <BlockUI blocking={blocking} /> 
             <div className="page-header">
-              <h3 className="page-title">Send Messages</h3>
+              <h3 className="page-title">New Message</h3>
             </div>
             <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">
@@ -76,7 +76,7 @@ const Message = (props) => {
                             <form className="form-inline user-form" onSubmit={(event) => _handleSubmit(event)}>
                                 <div className="row">
                                     <div className="col-md-12">
-                                        <label className="mb-1 required" for="inlineFormInputName2">Name</label>
+                                        <label className="mb-1 required" for="inlineFormInputName2">To</label>
                                         <select name="to" className="form-control mb-2 mr-sm-2 col-md-6" 
                                         value={fields.to || ''} 
                                         onChange={(event) => _handleChange(event.target)} 

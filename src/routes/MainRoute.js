@@ -30,6 +30,8 @@ const SelectResume = lazy(() => import ('../containers/Resume/SelectResume/Selec
 const SplashPage = lazy(() => import ('../containers/Splash/Splash'))
 const MessageListing = lazy(() => import ('../containers/Message/MessageListing'))
 const MessageDetails = lazy(() => import ('../containers/Message/MessageDetails'))
+const SentMessageDetails = lazy(() => import ('../containers/Message/SentMessageDetail'))
+const SentMessageListing = lazy(() => import ('../containers/Message/SentMessageList'))
 const CareerPreference = lazy(() => import ('../containers/Resume/CareerPreference'))
 const VideoProfile = lazy(() => import ('../containers/Resume/VideoProfile'))
 const ActivityLog = lazy(() => import ('../containers/Resume/ActivityLog/ActivityLog'))
@@ -70,7 +72,9 @@ function MainRoute() {
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
                         <PrivateRoute exact path="/messages" component={Message} />
                         <PrivateRoute exact path="/message-listing" component={MessageListing} />
+                        <PrivateRoute exact path="/sent-item" component={SentMessageListing} />
                         <PrivateRoute exact path="/message-details/:id" component={MessageDetails} />
+                        <PrivateRoute exact path="/sent-message-details/:id" component={SentMessageDetails} />
                         <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
                         <PrivateRoute exact path="/designer-preview" component={DesignerResume} />
                         <PrivateRoute exact path="/select-resume" component={SelectResume} />
