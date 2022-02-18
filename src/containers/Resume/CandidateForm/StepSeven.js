@@ -20,11 +20,13 @@ const StepSeven = (props) => {
     step:7
   });
   useEffect(() => {
-    setFields({
-      accomplishment:props?.handleFormData?.accomplishment,
-      additionalInfo: props?.handleFormData?.additional_info,
-      step:7
-    })
+    if(!_.isEmpty(props.handleFormData)){
+      setFields({
+        accomplishment:props?.handleFormData?.accomplishment,
+        additionalInfo: props?.handleFormData?.additional_info,
+        step:7
+      })
+    }
   }, []);
   const _handleChange = (event) => {
     let data = fields;
@@ -54,7 +56,7 @@ const StepSeven = (props) => {
                         style={{ height: '150px' }}
                         name="accomplishment"
                         as="textarea"
-                        value={fields.accomplishment ? fields.accomplishment : props?.handleFormData?.accomplishment}
+                        value={fields.accomplishment}
                         placeholder="Any Accomplishments"
                         onChange={(event) => _handleChange(event)} 
                     />
@@ -69,7 +71,7 @@ const StepSeven = (props) => {
                         name="additionalInfo"
                         as="textarea"
                         placeholder="Additional information"
-                        value={fields.additionalInfo ? fields.additionalInfo : props?.handleFormData?.additional_info}
+                        value={fields.additionalInfo}
                         onChange={(event) => _handleChange(event)} 
                     />
                 </Form.Group>

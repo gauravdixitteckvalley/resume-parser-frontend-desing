@@ -1,229 +1,487 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import { Form, Card, Button, Row } from "react-bootstrap";
 import validator from "validator";
-
+import _ from "lodash";
+import {  getStateList } from "../../../actions/Resume"
+import { displayErrorMessage } from '../../../utils/helper';
+import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
-const StepThree = ({ nextStep, handleFormData, prevStep, values }) => {
+const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
    //creating error state for validation
-  const [error, setError] = useState(false);
-  const [formValues, setFormValues] = useState([{ schoolName: "", schoolCity: "", schoolState: "", degree: "", studyField: "", gradMonth: "", gradYear: "", currentWork: "" }])
+    const [formValues, setFormValues] = useState([])
+    const [errors, setErrors] = useState([]);
+
+    //fetch data from store
+    const resumeData = useSelector(state => state.resume );
+    const { countryList, stateList } = resumeData;
+    const currentId = props.cdId;
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+
+        if(!_.isEmpty(props?.handleFormData)){
+            if(props?.handleFormData?.education?.length >0 ){
+                setFormValues(props.handleFormData.education)
+            }
+            else if(formValues.length === 0){
+                setFormValues([...formValues, { 
+                    schoolOrCollege: "",
+                    degree: "", 
+                    studyField: "", 
+                    gradMonth: "", 
+                    gradYear: "", 
+                    presentAttend: false,
+                    country: "" ,
+                    stateId: null,
+                    stateArray: null,
+                    city: null
+                }])
+            }
+        }
+            
+    }, []);
+
+    const validateForm = (formValuesArray) => {
+        let errors = [];
+        let formIsValid = true;
+    
+        formValuesArray.map ( (fields, index) => {
+            let error = {}
+            const state = `state${index}`
+            if (!fields["schoolOrCollege"] || fields["schoolOrCollege"].trim() === '') {
+                formIsValid = false;
+                error["schoolOrCollege"] = "*Please enter your School or College.";
+            }
+        
+            if (!fields["degree"] || fields["degree"].trim() === '') {
+                formIsValid = false;
+                error["degree"] = "*Please select you Degree.";
+            }
+        
+            if (!fields["studyField"] || fields["studyField"].trim() === '') {
+                formIsValid = false;
+                error["studyField"] = "*Please enter your field of Study.";
+            }
+        
+            if (!fields["gradMonth"] || fields["gradMonth"].trim() === '') {
+                if(fields["presentAttend"] === false){
+                    formIsValid = false;
+                    error["gradMonth"] = "*Please select your Graduation Month.";
+                }
+                
+            }
+        
+            if (!fields["gradYear"] || fields["gradYear"].trim() === '') {
+                if(fields["presentAttend"] === false){
+                    formIsValid = false;
+                    error["gradYear"] = "*Please select your Graduation Year.";
+                }
+            }
+        
+            if (!fields["country"] || fields["country"].trim() === '') {
+                formIsValid = false;
+                error["country"] = "*Please select your Country.";
+            }
+            
+            if (!fields[state] || fields[state].trim() === '') {
+                formIsValid = false;
+                error[state] = "*Please select your State.";
+            }
+        
+            if (!fields["city"] || fields["city"].trim() === '') {
+                formIsValid = false;
+                error["city"] = "*Please enter your City.";
+            }
+
+            if(Object.keys(error).length > 0){
+                errors[index]= error
+            }
+            
+        })
+    
+        return {
+            errors : errors,
+            formIsValid : formIsValid
+        };
+    }
+
+    /* validate form */
+    const _validateForm = () => {
+        let response = validateForm(formValues);
+        setErrors(response.errors)
+        return response.formIsValid;
+    }
+
+    /* Checking is there any present attend here or not */
+    const _isPresentlyAttendChecked = () => {
+        let count = 0
+        formValues.map( (data) => {
+            if(data.presentAttend === true){
+                count = count + 1
+            }
+        })
+        if(count === 0){
+            displayErrorMessage('Please select your present attend')
+            return false
+        }
+        return true
+    }
 
     // after form submit validating the form data using validator
-  const submitFormData = (e) => {
-    e.preventDefault();
+    const submitFormData = (e) => {
+        e.preventDefault();
+        //console.log("formValues ",formValues)
+        let postData = formValues;
+        // validate the fields and then move to next form
+        if (_validateForm() && _isPresentlyAttendChecked()){
+            if(currentId){
+                dispatch(submitCandidateData(currentId, {education:postData,step:3}));
+                setTimeout(function(){  props.nextStep(); }, 2000);
+            }
+        }
+    };
 
-     // checking if value of first name and last name is empty show error else take to next step
-    if (
-        validator.isEmpty(values.schoolName) || 
-        validator.isEmpty(values.schoolCity) || 
-        validator.isEmpty(values.schoolState) ||
-        validator.isEmpty(values.degree) ||
-        validator.isEmpty(values.studyField) ||
-        validator.isEmpty(values.gradMonth) ||
-        validator.isEmpty(values.gradYear)
-        )
-        {
-      setError(true);
-    } else {
-      nextStep();
+    const _handleChange = (event,key ) => {
+        const { target } = event
+        const state = `state${key}`
+        if(target.name  === state){
+            const splitValue = target.value.match(/^(\S+)\s(.*)/).slice(1)
+            formValues[key][state] = splitValue[1]
+            formValues[key].stateId = splitValue[0]
+            formValues[key].stateArray = stateList
+            formValues[key].isStateFilled = true
+        }
+        else if(target.name === "presentAttend"){
+            formValues[key][target.name] = target.checked
+            if(formValues.length > 0){
+                formValues.map( (data, index) => {
+                    if(index !== key && formValues[index][target.name] === true){
+                        formValues[index][target.name] = false
+                    }
+                })
+            }
+        }
+        else{
+            formValues[key][target.name] = target.value
+        }
+
+        if(target.name === 'country'){
+            if(formValues[key].stateArray !== null){
+                formValues[key].stateName = ""
+                formValues[key].stateId = null
+                formValues[key].stateArray = null
+                formValues[key].isStateFilled = false
+            }
+            let countryid = target.value;
+            dispatch(getStateList(countryid));    
+        }
+        setFormValues([...formValues])
     }
-  };
 
-  const addFormFields = () => {
-    setFormValues([...formValues, { schoolName: "", schoolCity: "", schoolState: "", degree: "", studyField: "", gradMonth: "", gradYear: "", currentWork: "", }])
-  }
+    const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey,selectedState) => {
+        const stateName = `state${formValuesKey}`
+        if(formValues[formValuesKey].isStateFilled){
+            const resumeListSelectedCountry = formValues[formValuesKey].stateArray
+            return resumeListSelectedCountry.map ( (state, index) => {
+                return (
+                    <>
+                        <option 
+                            key={index + formValuesKey} 
+                            value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }
+                            selected={selectedState-1 == index ? true :false }
+                            >{state.name}
+                        </option>
+                    </>
+                )
+        })
+        }else{
+            if(formValues[formValuesKey].country !== ""){
+            return optionsArray.map ( (state, index) => {
+                return (
+                    <>
+                        <option 
+                            selected={selectedState-1 == index ? true :false }
+                            key={index + formValuesKey} 
+                            value={ `${state._id} ${state.name}` }
+                            >{state.name}
+                        </option>
+                    </>
+                )
+            })
+            }
+        }
+    }
 
-  return (
-    <>
-      <Card>
-        <Card.Body>
-        <h3 className="page-title font-style-bold mb-2">EDUCATION </h3>
-        <p style={{fontSize: '13px'}}>Add more about your educational background.</p>
-          <Form onSubmit={submitFormData} className="mt-4">
-              {formValues.map((index) => {
-                  return (
-                    <div key={index}>
-                        <Row>
-                            <Form.Group className="mb-2 col-md-6">
-                                <Form.Label>School/College Name</Form.Label>
-                                <Form.Control
-                                    style={{ border: error ? "2px solid red" : "" }}
-                                    type="text"
-                                    placeholder="School/College Name"
-                                />
-                                {error ? (
-                                    <Form.Text style={{ color: "red" }}>
-                                    This is a required field
-                                    </Form.Text>
-                                ) : (
-                                    ""
-                                )}
-                            </Form.Group> 
-                            <Form.Group className="mb-2 col-md-6">
-                                <Form.Label>Select a degree</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="degree"  >
-                                    <option>Select a degree</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
-                                {error ? (
-                                    <Form.Text style={{ color: "red" }}>
-                                    This is a required field
-                                    </Form.Text>
-                                ) : (
-                                    ""
-                                )}
-                            </Form.Group>                     
-                        </Row>
-                        <Row>
-                            <Form.Group className="mb-2 col-md-4">
-                                <Form.Label>Country</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="country" >
-                                    <option>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
-                                {error ? (
-                                    <Form.Text style={{ color: "red" }}>
-                                    This is a required field
-                                    </Form.Text>
-                                ) : (
-                                    ""
-                                )}
-                            </Form.Group>
-                            <Form.Group className="mb-2 col-md-4">
-                                <Form.Label>State</Form.Label>
-                                <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="state" >
-                                    <option>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
-                                {error ? (
-                                    <Form.Text style={{ color: "red" }}>
-                                    This is a required field
-                                    </Form.Text>
-                                ) : (
-                                    ""
-                                )}
-                            </Form.Group>
-                            <Form.Group className="mb-2 col-md-4">
-                                <Form.Label>City</Form.Label>
-                                <Form.Control
-                                    style={{ border: error ? "2px solid red" : "" }}
-                                    name="city" 
-                                    type="text"
-                                />
-                                {error ? (
-                                    <Form.Text style={{ color: "red" }}>
-                                    This is a required field
-                                    </Form.Text>
-                                ) : (
-                                    ""
-                                )}
-                            </Form.Group> 
-                        </Row>
-                        <Row>
-                            <Form.Group className="mb-2 col-md-6">
-                                    <Form.Label>Field of study</Form.Label>
-                                        <Form.Control
-                                        style={{ border: error ? "2px solid red" : "" }}
+    //add form fields object
+    const addFormFields = () => {
+        setFormValues([...formValues, { 
+                                        schoolOrCollege: "",
+                                        degree: "", 
+                                        studyField: "", 
+                                        gradMonth: "", 
+                                        gradYear: "", 
+                                        presentAttend: false,
+                                        country: "" ,
+                                        stateId: null,
+                                        stateArray: null,
+                                        city: null
+                                    }])
+    }
+
+    return (
+        <>
+        <Card>
+            <Card.Body>
+            <h3 className="page-title font-style-bold mb-2">EDUCATION </h3>
+            <p style={{fontSize: '13px'}}>Add more about your educational background.</p>
+            <Form onSubmit={submitFormData} className="mt-4">
+                {formValues?.map((index, key) => {
+                    return (
+                        <div key={key}>
+                            <Row>
+                                <Form.Group className="mb-2 col-md-6">
+                                    <Form.Label>School/College Name</Form.Label>
+                                    <Form.Control
+                                        style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }}
                                         type="text"
-                                        placeholder="eg. Engineering"
-                                        />
-                                    {error ? (
-                                        <Form.Text style={{ color: "red" }}>
-                                        This is a required field
-                                        </Form.Text>
-                                    ) : (
-                                        ""
-                                    )}
-                            </Form.Group>  
-                            <Form.Group className="mb-2 col-md-6">
-                                <Row>
-                                <Form.Group className="mb-2 col-md-6">
-                                    <Form.Label>Graduation month</Form.Label>
-                                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="gradMonth" >
-                                        <option>Month</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </Form.Select>
-                                    {error ? (
-                                        <Form.Text style={{ color: "red" }}>
-                                        This is a required field
-                                        </Form.Text>
-                                    ) : (
-                                        ""
-                                    )}
-                                </Form.Group>
-                                <Form.Group className="mb-2 col-md-6">
-                                    <Form.Label>Graduation year</Form.Label>
-                                    <Form.Select aria-label="Default select example" style={{ border: error ? "2px solid red" : "" }} name="gradYear" >
-                                        <option>Year</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </Form.Select>
-                                    {error ? (
-                                        <Form.Text style={{ color: "red" }}>
-                                        This is a required field
-                                        </Form.Text>
-                                    ) : (
-                                        ""
-                                    )}
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Check 
-                                        aria-label="Default select example" 
-                                        type="checkbox" 
-                                        className="my-check mt-1" 
-                                        label="I presently attend here" 
-                                        name="currentWork" 
+                                        name="schoolOrCollege"
+                                        placeholder="School/College Name"
+                                        value={index.schoolOrCollege}
+                                        onChange={ (event) => _handleChange(event, key) }
                                     />
+                                    {errors[key]?.schoolOrCollege ? (
+                                        <Form.Text style={{ color: "red" }}>
+                                        { errors[key]?.schoolOrCollege }
+                                        </Form.Text>
+                                    ) : (
+                                        ""
+                                    )}
+                                </Form.Group> 
+                                <Form.Group className="mb-2 col-md-6">
+                                    <Form.Label>Degree</Form.Label>
+                                    <Form.Control
+                                        style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }}
+                                        type="text"
+                                        name="degree" 
+                                        placeholder="Enter your degree"
+                                        value={index.degree}
+                                        onChange={ (event) => _handleChange(event, key) }
+                                    />
+{/*                                     
+                                    <Form.Select 
+                                        aria-label="Default select example" 
+                                        style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }} 
+                                        name="degree"  
+                                        onChange={ (event) => _handleChange(event, key) }
+                                    >
+                                        <option>Select a degree</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </Form.Select> */}
+
+                                    {errors[key]?.schoolOrCollege ? (
+                                        <Form.Text style={{ color: "red" }}>
+                                            { errors[key]?.schoolOrCollege }
+                                        </Form.Text>
+                                    ) : (
+                                        ""
+                                    )}
+                                </Form.Group>                     
+                            </Row>
+                            <Row>
+                                <Form.Group className="mb-2 col-md-4">
+                                    <Form.Label>Country</Form.Label>
+                                    <Form.Select aria-label="Default select example" 
+                                        name="country" 
+                                        style={{ border: errors[key]?.country ? "2px solid red" : "" }}
+                                        onChange={(event) => _handleChange(event,key)}
+                                    >
+                                        <option value="">Select Country</option>
+                                        
+                                        {countryList?.map((country, index2) => (
+                                            <option 
+                                                key={index2 + key} 
+                                                value={country._id} 
+                                                selected={index.country == country._id ? true :false }
+                                                >{country.name}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                    {errors[key]?.country ? (
+                                        <Form.Text style={{ color: "red" }}>
+                                            { errors[key]?.country }
+                                        </Form.Text>
+                                    ) : (
+                                        ""
+                                    )}
                                 </Form.Group>
-                                </Row>
-                            </Form.Group>  
-                        </Row>
-                        
-                        <hr className="mb-4"/> 
-                    </div>
-                  )
-              })}
-              
-            <Row>
-            <Form.Group className="mb-2 col-md-6">
+                                <Form.Group className="mb-2 col-md-4">
+                                    <Form.Label>State</Form.Label>
+                                    <Form.Select 
+                                        aria-label="Default select example" 
+                                        style={{ border: errors[key]?.[`state${key}`] ? "2px solid red" : "" }} 
+                                        name={ `state${key}` } 
+                                        onChange={ (event) => _handleChange(event, key) } 
+                                    >
+                                        <option>Select State</option>
 
-            </Form.Group>
-            <Form.Group className="mb-2 col-md-6" style={{textAlign: 'right'}}>
-                <Button className= "btn btn-gradient-primary btn-icon-text" onClick={() => addFormFields()} type="button">
-                <span className="page-title-icon text-white me-2">
-                    <i className="mdi mdi-plus-box"></i>
-                </span>
-                    Add More
+                                        { selectStateOrCountryOption(formValues, stateList, key,index.stateId)}
+
+                                    </Form.Select>
+                                    {errors[key]?.[`state${key}`] ? (
+                                        <Form.Text style={{ color: "red" }}>
+                                            { errors[key]?.[`state${key}`] }
+                                        </Form.Text>
+                                    ) : (
+                                        ""
+                                    )}
+                                </Form.Group>
+                                <Form.Group className="mb-2 col-md-4">
+                                    <Form.Label>City</Form.Label>
+                                    <Form.Control
+                                        style={{ border: errors[key]?.city ? "2px solid red" : "" }}
+                                        name="city" 
+                                        type="text"
+                                        value={index.city}
+                                        onChange={(event) => _handleChange(event, key)}
+                                    />
+                                    {errors[key]?.city ? (
+                                        <Form.Text style={{ color: "red" }}>
+                                            { errors[key]?.city }
+                                        </Form.Text>
+                                    ) : (
+                                        ""
+                                    )}
+                                </Form.Group> 
+                            </Row>
+                            <Row>
+                                <Form.Group className="mb-2 col-md-6">
+                                        <Form.Label>Field of study</Form.Label>
+                                            <Form.Control
+                                            style={{ border: errors[key]?.studyField ? "2px solid red" : "" }}
+                                            type="text"
+                                            name="studyField"
+                                            placeholder="eg. Engineering"
+                                            value={index.studyField}
+                                            onChange={ (event) => _handleChange(event, key) }
+                                            />
+                                        {errors[key]?.studyField ? (
+                                            <Form.Text style={{ color: "red" }}>
+                                                { errors[key]?.studyField }
+                                            </Form.Text>
+                                        ) : (
+                                            ""
+                                        )}
+                                </Form.Group>  
+                                <Form.Group className="mb-2 col-md-6">
+                                    <Row>
+                                    <Form.Group className="mb-2 col-md-6">
+                                        <Form.Label>Graduation month</Form.Label>
+                                        <Form.Select 
+                                            aria-label="Default select example" 
+                                            style={{ border: errors[key]?.gradMonth ? "2px solid red" : "" }} 
+                                            name="gradMonth" 
+                                            onChange={ (event) => _handleChange(event, key) }
+                                        >
+                                            <option>Month</option>
+                                            <option value="1" 
+                                                selected={index.gradMonth=="1" ? true : false}>One</option>
+                                            <option value="2"
+                                                selected={index.gradMonth=="2" ? true : false}
+                                                >Two</option>
+                                            <option value="3"
+                                                selected={index.gradMonth=="3" ? true : false}
+                                                >Three</option>
+                                        </Form.Select>
+                                        {errors[key]?.gradMonth ? (
+                                            <Form.Text style={{ color: "red" }}>
+                                                { errors[key]?.gradMonth }
+                                            </Form.Text>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </Form.Group>
+                                    <Form.Group className="mb-2 col-md-6">
+                                        <Form.Label>Graduation year</Form.Label>
+                                        <Form.Select 
+                                            aria-label="Default select example" 
+                                            style={{ border: errors[key]?.gradYear ? "2px solid red" : "" }} 
+                                            name="gradYear"  
+                                            onChange={ (event) => _handleChange(event, key) }
+                                        >
+                                            <option>Year</option>
+                                            <option value="1"
+                                                selected={index.gradYear=="1" ? true : false}
+                                                >One</option>
+                                            <option value="2"
+                                                selected={index.gradYear=="2" ? true : false}
+                                                >Two</option>
+                                            <option value="3"
+                                                selected={index.gradYear=="3" ? true : false}
+                                                >Three</option>
+                                        </Form.Select>
+                                        {errors[key]?.gradYear ? (
+                                            <Form.Text style={{ color: "red" }}>
+                                                { errors[key]?.gradYear }
+                                            </Form.Text>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Check 
+                                            aria-label="Default select example" 
+                                            type="checkbox" 
+                                            className="my-check mt-1" 
+                                            label="I presently attend here" 
+                                            name="presentAttend"
+                                            checked= {formValues[key].presentAttend}
+                                            onChange={ (event) => _handleChange(event, key) } 
+                                        />
+                                    </Form.Group>
+                                    </Row>
+                                </Form.Group>  
+                            </Row>
+                            
+                            <hr className="mb-4"/> 
+                        </div>
+                    )
+                })}
+                
+                <Row>
+                <Form.Group className="mb-2 col-md-6">
+
+                </Form.Group>
+                <Form.Group className="mb-2 col-md-6" style={{textAlign: 'right'}}>
+                    <Button className= "btn btn-gradient-primary btn-icon-text" onClick={() => addFormFields()} type="button">
+                    <span className="page-title-icon text-white me-2">
+                        <i className="mdi mdi-plus-box"></i>
+                    </span>
+                        Add More
+                    </Button>
+                </Form.Group>
+                
+                </Row>
+                <hr className="mb-4"/>
+                
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={props.prevStep} >
+                    Previous
                 </Button>
-            </Form.Group>
-               
-            </Row>
-            <hr className="mb-4"/>
-            
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" onClick={prevStep} >
-                Previous
-              </Button>
 
-              <Button className= "btn btn-gradient-primary mt-4 mb-2" onClick={nextStep} type="submit" >
-                Next
-              </Button>
-            </div>
-          </Form>
-        </Card.Body>
-      </Card>
-    </>
-  );
+                <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit" >
+                    Next
+                </Button>
+                </div>
+            </Form>
+            </Card.Body>
+        </Card>
+        </>
+    );
 };
 
 export default StepThree;

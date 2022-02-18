@@ -12,9 +12,7 @@ import {  fetchCandidateData  } from "../../../actions/Candidate";
 import _ from 'lodash';
 import BlockUI from "../../../components/BlockUI";
 
-function CandidateMultiStep() {
-
-  
+function CandidateMultiStep(props) {
   //state for steps
   const [step, setstep] = useState(1);
   const cdIdData = JSON.parse(localStorage.getItem("data"));
@@ -87,7 +85,7 @@ function CandidateMultiStep() {
   };
 
   // handling form input data by taking onchange value and updating our previous form data state
- /*
+ 
   const handleInputData = input => e => {
     // input value from the form
     const {value } = e.target;
@@ -98,9 +96,9 @@ function CandidateMultiStep() {
       [input]: value
   }));
   }
-  */
+  
 
-//console.log('filData',filData);
+console.log('userData.candidateInfo',userData.candidateInfo);
 
 // javascript switch case to show different form in each step
   switch (step) {
@@ -112,12 +110,12 @@ function CandidateMultiStep() {
           <Container>
             <Row>
               <Col>
-                <StepOne 
+            { !_.isEmpty(userData.candidateInfo) ? <StepOne 
                   nextStep={() => nextStep()} 
                   handleFormData={userData?.candidateInfo} 
                   name={userData?.candidateInfo?.name} 
                   cdId={cdId}
-                />
+                /> :'' }
               </Col>
             </Row>
           </Container>
@@ -131,13 +129,12 @@ function CandidateMultiStep() {
           <Container>
             <Row>
               <Col  md={{ span: 12 }}>
-                <StepTwo 
-                  nextStep={nextStep} 
+              { !_.isEmpty(userData.candidateInfo) ? <StepTwo 
+                  nextStep={() => nextStep()} 
                   prevStep={prevStep} 
                   handleFormData={userData?.candidateInfo} 
-                  //values={formData} 
                   cdId={cdId}
-                />
+                /> :'' }
               </Col>
             </Row>
           </Container>
@@ -204,12 +201,12 @@ function CandidateMultiStep() {
           <Container>
             <Row>
               <Col>
-              {userData?.candidateInfo ? <StepSix
-                   nextStep={() => nextStep()} 
-                   prevStep={prevStep} 
-                   handleFormData={userData?.candidateInfo} 
-                   cdId={cdId}
-                /> :''}
+              { !_.isEmpty(userData.candidateInfo) ? <StepSix 
+                  nextStep={() => nextStep()} 
+                  prevStep={prevStep} 
+                  handleFormData={userData?.candidateInfo} 
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>
@@ -223,12 +220,12 @@ function CandidateMultiStep() {
           <Container>
             <Row>
               <Col>
-                <StepSeven 
-                   nextStep={() => nextStep()} 
-                   prevStep={prevStep} 
-                   handleFormData={userData} 
-                   cdId={cdId}
-                />
+                { !_.isEmpty(userData.candidateInfo) ? <StepSeven 
+                  nextStep={() => nextStep()} 
+                  prevStep={prevStep} 
+                  handleFormData={userData?.candidateInfo} 
+                  cdId={cdId}
+                /> :'' }
               </Col>
             </Row>
           </Container>

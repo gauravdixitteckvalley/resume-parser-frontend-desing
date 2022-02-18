@@ -1,14 +1,35 @@
 export function message(state = [], action){
-    // console.log('action',action.payload);
+    
     switch (action.type) {
+      
+        case 'USER_LIST_REQUEST':
+            return {
+                blocking : true,
+                userList : []
+            };
         
+        case 'USER_LIST_SUCCESS':
+            return {
+                blocking : false,
+                userList : action.payload.user
+            };
+            
+        case 'USER_LIST_FAILURE':
+            return {
+                blocking : true,
+                userList : []
+            }; 
+
         case 'SUBMIT_MESSAGE_REQUEST':
             return {
+                ...state,
                 blocking : true
             };
         
         case 'SUBMIT_MESSAGE_SUCCESS':
+            
             return {
+                ...state,
                 blocking : false
             };
             
@@ -44,31 +65,17 @@ export function message(state = [], action){
                 messageList : []
             }; 
             
-        case 'USER_LIST_REQUEST':
-            return {
-                blocking : true,
-                userList : []
-            };
-        
-        case 'USER_LIST_SUCCESS':
-            return {
-                blocking : false,
-                userList     : action.payload.user
-            };
-            
-        case 'USER_LIST_FAILURE':
-            return {
-                blocking : true,
-                userList : []
-            };  
+ 
         case 'MESSAGE_DETAIL_REQUEST':
             return {
+                ...state,
                 blocking : true,
-                messageDetail : {}
+                messageDetail : []
             };
         
         case 'MESSAGE_DETAIL_SUCCESS':
             return {
+                ...state,
                 blocking : false,
                 messageDetail     : action.payload.message
             };
@@ -76,8 +83,35 @@ export function message(state = [], action){
         case 'MESSAGE_DETAIL_FAILURE':
             return {
                 blocking : true,
-                messageDetail : {}
-            };                       
+                messageDetail : []
+            }; 
+            
+        case 'SENT_MESSAGE_LIST_REQUEST':
+            return {
+                blocking : true,
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+                sentMessageList : []
+            };
+        
+        case 'SENT_MESSAGE_LIST_SUCCESS':
+            return {
+                blocking : false,
+                totalRecords    : action.payload.total,
+                per_page        : action.payload.per_page,
+                currentPage     : action.payload.current_page,
+                sentMessageList : action.payload.message
+            };
+            
+        case 'SENT_MESSAGE_LIST_FAILURE':
+            return {
+                blocking : true,
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+                sentMessageList : []
+            };             
         default:
             return state;
     }
