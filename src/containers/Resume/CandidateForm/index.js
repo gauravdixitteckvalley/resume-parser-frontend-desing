@@ -147,12 +147,12 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           <Container>
             <Row>
               <Col>
-                { !_.isEmpty(userData.candidateInfo) ? <StepThree 
-                  nextStep={() => nextStep()} 
-                  prevStep={prevStep} 
-                  handleFormData={userData?.candidateInfo} 
-                  cdId={cdId}
-                /> :'' }
+                <StepThree 
+                   nextStep={() => nextStep()} 
+                   prevStep={prevStep} 
+                   handleFormData={userData?.candidateInfo} 
+                   cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>
@@ -165,12 +165,12 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           <Container>
             <Row>
               <Col>
-                { !_.isEmpty(userData.candidateInfo) ? <StepFour 
+                <StepFour 
                   nextStep={() => nextStep()} 
                   prevStep={prevStep} 
                   handleFormData={userData?.candidateInfo} 
-                  cdId={cdId}
-                /> :'' }
+                  cdId={cdId} 
+                />
               </Col>
             </Row>
           </Container>
@@ -183,12 +183,12 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           <Container>
             <Row>
               <Col>
-                { !_.isEmpty(userData.candidateInfo) ? <StepFive 
-                  nextStep={() => nextStep()} 
-                  prevStep={prevStep} 
-                  handleFormData={userData?.candidateInfo} 
-                  cdId={cdId}
-                /> :'' }
+                <StepFive 
+                   nextStep={() => nextStep()} 
+                   prevStep={prevStep} 
+                   handleFormData={userData?.candidateInfo} 
+                   cdId={cdId}
+                />
               </Col>
             </Row>
           </Container>

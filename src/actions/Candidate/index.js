@@ -1,5 +1,5 @@
 import api from '../../axios';
-import handleHttpError,{requestTokenHeader, history, displaySuccessMessage,loginRedirect} from '../../utils/helper';
+import handleHttpError,{requestTokenHeader, history, displaySuccessMessage, displayMessageWithSwitchCase } from '../../utils/helper';
 
 export const fetchCandidateData = (params) => {
     return async dispatch => {
@@ -33,12 +33,10 @@ export const submitCandidateData = (id,postData) => {
             
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_CANDIDATE_FORM_ONE_SUCCESS'});
-                displaySuccessMessage(response.data.data.data);
-                //let newid=postData.step+1
+                displayMessageWithSwitchCase(postData.step)
+                
                 if(postData.step==7){
                     history.push(`/candidate/view/${id}`);   
-                }else{
-                    //newid
                 }
             } 
         } catch(error) {

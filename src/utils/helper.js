@@ -87,6 +87,37 @@ const requestTokenHeader = () => {
     return {}; 
 }
 
+//Displaying success message on candidate step form submittion
+const displayMessageWithSwitchCase = step => {
+    let message
+    switch(step){
+        case 1:
+            message = 'Step 1'
+            break
+        case 2:
+            message = 'Step 2'
+            break
+        case 3:
+            message = 'Step 3'
+            break
+        case 4:
+            message = 'Step 4'
+            break
+        case 5:
+            message = 'Step 5'
+            break
+        case 6:
+            message = 'Step 6'
+            break
+        case 7:
+            message = 'Step 7'
+            break
+        default:
+            return
+    }
+    displaySuccessMessage(`${message} Saved Successfully`);
+}
+
 /* returns object to navigate pages/routes */
 const history = createBrowserHistory();
 
@@ -102,6 +133,7 @@ export {
     displayRecordNotFound,
     getLoggedInUserData,
     requestTokenHeader,
+    displayMessageWithSwitchCase,
     history,
     API_URL,
     IMAGE_URL,

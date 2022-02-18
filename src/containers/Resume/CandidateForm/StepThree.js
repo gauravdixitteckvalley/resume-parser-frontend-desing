@@ -11,18 +11,7 @@ import {  submitCandidateData  } from "../../../actions/Candidate";
 // creating functional component ans getting props from app.js and destucturing them
 const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
    //creating error state for validation
-    const [formValues, setFormValues] = useState([ { 
-                                    schoolOrCollege: "",
-                                    degree: "", 
-                                    studyField: "", 
-                                    gradMonth: "", 
-                                    gradYear: "", 
-                                    presentAttend: false,
-                                    country: "" ,
-                                    stateId: null,
-                                    stateArray: null,
-                                    city: null
-                                }])
+    const [formValues, setFormValues] = useState([])
     const [errors, setErrors] = useState([]);
 
     //fetch data from store
@@ -30,7 +19,30 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
     const { countryList, stateList } = resumeData;
     const currentId = props.cdId;
     const dispatch = useDispatch();
+    
+    useEffect(() => {
 
+        if(!_.isEmpty(props?.handleFormData)){
+            if(props?.handleFormData?.education?.length >0 ){
+                setFormValues(props.handleFormData.education)
+            }
+            else if(formValues.length === 0){
+                setFormValues([...formValues, { 
+                    schoolOrCollege: "",
+                    degree: "", 
+                    studyField: "", 
+                    gradMonth: "", 
+                    gradYear: "", 
+                    presentAttend: false,
+                    country: "" ,
+                    stateId: null,
+                    stateArray: null,
+                    city: null
+                }])
+            }
+        }
+            
+    }, []);
 
     const validateForm = (formValuesArray) => {
         let errors = [];
@@ -55,13 +67,18 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
             }
         
             if (!fields["gradMonth"] || fields["gradMonth"].trim() === '') {
-                formIsValid = false;
-                error["gradMonth"] = "*Please select your Graduation Month.";
+                if(fields["presentAttend"] === false){
+                    formIsValid = false;
+                    error["gradMonth"] = "*Please select your Graduation Month.";
+                }
+                
             }
         
             if (!fields["gradYear"] || fields["gradYear"].trim() === '') {
-                formIsValid = false;
-                error["gradYear"] = "*Please select your Graduation Year.";
+                if(fields["presentAttend"] === false){
+                    formIsValid = false;
+                    error["gradYear"] = "*Please select your Graduation Year.";
+                }
             }
         
             if (!fields["country"] || fields["country"].trim() === '') {
@@ -214,15 +231,6 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                     }])
     }
 
-    useEffect(() => {
-        if(!_.isEmpty(props.handleFormData)){
-            //console.log("props.workExperience ",props.handleFormData.workExperience);
-            //if(props.handleFormData.workExperience.length >0 && formValues.length === 0 ){
-                setFormValues(props.handleFormData.education)
-            //}
-        }   
-    }, []);
-
     return (
         <>
         <Card>
@@ -230,7 +238,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
             <h3 className="page-title font-style-bold mb-2">EDUCATION </h3>
             <p style={{fontSize: '13px'}}>Add more about your educational background.</p>
             <Form onSubmit={submitFormData} className="mt-4">
-                {formValues.map((index, key) => {
+                {formValues?.map((index, key) => {
                     return (
                         <div key={key}>
                             <Row>
