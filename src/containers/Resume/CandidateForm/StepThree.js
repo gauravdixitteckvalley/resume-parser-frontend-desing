@@ -151,8 +151,12 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
             const splitValue = target.value.match(/^(\S+)\s(.*)/).slice(1)
             formValues[key][state] = splitValue[1]
             formValues[key].stateId = splitValue[0]
-            formValues[key].stateArray = stateList
-            formValues[key].isStateFilled = true
+            if(formValues[key].isStateFilled === false){
+                formValues[key].stateArray = stateList
+                formValues[key].isStateFilled = true
+            }
+            
+            
         }
         else if(target.name === "presentAttend"){
             formValues[key][target.name] = target.checked
@@ -189,9 +193,9 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                 return (
                     <>
                         <option 
-                            key={index + formValuesKey} 
+                            key={`select-state-${index}`} 
                             value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }
-                            selected={selectedState-1 == index ? true :false }
+                            selected={ formValues[formValuesKey][stateName] === state.name ? true :false }
                             >{state.name}
                         </option>
                     </>
