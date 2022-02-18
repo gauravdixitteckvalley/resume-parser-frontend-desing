@@ -180,7 +180,7 @@ const Header = (props) => {
                                 { ( typeof loggedUser.user.message != "undefined" && Object.keys(loggedUser.user.message).length > 0 )?
                                  loggedUser.user?.message.map((data, index) => (
                                         <>
-                                        <Link to={`/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
+                                        <Link to={`/message/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
                                             <img src={ data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} alt="image" className="profile-pic" />
                                         </div>
@@ -205,7 +205,7 @@ const Header = (props) => {
                                 </> 
                                 }
                                 
-                                <Link to={'/message-listing'}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
+                                <Link to={'/message'}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
