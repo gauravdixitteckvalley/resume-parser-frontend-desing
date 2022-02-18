@@ -19,6 +19,25 @@ export const noticeSend = (postData = {}) => {
 }
 
 /* action for fetching Resume records */
+export const fetchNoticeData = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'NOTICE_LIST_REQUEST' });
+        try {
+            const response = await api.get('notice',{
+                params: params,
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'NOTICE_LIST_SUCCESS', payload : response.data.data});
+            } 
+        } catch(error) {
+            // handleHttpError(error.response);
+            dispatch({ type: 'NOTICE_LIST_FAILURE'});
+        }
+    }
+}
+
+/* action for fetching Resume records */
 export const fetchUserData = (params) => {
     return async dispatch => {
         dispatch({ type: 'NOTICE_USER_LIST_REQUEST' });

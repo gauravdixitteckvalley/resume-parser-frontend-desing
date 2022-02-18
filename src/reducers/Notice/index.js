@@ -1,5 +1,5 @@
 export function notice(state = [], action){
-    console.log(action, 'action');
+    // console.log(action, 'action');
     switch (action.type) {
         
         
@@ -20,17 +20,29 @@ export function notice(state = [], action){
 
         case 'NOTICE_LIST_REQUEST':
             return {
-                blocking : true
+                blocking : true,
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+                noticeList : []
             };
         
         case 'NOTICE_LIST_SUCCESS':
             return {
-                blocking : false
+                blocking : false,
+                totalRecords    : action.payload.total,
+                per_page        : action.payload.per_page,
+                currentPage     : action.payload.current_page,
+                noticeList     : action.payload.notice
             };
             
         case 'NOTICE_LIST_FAILURE':
             return {
-                blocking : true
+                blocking : true,
+                totalRecords    : 0,
+                per_page        : 0,
+                currentPage     : 1,
+                noticeList : []
             }; 
             
         case 'NOTICE_USER_LIST_REQUEST':
