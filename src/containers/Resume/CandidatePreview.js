@@ -6,11 +6,14 @@ import { getSingleResumeData } from "../../actions/Resume"
 import { API_URL } from '../../utils/helper';
 import './CandidatePreview.css'
 import { Link,NavLink } from "react-router-dom";
+import {  getStateList } from "../../actions/Resume"
 
 let base64File = ''
 const CandidatePreview = (props) => {
     const currentId = props?.match?.params?.id;
     const [fields, setFields] = useState({});
+    const resumeDataList = useSelector(state => state.resume );
+    const { countryList, stateList } = resumeDataList;
 
 
     /**fetched data from redux store */
@@ -64,7 +67,7 @@ const CandidatePreview = (props) => {
 
     //const { blocking } = userData
     const blocking = false;
-   
+   console.log(fields)
     return (
       <Fragment>
         <BlockUI blocking={blocking} />
@@ -76,165 +79,7 @@ const CandidatePreview = (props) => {
           {manageButtonLinkByLoggedIn(fields)}
         </div>
 
-        {/* <div className="row">
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Name</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.name || ""}
-                  </div>
-                </div>
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Email</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.email || ""}
-                  </div>
-                </div>
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Phone</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.phone || ""}
-                  </div>
-                </div>
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Skills</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.skills?.map((skill, index) => (
-                      <span key={index}>
-                        {skill.hasOwnProperty("skill") ? skill.skill : skill}{" "}
-                        <br />
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>City</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.place || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Company Name</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.workExperience?.map((company, index) => (
-                      <span key={index}>
-                        {company.hasOwnProperty("employer")
-                          ? company.employer
-                          : company}{" "}
-                        <br />
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>D.O.B</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.dob || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Address</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.location || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Total Experience</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.exp || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Designation</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.designation || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Current CTC</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.current_ctc || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Expected CTC</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.expected_ctc || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Other Information</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.resume_label || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Country</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.country_name || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>State</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.state_name || ""}
-                  </div>
-                </div>
-
-                <div className="displayPreviewRow">
-                  <label className="col-lg-4 col-form-label">
-                    <b>Zip Code</b>
-                  </label>
-                  <div className="col-lg-7 col-form-label">
-                    {fields.zip || ""}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
+       
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
@@ -289,7 +134,10 @@ const CandidatePreview = (props) => {
                       <b>Country</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
-                      {fields.country_name || ""}
+                    {countryList?.map((country, index) => (
+                            <span>{country._id == fields?.country ? country.name :" " }</span>
+                        ))}
+                      
                     </div>
                   </div>
                 </div>
@@ -362,8 +210,9 @@ const CandidatePreview = (props) => {
                       <b>State</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
+                    
                         {company.hasOwnProperty("employer")
-                            ? company.city
+                            ?  company[`state${index}`]
                              : company }{" "}
                     </div>
                   </div>
@@ -439,81 +288,88 @@ const CandidatePreview = (props) => {
             </div>
           </div>
         </div>
-        
-        
-          <div className="row">
-            <div className="col-lg-12 grid-margin stretch-card">
-              <div className="card">
-                <div className="card-body">
-                  <h3 className="page-title font-style-bold mb-4">
-                    <span className="page-title-icon bg-gradient-primary text-white me-2">
-                      <i className="mdi mdi-checkbox-marked"></i>
-                    </span>
-                    EDUCATION
-                  </h3>
-                  <hr className="mb-4" />
-                  {fields.education?.map((edu, index) => (
-                    <>
-                      <div className="row">
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>College / School Name</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">
-                          {edu.hasOwnProperty("education")
-                                ? edu.schoolOrCollege
-                                : edu }{" "}
-                          </div>
-                        </div>
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>City</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">
-                            
-                          </div>
+
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <h3 className="page-title font-style-bold mb-4">
+                  <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                  </span>
+                  EDUCATION
+                </h3>
+                <hr className="mb-4" />
+                {fields.education?.map((edu, key) => (
+                  <>
+                    <div className="row">
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-12 col-form-label">
+                          <b>College / School Name</b>
+                        </label>
+                        <div className="col-lg-12 col-form-label">
+                          {edu?.schoolOrCollege}
+                        {/* {edu.hasOwnProperty("education")
+                              ? edu.schoolOrCollege
+                              : edu }{" "} */}
                         </div>
                       </div>
-                      <div className="row">
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>State</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">UP</div>
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>City</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          {edu?.city}
                         </div>
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>Degree</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">
-                            BCA
-                              {edu.hasOwnProperty("employer")
-                            ? edu.degree
-                             : edu }{" "}
-                    
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>State</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          { edu[`state${key}`]}
+                        </div>
+                      </div>
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>Degree</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          {edu?.degree}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="displayPreviewRow col-md-6" style={{borderBottom: '0'}}>
+                        <label className="col-lg-4 col-form-label">
+                          <b>Field of study</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">{edu.studyField}</div>
+                      </div>
+                      <div className="displayPreviewRow col-md-6" style={{borderBottom: '0'}}>
+                        <label className="col-lg-4 col-form-label">
+                          <b>Graduation Date</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          {edu?.presentAttend ? "Present Study ":
+                            <>
+                              {edu?.gradMonth} {edu?.gradYear}
+                            </>
+                          }
+                          
+                          
                           </div>
-                        </div>
                       </div>
-                      <div className="row">
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>Field of study</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">CS</div>
-                        </div>
-                        <div className="displayPreviewRow col-md-6">
-                          <label className="col-lg-4 col-form-label">
-                            <b>Graduation Date</b>
-                          </label>
-                          <div className="col-lg-7 col-form-label">2014</div>
-                        </div>
-                      </div>
-                    </>
-                   ))}
-                </div>
+                    </div>
+                    <hr className="mb-4" />
+                  </>
+                  ))}
               </div>
             </div>
           </div>
+        </div>
         
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
@@ -526,25 +382,31 @@ const CandidatePreview = (props) => {
                   SKILLS
                 </h3>
                 <hr className="mb-4" />
-                {fields.skills?.map((index,key) => (
-                <div className="row" key={`${key}`}>
+                <div className="row">
                   <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
+                    <label className="col-lg-12 col-form-label">
                       <b>Skill</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">
-                      {index.skill}
-                    </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
+                    <label className="col-lg-12 col-form-label">
                       <b>Level</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">
-                      {index.skillLevel}
-                    </div>
                   </div>
                 </div>
+                {fields.skills?.map((index,key) => (
+                  <div className="row" key={`${key}`}>
+                    <div className="displayPreviewRow col-md-6">
+                      <div className="col-lg-12 col-form-label">
+                        {index.skill}
+                      </div>
+                    </div>
+                    <div className="displayPreviewRow col-md-6">
+                      <div className="col-lg-12 col-form-label">
+                        {index.skillLevel}
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -561,28 +423,33 @@ const CandidatePreview = (props) => {
                   </span>
                   LANGUAGES
                 </h3>
-                <hr className="mb-4" />  
+                <hr className="mb-4" /> 
+                <div className="row">
+                  <div className="displayPreviewRow col-md-6">
+                    <label className="col-lg-12 col-form-label">
+                      <b>Language</b>
+                    </label>
+                  </div>
+                  <div className="displayPreviewRow col-md-6">
+                    <label className="col-lg-12 col-form-label">
+                      <b>Level</b>
+                    </label>
+                  </div>
+                </div>  
                 {fields.langauge?.map((index,key) => (
-                    <div className="row" key={`${key}`}>
-                      <div className="displayPreviewRow col-md-6">
-                        <label className="col-lg-4 col-form-label">
-                          <b>Language</b>
-                        </label>
-                        <div className="col-lg-7 col-form-label">
-                          {index.language}
-                        </div>
+                  <div className="row" key={`${key}`}>
+                    <div className="displayPreviewRow col-md-6">
+                      <div className="col-lg-12 col-form-label">
+                        {index.language}
                       </div>
-                      <div className="displayPreviewRow col-md-6">
-                        <label className="col-lg-4 col-form-label">
-                          <b>Level</b>
-                        </label>
-                        <div className="col-lg-7 col-form-label">
-                          {index.langLevel}
-                        </div>
+                    </div>
+                    <div className="displayPreviewRow col-md-6">
+                      <div className="col-lg-12 col-form-label">
+                        {index.langLevel}
                       </div>
-                    </div> 
+                    </div>
+                  </div> 
                 ))}
-                {console.log(fields)}
               </div>
             </div>
           </div>
