@@ -327,7 +327,7 @@ const CandidatePreview = (props) => {
                   EXPERIENCE
                 </h3>
                 <hr className="mb-4" />
-                {/* {fields.workExperience?.map((company, index) => ( */}
+                {fields.workExperience?.map((company, index) => (
                   <>
                 <div className="row">
                   <div className="displayPreviewRow col-md-6">
@@ -335,14 +335,14 @@ const CandidatePreview = (props) => {
                       <b>Employer</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
-                      {fields.workExperience?.map((company, index) => ( console.log('company',company) 
-                        // <span key={index}>
-                        //   {company.hasOwnProperty("employer")
-                        //     ? company.employer
-                        //     : company }{" "}
-                        //   <br />
-                        // </span>
-                      ))}
+                      {/* {fields.workExperience?.map((company, index) => ( console.log('company',company)  */}
+                         <span key={index}>
+                           {company.hasOwnProperty("employer")
+                            ? company.employer
+                             : company }{" "}
+                           <br />
+                         </span>
+                       {/* ))} */}
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -350,52 +350,96 @@ const CandidatePreview = (props) => {
                       <b>Job Title</b>
                     </label>
                     <div className="col-lg-7 col-form-label">
-                      {fields.designation || ""}
+                      {company.hasOwnProperty("employer")
+                            ? company.emptitle
+                             : company }{" "}
                     </div>
                   </div>
                 </div>
                 <div className="row">
                   <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
-                      <b>City</b>
+                      <b>State</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">Noida</div>
+                    <div className="col-lg-7 col-form-label">
+                        {company.hasOwnProperty("employer")
+                            ? company.city
+                             : company }{" "}
+                    </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
-                      <b>State</b>
+                      <b>City</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">UP</div>
+                    <div className="col-lg-7 col-form-label">
+                      {company.hasOwnProperty("employer")
+                            ? company.city
+                             : company }{" "}
+                    </div>
                   </div>
+                  
                 </div>
                 <div className="row">
                   <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
                       <b>Start Date</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">12/05/2021</div>
+                    <div className="col-lg-7 col-form-label">
+                      {company.hasOwnProperty("employer")
+                            ? company.startDate
+                             : company }{" "}
+                    </div>
                   </div>
+                  {company.hasOwnProperty("employer")
+                            ? company.endDate ? 
                   <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
                       <b>End Date</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">12/05/2021</div>
+                    <div className="col-lg-7 col-form-label">
+                      { company.endDate}
+                             
+                    </div>
                   </div>
+                  :company.currentWork ? 
+                  <div className="displayPreviewRow col-md-6">
+                    <label className="col-lg-4 col-form-label">
+                      <b>Present Date</b>
+                    </label>
+                    <div className="col-lg-7 col-form-label">
+                     Currently working 
+                             
+                    </div>
+                  </div>
+                  :
+                  <div className="displayPreviewRow col-md-6">
+                    <label className="col-lg-4 col-form-label">
+                      <b>End Date</b>
+                    </label>
+                  </div>
+                  : company }{" "}
                 </div>
-                <div className="row">
-                  <div className="displayPreviewRow col-md-12">
+                <div className="row" >
+                  <div className="displayPreviewRow col-md-12" style={{borderBottom: '0'}}>
                     <label className="col-lg-4 col-form-label">
                       <b>Job Description</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">This is just a test</div>
+                    <div className="col-lg-7 col-form-label">
+                      {company.hasOwnProperty("employer")
+                            ? company.jd
+                             : company }{" "}
+                    </div>
                   </div>
                 </div>
+                <hr className="mb-4" />
                 </>
-                 {/* ))} */}
+                  ))} 
+                  
               </div>
             </div>
           </div>
         </div>
+        
         
           <div className="row">
             <div className="col-lg-12 grid-margin stretch-card">
@@ -408,58 +452,69 @@ const CandidatePreview = (props) => {
                     EDUCATION
                   </h3>
                   <hr className="mb-4" />
-
-                  <div className="row">
-                    <div className="displayPreviewRow col-md-6">
-                      <label className="col-lg-4 col-form-label">
-                        <b>School Name</b>
-                      </label>
-                      <div className="col-lg-7 col-form-label">
-                        xyz
+                  {fields.education?.map((edu, index) => (
+                    <>
+                      <div className="row">
+                        <div className="displayPreviewRow col-md-6">
+                          <label className="col-lg-4 col-form-label">
+                            <b>College / School Name</b>
+                          </label>
+                          <div className="col-lg-7 col-form-label">
+                          {edu.hasOwnProperty("education")
+                                ? edu.schoolOrCollege
+                                : edu }{" "}
+                          </div>
+                        </div>
+                        <div className="displayPreviewRow col-md-6">
+                          <label className="col-lg-4 col-form-label">
+                            <b>City</b>
+                          </label>
+                          <div className="col-lg-7 col-form-label">
+                            
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="displayPreviewRow col-md-6">
-                      <label className="col-lg-4 col-form-label">
-                        <b>City</b>
-                      </label>
-                      <div className="col-lg-7 col-form-label">
-                        noida
+                      <div className="row">
+                        <div className="displayPreviewRow col-md-6">
+                          <label className="col-lg-4 col-form-label">
+                            <b>State</b>
+                          </label>
+                          <div className="col-lg-7 col-form-label">UP</div>
+                        </div>
+                        <div className="displayPreviewRow col-md-6">
+                          <label className="col-lg-4 col-form-label">
+                            <b>Degree</b>
+                          </label>
+                          <div className="col-lg-7 col-form-label">
+                            BCA
+                              {edu.hasOwnProperty("employer")
+                            ? edu.degree
+                             : edu }{" "}
+                    
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="displayPreviewRow col-md-6">
-                      <label className="col-lg-4 col-form-label">
-                        <b>State</b>
-                      </label>
-                      <div className="col-lg-7 col-form-label">UP</div>
-                    </div>
-                    <div className="displayPreviewRow col-md-6">
-                      <label className="col-lg-4 col-form-label">
-                        <b>Degree</b>
-                      </label>
-                      <div className="col-lg-7 col-form-label">BCA</div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="displayPreviewRow col-md-6">
-                      <label className="col-lg-4 col-form-label">
-                        <b>Field of study</b>
-                      </label>
-                      <div className="col-lg-7 col-form-label">CS</div>
-                    </div>
-                    <div className="displayPreviewRow col-md-6">
-                      <label className="col-lg-4 col-form-label">
-                        <b>Graduation Date</b>
-                      </label>
-                      <div className="col-lg-7 col-form-label">2014</div>
-                    </div>
-                  </div>
+                      <div className="row">
+                        <div className="displayPreviewRow col-md-6">
+                          <label className="col-lg-4 col-form-label">
+                            <b>Field of study</b>
+                          </label>
+                          <div className="col-lg-7 col-form-label">CS</div>
+                        </div>
+                        <div className="displayPreviewRow col-md-6">
+                          <label className="col-lg-4 col-form-label">
+                            <b>Graduation Date</b>
+                          </label>
+                          <div className="col-lg-7 col-form-label">2014</div>
+                        </div>
+                      </div>
+                    </>
+                   ))}
                 </div>
               </div>
             </div>
           </div>
-         
+        
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
