@@ -1,4 +1,7 @@
 
+.dropdown-menu {
+  min-width: 18rem !important;
+}
 /* Sidebar */
 .page-body-wrapper {
     padding-top: 70px;

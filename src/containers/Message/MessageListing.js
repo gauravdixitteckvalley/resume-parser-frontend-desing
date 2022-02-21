@@ -46,13 +46,15 @@ const MessageListing = () => {
             { data.map((data, index) => ( 
                 
                 <div className="listings" key={index} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }}  >
-                    <Link to={`/message/message-details/${data._id}`}  className="bold-font">
-                        <p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p>
-                        <p>{ data.message_subject }</p>
-                        <p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p>
+                    <Link to={`/message-details/${data._id}`}  className="bold-font">
+                        <div className="row">
+                            <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
+                            <div className="col-md-4"><p>{ data.message_subject }</p></div>
+                            <div className="col-md-4 text-right-cls"><p>{ moment(data.createdAt).calendar() }</p></div>
+                        </div>
                     </Link>
                 </div> 
-            )) }    
+            )) }  
             </>  
         )
         } else {
@@ -66,6 +68,7 @@ const MessageListing = () => {
     let total = 0;
     if(typeof totalRecords != 'undefined')
         total = totalRecords;
+        console.log(messageList);
     return (
         <Fragment>
             
@@ -111,8 +114,8 @@ const MessageListing = () => {
                   </Link>
                 </div>
                 </div> */}
-                            <div className="table-responsive">
-                                <div className="message-listing">
+                            <div>
+                                <div className="message-listing mb-3">
 
                                     { _buildList(messageList) }
                                     
