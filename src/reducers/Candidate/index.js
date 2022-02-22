@@ -42,6 +42,19 @@ export function candidate(state = [], action) {
         case 'CHANGE_LOGGED_CANDIDATE_DATA':
             return [];
 
+        case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_REQUEST':
+            return {
+                blocking: true
+            }
+        case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_SUCCESS':
+            return {
+                blocking: false
+            }
+        case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_FAILURE':
+            return {
+                blocking: true
+            }
+
         default:
             return state;
     }
