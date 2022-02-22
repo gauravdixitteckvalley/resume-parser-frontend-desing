@@ -39,12 +39,13 @@ const Notification = () => {
     const _handlePageChange = (pageNumber) => _getData(pageNumber)
 
     const _buildList = (data) =>{
+
         if (!_.isEmpty(data)) {
         return (
             <> 
             { data.map((data, index) => ( 
-
-                    <div className="row notification-container mb-4 pb-2" key={index} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }}>
+                console.log(data),
+                    <div className="row notification-container mb-4 pb-2" key={index}>
                         <div className="col-md-12 notification-main">
                             <img src="/assets/img/user_icon.png" />
                             <div className="content-area">
@@ -52,22 +53,6 @@ const Notification = () => {
                                 <p>{ moment(data.createdAt).calendar() }</p>
                             </div>
                         </div>
-                        {(total > per_page) ? 
-                            <div className="pagination mb-3" style={{"justifyContent" : "space-between"}}>
-                                <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
-                                <Pagination
-                                    activePage={currentPage}
-                                    itemsCountPerPage={Number(per_page)}
-                                    totalItemsCount={total}
-                                    pageRangeDisplayed={5}
-                                    onChange={_handlePageChange}
-                                    itemClass="page-item"
-                                    linkClass="page-link"
-                                    innerClass="pagination text-center"
-                                /> 
-                            </div> 
-                        : <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
-                        }
                     </div>
             )) }  
             </>  
@@ -79,7 +64,7 @@ const Notification = () => {
           }
     }
 
-    const { totalRecords, per_page , blocking, noticeList,currentPage } = notices;
+    const { totalRecords, per_page , blocking, noticeList, currentPage } = notices;
     let total = 0;
     if(typeof totalRecords != 'undefined')
         total = totalRecords;
@@ -93,6 +78,22 @@ const Notification = () => {
                             <h4 className="page-title font-style-bold mb-4">Your Notifications</h4>
                             <hr className="mb-4" />
                             { _buildList(noticeList) }
+                            {(total > per_page) ? 
+                                <div className="pagination mb-3" style={{"justifyContent" : "space-between"}}>
+                                    <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+                                    <Pagination
+                                        activePage={currentPage}
+                                        itemsCountPerPage={Number(per_page)}
+                                        totalItemsCount={total}
+                                        pageRangeDisplayed={5}
+                                        onChange={_handlePageChange}
+                                        itemClass="page-item"
+                                        linkClass="page-link"
+                                        innerClass="pagination text-center"
+                                    /> 
+                                </div> 
+                            : <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+                            }
                         </div>
                     </div>
                 </div>

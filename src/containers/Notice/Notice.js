@@ -1,11 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import _ from 'lodash'
 
 import BlockUI from "../../components/BlockUI";
 import NoticeFormValidation from "./NoticeFormValidation";
 import { noticeSend,fetchUserData } from '../../actions/Notice';
 
-const Notice = () => {
+const Notice = (props) => {
     const [fields, setFields] = useState({});
     const [errors, setErrors] = useState({});
     const notices = useSelector(state => state.notice);
@@ -47,7 +48,6 @@ const Notice = () => {
                 to : to,
                 noticeText: message
             }
-            
             dispatch(noticeSend(postData));  // action is called to submit data 
         }
     }
@@ -66,8 +66,8 @@ const Notice = () => {
                                     <div className="col-md-12">
                                         <label className="mb-1 required" for="inlineFormInputName2">Select User</label>
                                         <select name="to" value={fields.to || ''} onChange={(event) => _handleChange(event.target)} className="form-control mb-2 mr-sm-2 col-md-6">
-                                            <option>Select User</option>
-                                            <option value="all">All</option>
+                                            <option value="">Select User</option>
+                                            <option name="all" value="all">All</option>
                                             {userList?.map((data, index) => (
                                                 <option key={index} value={data._id}>{data.first_name +' '+ data.last_name }</option>
                                             ))}

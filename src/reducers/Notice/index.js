@@ -5,11 +5,13 @@ export function notice(state = [], action){
         
         case 'SUBMIT_NOTICE_REQUEST':
             return {
+                ...state,
                 blocking : true
             };
         
         case 'SUBMIT_NOTICE_SUCCESS':
             return {
+                ...state,
                 blocking : false
             };
             

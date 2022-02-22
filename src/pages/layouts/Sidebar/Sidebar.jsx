@@ -38,6 +38,12 @@ const Sidebar = () => {
                         <i className="mdi mdi-format-list-bulleted menu-icon"></i>
                     </Link>
                 </li>
+                <li  className={splitLocation[1] ==="notices" ? "active nav-item" : "nav-item "}>
+                <Link to='/notices' className="nav-link">
+                    <span className="menu-title">Notice & Event</span>
+                    <i className="mdi mdi-calendar menu-icon"></i>
+                </Link>
+                </li>
             </>
         )
     }
@@ -91,12 +97,6 @@ const Sidebar = () => {
                     <Link to='/message' className="nav-link">
                         <span className="menu-title">Message Inbox</span>
                         <i className="mdi mdi-message-reply menu-icon"></i>
-                    </Link>
-                    </li>
-                    <li  className={splitLocation[1] ==="notices" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
-                    <Link to='/notices' className="nav-link">
-                        <span className="menu-title">Notice & Event</span>
-                        <i className="mdi mdi-calendar menu-icon"></i>
                     </Link>
                     </li>
                 </>
