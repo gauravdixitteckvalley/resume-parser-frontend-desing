@@ -70,10 +70,11 @@ function MainRoute() {
                         <PrivateRoute exact path="/skills/create" component={SkillsForm} />
                         <PrivateRoute exact path="/skills/approval" component={SkillsApproval} />
                         <PrivateRoute exact path="/skills/edit/:id" component={SkillsForm} />
-                        <PrivateRoute exact path="/messages" component={Message} />
-                        <PrivateRoute exact path="/message-listing" component={MessageListing} />
-                        <PrivateRoute exact path="/sent-item" component={SentMessageListing} />
-                        <PrivateRoute exact path="/message-details/:id" component={MessageDetails} />
+                        
+                        <PrivateRoute exact path="/message" component={MessageListing} />
+                        <PrivateRoute exact path="/message/compose" component={Message} />
+                        <PrivateRoute exact path="/message/sent-item" component={SentMessageListing} />
+                        <PrivateRoute exact path="/message/message-details/:id" component={MessageDetails} />
                         <PrivateRoute exact path="/sent-message-details/:id" component={SentMessageDetails} />
                         <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
                         <PrivateRoute exact path="/designer-preview" component={DesignerResume} />

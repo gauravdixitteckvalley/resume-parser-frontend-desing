@@ -1,11 +1,88 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useState, useEffect } from "react"
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import Pagination from "react-js-pagination"
 
 import BlockUI from "../../components/BlockUI";
 import './Notification.css';
+import { fetchNoticeData } from '../../actions/Notice';
+import _ from 'lodash';
+import { displayRecordNotFound, API_URL, displayErrorMessage,IMAGE_URL } from '../../utils/helper';
+import moment from 'moment'
 
 const Notification = () => {
-    const blocking = false;
+
+    const [searchTitle, setSearchTitle] = useState('');
+    const [sortingOption, setSortingOption] = useState({})
+
+    /**fetched data from redux store */
+    const notices = useSelector(state =>  state.notice);
+
+    const dispatch = useDispatch();
+
+    /**hook equivalent to componentdidmount lifecycle */
+    useEffect(() => {
+        _getData();
+
+    }, []);
+
+    const _getData = (data) =>{
+        const params = {
+            page    : data ? data : 1,
+            search  : searchTitle,
+            sortingData : sortingOption
+        }
+        dispatch(fetchNoticeData(params));
+    }
+
+    /**method for calling api based on page change  */
+    const _handlePageChange = (pageNumber) => _getData(pageNumber)
+
+    const _buildList = (data) =>{
+        if (!_.isEmpty(data)) {
+        return (
+            <> 
+            { data.map((data, index) => ( 
+
+                    <div className="row notification-container mb-4 pb-2" key={index} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }}>
+                        <div className="col-md-12 notification-main">
+                            <img src="/assets/img/user_icon.png" />
+                            <div className="content-area">
+                                <p>{ data.notice_text }</p>
+                                <p>{ moment(data.createdAt).calendar() }</p>
+                            </div>
+                        </div>
+                        {(total > per_page) ? 
+                            <div className="pagination mb-3" style={{"justifyContent" : "space-between"}}>
+                                <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+                                <Pagination
+                                    activePage={currentPage}
+                                    itemsCountPerPage={Number(per_page)}
+                                    totalItemsCount={total}
+                                    pageRangeDisplayed={5}
+                                    onChange={_handlePageChange}
+                                    itemClass="page-item"
+                                    linkClass="page-link"
+                                    innerClass="pagination text-center"
+                                /> 
+                            </div> 
+                        : <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+                        }
+                    </div>
+            )) }  
+            </>  
+        )
+        } else {
+            return (
+              displayRecordNotFound('No Data Found')
+            )
+          }
+    }
+
+    const { totalRecords, per_page , blocking, noticeList,currentPage } = notices;
+    let total = 0;
+    if(typeof totalRecords != 'undefined')
+        total = totalRecords;
     return (
         <Fragment>
             <BlockUI blocking={blocking} />
@@ -15,42 +92,7 @@ const Notification = () => {
                         <div className="card-body">
                             <h4 className="page-title font-style-bold mb-4">Your Notifications</h4>
                             <hr className="mb-4" />
-                            <div className="row notification-container mb-4 pb-2">
-                                <div className="col-md-12 notification-main">
-                                    <img src="/assets/img/user_icon.png" />
-                                    <div className="content-area">
-                                        <p>Announcing the winner of the <strong>The only book awards</strong> decided by you, the readers. Check out the champions and runners-up in all 21 categories now!</p>
-                                        <p>Just now</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row notification-container mb-4 pb-2">
-                                <div className="col-md-12 notification-main">
-                                    <img src="/assets/img/user_icon.png" />
-                                    <div className="content-area">
-                                        <p>Last chance to vote in <strong>The 2018 Falcon Choice Awards!</strong> See what made it to the Final Round and help your favourite take home the win. Voting closes on November 26</p>
-                                        <p>15min</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row notification-container mb-4 pb-2">
-                                <div className="col-md-12 notification-main">
-                                    <img src="/assets/img/user_icon.png" />
-                                    <div className="content-area">
-                                        <p><strong>Jennifer Kent</strong> declared you as a <strong>President</strong> of computer Science and Engineering Society</p>
-                                        <p>1h</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row notification-container mb-4 pb-2">
-                                <div className="col-md-12 notification-main">
-                                    <img src="/assets/img/user_icon.png" />
-                                    <div className="content-area">
-                                        <p>Congratulate <strong>Woody Allen</strong> for starting a new position as Busuness Development Manager & Implementation Engineer at <strong>Helwett Packart Enterprise(HP)</strong></p>
-                                        <p>6h</p>
-                                    </div>
-                                </div>
-                            </div>
+                            { _buildList(noticeList) }
                         </div>
                     </div>
                 </div>

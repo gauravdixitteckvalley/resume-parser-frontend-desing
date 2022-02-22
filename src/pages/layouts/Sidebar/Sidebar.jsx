@@ -18,9 +18,10 @@ const Sidebar = () => {
 
     //destructuring pathname from location
     const { pathname } = location;
+    
     //Javascript split method to get the name of the path in array
     const splitLocation = pathname.split("/");
-
+    console.log('splitLocation',splitLocation);
 
     const showRoutesForAdmin = () => {
         return(
@@ -86,8 +87,8 @@ const Sidebar = () => {
                             <i className="mdi mdi-account-search menu-icon"></i>
                         </Link>
                     </li>
-                    <li  className={splitLocation[1] ==="messages" && splitLocation[2] !== "add" ? "active nav-item" : "nav-item "}>
-                    <Link to='/message-listing' className="nav-link">
+                    <li  className={splitLocation[1] ==="message" ? "active nav-item" : "nav-item "}>
+                    <Link to='/message' className="nav-link">
                         <span className="menu-title">Message Inbox</span>
                         <i className="mdi mdi-message-reply menu-icon"></i>
                     </Link>

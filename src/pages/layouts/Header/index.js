@@ -180,7 +180,7 @@ const Header = (props) => {
                                 { ( typeof loggedUser.user.message != "undefined" && Object.keys(loggedUser.user.message).length > 0 )?
                                  loggedUser.user?.message.map((data, index) => (
                                         <>
-                                        <Link to={`/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
+                                        <Link to={`/message/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
                                             <img src={ data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} alt="image" className="profile-pic" />
                                         </div>
@@ -195,17 +195,15 @@ const Header = (props) => {
                                 : 
                                 <>
                                 <Link  className="dropdown-item preview-item">
-                                
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject ellipsis mb-1 font-weight-normal">No Message</h6>
-                                    
-                                </div>
+                                    <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 className="preview-subject ellipsis mb-1 font-weight-normal">No Message</h6>
+                                    </div>
                                 </Link>
                                 <div className="dropdown-divider"></div>
                                 </> 
                                 }
                                 
-                                <Link to={'/message-listing'}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
+                                <Link to={'/message'}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
@@ -216,42 +214,33 @@ const Header = (props) => {
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <h6 className="p-3 mb-0">Notifications</h6>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <div className="preview-icon bg-success">
-                                    <i className="mdi mdi-calendar"></i>
-                                    </div>
-                                </div>
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject font-weight-normal mb-1">Event today</h6>
-                                    <p className="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
-                                </div>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <div className="preview-icon bg-warning">
-                                    <i className="mdi mdi-settings"></i>
-                                    </div>
-                                </div>
-                                <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 className="preview-subject font-weight-normal mb-1">Settings</h6>
-                                    <p className="text-gray ellipsis mb-0"> Update dashboard </p>
-                                </div>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item preview-item">
-                                    <div className="preview-thumbnail">
-                                        <div className="preview-icon bg-info">
-                                        <i className="mdi mdi-link-variant"></i>
+                                { ( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
+                                 loggedUser.user?.notice.map((data, index) => (
+                                    <>
+                                        <Link to={`/notifications/${data._id}`} className="dropdown-item preview-item">
+                                        <div className="preview-thumbnail">
+                                            <div className="preview-icon bg-success">
+                                            <i className="mdi mdi-calendar"></i>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                            <h6 className="preview-subject font-weight-normal mb-1">Event today</h6>
+                                            <p className="text-gray ellipsis mb-0"> { moment(data.createdAt).calendar() } </p>
+                                        </div>
+                                        </Link>
+                                        <div className="dropdown-divider"></div>
+                                    </>
+                                ))
+                                : 
+                                <>
+                                <Link  className="dropdown-item preview-item">
                                     <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 className="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                                        <p className="text-gray ellipsis mb-0"> New admin wow! </p>
+                                        <h6 className="preview-subject ellipsis mb-1 font-weight-normal">No Notifications</h6>
                                     </div>
                                 </Link>
                                 <div className="dropdown-divider"></div>
+                                </> 
+                                }
                                 <Link to="/notifications" style={{textDecoration: 'none', color: '#000'}}><h6 className="p-3 mb-0 text-center">See all notifications</h6></Link>
                             </div>
                         </li>

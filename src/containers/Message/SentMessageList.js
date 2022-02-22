@@ -47,9 +47,11 @@ const SentMessageListing = () => {
                 
                 <div className="listings" key={index}   >
                     <Link to={`/sent-message-details/${data._id}`}  className="bold-font">
-                        <p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p>
-                        <p>{ data.message_subject }</p>
-                        <p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p>
+                        <div className="row">                        
+                            <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
+                            <div className="col-md-4"><p>{ data.message_subject }</p></div>
+                            <div className="col-md-4 text-right-cls"><p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p></div>
+                        </div>
                     </Link>
                 </div> 
             )) }    
@@ -75,7 +77,7 @@ const SentMessageListing = () => {
                   <h3 className="page-title" style={{fontWeight: '600'}}> Sent Items</h3>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                  <Link to="/message-listing">
+                  <Link to="/message">
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"
@@ -89,8 +91,8 @@ const SentMessageListing = () => {
                 <div className="col-lg-12 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
-                            <div className="table-responsive">
-                                <div className="message-listing">
+                            <div>
+                                <div className="message-listing mb-3">
 
                                     { _buildList(sentMessageList) }
                                     

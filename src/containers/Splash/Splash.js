@@ -24,7 +24,7 @@ const Splash = () => {
                     <img src="../../assets/img/logo.png" alt="logo" style={{verticalAlign: 'middle'}} />
                 </div>
                 <div style={{position: 'absolute', top: '95%', right: '0', transform: 'translate(-50%, -50%)'}}>
-                    <p style={{fontSize: '1rem', fontWeight: 'bold'}}>Version: 1.0</p>
+                    <p style={{fontSize: '1rem', fontWeight: 'bold'}}>Version: 2.0</p>
                 </div>
             </div>
             
