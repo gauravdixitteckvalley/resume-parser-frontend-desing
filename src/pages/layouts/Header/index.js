@@ -17,6 +17,7 @@ const Header = (props) => {
 
     const loggedUser = useSelector(state => state.authenticatedUser);
     const {user} = loggedUser;
+    console.log(user)
    
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
@@ -214,7 +215,7 @@ const Header = (props) => {
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <h6 className="p-3 mb-0">Notifications</h6>
                                 <div className="dropdown-divider"></div>
-                                { ( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
+                                {( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
                                  loggedUser.user?.notice.map((data, index) => (
                                     <>
                                         <Link to={'/notifications'} className="dropdown-item preview-item">

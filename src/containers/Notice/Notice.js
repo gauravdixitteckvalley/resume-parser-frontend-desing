@@ -48,6 +48,7 @@ const Notice = (props) => {
                 to : to,
                 noticeText: message
             }
+            console.log(postData);
             dispatch(noticeSend(postData));  // action is called to submit data 
         }
     }

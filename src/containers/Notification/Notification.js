@@ -44,7 +44,6 @@ const Notification = () => {
         return (
             <> 
             { data.map((data, index) => ( 
-                console.log(data),
                     <div className="row notification-container mb-4 pb-2" key={index}>
                         <div className="col-md-12 notification-main">
                             <img src="/assets/img/user_icon.png" />
