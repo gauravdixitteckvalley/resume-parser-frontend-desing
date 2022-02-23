@@ -43,14 +43,17 @@ export function candidate(state = [], action) {
             return [];
 
         case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_REQUEST':
+        case 'SUBMIT_CANDIDATE_VIDEO_PROFILE_REQUEST':
             return {
                 blocking: true
             }
         case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_SUCCESS':
+        case 'SUBMIT_CANDIDATE_VIDEO_PROFILE_SUCCESS':    
             return {
                 blocking: false
             }
         case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_FAILURE':
+        case 'SUBMIT_CANDIDATE_VIDEO_PROFILE_FAILURE':
             return {
                 blocking: true
             }

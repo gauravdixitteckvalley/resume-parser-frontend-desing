@@ -57,13 +57,35 @@ export const submitCareerPreferenceAction = (id, postData) => {
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_SUCCESS'});
                 displaySuccessMessage(response.data.data.message)
-                // setTimeout(() => {
-                //     history.push(`/candidate/view/${id}`); 
-                // }, 2000);
+                setTimeout(() => {
+                    history.push(`/candidate/view/${id}`); 
+                }, 1000);
             } 
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_FAILURE' });
+        }
+    }
+}
+
+/* action for submitting career preference of candidates */
+export const submitVideoProfileAction = (id, postData) => {
+    return async dispatch => {
+        dispatch({ type: 'SUBMIT_CANDIDATE_VIDEO_PROFILE_REQUEST' });
+        try {
+            let response = await api.put(`resume/candidate/videoProfileCandidate/${id}`, postData,{ 
+                                headers : requestTokenHeader()
+                            });
+            if (response.data.success) {
+                dispatch({ type : 'SUBMIT_CANDIDATE_VIDEO_PROFILE_SUCCESS'});
+                displaySuccessMessage(response.data.data.message)
+                setTimeout(() => {
+                    history.push(`/candidate/view/${id}`); 
+                }, 1000);
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SUBMIT_CANDIDATE_VIDEO_PROFILE_FAILURE' });
         }
     }
 }
