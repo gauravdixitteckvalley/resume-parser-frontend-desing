@@ -111,7 +111,7 @@ const CandidatePreview = (props) => {
                         <b>Preferred Location</b>
                       </label>
                       <div className="col-lg-7 col-form-label">
-                        {fields.careerPreference.dvelopempreferredLoc || ""}
+                        {fields.careerPreference.preferredLoc || ""}
                       </div>
                     </div>
                     <div className="displayPrevdhhoodctbbfiewRow col-md-6">
