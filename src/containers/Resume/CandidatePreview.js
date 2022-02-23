@@ -7,6 +7,8 @@ import { API_URL } from '../../utils/helper';
 import './CandidatePreview.css'
 import { Link,NavLink } from "react-router-dom";
 import {  getStateList } from "../../actions/Resume"
+import UploadResume from "../../components/UploadResume/UploadResume"
+
 
 let base64File = ''
 const CandidatePreview = (props) => {
@@ -14,7 +16,7 @@ const CandidatePreview = (props) => {
     const [fields, setFields] = useState({});
     const resumeDataList = useSelector(state => state.resume );
     const { countryList, stateList } = resumeDataList;
-
+    const [showModal,setShowModal] =useState(false);
 
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
@@ -27,7 +29,16 @@ const CandidatePreview = (props) => {
     const getCandidateDetails = async () => {
         dispatch(getSingleResumeData(currentId));
     }
-
+    const uploadOption = (event) => {
+      event.preventDefault();
+      setShowModal(true)
+      console.log(event, " event ")
+    }
+  
+    const uploadOptionClose = (value) => {
+      setShowModal(value)
+    }
+    
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
         getCandidateDetails();
@@ -43,6 +54,8 @@ const CandidatePreview = (props) => {
         return (
           <>
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right candid-profile">
+              
+              <button className="btn btn-gradient-primary mb-2" onClick={(event) => uploadOption(event)}> Upload Resume</button>
               <Link to={`/candidate/view/career-preference/${user.id}`} rel="noreferrer">
                 <button type="submit" className="btn btn-gradient-primary mb-2">Career preference</button>
               </Link>
@@ -159,6 +172,34 @@ const CandidatePreview = (props) => {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <h4 className="page-title font-style-bold mb-4">
+                  <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                  </span>
+                  Resume INFO
+                </h4>
+                <hr className="mb-4" />
+
+                <div className="row">
+                  <div className="displayPreviewRow col-md-12">
+                    <label className="col-lg-4 col-form-label">
+                      <b>Name</b>
+                    </label>
+                    <div className="col-lg-7 col-form-label">
+                      {fields.name || ""}
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -528,6 +569,14 @@ const CandidatePreview = (props) => {
             </div>
           </div>
         </div>
+      {showModal ? 
+          <UploadResume 
+            showModal={showModal} 
+            handleModalClose={uploadOptionClose}  
+            title="Update Resume"  
+            id = {currentId}
+          /> 
+        : null}
       </Fragment>
     );
 }
