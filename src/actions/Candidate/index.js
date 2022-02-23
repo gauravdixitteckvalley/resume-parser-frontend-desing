@@ -45,3 +45,25 @@ export const submitCandidateData = (id,postData) => {
         }
     }
 }
+
+/* action for submitting career preference of candidates */
+export const submitCareerPreferenceAction = (id, postData) => {
+    return async dispatch => {
+        dispatch({ type: 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_REQUEST' });
+        try {
+            let response = await api.put(`resume/candidate/profileSave/${id}`, postData,{ 
+                                headers : requestTokenHeader()
+                            });
+            if (response.data.success) {
+                dispatch({ type : 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_SUCCESS'});
+                displaySuccessMessage(response.data.data.message)
+                // setTimeout(() => {
+                //     history.push(`/candidate/view/${id}`); 
+                // }, 2000);
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_FAILURE' });
+        }
+    }
+}

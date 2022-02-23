@@ -17,6 +17,7 @@ const Header = (props) => {
 
     const loggedUser = useSelector(state => state.authenticatedUser);
     const {user} = loggedUser;
+    console.log(user)
    
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
@@ -30,7 +31,6 @@ const Header = (props) => {
     }
 
     const searchResume = () => {
-        // console.log("Search: ", searchValue);
         if(_.isEmpty(searchValue))
             displayErrorMessage('Please input any search name first');
     
@@ -93,6 +93,7 @@ const Header = (props) => {
             )
         }
     }
+    
     
     return (
         <>
@@ -214,17 +215,17 @@ const Header = (props) => {
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <h6 className="p-3 mb-0">Notifications</h6>
                                 <div className="dropdown-divider"></div>
-                                { ( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
+                                {( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
                                  loggedUser.user?.notice.map((data, index) => (
                                     <>
-                                        <Link to={`/notifications/${data._id}`} className="dropdown-item preview-item">
+                                        <Link to={'/notifications'} className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
                                             <div className="preview-icon bg-success">
                                             <i className="mdi mdi-calendar"></i>
                                             </div>
                                         </div>
                                         <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                            <h6 className="preview-subject font-weight-normal mb-1">Event today</h6>
+                                            <h6 className="preview-subject font-weight-normal mb-1">{data.notice_text.slice(0, 30)}</h6>
                                             <p className="text-gray ellipsis mb-0"> { moment(data.createdAt).calendar() } </p>
                                         </div>
                                         </Link>
