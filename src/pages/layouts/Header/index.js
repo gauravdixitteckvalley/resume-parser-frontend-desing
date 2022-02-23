@@ -204,7 +204,7 @@ const Header = (props) => {
                                 </> 
                                 }
                                 
-                                <Link to={'/message'}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
+                                <Link to={'/message'} style={{textDecoration: 'none', color: '#000'}}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
