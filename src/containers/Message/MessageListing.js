@@ -44,16 +44,18 @@ const MessageListing = () => {
         return (
             <> 
             { data.map((data, index) => ( 
-
-                <div className="listings" key={index} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }}  >
-                    <Link to={`message/message-details/${data._id}`}  className="bold-font">
-                        <div className="row">
+                <>
+                <div className="listings mb-3" key={index}>
+                    <Link to={`message/message-details/${data._id}`}  style={{ fontWeight : (!data.is_view)?'700':'' }}  >
+                        <div className="row align-items-center">
                             <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
                             <div className="col-md-4"><p>{ data.message_subject }</p></div>
-                            <div className="col-md-4 text-right-cls"><p>{ moment(data.createdAt).calendar() }</p></div>
+                            <div className="col-md-4 text-right-cls"><p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p></div>
                         </div>
                     </Link>
                 </div> 
+                <hr className="mb-4" />
+                </>
             )) }  
             </>  
         )
@@ -83,8 +85,8 @@ const MessageListing = () => {
                 <div className="col-lg-12 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
-                        <div className="add-items row">
-                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
+                        <div className="add-items row mb-0">
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <Link to="/message/sent-item">
                                     <button type="button" className="btn btn-gradient-primary btn-fw mb-2"> Sent Item </button>
                                 </Link>
@@ -95,8 +97,8 @@ const MessageListing = () => {
                         </div>    
                         
                             <div>
-                                <div className="message-listing mb-3">
-
+                                <div className="message-listing mb-3">                  
+                                    <hr className="mb-4" />
                                     { _buildList(messageList) }
                                     
                                 </div>
