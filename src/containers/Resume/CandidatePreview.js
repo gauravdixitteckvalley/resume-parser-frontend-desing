@@ -176,7 +176,7 @@ const CandidatePreview = (props) => {
             </div>
           </div>
         </div>
-
+       { fields?.resumePath?
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
@@ -185,17 +185,17 @@ const CandidatePreview = (props) => {
                   <span className="page-title-icon bg-gradient-primary text-white me-2">
                     <i className="mdi mdi-checkbox-marked"></i>
                   </span>
-                  Resume INFO
+                  RESUME INFO
                 </h4>
                 <hr className="mb-4" />
 
                 <div className="row">
-                  <div className="displayPreviewRow col-md-12">
-                    <label className="col-lg-4 col-form-label">
-                      <b>Name</b>
+                  <div className=" col-md-12 cv_icon_section">
+                    <label className=" col-form-label">
+                      <img src="/resume_icon.png" alt="logo"  className="cv_icon" />
                     </label>
-                    <div className="col-lg-7 col-form-label">
-                      {fields.name || ""}
+                    <div className="col-form-label">
+                      {fields.resumePath || ""}
                     </div>
                   </div>
                 </div>
@@ -204,7 +204,7 @@ const CandidatePreview = (props) => {
             </div>
           </div>
         </div>
-
+       :""}
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">

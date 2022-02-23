@@ -366,23 +366,25 @@ export const actionChangeCandidatePassword=(postData, user)=>{
 /* action for update resume recode */
 export const updateResume = (id, postData) => {
     return async dispatch => {
-        console.log("postData ",postData, " id ", id)
-        /*dispatch({ type: 'UPDATE_RESUME_REQUEST' });
+        //console.log("postData ",postData, " id ", id)
+        dispatch({ type: 'UPDATE_RESUME_REQUEST' });
         try {
-            let response = await api.put(`/resume/candidate/${id}`, postData, {
+            let response = await api.put(`/resume/candidate/resumeUpload/${id}`, postData, {
                 headers : requestTokenHeader(),
             });
             
             if (response.data.success) {
                 dispatch({ type : 'UPDATE_RESUME_SUCCESS'});
-                const { message, isCandidateLogin, id } = response.data.data
+                const { message } = response.data.data
                 displaySuccessMessage(message);
-                const redirectLink = isCandidateLogin ? `/candidate/view/${id}` : '/resume'
-                history.push(redirectLink);
+                const redirectLink = `/candidate/view/${id}`;
+               // setTimeout(()=>{history.push(redirectLink)},2000)
+                window.location.href = redirectLink;
+               // history.push(redirectLink);
             } 
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'UPDATE_RESUME_FAILURE' });
-        }*/
+        }
     }
 }

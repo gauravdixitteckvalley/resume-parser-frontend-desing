@@ -34,7 +34,7 @@ export default function UploadResume(props) {
       };
     const _handleChange = (event) => {
         const { name, value } = event.target;
-        console.log("event.target ",event.target.files[0])
+        //console.log("event.target ",event.target.files[0])
         setFileName(event.target.files[0])
         setFields(value);
     }
@@ -44,7 +44,7 @@ export default function UploadResume(props) {
     const _handleSubmit = (event) => {
         event.preventDefault();
         if (_validateForm()) {
-            let postData = fields
+            let postData = new FormData(event.target)
         
             if(id){
                 dispatch(updateResume(id,postData));

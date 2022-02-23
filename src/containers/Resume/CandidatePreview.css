@@ -9,3 +9,11 @@
 .candid-profile a {
     margin-left: 5px;
 }
+.cv_icon{
+    width: 100px;
+}
+.cv_icon_section{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
