@@ -1,28 +1,30 @@
-import React, { Fragment, useState, useEffect } from "react"
+import React, { Fragment, useState, useEffect, useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import _ from 'lodash'
+import { Link, NavLink } from "react-router-dom";
+import VideoPlayer from 'react-video-js-player';
+
 import BlockUI from "../../components/BlockUI"
 import { getSingleResumeData } from "../../actions/Resume"
 import { API_URL } from '../../utils/helper';
 import './CandidatePreview.css'
-import { Link,NavLink } from "react-router-dom";
-import {  getStateList } from "../../actions/Resume"
 
-let base64File = ''
 const CandidatePreview = (props) => {
     const currentId = props?.match?.params?.id;
     const [fields, setFields] = useState({});
     const resumeDataList = useSelector(state => state.resume );
-    const { countryList, stateList } = resumeDataList;
-
+    const { countryList } = resumeDataList;
 
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
     const loggedUser = useSelector(state => state.authenticatedUser);
     const dispatch = useDispatch();
 
-    const { resumeDetails } = resumeData; 
-    const { user } = loggedUser;   
+    const { user } = loggedUser;
+    
+    if(currentId && typeof resumeData != "undefined" && (_.size(resumeData) > 0))
+    if (_.size(resumeData.resumeDetails) !== _.size(fields))
+        setFields({...resumeData.resumeDetails})   
     
     const getCandidateDetails = async () => {
         dispatch(getSingleResumeData(currentId));
@@ -33,11 +35,7 @@ const CandidatePreview = (props) => {
         getCandidateDetails();
     }, []);
 
-    if(currentId && typeof resumeData != "undefined" && (_.size(resumeData) > 0))
-        if (_.size(resumeData.resumeDetails) !== _.size(fields))
-            setFields({...resumeData.resumeDetails})
 
-            
     const manageButtonLinkByLoggedIn = (fields) => {
       if(user.isCandidateLogin){
         return (
@@ -65,9 +63,7 @@ const CandidatePreview = (props) => {
       }
     }
 
-    //const { blocking } = userData
     const blocking = false;
-   console.log(fields)
     return (
       <Fragment>
         <BlockUI blocking={blocking} />
@@ -79,7 +75,121 @@ const CandidatePreview = (props) => {
           {manageButtonLinkByLoggedIn(fields)}
         </div>
 
-       
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <h4 className="page-title font-style-bold mb-4">
+                  <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                  </span>
+                  CAREER PREFERENCE
+                </h4>
+                <hr className="mb-4" />
+
+                { fields?.careerPreference ? 
+                (
+                <>
+                  <div className="row">
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Preferred Location</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        {fields.careerPreference.dvelopempreferredLoc || ""}
+                      </div>
+                    </div>
+                    <div className="displayPrevdhhoodctbbfiewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Preferred Role</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        {fields.careerPreference.preferredRole || ""}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Preferred Salary</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        {fields.careerPreference.preferredSal || ""}
+                      </div>
+                    </div>
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Preferred Shift</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        {fields.careerPreference.preferredShift || ""}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Job Type</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        {fields.careerPreference.jobType.join(",") || ""}
+                      </div>
+                    </div>
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-lg-4 col-form-label">
+                        <b>Employement Type</b>
+                      </label>
+                      <div className="col-lg-7 col-form-label">
+                        {fields.careerPreference.empType.join(",") || ""}
+                      </div>
+                    </div>
+                  </div>
+                </> )
+                
+              : ''}
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <h4 className="page-title font-style-bold mb-4">
+                  <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                  </span>
+                  VIDEO PROFILE
+                </h4>
+                <hr className="mb-4" />
+
+                { fields?.videoProfile ? 
+              (
+              <>
+                <div className="row">
+                  <div className="displayPreviewRow col-md-12">
+                    <div className="col-lg-7 col-form-label">
+                      <VideoPlayer
+                          controls={true}
+                          src={fields.videoProfile}
+                          poster={fields.videoProfile}
+                          width="720"
+                          height="420"
+                      /> 
+                    </div>
+                  </div>
+                </div>
+              </> )
+                
+                : ''}
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
@@ -150,7 +260,7 @@ const CandidatePreview = (props) => {
                       {fields.email || ""}
                     </div>
                   </div>
-                  <div className="displayPreviewRow col-md-6">
+                  <div className="displayPdreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
                       <b>Phone</b>
                     </label>
