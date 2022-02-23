@@ -7,7 +7,7 @@ import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepSix = (props) => {
-  console.log("props ",props)
+  //console.log("props ",props)
   const currentId = props.cdId;
   const dispatch = useDispatch(); 
   const [fields, setFields] = useState({

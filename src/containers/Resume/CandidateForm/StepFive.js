@@ -59,7 +59,7 @@ const StepFive = (props) => {
     let postData = formValues; 
      // checking if value of first name and last name is empty show error else take to next step
     if (_validateForm()){
-      console.log("postData4 ",postData)
+     // console.log("postData4 ",postData)
       if(currentId){
           dispatch(submitCandidateData(currentId, {language:postData,step:5}));
           setTimeout(function(){  props.nextStep(); }, 2000);
