@@ -16,7 +16,9 @@
 }
 .content-area p:nth-child(1) {
     margin-bottom: 7px;
+    font-size: 16px;
 }
 .content-area p:nth-child(2) {
     color: #c8c9ca;
+    font-size: 14px;
 }

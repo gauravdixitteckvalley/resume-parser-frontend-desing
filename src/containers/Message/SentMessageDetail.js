@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import BlockUI from "../../components/BlockUI"
 import { IMAGE_URL,displayRecordNotFound } from '../../utils/helper';
 import { fetchMessageDetail } from '../../actions/Message';
+import moment from 'moment'
 
 const SentMessageDetails = (props) => {
     const currentId = props?.match?.params?.id;
@@ -28,7 +29,7 @@ const SentMessageDetails = (props) => {
                     </div>
                     :""}
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2">
-                        <p><img src={data.users?.profile_image ? IMAGE_URL+data.users?.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" style={{width: '40px'}} />  { data.users?.first_name+' '+data.users?.last_name   }</p>
+                        <p><img src={data.users?.profile_image ? IMAGE_URL+data.users?.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" style={{width: '40px'}} />  { data.users?.first_name+' '+data.users?.last_name   } <span style={{fontSize: '14px', color: 'lightgray', marginLeft: '20px'}}>{ moment(data.createdAt).calendar() }</span> </p>
                     </div>
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2">
                         <p>{ data.message_text }</p>
