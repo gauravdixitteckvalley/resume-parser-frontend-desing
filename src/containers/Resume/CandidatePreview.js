@@ -1,31 +1,23 @@
 import React, { Fragment, useState, useEffect, useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import _ from 'lodash'
-import { Link, NavLink } from "react-router-dom";
 import VideoPlayer from 'react-video-js-player';
 
 import BlockUI from "../../components/BlockUI"
 import { getSingleResumeData } from "../../actions/Resume"
 import { API_URL } from '../../utils/helper';
 import './CandidatePreview.css'
-<<<<<<< HEAD
-=======
 import { Link,NavLink } from "react-router-dom";
 import {  getStateList } from "../../actions/Resume"
 import UploadResume from "../../components/UploadResume/UploadResume"
 
->>>>>>> 653ff4d136cbb6623dfb8a236ddff5ab30c17d0d
 
 const CandidatePreview = (props) => {
     const currentId = props?.match?.params?.id;
     const [fields, setFields] = useState({});
     const resumeDataList = useSelector(state => state.resume );
-<<<<<<< HEAD
-    const { countryList } = resumeDataList;
-=======
     const { countryList, stateList } = resumeDataList;
     const [showModal,setShowModal] =useState(false);
->>>>>>> 653ff4d136cbb6623dfb8a236ddff5ab30c17d0d
 
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
