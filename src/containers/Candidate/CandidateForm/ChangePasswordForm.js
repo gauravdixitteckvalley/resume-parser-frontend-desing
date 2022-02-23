@@ -98,7 +98,7 @@ const ChangePasswordForm = (props) => {
                                 </div>                                        
                           
                     
-                                 <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
+                                 <button type="submit" className="btn btn-gradient-primary mb-2 me-2">Submit</button>
                                  <button className="btn btn-light mb-2" onClick={_handleCancelForm}>Cancel</button>
                             </form>
                         </div>
