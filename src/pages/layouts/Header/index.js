@@ -225,7 +225,7 @@ const Header = (props) => {
                                             </div>
                                         </div>
                                         <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                            <h6 className="preview-subject font-weight-normal mb-1">{data.notice_text.slice(0, 30)}</h6>
+                                            <h6 className="preview-subject font-weight-normal mb-1">{data.notice_text.slice(0, 20)}</h6>
                                             <p className="text-gray ellipsis mb-0"> { moment(data.createdAt).calendar() } </p>
                                         </div>
                                         </Link>
