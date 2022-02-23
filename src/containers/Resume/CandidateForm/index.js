@@ -35,7 +35,7 @@ function CandidateMultiStep(props) {
           setFilData(userData)
         }
 }
-   console.log('candidateInfo  ',userData);
+ //  console.log('candidateInfo  ',userData);
    /*if(userData){
      console.log("userData ", userData)
    }

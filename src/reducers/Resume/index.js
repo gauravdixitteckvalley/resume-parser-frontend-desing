@@ -263,20 +263,20 @@ export function resume(state = [], action) {
                 blocking : false,
             };    
 /* ================== file upload ================ */
-          /*  case 'UPDATE_RESUME_FORM_REQUEST':
+            case 'UPDATE_RESUME_REQUEST':
                 return{
                     blocking : true
                 }
-            case 'UPDATE_RESUME_FORM_SUCCESS':
+            case 'UPDATE_RESUME_SUCCESS':
                 return {
                     blocking : false
                 };
             
-            case 'UPDATE_RESUME_FORM_FAILURE':
+            case 'UPDATE_RESUME_FAILURE':
                 return {
                     blocking : false,
                 };
-    */
+    
         default:
             return state;
     }

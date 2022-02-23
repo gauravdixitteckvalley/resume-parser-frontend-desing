@@ -63,7 +63,7 @@ useEffect(() => {
     let postData = formValues;    
     if (_validateForm()){
       //props.nextStep();
-      console.log("postData4 ",postData)
+      //console.log("postData4 ",postData)
       if(currentId){
           dispatch(submitCandidateData(currentId, {skills:postData,step:4}));
           setTimeout(function(){  props.nextStep(); }, 2000);
