@@ -72,7 +72,15 @@ const CandidatePreview = (props) => {
       }else if(fields.resumePath){
         return (
           <>
-            <a href={`${API_URL}resume/view/${fields.resumePath}`} target="_blank" rel="noreferrer"><button type="button" className="btn btn-gradient-primary mb-2">Download</button></a>
+            <div>
+            <button className="btn btn-gradient-primary mb-2 me-2" onClick={(event) => uploadOption(event)}> Upload Resume</button>
+            <Link to={`/candidate/view/video-profile/${user.id}`} rel="noreferrer" className=" me-2">
+                <button type="submit" className="btn btn-gradient-primary mb-2">Video profile</button>
+              </Link>
+            <Link to={`${API_URL}resume/view/${fields.resumePath}`} target="_blank" rel="noreferrer">
+              <button type="button" className="btn btn-gradient-primary mb-2">Download</button>
+            </Link>
+            </div>
           </>
         )
       }
@@ -167,43 +175,6 @@ const CandidatePreview = (props) => {
             </div>
           </div>
         </div>
-
-        <div className="row">
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="page-title font-style-bold mb-4">
-                  <span className="page-title-icon bg-gradient-primary text-white me-2">
-                    <i className="mdi mdi-checkbox-marked"></i>
-                  </span>
-                  VIDEO PROFILE
-                </h4>
-                <hr className="mb-4" />
-
-                { fields?.videoProfile ? 
-              (
-              <>
-                <div className="row">
-                  <div className="displayPreviewRow col-md-12">
-                    <div className="col-lg-7 col-form-label">
-                      <VideoPlayer
-                          controls={true}
-                          src={fields.videoProfile}
-                          poster={fields.videoProfile}
-                          width="720"
-                          height="420"
-                      /> 
-                    </div>
-                  </div>
-                </div>
-              </> )
-                
-                : ''}
-                
-              </div>
-            </div>
-          </div>
-        </div>
         
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
@@ -288,6 +259,44 @@ const CandidatePreview = (props) => {
             </div>
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <h4 className="page-title font-style-bold mb-4">
+                  <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                  </span>
+                  VIDEO PROFILE
+                </h4>
+                <hr className="mb-4" />
+
+                { fields?.videoProfile ? 
+              (
+              <>
+                <div className="row">
+                  <div className="displayPreviewRow col-md-12">
+                    <div className="col-lg-7 col-form-label">
+                      <VideoPlayer
+                          controls={true}
+                          src={fields.videoProfile}
+                          poster={fields.videoProfile}
+                          width="720"
+                          height="420"
+                      /> 
+                    </div>
+                  </div>
+                </div>
+              </> )
+                
+                : ''}
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
        { fields?.resumePath?
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
