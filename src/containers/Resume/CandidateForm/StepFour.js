@@ -13,7 +13,7 @@ const StepFour = (props) => {
   const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
-  const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
+  const [formValues, setFormValues] = useState([{ project_name: "", role:"", technologies:"", project_link:"", project_description : ""}])
   const dispatch = useDispatch(); 
   const [status,setStatus] =useState(true);
 
@@ -22,14 +22,24 @@ const StepFour = (props) => {
     let formIsValid = true;
     formValuesArray.map ( (fields, index) => {
         let error = {}
-        if (!fields["skill"] || fields["skill"].trim() === '') {
+        if (!fields["project_name"] || fields["project_name"].trim() === '') {
             formIsValid = false;
-            error["skill"] = "*Please enter your School Name.";
+            error["project_name"] = "*Please enter your Project Name.";
         }
     
-        if (!fields["skillLevel"] || fields["skillLevel"].trim() === '') {
+        if (!fields["role"] || fields["role"].trim() === '') {
             formIsValid = false;
-            error["skillLevel"] = "*Please select your Skill Level.";
+            error["role"] = "*Please enter your role in project.";
+        }
+
+        if (!fields["technologies"] || fields["technologies"].trim() === '') {
+            formIsValid = false;
+            error["technologies"] = "*Please enter project technologies.";
+        }
+
+        if (!fields["project_description"] || fields["project_description"].trim() === '') {
+            formIsValid = false;
+            error["project_description"] = "*Please enter project description.";
         }
         if(Object.keys(error).length > 0){
             errors[index]= error
@@ -51,9 +61,11 @@ const StepFour = (props) => {
   }
 
 useEffect(() => {
-    if(!_.isEmpty(props.handleFormData)){
-    setFormValues(props.handleFormData.skills)
-    setStatus(false)
+    
+    if(!_.isEmpty(props.handleFormData.project)){
+       
+        setFormValues(props.handleFormData.project)
+        setStatus(false)
     }
 }, []);
 
@@ -62,17 +74,16 @@ useEffect(() => {
     e.preventDefault();
     let postData = formValues;    
     if (_validateForm()){
-      //props.nextStep();
-      console.log("postData4 ",postData)
+      
       if(currentId){
-          dispatch(submitCandidateData(currentId, {skills:postData,step:4}));
+          dispatch(submitCandidateData(currentId, {project:postData,step:4}));
           setTimeout(function(){  props.nextStep(); }, 2000);
       }
     }
   };
 
   const addFormFields = () => {
-    setFormValues([...formValues, { skill: "", skillLevel: "" }])
+    setFormValues([...formValues, { project_name: "", role:"", technologies:"", project_link:"", project_description : "" }])
   }
 
   const removeFormFields = (event, index) => {
@@ -99,80 +110,104 @@ useEffect(() => {
     <>
       <Card>
         <Card.Body>
-        <h3 className="page-title font-style-bold mb-2">SKILLS </h3>
-        <p style={{fontSize: '13px'}}>Highlight 6-8 of you top skills.</p>
+        <h3 className="page-title font-style-bold mb-2">Project </h3>
+        <p style={{fontSize: '13px'}}>Highlight 6-8 of you projects.</p>
           {/* <Form onSubmit={submitFormData} className="mt-4"> */}
           <Form onSubmit={submitFormData}>
             {formValues.map((index, key) => {
               return (
                 <Row key={key}>
                 <Form.Group className="mb-2 col-md-6">
-                    <Form.Label>Skill</Form.Label>
+                    <Form.Label>Project Name</Form.Label>
                     <Form.Control
-                        style={{ border: errors[key]?.skill ? "2px solid red" : "" }}
+                        style={{ border: errors[key]?.project_name ? "2px solid red" : "" }}
                         type="text"
-                        name="skill"
-                        placeholder="School Name"
-                        value={index.skill}
+                        name="project_name"
+                        placeholder="Project Name"
+                        value={index.project_name}
                         onChange={(event) => _handleChange(event,key)} 
                     />
-                    {errors[key]?.skill ? (
+                    {errors[key]?.project_name ? (
                         <Form.Text style={{ color: "red" }}>
-                        { errors[key]?.skill }
+                        { errors[key]?.project_name }
+                        </Form.Text>
+                    ) : (
+                        ""
+                    )}
+                </Form.Group>
+                <Form.Group className="mb-2 col-md-6">
+                    <Form.Label>Role</Form.Label>
+                    <Form.Control
+                        style={{ border: errors[key]?.role ? "2px solid red" : "" }}
+                        type="text"
+                        name="role"
+                        placeholder="Project Role"
+                        value={index.role}
+                        onChange={(event) => _handleChange(event,key)} 
+                    />
+                    {errors[key]?.role ? (
+                        <Form.Text style={{ color: "red" }}>
+                        { errors[key]?.role }
+                        </Form.Text>
+                    ) : (
+                        ""
+                    )}
+                </Form.Group>
+                <Form.Group className="mb-2 col-md-6">
+                    <Form.Label>Technologies</Form.Label>
+                    <Form.Control
+                        style={{ border: errors[key]?.technologies ? "2px solid red" : "" }}
+                        type="text"
+                        name="technologies"
+                        placeholder="Project Technologies"
+                        value={index.technologies}
+                        onChange={(event) => _handleChange(event,key)} 
+                    />
+                    {errors[key]?.technologies ? (
+                        <Form.Text style={{ color: "red" }}>
+                        { errors[key]?.technologies }
+                        </Form.Text>
+                    ) : (
+                        ""
+                    )}
+                </Form.Group>
+                <Form.Group className="mb-2 col-md-6">
+                    <Form.Label>Project Link</Form.Label>
+                    <Form.Control
+                        style={{ border: errors[key]?.project_link ? "2px solid red" : "" }}
+                        type="text"
+                        name="project_link"
+                        placeholder="Project Link"
+                        value={index.project_link}
+                        onChange={(event) => _handleChange(event,key)} 
+                    />
+                    {errors[key]?.project_link ? (
+                        <Form.Text style={{ color: "red" }}>
+                        { errors[key]?.project_link }
                         </Form.Text>
                     ) : (
                         ""
                     )}
                 </Form.Group>  
-                <Form.Group className="mb-2 col-md-5">
-                    <Form.Label>Level</Form.Label>
-                    <Form.Select 
-                      aria-label="Default select example" 
-                      style={{ border: errors[key]?.skillLevel ? "2px solid red" : "" }} 
-                      name="skillLevel" 
-                      onChange={(event) => _handleChange(event,key)} 
-                    >
-                        <option>Select your skill level</option>
-                        <option 
-                          value="Novice" 
-                          selected={(index.skillLevel == "Novice") ? true :false }>
-                            Novice
-                        </option>
-                        <option 
-                          value="Beginner" 
-                          selected={(index.skillLevel == "Beginner") ? true :false }>
-                            Beginner
-                        </option>
-                        <option 
-                          value="Skillful" 
-                          selected={(index.skillLevel == "Skillful") ? true :false }>
-                            Skillful
-                        </option>
-                        <option 
-                          value="Experienced" 
-                          selected={(index.skillLevel == "Experienced") ? true :false }>
-                            Experienced
-                        </option>
-                        <option 
-                          value="Expert" 
-                          selected={(index.skillLevel == "Expert") ? true :false }>
-                            Expert
-                        </option>
-                        <option 
-                          value="- Don't show level" 
-                          selected={(index.skillLevel == "- Don't show level") ? true :false }>
-                            - Don't show level
-                        </option>
-                    </Form.Select>
-                    {errors[key]?.skillLevel ? (
+                <Form.Group className="mb-2 col-md-12">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                        style={{ border: errors[key]?.project_description ? "2px solid red" : "",height: '150px' }}
+                        name="project_description"
+                        as="textarea"
+                        placeholder="Describe Your Project"
+                        value={index.project_description}
+                        onChange={(event) => _handleChange(event, key)}
+                    />
+                    {errors[key]?.project_description ? (
                         <Form.Text style={{ color: "red" }}>
-                        { errors[key]?.skillLevel }
+                        { errors[key]?.project_description }
                         </Form.Text>
                     ) : (
                         ""
                     )}
                 </Form.Group> 
-                {
+                {/* {
                   index ? 
                   <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
                       <Link to="#" onClick={(event) => removeFormFields(event, key)}>
@@ -180,7 +215,7 @@ useEffect(() => {
                       </Link>
                   </div>
                   : null
-                }                  
+                }                   */}
               </Row>
               )
             })}

@@ -1,126 +1,69 @@
-import React,{ Fragment, useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { fetchCandidateData } from '../../../actions/Candidate'
-import BlockUI from "../../../components/BlockUI";
-import { DeveloperResumeToPrint } from './DeveloperResumeToPrint';
-import { ComponentToPrint } from './ComponentToPrint'
-import './DeveloperResume.css'
-import _ from "lodash";
-import ReactToPrint from 'react-to-print';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const DeveloperResume = (props) => {
+export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
+ 
 
-
-    const candidateData = useSelector(state=> state.candidate)
-    const location = useLocation();
-    const dispatch = useDispatch()
-    const [empCode, setEmpCode] = useState('') 
-    const [empTitle, setEmpTitle] = useState('') 
-    // const [projectArray, setProjectArray] = useState([]) 
-    // const [isSet, setIsSet] = useState(false) 
-    const componentRef = useRef();
-    // const handlePrint = useReactToPrint({
-    //   content: () => componentRef.current,
-    //    bodyClass:"printElement1"
-    // });
-
-
-    useEffect(() => {
-       
-       setEmpCode(location.state.templateData.emp_code);
-       setEmpTitle(location.state.templateData.emp_title);
-    
-       if(location.state.templateData.candidate_name){
-            dispatch(fetchCandidateData(location.state.templateData.candidate_name))
-       }
-    }, [location]);
-
-
-    // const _project_page = (project) =>{
-    //     console.log('project',project)
-    //     return (
+    const _project_page = (project) =>{
+        
+        return (
             
-    //          <div className="page inner">
-    //             <div className="header">
-    //             <h2 className="emp-id">{ empCode }</h2>
-    //             <img src="./assets/img/designer-resume-img/logo.png" className="logo" />
-    //             </div>
-    //             <div className="inner-content">
-    //             <div className="two-col">
-    //                 <div className="left-col">
-    //                     <img src="./assets/img/designer-resume-img/projects-icon.png" style={{margin: '6px 0 0'}}/>
-    //                 </div>
-    //                 <div className="right-col">
-    //                     <h2>Projects</h2>
-    //                 </div>
-    //             </div>
-    //             { project?.map((data,index)=>( 
-    //             <div className="two-col-line" key={index}>
-    //                 <div className="left-col">
-    //                     <span className="circle-arrow"></span>
-    //                 </div>
-    //                 <div className="right-col">
-    //                     <h2>{ data.project_name}</h2>
-    //                     <p><strong>Description:</strong>{ data.project_description }</p>
-    //                     <p><strong>Role:</strong>{ data.role }</p>
-    //                     <p><strong>Technologies:</strong>{ data.technologies }</p>
-    //                     <Link to={data.project_link}>{ data.project_link }</Link>
-    //                 </div>
-    //             </div>
-    //             )) }
-    //             <div className="copyright-footer">
-    //                 <span className="copyright-left">
-    //                 Copyright 2021 – Virtual Employee. All Rights Reserved</span>
-    //                 <span className="copyright-right">4</span>
-    //             </div>
-    //             </div>
-    //         </div> 
+             <div className="page inner" >
+                <div className="header">
+                <h2 className="emp-id">{ empCode }</h2>
+                <img src="./assets/img/designer-resume-img/logo.png" className="logo" />
+                </div>
+                <div className="inner-content">
+                <div className="two-col">
+                    <div className="left-col">
+                        <img src="./assets/img/designer-resume-img/projects-icon.png" style={{margin: '6px 0 0'}}/>
+                    </div>
+                    <div className="right-col">
+                        <h2>Projects</h2>
+                    </div>
+                </div>
+                { project?.map((data,index)=>( 
+                <div className="two-col-line" key={index}>
+                    <div className="left-col">
+                        <span className="circle-arrow"></span>
+                    </div>
+                    <div className="right-col">
+                        <h2>{ data.project_name}</h2>
+                        <p><strong>Description:</strong>{ data.project_description }</p>
+                        <p><strong>Role:</strong>{ data.role }</p>
+                        <p><strong>Technologies:</strong>{ data.technologies }</p>
+                        <Link to={data.project_link}>{ data.project_link }</Link>
+                    </div>
+                </div>
+                )) }
+                <div className="copyright-footer">
+                    <span className="copyright-left">
+                    Copyright 2021 – Virtual Employee. All Rights Reserved</span>
+                    <span className="copyright-right">4</span>
+                </div>
+                </div>
+            </div> 
             
-    //     )
-    // }
-    const { blocking , candidateInfo} = candidateData;
-    var projectArray = [];
-    if(candidateInfo?.project !== undefined){
-        projectArray = _.chunk(candidateInfo.project, 4)
+        )
     }
+    const {   projectArray , empCode, empTitle, candidateInfo } = props;
 
+    // var projectArray = [];
+    // if(candidateInfo?.project !== undefined){
+    //     projectArray = _.chunk(candidateInfo.project, 4)
+    // }
+    const tabStyle = {
+        height: 500,
+        maxHeight: 300,
+        overflow: "scroll"
+        //backgroundColor: "blue"
+      };
     return (
-        <Fragment>
-        <BlockUI blocking={blocking} /> 
-        <div className="resumeCanvas">
-            <div className="add-items row">
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3>
-                </div>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                  <NavLink to="/select-resume">
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Back
-                    </button>
-                  </NavLink>
-                  
-                    <ReactToPrint
-                        trigger={() => <button className="btn btn-gradient-primary btn-fw mb-2" >Download</button>}
-                        content={() => componentRef.current}
-                        bodyClass={"pagetoprint"}
-                    />
-                    {/* <button
-                      type="button"
-                      onClick={handlePrint}
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Download
-                    </button> */}
-                </div>
-              </div>
+        // <Fragment>
+            <div style={tabStyle}>
+            <div ref={ref}>
              {/* Page 1 Start */}
-             {/* <ComponentToPrint propsRef={componentRef} /> */}
-             <DeveloperResumeToPrint ref={componentRef} projectArray={projectArray} empCode={empCode} empTitle={empTitle} candidateInfo={candidateInfo} />
-            {/* <div className="page main-page" PageSize="A4" style={{backgroundImage: 'url(./assets/img/designer-resume-img/web-capability-bg.png)'}}>
+            <div className="page main-page" PageSize="A4" style={{backgroundImage: 'url(./assets/img/designer-resume-img/web-capability-bg.png)'}}>
                 <section id="top-head-main" style={{backgroundImage: 'url(./assets/img/designer-resume-img/top-dotted-bg.png)'}}>
                 <div className="page-container">
                     <div className="logo-main">
@@ -229,7 +172,8 @@ const DeveloperResume = (props) => {
                 </div>
                 </section>
             </div>
-            
+             {/* Page 1 end  */}
+              {/* Page 2 Start  */}
             <div className="page inner">
                 <div className="header">
                     <h2 className="emp-id">{ empCode }</h2>
@@ -249,6 +193,9 @@ const DeveloperResume = (props) => {
                             <li>Developing advanced database driven websites amd systems including eCommerce. </li>
                             <li>Back end development and maintenance of websites using PHP and MySQL.  </li>
                             <li>Developing web sites using MySQL, PHP, javascript & other programming tools.</li>
+                            {/* <li>Documenting features, technical specifications & infrastructure requirements.  </li>
+                            <li>Working with a multi-disciplinary team to convert business needs into technical specifications Test the website and identify any technical problems</li>
+                            <li>Upload the site onto a server and register it with different search engines.</li> */}
                         </ul>
                     </div>
                 </div> 
@@ -329,13 +276,65 @@ const DeveloperResume = (props) => {
                 </div> 
                 </div>
             </div>
-             
+             {/* Page 2 end  */}
 
-            { projectArray?.map((data,index) => ( 
+              {/* Page 3 Start  */}
+
+            { // (projectArray !== undefined) ?  
+               
+            projectArray?.map((data,index) => ( 
                 _project_page(data)
-            )) }
+            // <div className="page inner no-height" key={index} >
+            //     <div className="header">
+            //     <h2 className="emp-id">{ empCode }</h2>
+            //     <img src="./assets/img/designer-resume-img/logo.png" className="logo" />
+            //     </div>
+            //     <div className="inner-content">
+            //     <div className="two-col">
+            //         <div className="left-col">
+            //             <img src="./assets/img/designer-resume-img/projects-icon.png" style={{margin: '6px 0 0'}}/>
+            //         </div>
+            //         <div className="right-col">
+            //             <h2>Projects</h2>
+            //         </div>
+            //     </div>
+            //     {/* { projectdata.map((data,index)=>( 
+                    
+            //     <div  className="two-col-line">
+            //         <div className="left-col">
+            //             <span className="circle-arrow"></span>
+            //         </div>
+            //         <div className="right-col">
+            //             <h2>{ data.project_name}</h2>
+            //             <p><strong>Description:</strong>{ data.project_description }</p>
+            //             <p><strong>Role:</strong>{ data.role }</p>
+            //             <p><strong>Technologies:</strong>{ data.technologies }</p>
+            //             <Link to={data.project_link}>{ data.project_link }</Link>
+            //         </div>
+            //     </div>
+               
+            //     )) } */}
+                
+            //     <div className="copyright-footer">
+            //         <span className="copyright-left">
+            //         Copyright 2021 – Virtual Employee. All Rights Reserved</span>
+            //         <span className="copyright-right">3</span>
+            //     </div>
+            //     </div>
+            // </div>
+            )) 
+        // <div className="copyright-footer">
+        //     <span className="copyright-left">
+        //     Copyright lokesh    </span>
+        //     <span className="copyright-right">3</span>
+        // </div>
+         }
+             {/* Page 3 end  */}
 
-            
+
+             {/* Page 4 end  */}
+
+              {/* Page 5 Start  */}
             <div className="page inner last-page">
                 <div className="header">
                 <h2 className="emp-id">{ empCode }</h2>
@@ -355,6 +354,12 @@ const DeveloperResume = (props) => {
                                 
                                 
                             ))}
+                            {/* <li><strong>Graduation</strong><span>BCA in Computer Science, Sikkim Manipal University —</span></li>
+                                <li><strong>Intermediate</strong> <span>Intermediate, CBSE — 2006 - 2007
+                                </span></li>
+                                <li><strong>High School</strong> <span>CBSE — 2004 - 2005
+
+                                </span></li> */}
                         </ul>
                     </div>
                 </div>
@@ -365,40 +370,11 @@ const DeveloperResume = (props) => {
                     <span className="copyright-right">5</span>
                 </div>
                 </div>
-            </div> */}
+            </div>
             
-             {/* Page 5 end  */}
-             <div className="add-items row mt-5">
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  
-                </div>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                  <NavLink to="/select-resume">
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Back
-                    </button>
-                  </NavLink>
-                  
-                    {/* <button
-                      type="button"
-                      onClick={handlePrint}
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Download
-                    </button> */}
-                    <ReactToPrint
-                        trigger={() => <button className="btn btn-gradient-primary btn-fw mb-2" >Download</button>}
-                        content={() => componentRef.current}
-                        bodyClass={"pagetoprint"}
-                    />
-                </div>
-              </div>
-        </div>
-        </Fragment>
-    )
-}
 
-export default DeveloperResume;
+            </div>
+            </div>
+        
+    )
+})

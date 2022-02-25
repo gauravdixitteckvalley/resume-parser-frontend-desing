@@ -370,6 +370,72 @@ const CandidatePreview = (props) => {
             </div>
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <h3 className="page-title font-style-bold mb-4">
+                  <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                  </span>
+                  Project
+                </h3>
+                <hr className="mb-4" />
+                {fields.project?.map((proj, key) => (
+                  <>
+                    <div className="row">
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-12 col-form-label">
+                          <b>Project Name</b>
+                        </label>
+                        <div className="col-lg-12 col-form-label">
+                          {proj?.project_name}
+                        </div>
+                      </div>
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>Role</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          {proj?.role}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>Technologies</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          { proj.technologies}
+                        </div>
+                      </div>
+                      <div className="displayPreviewRow col-md-6">
+                        <label className="col-lg-4 col-form-label">
+                          <b>Prokect Link</b>
+                        </label>
+                        <div className="col-lg-7 col-form-label">
+                          {proj?.project_link}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="displayPreviewRow col-md-12" style={{borderBottom: '0'}}>
+                        <label className="col-lg-4 col-form-label">
+                          <b>Description</b>
+                        </label>
+                        <div className="col-lg- col-form-label">{proj.project_description}</div>
+                      </div>
+                      
+                    </div>
+                    <hr className="mb-4" />
+                  </>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
         
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">

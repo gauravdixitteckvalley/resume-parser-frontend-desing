@@ -7,6 +7,7 @@ import StepFour from "./StepFour";
 import StepFive from "./StepFive";
 import StepSix from "./StepSix";
 import StepSeven from "./StepSeven";
+import StepEight from "./StepEight";
 import { useSelector, useDispatch } from "react-redux";
 import {  fetchCandidateData  } from "../../../actions/Candidate";
 import _ from 'lodash';
@@ -35,7 +36,7 @@ function CandidateMultiStep(props) {
           setFilData(userData)
         }
 }
-   console.log('candidateInfo  ',userData);
+  //  console.log('candidateInfo  ',userData);
    /*if(userData){
      console.log("userData ", userData)
    }
@@ -77,6 +78,7 @@ function CandidateMultiStep(props) {
   // function for going to next step by increasing step state by 1
   const nextStep = () => {
     setstep(step + 1);
+    console.log('step',step);
   };
 
   // function for going to previous step by decreasing step state by 1
@@ -98,7 +100,6 @@ function CandidateMultiStep(props) {
   }
   
 
-console.log('userData.candidateInfo',userData.candidateInfo);
 
 // javascript switch case to show different form in each step
   switch (step) {
@@ -231,6 +232,25 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           </Container>
         </div>
       );
+      // Only formData is passed as prop to show the final value at form submit
+      case 8:
+        return (
+          <div className="App">
+            <BlockUI blocking={blocking} />
+            <Container>
+              <Row>
+                <Col>
+                  { !_.isEmpty(userData.candidateInfo) ? <StepEight 
+                    nextStep={() => nextStep()} 
+                    prevStep={prevStep} 
+                    handleFormData={userData?.candidateInfo} 
+                    cdId={cdId}
+                  /> :'' }
+                </Col>
+              </Row>
+            </Container>
+          </div>
+        );      
     // default case to show nothing
     default:
       return (

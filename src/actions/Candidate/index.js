@@ -6,7 +6,7 @@ export const fetchCandidateData = (params) => {
         dispatch({ type: 'SUBMIT_CANDIDATE_GET_DATA_REQUEST' });
         try {
             const response = await api.get(`/resume/candidate/${params}`,{
-                params  : params,
+                // params  : params,
                 headers : requestTokenHeader(),
             });
             if (response.data.success) {

@@ -262,7 +262,28 @@ export function resume(state = [], action) {
             return {
                 blocking : false,
             };    
-    
+  
+        case 'GET_CANDIDATE_REQUEST':
+            return {
+                ...state,
+                blocking : true,
+                candidateList:[]
+            };
+        
+        case 'GET_CANDIDATE_SUCCESS':
+            
+            return {
+                ...state,
+                blocking : false,
+                candidateList:action.payload.candidate
+            };
+            
+        case 'GET_CANDIDATE_FAILURE':
+            return {
+                ...state,
+                blocking : false,
+                candidateList:[]
+            };            
         default:
             return state;
     }

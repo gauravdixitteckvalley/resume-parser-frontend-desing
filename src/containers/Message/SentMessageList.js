@@ -47,11 +47,9 @@ const SentMessageListing = () => {
                 
                 <div className="listings" key={index}   >
                     <Link to={`/sent-message-details/${data._id}`}  className="bold-font">
-                        <div className="row">                        
-                            <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
-                            <div className="col-md-4"><p>{ data.message_subject }</p></div>
-                            <div className="col-md-4 text-right-cls"><p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p></div>
-                        </div>
+                        <p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p>
+                        <p>{ data.message_subject }</p>
+                        <p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p>
                     </Link>
                 </div> 
             )) }    
@@ -91,8 +89,8 @@ const SentMessageListing = () => {
                 <div className="col-lg-12 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
-                            <div>
-                                <div className="message-listing mb-3">
+                            <div className="table-responsive">
+                                <div className="message-listing">
 
                                     { _buildList(sentMessageList) }
                                     

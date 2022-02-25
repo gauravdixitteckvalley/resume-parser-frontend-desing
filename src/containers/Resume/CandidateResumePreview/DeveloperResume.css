@@ -789,8 +789,23 @@ max-height:35px;
     right: 10px;
 	left: auto;
 }
+
+.no-height{
+	height: auto !important;
+}
 @media only screen and (max-width: 768px)  {
 	.page{
 		width: 100% !important;
 	}
   }
+
+
+  
+  @media print {
+	html, body {
+	  height: initial !important;
+	  overflow: initial !important;
+	  -webkit-print-color-adjust: exact;
+	}
+  }
+  

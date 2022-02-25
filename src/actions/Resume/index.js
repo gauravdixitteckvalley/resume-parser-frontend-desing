@@ -362,3 +362,22 @@ export const actionChangeCandidatePassword=(postData, user)=>{
         }
     }
 }
+
+/* get candidate list */
+export const getCandidateList = () => {
+    return async dispatch => {
+        dispatch({ type: 'GET_CANDIDATE_REQUEST' });
+        try {
+            let response = await api.get(`/resume/candidate`, {
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                dispatch({ type : 'GET_CANDIDATE_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'GET_CANDIDATE_FAILURE' });
+        }
+    }
+}

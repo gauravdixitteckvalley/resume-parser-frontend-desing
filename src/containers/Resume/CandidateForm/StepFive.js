@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
 import _ from "lodash";
@@ -10,30 +10,27 @@ import validateCandidateForm  from "./CandidateFromValidation";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepFive = (props) => {
-  console.log(props)
   const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
-  const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
+  const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
   const dispatch = useDispatch(); 
   const [status,setStatus] =useState(true);
 
   const validateForm = (formValuesArray) => {
     let errors = [];
     let formIsValid = true;
-
     formValuesArray.map ( (fields, index) => {
         let error = {}
-        if (!fields["language"] || fields["language"].trim() === '') {
+        if (!fields["skill"] || fields["skill"].trim() === '') {
             formIsValid = false;
-            error["language"] = "*Please enter your Language.";
+            error["skill"] = "*Please enter your School Name.";
         }
     
-        if (!fields["langLevel"] || fields["langLevel"].trim() === '') {
+        if (!fields["skillLevel"] || fields["skillLevel"].trim() === '') {
             formIsValid = false;
-            error["langLevel"] = "*Please select your Language Level.";
+            error["skillLevel"] = "*Please select your Skill Level.";
         }
-
         if(Object.keys(error).length > 0){
             errors[index]= error
         }
@@ -48,32 +45,39 @@ const StepFive = (props) => {
 
   /* validate form */
   const _validateForm = () => {
-      let response = validateForm(formValues);
-      setErrors(response.errors)
-      return response.formIsValid;
+    let response = validateForm(formValues);
+    setErrors(response.errors)
+    return response.formIsValid;
   }
+
+useEffect(() => {
+    if(!_.isEmpty(props.handleFormData)){
+    setFormValues(props.handleFormData.skills)
+    setStatus(false)
+    }
+}, []);
 
   // after form submit validating the form data using validator
   const submitFormData = (e) => {
     e.preventDefault();
-    let postData = formValues; 
-     // checking if value of first name and last name is empty show error else take to next step
+    let postData = formValues;    
     if (_validateForm()){
+      //props.nextStep();
       console.log("postData4 ",postData)
       if(currentId){
-          dispatch(submitCandidateData(currentId, {language:postData,step:5}));
+          dispatch(submitCandidateData(currentId, {skills:postData,step:5}));
           setTimeout(function(){  props.nextStep(); }, 2000);
       }
-     // props.nextStep();
     }
   };
 
   const addFormFields = () => {
-    setFormValues([...formValues, { language: "", langLevel: "" }])
+    setFormValues([...formValues, { skill: "", skillLevel: "" }])
   }
 
   const removeFormFields = (event, index) => {
     event.preventDefault()
+
     if(errors !== false){
       let newErrors = [...errors];
       newErrors.splice(index, 1);
@@ -85,103 +89,102 @@ const StepFive = (props) => {
     setFormValues(newFormValues)
   }
 
-  const _handleChange = (event,key ) => {
+  const _handleChange = (event,key) => {
     const { target } = event
     formValues[key][target.name] = target.value
     setFormValues([...formValues])
-  }
-
-useEffect(() => {
-  if(!_.isEmpty(props.handleFormData)){
-    setFormValues(props.handleFormData.langauge)
-    setStatus(false)
-  }
-}, []);
+  };
 
   return (
     <>
       <Card>
         <Card.Body>
-        <h3 className="page-title font-style-bold mb-2">LANGUAGES </h3>
-        <p style={{fontSize: '13px'}}>Add languages to your resume</p>
-          <Form onSubmit={submitFormData} className="mt-4">
-              {formValues.map((index, key) => {
-                return (
-                  <Row key={index}>
-                    <Form.Group className="mb-2 col-md-6">
-                        <Form.Label>Content</Form.Label>
-                        <Form.Control
-                            style={{ border: errors[key]?.language ? "2px solid red" : "" }}
-                            type="text"
-                            placeholder="eg. Spanish"
-                            name="language"
-                            value={index.language}
-                            onChange={event => _handleChange(event, key)}
-                        />
-                        {errors[key]?.language ? (
-                            <Form.Text style={{ color: "red" }}>
-                              { errors[key]?.language}
-                            </Form.Text>
-                        ) : (
-                            ""
-                        )}
-                    </Form.Group>  
-                    <Form.Group className="mb-2 col-md-5">
-                        <Form.Label>Level</Form.Label>
-                        <Form.Select 
-                          aria-label="Default select example" 
-                          style={{ border: errors[key]?.langLevel ? "2px solid red" : "" }} 
-                          name="langLevel"  
-                          onChange={event => _handleChange(event, key)}
-                        >
-                            <option>Select your language level</option>
-                            <option 
-                              selected={(index.langLevel == "Basic") ? true :false }
-                              value="Basic"
-                              >Basic
-                            </option>
-                            <option 
-                              value="Proficient"
-                              selected={(index.langLevel == "Proficient") ? true :false }
-                              >Proficient
-                            </option>
-                            <option 
-                              value="Conversational"
-                              selected={(index.langLevel == "Conversational") ? true :false }
-                              >Conversational
-                            </option>
-                            <option 
-                              value="Fluent"
-                              selected={(index.langLevel == "Conversational") ? true :false }
-                              >Fluent
-                            </option>
-                            <option 
-                              value="Native speaker"
-                              selected={(index.langLevel == "Native speaker") ? true :false }
-                              >Native speaker
-                            </option>
-                        </Form.Select>
-                        {errors[key]?.langLevel ? (
-                            <Form.Text style={{ color: "red" }}>
-                              { errors[key]?.langLevel}
-                            </Form.Text>
-                        ) : (
-                            ""
-                        )}
-                    </Form.Group> 
-                    {
-                      index ? 
-                      <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
-                          <Link to="#" onClick={(event) => removeFormFields(event, key)}>
-                              <i className="mdi mdi-delete"></i>
-                          </Link>
-                      </div>
-                      : null
-                    }                  
-                  </Row>
-                )
-              })}
-             
+        <h3 className="page-title font-style-bold mb-2">SKILLS </h3>
+        <p style={{fontSize: '13px'}}>Highlight 6-8 of you top skills.</p>
+          {/* <Form onSubmit={submitFormData} className="mt-4"> */}
+          <Form onSubmit={submitFormData}>
+            {formValues.map((index, key) => {
+              return (
+                <Row key={key}>
+                <Form.Group className="mb-2 col-md-6">
+                    <Form.Label>Skill</Form.Label>
+                    <Form.Control
+                        style={{ border: errors[key]?.skill ? "2px solid red" : "" }}
+                        type="text"
+                        name="skill"
+                        placeholder="School Name"
+                        value={index.skill}
+                        onChange={(event) => _handleChange(event,key)} 
+                    />
+                    {errors[key]?.skill ? (
+                        <Form.Text style={{ color: "red" }}>
+                        { errors[key]?.skill }
+                        </Form.Text>
+                    ) : (
+                        ""
+                    )}
+                </Form.Group>  
+                <Form.Group className="mb-2 col-md-5">
+                    <Form.Label>Level</Form.Label>
+                    <Form.Select 
+                      aria-label="Default select example" 
+                      style={{ border: errors[key]?.skillLevel ? "2px solid red" : "" }} 
+                      name="skillLevel" 
+                      onChange={(event) => _handleChange(event,key)} 
+                    >
+                        <option>Select your skill level</option>
+                        <option 
+                          value="Novice" 
+                          selected={(index.skillLevel == "Novice") ? true :false }>
+                            Novice
+                        </option>
+                        <option 
+                          value="Beginner" 
+                          selected={(index.skillLevel == "Beginner") ? true :false }>
+                            Beginner
+                        </option>
+                        <option 
+                          value="Skillful" 
+                          selected={(index.skillLevel == "Skillful") ? true :false }>
+                            Skillful
+                        </option>
+                        <option 
+                          value="Experienced" 
+                          selected={(index.skillLevel == "Experienced") ? true :false }>
+                            Experienced
+                        </option>
+                        <option 
+                          value="Expert" 
+                          selected={(index.skillLevel == "Expert") ? true :false }>
+                            Expert
+                        </option>
+                        <option 
+                          value="- Don't show level" 
+                          selected={(index.skillLevel == "- Don't show level") ? true :false }>
+                            - Don't show level
+                        </option>
+                    </Form.Select>
+                    {errors[key]?.skillLevel ? (
+                        <Form.Text style={{ color: "red" }}>
+                        { errors[key]?.skillLevel }
+                        </Form.Text>
+                    ) : (
+                        ""
+                    )}
+                </Form.Group> 
+                {
+                  index ? 
+                  <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
+                      <Link to="#" onClick={(event) => removeFormFields(event, key)}>
+                          <i className="mdi mdi-delete"></i>
+                      </Link>
+                  </div>
+                  : null
+                }                  
+              </Row>
+              )
+            })}
+
             <hr className="mb-4"/> 
             <Row>
             <Form.Group className="mb-2 col-md-6">
