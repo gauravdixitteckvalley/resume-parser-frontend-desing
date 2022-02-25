@@ -97,6 +97,15 @@ const CandidatePreview = (props) => {
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
+                <div className="row">
+                  <div className="col-md-12 text-center">
+                    <img src={fields.ImageProfile || ""} className="candid-profile-img" alt="image"/>
+                    {console.log(fields)}
+                    <h3 className="mt-3">{fields.name || ""}</h3>
+                    <h5>{fields.designation || ""}</h5>
+                  </div>
+                </div>
+                <hr className="mb-4" />
                 <h4 className="page-title font-style-bold mb-4">
                   <span className="page-title-icon bg-gradient-primary text-white me-2">
                     <i className="mdi mdi-checkbox-marked"></i>

@@ -9,12 +9,13 @@ const UploadImage = (props) => {
 
     const [fields,setFields] = useState();
     const [fileName,setFileName] =useState("")
-    let id = props.id;
+    let id = props.match.params.id;
+    console.log(props)
     const [error,setError] = useState("");
 
   const candidate = useSelector(state => state.candidate );
-  //dispatch function to execute the action
   const dispatch = useDispatch();
+  //dispatch function to execute the action
 
   const _validateForm = () => {
     let formFields = fields;
@@ -37,7 +38,6 @@ const UploadImage = (props) => {
   };
 
   const _handleChange = event => {
-    event.preventDefault()
     const { name, value } = event.target;
         //console.log("event.target ",event.target.files[0])
         setFileName(event.target.files[0])
@@ -45,7 +45,7 @@ const UploadImage = (props) => {
         console.log(value);
   }
 
-  const _onSubmitImageProfile = (event) => {
+  const _handleSubmitImage = (event) => {
     event.preventDefault()
     if (_validateForm()) {
         let postData = new FormData(event.target)
@@ -70,7 +70,7 @@ const UploadImage = (props) => {
               </h4>
               <hr className="mb-4" />
 
-              <Form onSubmit={(event) => _onSubmitImageProfile(event)} className="form-inline edit-form">
+              <Form onSubmit={(event) => _handleSubmitImage(event)} className="form-inline edit-form">
                 <div className="row mt-2">
                   <div className="col-md-12 mb-3">
                     <label htmlFor="formFile" className="form-label required">Upload Image</label>
