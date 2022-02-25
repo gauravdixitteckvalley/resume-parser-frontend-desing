@@ -53,7 +53,7 @@ const CandidatePreview = (props) => {
       if(user.isCandidateLogin){
         return (
           <>
-            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right candid-profile">
+            <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2 text-end text-right candid-profile">
               
               <button className="btn btn-gradient-primary mb-2" onClick={(event) => uploadOption(event)}> Upload Resume</button>
               <Link to={`/candidate/view/career-preference/${user.id}`} rel="noreferrer">
@@ -61,6 +61,9 @@ const CandidatePreview = (props) => {
               </Link>
               <Link to={`/candidate/view/video-profile/${user.id}`} rel="noreferrer">
                 <button type="submit" className="btn btn-gradient-primary mb-2">Video profile</button>
+              </Link>
+              <Link to={`/candidate/view/upload-image/${user.id}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2">Upload image</button>
               </Link>
               <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer">
                 <button type="submit" className="btn btn-gradient-primary mb-2">Edit</button>
@@ -114,7 +117,7 @@ const CandidatePreview = (props) => {
                         {fields.careerPreference.preferredLoc || ""}
                       </div>
                     </div>
-                    <div className="displayPrevdhhoodctbbfiewRow col-md-6">
+                    <div className="displayPreviewRow col-md-6">
                       <label className="col-lg-4 col-form-label">
                         <b>Preferred Role</b>
                       </label>

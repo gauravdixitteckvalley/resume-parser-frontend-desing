@@ -89,3 +89,29 @@ export const submitVideoProfileAction = (id, postData) => {
         }
     }
 }
+
+/* action for update resume recode */
+export const updateProfileImage = (id, postData) => {
+    return async dispatch => {
+        // console.log("postData ",postData, " id ", id)
+        dispatch({ type: 'UPDATE_IMAGE_REQUEST' });
+        try {
+            let response = await api.put(`/resume/candidate/profileImageUpload/${id}`, postData, {
+                headers : requestTokenHeader(),
+            });
+           
+            if (response.data.success) {
+                dispatch({ type : 'UPDATE_IMAGE_SUCCESS'});
+                const { message } = response.data.data
+                displaySuccessMessage(message);
+                const redirectLink = `/candidate/view/${id}`;
+               // setTimeout(()=>{history.push(redirectLink)},2000)
+                window.location.href = redirectLink;
+               // history.push(redirectLink);
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'UPDATE_IMAGE_FAILURE' });
+        }
+    }
+}
