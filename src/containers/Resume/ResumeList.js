@@ -266,7 +266,7 @@ const ResumeList = (props) => {
                             ></i>
                           </NavLink>
                           <NavLink
-                            to={`/candidate/details/${data.id}`}
+                            to={`/candidate/details/edit/${data.id}`}
                           >
                             <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
                           </NavLink>
