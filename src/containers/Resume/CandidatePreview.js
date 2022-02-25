@@ -305,13 +305,16 @@ const CandidatePreview = (props) => {
                 <hr className="mb-4" />
 
                 <div className="row">
-                  <div className=" col-md-12 cv_icon_section">
-                    <label className=" col-form-label">
-                      <img src="/resume_icon.png" alt="logo"  className="cv_icon" />
-                    </label>
-                    <div className="col-form-label">
-                      {fields.resumePath || ""}
-                    </div>
+                  <div className=" col-md-12 ">
+                    <a href={`http://localhost:1234/api/resume/view/${fields.resumePath}`} 
+                      target="_blank" rel="noreferrer" className="cv_icon_section">
+                      <label className=" col-form-label">
+                        <img src="/resume_icon.png" alt="logo"  className="cv_icon" />
+                      </label>
+                      <div className="col-form-label">
+                        {fields.resumePath || ""}
+                      </div>
+                    </a>
                   </div>
                 </div>
 

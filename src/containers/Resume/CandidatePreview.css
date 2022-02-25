@@ -10,10 +10,13 @@
     margin-left: 5px;
 }
 .cv_icon{
-    width: 100px;
+    width: 80px;
+    margin-right: 10px;
 }
-.cv_icon_section{
+.cv_icon_section,.cv_icon_section:hover{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    text-decoration: none;
+    color:#212529;
 }
