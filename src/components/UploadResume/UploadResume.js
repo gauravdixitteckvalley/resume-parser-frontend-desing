@@ -20,7 +20,7 @@ export default function UploadResume(props) {
                 formIsValid = false;
                 setError("*Please upload  file")
             }
-            else if (!formFields.match(/\.(pdf|docx|doc|gif)$/)) {
+            else if (!formFields.match(/\.(pdf|docx|doc)$/)) {
                 formIsValid = false;
                 setError("*Please upload .pdf/.docx/.doc file")
                 

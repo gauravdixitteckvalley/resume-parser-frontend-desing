@@ -37,6 +37,7 @@ const VideoProfile = lazy(() => import ('../containers/Resume/VideoProfile'))
 const ActivityLog = lazy(() => import ('../containers/Resume/ActivityLog/ActivityLog'))
 const Notice = lazy(() => import ('../containers/Notice/Notice'))
 const Notification = lazy(() => import ('../containers/Notification/Notification'))
+const UploadImage = lazy(() => import ('../containers/Resume/UploadImage'))
 
 
 function MainRoute() {
@@ -81,6 +82,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/select-resume" component={SelectResume} />
                         <PrivateRoute exact path="/candidate/view/career-preference/:id" component={CareerPreference} />
                         <PrivateRoute exact path="/candidate/view/video-profile/:id" component={VideoProfile} />
+                        <PrivateRoute exact path="/candidate/view/upload-image/:id" component={UploadImage} />
                         <PrivateRoute exact path="/activity-log" component={ActivityLog} />
                         <PrivateRoute exact path="/notices" component={Notice} />
                         <PrivateRoute exact path="/notifications" component={Notification} />

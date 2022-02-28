@@ -1,4 +1,5 @@
 export function candidate(state = [], action) {
+    // console.log(action, " Candidate Action ")
     switch (action.type) {
         /* cases for submit form starts */
         case 'SUBMIT_CANDIDATE_GET_DATA_REQUEST':
@@ -77,6 +78,17 @@ export function candidate(state = [], action) {
             };
         
         case 'SUBMIT_MANUAL_RESUME_FORM_FAILURE':
+        /* ================== image upload ================ */
+        case 'UPDATE_IMAGE_REQUEST':
+            return{
+                blocking : true
+            }
+        case 'UPDATE_IMAGE_SUCCESS':
+            return {
+                blocking : false
+            };
+        
+        case 'UPDATE_IMAGE_FAILURE':
             return {
                 blocking : false,
             };

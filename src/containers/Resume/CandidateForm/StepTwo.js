@@ -1,6 +1,8 @@
 import React, { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import './CandidateMultiForm.css';
 import _ from "lodash";
 import {  getStateList } from "../../../actions/Resume"
@@ -20,7 +22,6 @@ const StepTwo = (props) => {
     useEffect(() => {
 
         if(!_.isEmpty(props.handleFormData)){
-            console.log("props.workExperience ",props.handleFormData.workExperience);
             if(props.handleFormData.workExperience.length >0 && formValues.length === 0 ){
                 setFormValues(props.handleFormData.workExperience)
             }
@@ -42,78 +43,11 @@ const StepTwo = (props) => {
         }
             
     }, []);
-/*
-    const validateForm = (formValuesArray) => {
-        let errors = [];
-        let formIsValid = true;
-    
-    //     formValuesArray.map ( (fields, index) => {
-    //         let error = {}
-    //         const state = `state${index}`
-    //         if (!fields["employer"] || fields["employer"].trim() === '') {
-    //             formIsValid = false;
-    //             error["employer"] = "*Please enter your Employer.";
-    //         }
-        
-    //         if (!fields["emptitle"] || fields["emptitle"].trim() === '') {
-    //             formIsValid = false;
-    //             error["emptitle"] = "*Please select you Employee Title.";
-    //         }
-        
-    //         if (!fields["startDate"] || fields["startDate"].trim() === '') {
-    //             formIsValid = false;
-    //             error["startDate"] = "*Please enter your Start Date.";
-    //         }
-        
-    //         if (!fields["endDate"] || fields["endDate"].trim() === '') {
-    //             formIsValid = false;
-    //             error["endDate"] = "*Please select your End Date.";
-    //         }
-        
-    //         if (!fields["jd"] || fields["jd"].trim() === '') {
-    //             formIsValid = false;
-    //             error["jd"] = "*Please describe your Job.";
-    //         }
-        
-    //         if (!fields["country"] || fields["country"].trim() === '') {
-    //             formIsValid = false;
-    //             error["country"] = "*Please select your Country.";
-    //         }
-            
-    //         if (!fields[state] || fields[state].trim() === '') {
-    //             formIsValid = false;
-    //             error[state] = "*Please select your State.";
-    //         }
-        
-    //         if (!fields["city"] || fields["city"].trim() === '') {
-    //             formIsValid = false;
-    //             error["city"] = "*Please enter your City.";
-    //         }
-
-    //         if(Object.keys(error).length > 0){
-    //             errors[index]= error
-    //         }
-            
-    //     })
-    
-    //     return {
-    //         errors : errors,
-    //         formIsValid : formIsValid
-    //     };
-    // }
-
-    // /* validate form */
-    // const _validateForm = () => {
-    //     let response = validateForm(formValues);
-    //     setErrors(response.errors)
-    //     return response.formIsValid;
-    // }
 
     // after form submit validating the form data using validator
     const submitFormData = (event) => {
         event.preventDefault();
         let postData = formValues;
-       // console.log("postData ",postData)
         if(currentId){
             dispatch(submitCandidateData(currentId, {workExperience:postData,step:2}));
             setTimeout(function(){  props.nextStep(); }, 2000);
@@ -162,6 +96,21 @@ const StepTwo = (props) => {
                                     }])
     }
 
+    //removing formValues object
+    const removeFormFields = (event, index) => {
+        event.preventDefault()
+    
+        if(errors !== false){
+          let newErrors = [...errors];
+          newErrors.splice(index, 1);
+          setFormValues(newErrors)
+        }
+    
+        let newFormValues = [...formValues];
+        newFormValues.splice(index, 1);
+        setFormValues(newFormValues)
+      }
+
     const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey,selectedState) => {
         const stateName = `state${formValuesKey}`
         if(formValues[formValuesKey].isStateFilled){
@@ -202,7 +151,12 @@ const StepTwo = (props) => {
         <>
         <Card>
             <Card.Body>
-            <h3 className="page-title font-style-bold mb-2">EXPERIENCE </h3>
+            <h3 className="page-title font-style-bold mb-2">
+                <span className="page-title-icon bg-gradient-primary text-white me-2">
+                  <i className="mdi mdi-checkbox-marked"></i>
+                </span>
+                EXPERIENCE 
+            </h3>
             <p style={{fontSize: '13px'}}>List your work experience, from the most recent to the oldest. Feel free to use out pre-written examples.</p>
             <Form onSubmit={submitFormData} className="mt-4">
             
@@ -379,6 +333,15 @@ const StepTwo = (props) => {
                                         ""
                                     )} */}
                                 </Form.Group>
+                                {
+                                index ? 
+                                <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
+                                    <Link to="#" onClick={(event) => removeFormFields(event, key)}>
+                                        <i className="mdi mdi-delete"></i>
+                                    </Link>
+                                </div>
+                                : null
+                                }
                             </Row>
                             <hr className="mb-4 mt-4"/>
                         </div>

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import validator from "validator";
 import _ from "lodash";
+
 import {  getStateList } from "../../../actions/Resume"
 import { displayErrorMessage } from '../../../utils/helper';
 import {  submitCandidateData  } from "../../../actions/Candidate";
@@ -238,17 +239,38 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         city: null
                                     }])
     }
+
+    //removing formValues object
+    const removeFormFields = (event, index) => {
+        event.preventDefault()
+    
+        if(errors !== false){
+          let newErrors = [...errors];
+          newErrors.splice(index, 1);
+          setFormValues(newErrors)
+        }
+    
+        let newFormValues = [...formValues];
+        newFormValues.splice(index, 1);
+        setFormValues(newFormValues)
+    }
+
     if(years.length === 0){
         for(let i = oldYear; i <= currentYear; i++){
             years.push(i);
         }
-    }  
-    //console.log("years " , years)
+    }
+
     return (
         <>
         <Card>
             <Card.Body>
-            <h3 className="page-title font-style-bold mb-2">EDUCATION </h3>
+            <h3 className="page-title font-style-bold mb-2">
+                <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                </span>
+                EDUCATION 
+            </h3>
             <p style={{fontSize: '13px'}}>Add more about your educational background.</p>
             <Form onSubmit={submitFormData} className="mt-4">
                 {formValues?.map((index, key) => {
@@ -283,18 +305,6 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         value={index.degree}
                                         onChange={ (event) => _handleChange(event, key) }
                                     />
-{/*                                     
-                                    <Form.Select 
-                                        aria-label="Default select example" 
-                                        style={{ border: errors[key]?.schoolOrCollege ? "2px solid red" : "" }} 
-                                        name="degree"  
-                                        onChange={ (event) => _handleChange(event, key) }
-                                    >
-                                        <option>Select a degree</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </Form.Select> */}
 
                                     {errors[key]?.schoolOrCollege ? (
                                         <Form.Text style={{ color: "red" }}>
@@ -458,7 +468,16 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         />
                                     </Form.Group>
                                     </Row>
-                                </Form.Group>  
+                                </Form.Group>
+                                {
+                                index ? 
+                                <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
+                                    <Link to="#" onClick={(event) => removeFormFields(event, key)}>
+                                        <i className="mdi mdi-delete"></i>
+                                    </Link>
+                                </div>
+                                : null
+                                }  
                             </Row>
                             
                             <hr className="mb-4"/> 

@@ -110,6 +110,24 @@ export const submitManualResumeFormData = (postData) => {
             handleHttpError(error.response);
             dispatch({ type: 'SUBMIT_MANUAL_RESUME_FORM_FAILURE' });
             console.log(error , " error")
+/* action for update resume recode */
+export const updateProfileImage = (id, postData) => {
+    return async dispatch => {
+        console.log("postData ",postData, " id ", id)
+        dispatch({ type: 'UPDATE_IMAGE_REQUEST' });
+        try {
+            let response = await api.put(`/resume/candidate/profileImageUpload/${id}`, postData, {
+                headers : requestTokenHeader(),
+            });
+           
+            if (response.data.success) {
+                dispatch({ type : 'UPDATE_IMAGE_SUCCESS'});
+                const { message } = response.data.data
+                displaySuccessMessage(message);
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'UPDATE_IMAGE_FAILURE' });
         }
     }
 }
