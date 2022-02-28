@@ -110,6 +110,9 @@ export const submitManualResumeFormData = (postData) => {
             handleHttpError(error.response);
             dispatch({ type: 'SUBMIT_MANUAL_RESUME_FORM_FAILURE' });
             console.log(error , " error")
+        }
+    }
+}
 /* action for update resume recode */
 export const updateProfileImage = (id, postData) => {
     return async dispatch => {
