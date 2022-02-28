@@ -102,7 +102,12 @@ useEffect(() => {
     <>
       <Card>
         <Card.Body>
-        <h3 className="page-title font-style-bold mb-2">LANGUAGES </h3>
+        <h3 className="page-title font-style-bold mb-2">
+          <span className="page-title-icon bg-gradient-primary text-white me-2">
+              <i className="mdi mdi-checkbox-marked"></i>
+          </span>
+          LANGUAGES 
+        </h3>
         <p style={{fontSize: '13px'}}>Add languages to your resume</p>
           <Form onSubmit={submitFormData} className="mt-4">
               {formValues.map((index, key) => {
