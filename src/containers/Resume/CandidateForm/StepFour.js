@@ -75,6 +75,7 @@ useEffect(() => {
     setFormValues([...formValues, { skill: "", skillLevel: "" }])
   }
 
+  //removing formValues object
   const removeFormFields = (event, index) => {
     event.preventDefault()
 
@@ -99,7 +100,12 @@ useEffect(() => {
     <>
       <Card>
         <Card.Body>
-        <h3 className="page-title font-style-bold mb-2">SKILLS </h3>
+        <h3 className="page-title font-style-bold mb-2">
+          <span className="page-title-icon bg-gradient-primary text-white me-2">
+            <i className="mdi mdi-checkbox-marked"></i>
+          </span>
+          SKILLS 
+        </h3>
         <p style={{fontSize: '13px'}}>Highlight 6-8 of you top skills.</p>
           {/* <Form onSubmit={submitFormData} className="mt-4"> */}
           <Form onSubmit={submitFormData}>

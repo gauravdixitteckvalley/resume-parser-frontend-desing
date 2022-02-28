@@ -48,23 +48,33 @@ const StepSeven = (props) => {
       <Card>
         <Card.Body>
           <Form onSubmit={submitFormData} >
-          <Row>
-          <h3 className="page-title font-style-bold mb-4">ACCOMPLISHMENTS </h3>
-                <Form.Group className="mb-2 col-md-12">
+            <Row>
+              <h3 className="page-title font-style-bold mb-4">
+              <span className="page-title-icon bg-gradient-primary text-white me-2">
+                  <i className="mdi mdi-checkbox-marked"></i>
+              </span>
+                ACCOMPLISHMENTS 
+              </h3>
+              <Form.Group className="mb-2 col-md-12">
                 <Form.Label>Content</Form.Label>
-                    <Form.Control
-                        style={{ height: '150px' }}
-                        name="accomplishment"
-                        as="textarea"
-                        value={fields.accomplishment}
-                        placeholder="Any Accomplishments"
-                        onChange={(event) => _handleChange(event)} 
-                    />
-                </Form.Group>
+                  <Form.Control
+                      style={{ height: '150px' }}
+                      name="accomplishment"
+                      as="textarea"
+                      value={fields.accomplishment}
+                      placeholder="Any Accomplishments"
+                      onChange={(event) => _handleChange(event)} 
+                  />
+              </Form.Group>
             </Row>
             <Row>
-            <h3 className="page-title font-style-bold mt-4 mb-4">ADDITIONAL INFORMATION </h3>
-                <Form.Group className="mb-2 col-md-12">
+              <h3 className="page-title font-style-bold mt-4 mb-4">
+              <span className="page-title-icon bg-gradient-primary text-white me-2">
+                  <i className="mdi mdi-checkbox-marked"></i>
+              </span>
+                ADDITIONAL INFORMATION 
+              </h3>
+              <Form.Group className="mb-2 col-md-12">
                 <Form.Label>Content</Form.Label>
                     <Form.Control
                         style={{ height: '150px' }}
@@ -74,10 +84,8 @@ const StepSeven = (props) => {
                         value={fields.additionalInfo}
                         onChange={(event) => _handleChange(event)} 
                     />
-                </Form.Group>
+              </Form.Group>
             </Row>
-            
-            
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button className= "btn btn-gradient-primary mt-4 mb-2" type="submit"  onClick={props.prevStep} >
                 Previous

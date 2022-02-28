@@ -114,8 +114,8 @@ const CandidatePreview = (props) => {
                         {fields.careerPreference.preferredLoc || ""}
                       </div>
                     </div>
-                    <div className="displayPrevdhhoodctbbfiewRow col-md-6">
-                      <label className="col-lg-4 col-form-label">
+                    <div className="displayPreviewRow col-md-6">
+                      <label className="col-llg-4 col-form-label">
                         <b>Preferred Role</b>
                       </label>
                       <div className="col-lg-7 col-form-label">
