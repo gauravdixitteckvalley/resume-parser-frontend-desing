@@ -18,7 +18,7 @@ const CandidatePreview = (props) => {
     const resumeDataList = useSelector(state => state.resume );
     const { countryList, stateList } = resumeDataList;
     const [showModal,setShowModal] =useState(false);
-    console.log(props)
+    //console.log(props)
 
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
@@ -37,7 +37,7 @@ const CandidatePreview = (props) => {
     const uploadOption = (event) => {
       event.preventDefault();
       setShowModal(true)
-      console.log(event, " event ")
+      //console.log(event, " event ")
     }
   
     const uploadOptionClose = (value) => {
@@ -118,7 +118,7 @@ const CandidatePreview = (props) => {
                 <div className="row">
                   <div className="col-md-12 text-center">
                     <img src={fields.ImageProfile || ""} className="candid-profile-img" alt="image"/>
-                    {console.log(fields)}
+                    {/* {console.log(fields)} */}
                     <h3 className="mt-3">{fields.name || ""}</h3>
                     <h5>{fields.designation || ""}</h5>
                   </div>

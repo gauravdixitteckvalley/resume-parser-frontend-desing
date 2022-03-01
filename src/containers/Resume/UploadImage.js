@@ -10,7 +10,7 @@ const UploadImage = (props) => {
     const [fields,setFields] = useState();
     const [fileName,setFileName] =useState("")
     let id = props.match.params.id;
-    console.log(props)
+    //console.log(props)
     const [error,setError] = useState("");
 
   const candidate = useSelector(state => state.candidate );

@@ -18,7 +18,7 @@ const SkillsForm = (props) => {
     /**fetched data from redux store */
     const skillsData = useSelector(state => state.skills);
     const dispatch = useDispatch();
-console.log('skillsData',skillsData);
+//console.log('skillsData',skillsData);
     
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
@@ -110,13 +110,11 @@ console.log('skillsData',skillsData);
             
         )
     }
-    const selectSkillCategory = (category) => {
+    const selectSkillCategory = () => {
         
-        if(category.length > 0){
+        if(skillsData?.skillsCategory?.length > 0){
            
-            // return skillsData?.skillsCategory.map( (category,index) => (
-                // console.log('skillsData',skillsData);
-                // _skill_options(category)
+            return skillsData?.skillsCategory.map( (category,index) => {
                 return (
                     <>
                         <option
@@ -127,7 +125,7 @@ console.log('skillsData',skillsData);
                         </option>
                     </>
                 )
-                // ))
+            })
         }
         
     }
@@ -170,9 +168,7 @@ console.log('skillsData',skillsData);
                                         onChange={(event) => _handleChange(event)} 
                                         >
                                             <option value='' >Select your skill level</option>
-                                            { skillsData?.skillsCategory?.map( (category,index) => ( 
-                                             selectSkillCategory(category)
-                                            ))}
+                                            { selectSkillCategory()}
                                         </Form.Select>
                                         {errors?.skillCategory ? (
                                             <Form.Text style={{ color: "red" }}>

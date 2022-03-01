@@ -10,7 +10,7 @@ import {  submitCandidateData  } from "../../../actions/Candidate";
 // creating functional component ans getting props from app.js and destucturing them
 const StepEight = (props) => {
    //creating error state for validation
-  console.log("props8 ",props)
+  //console.log("props8 ",props)
   const [error, setError] = useState(false);
   const currentId = props.cdId;
   const dispatch = useDispatch(); 
