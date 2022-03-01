@@ -5,12 +5,14 @@ export function candidate(state = [], action) {
         case 'SUBMIT_CANDIDATE_GET_DATA_REQUEST':
            
             return {
+                ...state,
                 candidateInfo        : {},
                 blocking : true
             };
         
         case 'SUBMIT_CANDIDATE_GET_DATA_SUCCESS':
             return {
+                ...state,
                 candidateInfo     : action.payload.candidate,
                 blocking : false
             };
@@ -73,6 +75,26 @@ export function candidate(state = [], action) {
             return {
                 blocking : false,
             };
+
+        case 'SUBMIT_SKILLS_REQUEST':
+            return{
+                ...state,
+                blocking : true,
+                skills: []
+            }
+        case 'SUBMIT_SKILLS_SUCCESS':
+            return {
+                ...state,
+                blocking : false,
+                skills: action.payload.skills
+            };
+        
+        case 'SUBMIT_SKILLS_FAILURE':
+            return {
+                blocking : false,
+            };
+
+            
 
         default:
             return state;

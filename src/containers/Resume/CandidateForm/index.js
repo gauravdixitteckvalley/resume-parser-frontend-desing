@@ -15,7 +15,7 @@ import BlockUI from "../../../components/BlockUI";
 function CandidateMultiStep(props) {
   //state for steps
  // console.log(props?.match?.params?.id, " props")
-  const [step, setstep] = useState(1);
+  const [step, setstep] = useState(4);
   //const cdIdData = JSON.parse(localStorage.getItem("data"));
   const [filData,setFilData] = useState(null)
   const [isData,setIsData] = useState(false)
