@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import Select from 'react-select'
+import Select from "react-select";
 import { Link } from "react-router-dom";
 
 import './CandidateMultiForm.css';
@@ -113,13 +113,14 @@ useEffect(() => {
     const { target } = event
     formValues[key][target.name] = target.value
     setFormValues([...formValues])
-    debugger
   };
 
   const _handleSkill = (event, key) => {
-    event.preventDefault()
-    formValues[key]['skill'] = event.target.value
-    debugger
+    // event.preventDefault()
+    console.log(event[0])
+    formValues[key]['skill'] = event[0].value
+    formValues[key]['skillId'] = event[0]._id
+    setFormValues([ ...formValues ])
   }
 
   return (
@@ -135,7 +136,7 @@ useEffect(() => {
         <p style={{fontSize: '13px'}}>Highlight 6-8 of you top skills.</p>
           {/* <Form onSubmit={submitFormData} className="mt-4"> */}
           <Form onSubmit={submitFormData}>
-            {formValues.map((index, key) => {
+            {formValues?.map((index, key) => {
               return (
                 <Row key={key}>
                 <Form.Group className="mb-2 col-md-6">
@@ -150,10 +151,9 @@ useEffect(() => {
                     /> */}
                     <Select
                         placeholder={"Select Skills"}
-                        isMulti
                         options={options}
-                        onChange={event => _handleSkill(event, key)}
-                        value={formValues[key]?.skill}
+                        onChange={ event =>_handleSkill(event, key) }
+                        value={console.log( 'skillvalue', index)}
                       />
                     {errors[key]?.skill ? (
                         <Form.Text style={{ color: "red" }}>
