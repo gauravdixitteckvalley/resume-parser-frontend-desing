@@ -47,24 +47,6 @@ function CandidateMultiStep(props) {
         }
 }
   
-//  console.log('candidateInfo  ',userData);
-   /*if(userData){
-     console.log("userData ", userData)
-   }
- if(!_.isEmpty(candidateInfo && isData === false)){
-    
-     setIsData(true) 
-      
-     console.log('candidateInfo1',candidateInfo,isData);
-    
-   setTimeout(function(){ setFilData(candidateInfo) }, 200);
-  }*/
-
-  
-
-
-
- 
   //state for form data
   const [formData, setFormData] = useState({
     firstName: "",
@@ -86,11 +68,11 @@ function CandidateMultiStep(props) {
     endDate: "",
     jd: ""
   })
-  console.log('step',step);
+  //console.log('step',step);
   // function for going to next step by increasing step state by 1
   const nextStep = () => {
     setstep( parseInt(step) + 1);
-    console.log('nextStep',step);
+    //console.log('nextStep',step);
   };
 
   // function for going to previous step by decreasing step state by 1

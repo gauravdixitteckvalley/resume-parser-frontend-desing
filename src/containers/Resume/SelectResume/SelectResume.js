@@ -146,7 +146,7 @@ const SelectResume = () => {
             if(fields.template ==="developer"){
                 redirectTo = 'developer-preview'
             }
-            console.log('coreCompetencie',coreCompetencie);
+           // console.log('coreCompetencie',coreCompetencie);
             history.push({pathname : `/${redirectTo}`,state : { templateData : fields , coreCompetencie:coreCompetencie }}); 
         }    
     }

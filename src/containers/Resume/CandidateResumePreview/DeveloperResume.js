@@ -24,7 +24,7 @@ const DeveloperResume = (props) => {
 
 
     useEffect(() => {
-      console.log('sssss',location.state.coreCompetencie);
+     // console.log('sssss',location.state.coreCompetencie);
        setEmpCode(location.state.templateData.emp_code);
        setEmpTitle(location.state.templateData.emp_title);
        setEmpTools(location.state.templateData.tools)

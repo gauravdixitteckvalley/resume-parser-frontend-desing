@@ -18,7 +18,7 @@ const SkillsForm = (props) => {
     /**fetched data from redux store */
     const skillsData = useSelector(state => state.skills);
     const dispatch = useDispatch();
-console.log('skillsData',skillsData);
+//console.log('skillsData',skillsData);
     
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
