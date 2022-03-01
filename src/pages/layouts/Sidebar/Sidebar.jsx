@@ -21,7 +21,6 @@ const Sidebar = () => {
     
     //Javascript split method to get the name of the path in array
     const splitLocation = pathname.split("/");
-    console.log('splitLocation',splitLocation);
 
     const showRoutesForAdmin = () => {
         return(
@@ -76,10 +75,11 @@ const Sidebar = () => {
                             <i className="mdi mdi-home menu-icon"></i>
                         </Link>
                     </li> 
-                    {
+                    {/* {
                         user.role_id === '1' ?
                         showRoutesForAdmin() : ''
-                    }
+                    } */}
+                    {showRoutesForAdmin()}
                      
                     <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
                         <Link to='/resume/add' className="nav-link">
@@ -112,7 +112,7 @@ const Sidebar = () => {
                     <li className="nav-item nav-profile">
                         <Link to={user.isCandidateLogin ? `/candidate/view/${user.id}` : "/profile"} className="nav-link">
                             <div className="nav-profile-image">
-                                <img src={authenticateUser.user.profile_image ? IMAGE_URL+authenticateUser.user.profile_image : "/assets/img/user_icon.png"} alt="profile" />
+                                <img src={authenticateUser.user.profile_image ? authenticateUser.user.profile_image : "/assets/img/user_icon.png"} alt="profile" />
                                 <span className="login-status online"></span>
                             </div>
                             <div className="nav-profile-text d-flex flex-column">

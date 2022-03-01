@@ -15,28 +15,39 @@ import BlockUI from "../../../components/BlockUI";
 
 function CandidateMultiStep(props) {
   //state for steps
-  const [step, setstep] = useState(1);
-  const cdIdData = JSON.parse(localStorage.getItem("data"));
+ // console.log(props?.match?.params?.id, " props")
+  const [step, setstep] = useState(4);
+  //const cdIdData = JSON.parse(localStorage.getItem("data"));
   const [filData,setFilData] = useState(null)
   const [isData,setIsData] = useState(false)
-  const cdId =cdIdData.id;
+  let cdId =props?.match?.params?.id;
   const dispatch = useDispatch(); 
   const userData = useSelector( (state) => state.candidate);
-  const { candidateInfo, blocking } = userData;
+  const { candidateInfo, blocking, candidateId } = userData;
 
+  if(cdId === undefined && candidateId === undefined){
+    cdId = "";
+  }else if( candidateId !== undefined){
+    cdId = candidateId
+  }
+  console.log('cdId ',cdId)
   useEffect(() => {
+    if(cdId)
       dispatch(fetchCandidateData(cdId));
-  }, []);
+      
+  }, [cdId]);
  
+
  
- if(cdIdData && typeof userData != "undefined" && (_.size(userData) > 0)){
+ if(cdId && typeof userData != "undefined" && (_.size(userData) > 0)){
      // console.log("demo ",typeof userData)
      
         if (filData !== null){
           setFilData(userData)
         }
 }
-  //  console.log('candidateInfo  ',userData);
+  
+//  console.log('candidateInfo  ',userData);
    /*if(userData){
      console.log("userData ", userData)
    }
@@ -53,6 +64,7 @@ function CandidateMultiStep(props) {
 
 
 
+ 
   //state for form data
   const [formData, setFormData] = useState({
     firstName: "",
@@ -101,6 +113,7 @@ function CandidateMultiStep(props) {
   
 
 
+// console.log("candidateInfo ",userData.candidateInfo)
 // javascript switch case to show different form in each step
   switch (step) {
     // case 1 to show stepOne form and passing nextStep, prevStep, and handleInputData as handleFormData method as prop and also formData as value to the fprm
@@ -111,12 +124,22 @@ function CandidateMultiStep(props) {
           <Container>
             <Row>
               <Col>
-            { !_.isEmpty(userData.candidateInfo) ? <StepOne 
+              {cdId ? 
+                 !_.isEmpty(userData.candidateInfo) ? <StepOne 
                   nextStep={() => nextStep()} 
                   handleFormData={userData?.candidateInfo} 
                   name={userData?.candidateInfo?.name} 
                   cdId={cdId}
-                /> :'' }
+                /> :'' 
+
+                :
+                <StepOne 
+                  nextStep={() => nextStep()} 
+                  handleFormData=""
+                  name=""
+                  cdId=""
+                />
+                }
               </Col>
             </Row>
           </Container>

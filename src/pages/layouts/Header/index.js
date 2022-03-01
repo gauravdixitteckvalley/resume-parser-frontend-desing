@@ -17,7 +17,8 @@ const Header = (props) => {
 
     const loggedUser = useSelector(state => state.authenticatedUser);
     const {user} = loggedUser;
-    console.log(user)
+    const currentId = user.id;
+    console.log(currentId)
    
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
@@ -77,7 +78,7 @@ const Header = (props) => {
             skills  : params?.searchValue*/
         }
         dispatch(fetchResumeData(queryParams));
-    }
+    } 
 
 
     //For forget password link(candidate login)
@@ -134,7 +135,7 @@ const Header = (props) => {
                         <li className="nav-item nav-profile dropdown">
                         <Link className="nav-link dropdown-toggle" id="profileDropdown" to="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="nav-profile-img">
-                                <img src={loggedUser.user.profile_image ? IMAGE_URL+loggedUser.user.profile_image :"/assets/img/user_icon.png"} alt="image" />
+                                <img src={loggedUser.user.profile_image ? loggedUser.user.profile_image :"/assets/img/user_icon.png"} alt="image" />
                                 <span className="availability-status online"></span>
                             </div>
                             <div className="nav-profile-text">
@@ -204,47 +205,53 @@ const Header = (props) => {
                                 </> 
                                 }
                                 
-                                <Link to={'/message'}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
+                                <Link to={'/message'} style={{textDecoration: 'none', color: '#000'}}><h6 className="p-3 mb-0 text-center">View All</h6></Link>
                             </div>
                         </li>
-                        <li className="nav-item dropdown">
-                            <Link className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" to="#" data-bs-toggle="dropdown">
-                                <i className="mdi mdi-bell-outline"></i>
-                                <span className="count-symbol bg-danger"></span>
-                            </Link>
-                            <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                                <h6 className="p-3 mb-0">Notifications</h6>
-                                <div className="dropdown-divider"></div>
-                                {( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
-                                 loggedUser.user?.notice.map((data, index) => (
-                                    <>
-                                        <Link to={'/notifications'} className="dropdown-item preview-item">
-                                        <div className="preview-thumbnail">
-                                            <div className="preview-icon bg-success">
-                                            <i className="mdi mdi-calendar"></i>
-                                            </div>
-                                        </div>
-                                        <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                            <h6 className="preview-subject font-weight-normal mb-1">{data.notice_text.slice(0, 30)}</h6>
-                                            <p className="text-gray ellipsis mb-0"> { moment(data.createdAt).calendar() } </p>
-                                        </div>
-                                        </Link>
-                                        <div className="dropdown-divider"></div>
-                                    </>
-                                ))
-                                : 
-                                <>
-                                <Link  className="dropdown-item preview-item">
-                                    <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 className="preview-subject ellipsis mb-1 font-weight-normal">No Notifications</h6>
-                                    </div>
+                        {
+                            loggedUser.user.isCandidateLogin === false ? 
+                            <>
+                            <li className="nav-item dropdown">
+                                <Link className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" to="#" data-bs-toggle="dropdown">
+                                    <i className="mdi mdi-bell-outline"></i>
+                                    <span className="count-symbol bg-danger"></span>
                                 </Link>
-                                <div className="dropdown-divider"></div>
-                                </> 
-                                }
-                                <Link to="/notifications" style={{textDecoration: 'none', color: '#000'}}><h6 className="p-3 mb-0 text-center">See all notifications</h6></Link>
-                            </div>
-                        </li>
+                                <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                    <h6 className="p-3 mb-0">Notifications</h6>
+                                    <div className="dropdown-divider"></div>
+                                    {( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
+                                    loggedUser.user?.notice.map((data, index) => (
+                                        <>
+                                            <Link to={'/notifications'} className="dropdown-item preview-item">
+                                            <div className="preview-thumbnail">
+                                                <div className="preview-icon bg-success">
+                                                <i className="mdi mdi-calendar"></i>
+                                                </div>
+                                            </div>
+                                            <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                                <h6 className="preview-subject font-weight-normal mb-1">{data.notice_text.slice(0, 20)}</h6>
+                                                <p className="text-gray ellipsis mb-0"> { moment(data.createdAt).calendar() } </p>
+                                            </div>
+                                            </Link>
+                                            <div className="dropdown-divider"></div>
+                                        </>
+                                    ))
+                                    : 
+                                    <>
+                                    <Link  className="dropdown-item preview-item">
+                                        <div className="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                            <h6 className="preview-subject ellipsis mb-1 font-weight-normal">No Notifications</h6>
+                                        </div>
+                                    </Link>
+                                    <div className="dropdown-divider"></div>
+                                    </> 
+                                    }
+                                    <Link to="/notifications" style={{textDecoration: 'none', color: '#000'}}><h6 className="p-3 mb-0 text-center">See all notifications</h6></Link>
+                                </div>
+                            </li>
+                            </> : ''
+                        }
+                        
                         <li className="nav-item nav-logout d-none d-lg-block">
                             <a className="nav-link" href="javascript:void(0)" onClick={() => _loggedOutUser()}>
                             <i className="mdi mdi-power"></i>
@@ -260,4 +267,4 @@ const Header = (props) => {
     )
 }
 
-export default Header       
+export default Header

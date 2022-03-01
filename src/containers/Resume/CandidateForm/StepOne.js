@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Form, Row, Button } from "react-bootstrap";
 import _ from "lodash";
 import validateCandidateForm  from "./CandidateFromValidation";
-import {  getStateList } from "../../../actions/Resume"
-import {  submitCandidateData  } from "../../../actions/Candidate";
+import {  getCountryList,getStateList } from "../../../actions/Resume"
+import {  submitCandidateData,submitManualResumeFormData  } from "../../../actions/Candidate";
 
 
 // creating functional component ans getting props from app.js and destucturing them
@@ -12,11 +12,15 @@ const StepOne = (props) => {
     const currentId = props.cdId;
     const [errorFields, setErrorFields] = useState({});
     const resumeData = useSelector(state => state.resume );
+    let countries = ''
+    let states = '';
     const { countryList, stateList } = resumeData;
+   // console.log("stateList " ,stateList)
+   // debugger;
     let name = props.handleFormData.name;
     const [status,setStatus] =useState(true);
     const [fields, setFields] = useState({
-        firstName: " ",
+        firstName: "",
         lastName:  "",
         address: "",
         country: "",
@@ -41,13 +45,21 @@ const StepOne = (props) => {
         setFields({...data})      
     }
     useEffect(() => {
+        countries = dispatch(getCountryList());
+        //if(!_.isEmpty(props.handleFormData)){
+          //  console.log("props?.handleFormData?.country ",props?.handleFormData?.country)
+          states= dispatch(getStateList(101))
+            //console.log("states ",states)
+       // }
         if(!_.isEmpty(props.handleFormData)){
             let fname=''
             let lname=''
+            console.log('name ',name)
             if(name){
                 let fulname =  name.split(" ");
                 fname=fulname[0]
                 lname=fulname[1]
+                console.log('name ',fulname)
             }
             setFields({
                 firstName:fname,
@@ -79,6 +91,10 @@ const StepOne = (props) => {
         if (_validateForm()) {
             if(currentId){
                 dispatch(submitCandidateData(currentId, fields));
+                setTimeout(function(){  props.nextStep(); }, 2000);
+            }else{
+                console.log("demo second")
+                dispatch(submitManualResumeFormData(fields))
                 setTimeout(function(){  props.nextStep(); }, 2000);
             }
         }

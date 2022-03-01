@@ -126,7 +126,24 @@ export function skills(state = [], action) {
             return {
                 blocking : false
             };
-
+            
+        //Get skills category
+        case 'GET_SKILLSCATEGORY_REQUEST':
+            return{
+                ...state,
+                blocking : true
+            }
+        case 'GET_SKILLSCATEGORY_SUCCESS':
+            return {
+                ...state,
+                blocking : false,
+                skillsCategory: action.payload.skillsCategory
+            };
+        
+        case 'GET_SKILLSCATEGORY_FAILURE':
+            return {
+                blocking : false,
+            };
         default:
             return state;
     }

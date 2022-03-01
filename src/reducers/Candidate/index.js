@@ -1,15 +1,18 @@
 export function candidate(state = [], action) {
+    // console.log(action, " Candidate Action ")
     switch (action.type) {
         /* cases for submit form starts */
         case 'SUBMIT_CANDIDATE_GET_DATA_REQUEST':
            
             return {
+                ...state,
                 candidateInfo        : {},
                 blocking : true
             };
         
         case 'SUBMIT_CANDIDATE_GET_DATA_SUCCESS':
             return {
+                ...state,
                 candidateInfo     : action.payload.candidate,
                 blocking : false
             };
@@ -43,17 +46,72 @@ export function candidate(state = [], action) {
             return [];
 
         case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_REQUEST':
+        case 'SUBMIT_CANDIDATE_VIDEO_PROFILE_REQUEST':
             return {
                 blocking: true
             }
         case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_SUCCESS':
+        case 'SUBMIT_CANDIDATE_VIDEO_PROFILE_SUCCESS':    
             return {
                 blocking: false
             }
         case 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_FAILURE':
+        case 'SUBMIT_CANDIDATE_VIDEO_PROFILE_FAILURE':
             return {
                 blocking: true
             }
+
+
+             /* cases for manual submit form starts */
+        case 'SUBMIT_MANUAL_RESUME_FORM_REQUEST':
+            return {
+                ...state,
+                blocking : true,
+                candidateId       : '',
+            };
+        
+        case 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS':
+            return {
+                ...state,
+                blocking : false,
+                candidateId       : action.payload,
+            };
+        
+        case 'SUBMIT_MANUAL_RESUME_FORM_FAILURE':
+        /* ================== image upload ================ */
+        case 'UPDATE_IMAGE_REQUEST':
+            return{
+                blocking : true
+            }
+        case 'UPDATE_IMAGE_SUCCESS':
+            return {
+                blocking : false
+            };
+        
+        case 'UPDATE_IMAGE_FAILURE':
+            return {
+                blocking : false,
+            };
+
+        case 'SUBMIT_SKILLS_REQUEST':
+            return{
+                ...state,
+                blocking : true,
+                skills: []
+            }
+        case 'SUBMIT_SKILLS_SUCCESS':
+            return {
+                ...state,
+                blocking : false,
+                skills: action.payload.skills
+            };
+        
+        case 'SUBMIT_SKILLS_FAILURE':
+            return {
+                blocking : false,
+            };
+
+            
 
         default:
             return state;

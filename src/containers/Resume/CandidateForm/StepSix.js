@@ -10,13 +10,14 @@ import validateCandidateForm  from "./CandidateFromValidation";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepSix = (props) => {
-  //console.log("props ",props)
+  //console.log(props)
   const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
   const dispatch = useDispatch(); 
   const [status,setStatus] =useState(true);
+  const [formValuesLength,setFormValuesLength] = useState('')
 
   const validateForm = (formValuesArray) => {
     let errors = [];
@@ -59,7 +60,7 @@ const StepSix = (props) => {
     let postData = formValues; 
      // checking if value of first name and last name is empty show error else take to next step
     if (_validateForm()){
-      console.log("postData4 ",postData)
+     // console.log("postData4 ",postData)
       if(currentId){
           dispatch(submitCandidateData(currentId, {language:postData,step:6}));
           setTimeout(function(){  props.nextStep(); }, 2000);
@@ -70,6 +71,7 @@ const StepSix = (props) => {
 
   const addFormFields = () => {
     setFormValues([...formValues, { language: "", langLevel: "" }])
+    setFormValuesLength(formValuesLength + 1)
   }
 
   const removeFormFields = (event, index) => {
@@ -83,6 +85,7 @@ const StepSix = (props) => {
     let newFormValues = [...formValues];
     newFormValues.splice(index, 1);
     setFormValues(newFormValues)
+    setFormValuesLength(formValuesLength - 1)
   }
 
   const _handleChange = (event,key ) => {
@@ -94,6 +97,7 @@ const StepSix = (props) => {
 useEffect(() => {
   if(!_.isEmpty(props.handleFormData)){
     setFormValues(props.handleFormData.langauge)
+    setFormValuesLength(props.handleFormData.langauge.length)
     setStatus(false)
   }
 }, []);
@@ -102,7 +106,12 @@ useEffect(() => {
     <>
       <Card>
         <Card.Body>
-        <h3 className="page-title font-style-bold mb-2">LANGUAGES </h3>
+        <h3 className="page-title font-style-bold mb-2">
+          <span className="page-title-icon bg-gradient-primary text-white me-2">
+              <i className="mdi mdi-checkbox-marked"></i>
+          </span>
+          LANGUAGES 
+        </h3>
         <p style={{fontSize: '13px'}}>Add languages to your resume</p>
           <Form onSubmit={submitFormData} className="mt-4">
               {formValues.map((index, key) => {
@@ -169,15 +178,17 @@ useEffect(() => {
                             ""
                         )}
                     </Form.Group> 
-                    {
-                      index ? 
-                      <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
-                          <Link to="#" onClick={(event) => removeFormFields(event, key)}>
-                              <i className="mdi mdi-delete"></i>
-                          </Link>
-                      </div>
-                      : null
-                    }                  
+                    {formValuesLength > 1 ? 
+                                <>
+                                {index ? 
+                                  <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
+                                      <Link to="#" onClick={(event) => removeFormFields(event, key)}>
+                                          <i className="mdi mdi-delete"></i>
+                                      </Link>
+                                  </div>
+                                : null}
+                                </>
+                                  :" "}                
                   </Row>
                 )
               })}

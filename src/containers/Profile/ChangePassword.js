@@ -159,7 +159,7 @@ const ProfileForm = (props) => {
                     <div className="col-md-6">
                       <button
                         type="submit"
-                        className="btn btn-gradient-primary mb-2"
+                        className="btn btn-gradient-primary mb-2 me-2"
                       >
                         Submit
                       </button>

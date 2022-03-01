@@ -69,26 +69,7 @@ export const submitResumeData = (postData) => {
     }
 }
 
-/* action for submitting manual resume record */
-export const submitManualResumeFormData = (postData) => {
-    return async dispatch => {
-        dispatch({ type: 'SUBMIT_MANUAL_RESUME_FORM_REQUEST' });
-        try {
-            let response = await api.post(`resume/manual`, postData, {
-                headers : requestTokenHeader(),
-            });
-            
-            if (response.data.success) {
-                dispatch({ type : 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS'});
-                displaySuccessMessage(response.data.data.data);
-                // history.push('/resume');
-            } 
-        } catch(error) {
-            handleHttpError(error.response);
-            dispatch({ type: 'SUBMIT_MANUAL_RESUME_FORM_FAILURE' });
-        }
-    }
-}
+
 
 /* action for update resume recode */
 export const updateResumeFormData = (id, postData) => {
@@ -378,6 +359,31 @@ export const getCandidateList = () => {
         } catch (error) {
             handleHttpError(error.response);
             dispatch({ type: 'GET_CANDIDATE_FAILURE' });
+        }
+    }
+}            
+/* action for update resume recode */
+export const updateResume = (id, postData) => {
+    return async dispatch => {
+        //console.log("postData ",postData, " id ", id)
+        dispatch({ type: 'UPDATE_RESUME_REQUEST' });
+        try {
+            let response = await api.put(`/resume/candidate/resumeUpload/${id}`, postData, {
+                headers : requestTokenHeader(),
+            });
+            
+            if (response.data.success) {
+                dispatch({ type : 'UPDATE_RESUME_SUCCESS'});
+                const { message } = response.data.data
+                displaySuccessMessage(message);
+                const redirectLink = `/candidate/view/${id}`;
+               // setTimeout(()=>{history.push(redirectLink)},2000)
+                window.location.href = redirectLink;
+               // history.push(redirectLink);
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'UPDATE_RESUME_FAILURE' });
         }
     }
 }

@@ -17,6 +17,10 @@ const Notification = () => {
 
     /**fetched data from redux store */
     const notices = useSelector(state =>  state.notice);
+    
+    const authenticateUser = useSelector(state => state.authenticatedUser);
+    const { user } = authenticateUser;
+    console.log(user);
 
     const dispatch = useDispatch();
 
@@ -35,11 +39,37 @@ const Notification = () => {
         dispatch(fetchNoticeData(params));
     }
 
+
     /**method for calling api based on page change  */
     const _handlePageChange = (pageNumber) => _getData(pageNumber)
 
     const _buildList = (data) =>{
 
+        if (user.user_role_name === 'Admin' ){
+            if (!_.isEmpty(data)) {
+                console.log(data)
+                return (
+                    <> 
+                    { data.map((data, index) => ( 
+                            <div className="row notification-container mb-4 pb-2" key={index}>
+                                <div className="col-md-12 notification-main">
+                                    <img src="/assets/img/user_icon.png" />
+                                    <div className="content-area">
+                                        <p>{ data.notice_text }</p>
+                                        <p>{ moment(data.createdAt).calendar() }</p>
+                                    </div>
+                                </div>
+                            </div>
+                    )) }  
+                    </>  
+                )
+            } else {
+                return (
+                    displayRecordNotFound('No Data Found')
+                  )
+            }
+            
+        } else {
         if (!_.isEmpty(data)) {
         return (
             <> 
@@ -61,6 +91,7 @@ const Notification = () => {
               displayRecordNotFound('No Data Found')
             )
           }
+        }
     }
 
     const { totalRecords, per_page , blocking, noticeList, currentPage } = notices;

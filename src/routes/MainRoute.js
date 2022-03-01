@@ -10,10 +10,10 @@ const User = lazy(() => import('../containers/User/UserList'))
 const UserForm = lazy(() => import('../containers/User/UserForm'))
 const Dashboard = lazy(() => import('../containers/Dashboard'))
 const ResumeList = lazy(() => import('../containers/Resume/ResumeList'))
-const CandidateDetails = lazy(() => import('../containers/Resume/CandidateDetails'))
+const CandidateDetails = lazy(() => import('../containers/Resume/CandidateForm/index'))
 const CandidatePreview = lazy(() => import('../containers/Resume/CandidatePreview'))
 const AddResume = lazy(() => import('../containers/Resume/AddResume'))
-const ManualResume = lazy(() => import('../containers/Resume/ManualResume'))
+const ManualResume = lazy(() => import('../containers/Resume/CandidateForm/index'))
 const Skills = lazy(() => import('../containers/Skill/SkillsList'))
 const SkillsForm = lazy(() => import('../containers/Skill/AddSkills'))
 const CandidateCommunication = lazy(() => import('../containers/Resume/CandidateCommunication'))
@@ -37,6 +37,7 @@ const VideoProfile = lazy(() => import ('../containers/Resume/VideoProfile'))
 const ActivityLog = lazy(() => import ('../containers/Resume/ActivityLog/ActivityLog'))
 const Notice = lazy(() => import ('../containers/Notice/Notice'))
 const Notification = lazy(() => import ('../containers/Notification/Notification'))
+const UploadImage = lazy(() => import ('../containers/Resume/UploadImage'))
 
 
 function MainRoute() {
@@ -81,6 +82,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/select-resume" component={SelectResume} />
                         <PrivateRoute exact path="/candidate/view/career-preference/:id" component={CareerPreference} />
                         <PrivateRoute exact path="/candidate/view/video-profile/:id" component={VideoProfile} />
+                        <PrivateRoute exact path="/candidate/view/upload-image/:id" component={UploadImage} />
                         <PrivateRoute exact path="/activity-log" component={ActivityLog} />
                         <PrivateRoute exact path="/notices" component={Notice} />
                         <PrivateRoute exact path="/notifications" component={Notification} />
