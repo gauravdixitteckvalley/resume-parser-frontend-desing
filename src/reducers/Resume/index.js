@@ -55,22 +55,7 @@ export function resume(state = [], action) {
                 blocking : false,
             };
 
-        /* cases for manual submit form starts */
-        case 'SUBMIT_MANUAL_RESUME_FORM_REQUEST':
-            return {
-                blocking : true
-            };
-        
-        case 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS':
-            return {
-                blocking : false
-            };
-        
-        case 'SUBMIT_MANUAL_RESUME_FORM_FAILURE':
-            return {
-                blocking : false,
-            };
-
+       
         case 'RESET_RESUME_DATA':
             return [];
 
@@ -153,6 +138,7 @@ export function resume(state = [], action) {
 
         case 'GET_COUNTRY_REQUEST':
             return {
+                ...state,
                 blocking : true,
                 countryList:[]
             };
@@ -160,6 +146,7 @@ export function resume(state = [], action) {
         case 'GET_COUNTRY_SUCCESS':
             
             return {
+                ...state,
                 blocking : false,
                 countryList:action.payload.country
             };

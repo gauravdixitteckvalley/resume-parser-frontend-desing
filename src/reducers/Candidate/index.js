@@ -5,12 +5,14 @@ export function candidate(state = [], action) {
         case 'SUBMIT_CANDIDATE_GET_DATA_REQUEST':
            
             return {
+                ...state,
                 candidateInfo        : {},
                 blocking : true
             };
         
         case 'SUBMIT_CANDIDATE_GET_DATA_SUCCESS':
             return {
+                ...state,
                 candidateInfo     : action.payload.candidate,
                 blocking : false
             };
@@ -59,6 +61,23 @@ export function candidate(state = [], action) {
                 blocking: true
             }
 
+
+             /* cases for manual submit form starts */
+        case 'SUBMIT_MANUAL_RESUME_FORM_REQUEST':
+            return {
+                ...state,
+                blocking : true,
+                candidateId       : '',
+            };
+        
+        case 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS':
+            return {
+                ...state,
+                blocking : false,
+                candidateId       : action.payload,
+            };
+        
+        case 'SUBMIT_MANUAL_RESUME_FORM_FAILURE':
         /* ================== image upload ================ */
         case 'UPDATE_IMAGE_REQUEST':
             return{
@@ -73,6 +92,7 @@ export function candidate(state = [], action) {
             return {
                 blocking : false,
             };
+
 
         default:
             return state;
