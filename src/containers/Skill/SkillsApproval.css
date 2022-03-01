@@ -1899,6 +1899,15 @@ table {
     margin-top: 0 !important;
     margin-right: 0 !important;
 }
+.template-demo .approval-btn:nth-child(3) {
+  background-color: #b66dff80 !important;
+  border: none;
+}
+.template-demo .approval-btn:nth-child(3):hover {
+  background-color: #b66dff !important;
+  border: none;
+  color: #fff !important;
+}
 @media (max-width: 425px) {
     .justify-content-end {
       justify-content: center !important;

@@ -54,7 +54,7 @@ const CandidatePreview = (props) => {
       if(user.isCandidateLogin){
         return (
           <>
-            <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2 text-end text-right candid-profile">
+            <div className="candid-profile">
               
               <button className="btn btn-gradient-primary mb-2" onClick={(event) => uploadOption(event)}> Upload Resume</button>
               <Link to={`/candidate/view/career-preference/${user.id}`} rel="noreferrer">
@@ -268,7 +268,7 @@ const CandidatePreview = (props) => {
                       {fields.email || ""}
                     </div>
                   </div>
-                  <div className="displayPdreviewRow col-md-6">
+                  <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
                       <b>Phone</b>
                     </label>

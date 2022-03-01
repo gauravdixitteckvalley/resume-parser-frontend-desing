@@ -15,12 +15,12 @@ import BlockUI from "../../../components/BlockUI";
 
 function CandidateMultiStep(props) {
   //state for steps
- // console.log(props?.match?.params?.id, " props")
   const [step, setstep] = useState(1);
-  //const cdIdData = JSON.parse(localStorage.getItem("data"));
   const [filData,setFilData] = useState(null)
   const [isData,setIsData] = useState(false)
+
   let cdId =props?.match?.params?.id;
+  
   const dispatch = useDispatch(); 
   const userData = useSelector( (state) => state.candidate);
   const { candidateInfo, blocking, candidateId } = userData;
@@ -31,6 +31,8 @@ function CandidateMultiStep(props) {
     cdId = candidateId
   }
   
+
+
   useEffect(() => {
     if(cdId)
       dispatch(fetchCandidateData(cdId));
@@ -40,8 +42,6 @@ function CandidateMultiStep(props) {
 
  
  if(cdId && typeof userData != "undefined" && (_.size(userData) > 0)){
-     // console.log("demo ",typeof userData)
-     
         if (filData !== null){
           setFilData(userData)
         }
