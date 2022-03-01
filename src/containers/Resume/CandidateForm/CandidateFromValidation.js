@@ -3,7 +3,7 @@ const validateCandidateForm = (formNumber,fields) => {
     //, applyCheck = false
     let errorFields = {};
     let formIsValid = true;
-    console.log(fields, "  error fields")
+    //console.log(fields, "  error fields")
     if(formNumber=="form1"){
         if (!fields["firstName"] || fields["firstName"].trim() === '') {
             formIsValid = false;

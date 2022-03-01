@@ -148,6 +148,8 @@ const SelectResume = () => {
             }
             console.log('coreCompetencie',coreCompetencie);
             history.push({pathname : `/template/${redirectTo}`,state : { templateData : fields , coreCompetencie:coreCompetencie }}); 
+           // console.log('coreCompetencie',coreCompetencie);
+            
         }    
     }
 

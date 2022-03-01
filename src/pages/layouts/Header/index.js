@@ -18,7 +18,7 @@ const Header = (props) => {
     const loggedUser = useSelector(state => state.authenticatedUser);
     const {user} = loggedUser;
     const currentId = user.id;
-    console.log(currentId)
+    //console.log(currentId)
    
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
