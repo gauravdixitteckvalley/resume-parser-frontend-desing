@@ -147,7 +147,7 @@ const SelectResume = () => {
                 redirectTo = 'developer-preview'
             }
             console.log('coreCompetencie',coreCompetencie);
-            history.push({pathname : `/${redirectTo}`,state : { templateData : fields , coreCompetencie:coreCompetencie }}); 
+            history.push({pathname : `/template/${redirectTo}`,state : { templateData : fields , coreCompetencie:coreCompetencie }}); 
         }    
     }
 

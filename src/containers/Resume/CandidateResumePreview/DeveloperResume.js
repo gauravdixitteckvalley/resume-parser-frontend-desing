@@ -38,10 +38,15 @@ const DeveloperResume = (props) => {
 
     const { blocking , candidateInfo} = candidateData;
     var projectArray = [];
+    var skillsArray = [];
     if(candidateInfo?.project !== undefined){
         projectArray = _.chunk(candidateInfo.project, 4)
     }
     
+    if(candidateInfo?.skills !== undefined){
+      skillsArray = _.groupBy(candidateInfo.skills, 'skill_category')
+    }
+
     return (
         <Fragment>
         <BlockUI blocking={blocking} /> 
@@ -77,6 +82,7 @@ const DeveloperResume = (props) => {
                 empTools={empTools} 
                 candidateInfo={candidateInfo} 
                 coreCompetencie={empCoreCompetencie}
+                skillsArray={skillsArray}
             />
             
              {/* Page 5 end  */}

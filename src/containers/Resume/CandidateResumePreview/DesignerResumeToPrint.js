@@ -12,7 +12,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
         <div className="page fifth-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
-                        <img src="./assets/img/designer-images/logo.png"/>
+                        <img src="../../assets/img/designer-images/logo.png"/>
                         <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
@@ -20,7 +20,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                 <div className="page-inner inner-page" style={{paddingRight: '20px'}}>	
                     <div style={{pageBreakInside: 'avoid'}}>&nbsp;</div>
                     <h1 className="inner-heading"><span>Portfolio</span></h1>	
-                    <img src="./assets/img/designer-images/quote-icon.png"/>
+                    <img src="../../assets/img/designer-images/quote-icon.png"/>
                     {  project?.map((data,innerindex)=>( 
                     <>   
                     { (index===0 && innerindex ===0)?  
@@ -88,7 +88,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
             <div className="page first-page">
                 <div className="header">
                     <div className="logo_bg">
-                        <img src="./assets/img/designer-images/logo.png"/>
+                        <img src="../../assets/img/designer-images/logo.png"/>
                         <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
@@ -96,21 +96,21 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                 <div className="page-inner">	
                     <div style={{pageBreakInside: 'avoid'}}>&nbsp;</div>
                         <ul className="icon-container">
-                            <li><img src ="./assets/img/designer-images/tech-icon/1icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/2icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/3icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/4icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/5icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/6icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/7icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/8icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/9icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/10icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/11icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/12icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/13icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/14icon.png"/></li>
-                            <li><img src ="./assets/img/designer-images/tech-icon/15icon.png"/></li>	
+                            <li><img src ="../../assets/img/designer-images/tech-icon/1icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/2icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/3icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/4icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/5icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/6icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/7icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/8icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/9icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/10icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/11icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/12icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/13icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/14icon.png"/></li>
+                            <li><img src ="../../assets/img/designer-images/tech-icon/15icon.png"/></li>	
                         </ul>
                         <h1>I am working as 
                             <br />{ empTitle }</h1>
@@ -126,7 +126,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
             <div className="page second-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
-                        <img src="./assets/img/designer-images/logo.png"/>
+                        <img src="../../assets/img/designer-images/logo.png"/>
                         <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
@@ -134,7 +134,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                 <div className="page-inner inner-page">	
                     <div style={{pageBreakInside: 'avoid'}}>&nbsp;</div>
                     <h1 className="inner-heading"><span>Core Competencies</span></h1>	
-                    <img src="./assets/img/designer-images/quote-icon.png"/>
+                    <img src="../../assets/img/designer-images/quote-icon.png"/>
                     <h2>We design websites with conversions in mind, our websites look great, but each page has a clearly deﬁned conversion goal. </h2>
                     <ul>
                         { coreCompetencie.map(( data, index)=>(                         
@@ -156,7 +156,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
             <div className="page third-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
-                        <img src="./assets/img/designer-images/logo.png"/>
+                        <img src="../../assets/img/designer-images/logo.png"/>
                         <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
@@ -164,7 +164,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                 <div className="page-inner inner-page">	
                     <div style={{pageBreakInside: 'avoid'}}>&nbsp;</div>
                     <h1 className="inner-heading"><span>Skill</span></h1>	
-                    <img src="./assets/img/designer-images/quote-icon.png"/>
+                    <img src="../../assets/img/designer-images/quote-icon.png"/>
                     <h2>Good Design Keeps the User Happy, the Manufacturer in the Black and the Aesthete Unoffended</h2>
                     
                     <div className="col-three-col">
@@ -186,31 +186,31 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                     <div className="app-tech">
                         <div className="app-tech-inner">
                             <span>Front-end</span>
-                            <img src ="./assets/img/designer-images/tech-icon/1icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/2icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/3icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/4icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/5icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/6icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/7icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/8icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/1icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/2icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/3icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/4icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/5icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/6icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/7icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/8icon.png"/>
                         </div>
                         <div className="app-tech-inner">
                             <span>Design</span>
-                            <img src ="./assets/img/designer-images/tech-icon/9icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/10icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/11icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/12icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/13icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/9icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/10icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/11icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/12icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/13icon.png"/>
                             
                         </div>
                         <div className="app-tech-inner">
                             <span>CMS</span>
-                            <img src ="./assets/img/designer-images/tech-icon/14icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/15icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/16icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/17icon.png"/>
-                            <img src ="./assets/img/designer-images/tech-icon/18icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/14icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/15icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/16icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/17icon.png"/>
+                            <img src ="../../assets/img/designer-images/tech-icon/18icon.png"/>
                         </div>
                     </div>
                     <h1 className="inner-heading" style={{marginTop:'100px'}}><span>Tools</span></h1>
@@ -235,7 +235,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
             {/* <div className="page fifth-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
-                        <img src="./assets/img/designer-images/logo.png"/>
+                        <img src="../../assets/img/designer-images/logo.png"/>
                         <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
@@ -243,7 +243,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                 <div className="page-inner inner-page" style={{paddingRight: '20px'}}>	
                     <div style={{pageBreakInside: 'avoid'}}>&nbsp;</div>
                     <h1 className="inner-heading"><span>Portfolio</span></h1>	
-                    <img src="./assets/img/designer-images/quote-icon.png"/>
+                    <img src="../../assets/img/designer-images/quote-icon.png"/>
                     <h2>Created strong design concepts and developed design layouts for a variety of creative projects, you can see more at my portfolio.</h2>
                     
                     <div className="col-two-col-second">
@@ -297,7 +297,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
             <div className="page fifth-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
-                        <img src="./assets/img/designer-images/logo.png"/>
+                        <img src="../../assets/img/designer-images/logo.png"/>
                         <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
@@ -364,7 +364,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
             <div className="page sixth-page" style={{marginBottom: '0'}}>
                 <div className="header innerpage-header">
                     <div className="logo_bg">
-                        <img src="./assets/img/designer-images/logo.png"/>
+                        <img src="../../assets/img/designer-images/logo.png"/>
                         <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
@@ -372,7 +372,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                 <div className="page-inner inner-page" style={{paddingRight: '20px'}}>	
                     <div style={{pageBreakInside:'avoid'}}>&nbsp;</div>
                     <h1 className="inner-heading"><span>Education</span></h1>	
-                    <img src="./assets/img/designer-images/quote-icon.png"/>
+                    <img src="../../assets/img/designer-images/quote-icon.png"/>
                     <h2>Education is not the learning of facts, but the training of the mind to think. Education is a gift that none can take away. I am still learning every day.</h2>
                     { candidateInfo?.education?.map((edu,index)=>( 
                                 
