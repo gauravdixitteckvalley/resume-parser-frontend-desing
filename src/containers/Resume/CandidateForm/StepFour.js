@@ -16,15 +16,12 @@ const StepFour = (props) => {
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [options, setOptions] = useState([])
-  const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
+  const [formValues, setFormValues] = useState([{ skill: "", skillLevel : "", skillId: ''}])
   const [status,setStatus] =useState(true);
   const [formValuesLength,setFormValuesLength] = useState('')
 
-  const { skills } = useSelector( (state) => state.candidate);
-  const dispatch = useDispatch(); 
-  console.log('skills', options)
-
-  
+  const { skills} = useSelector( (state) => state.candidate);
+  const dispatch = useDispatch();  
 
   if(typeof skills != "undefined" && (_.size(skills) > 0))
         if (_.size(skills) !== _.size(options))
@@ -89,7 +86,7 @@ useEffect(() => {
   };
 
   const addFormFields = () => {
-    setFormValues([...formValues, { skill: "", skillLevel: "" }])
+    setFormValues([...formValues, { skill: "", skillLevel: "", skillId: '' }])
     setFormValuesLength(formValuesLength + 1)
   }
 
@@ -116,10 +113,8 @@ useEffect(() => {
   };
 
   const _handleSkill = (event, key) => {
-    // event.preventDefault()
-    console.log(event[0])
-    formValues[key]['skill'] = event[0].value
-    formValues[key]['skillId'] = event[0]._id
+    formValues[key].skill = event.value
+    formValues[key].skillId = event._id
     setFormValues([ ...formValues ])
   }
 
@@ -137,23 +132,16 @@ useEffect(() => {
           {/* <Form onSubmit={submitFormData} className="mt-4"> */}
           <Form onSubmit={submitFormData}>
             {formValues?.map((index, key) => {
+              console.log('skillValue', index.skill)
+              console.log('skillValue', index)
               return (
                 <Row key={key}>
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Skill</Form.Label>
-                    {/* <Form.Control
-                        style={{ border: errors[key]?.skill ? "2px solid red" : "" }}
-                        type="text"
-                        name="skill"
-                        placeholder="School Name"
-                        value={index.skill}
-                        onChange={(event) => _handleChange(event,key)} 
-                    /> */}
                     <Select
                         placeholder={"Select Skills"}
                         options={options}
                         onChange={ event =>_handleSkill(event, key) }
-                        value={console.log( 'skillvalue', index)}
                       />
                     {errors[key]?.skill ? (
                         <Form.Text style={{ color: "red" }}>
