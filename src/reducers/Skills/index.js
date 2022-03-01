@@ -50,12 +50,14 @@ export function skills(state = [], action) {
         /* cases for edit form starts */
         case 'FETCH_SKILLS_EDIT_FORM_REQUEST':
             return {
+                ...state,
                 blocking : true,
                 skills    : [],
             };
         
         case 'FETCH_SKILLS_EDIT_FORM_SUCCESS':
             return {
+                ...state,
                 blocking : false,
                 skills     : action.payload.skills,
             };

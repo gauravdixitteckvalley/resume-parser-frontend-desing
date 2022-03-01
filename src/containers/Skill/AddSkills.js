@@ -24,12 +24,21 @@ const SkillsForm = (props) => {
     useEffect(() => {
         if(currentId)
             dispatch(fetchSkillsEditFormData(currentId)) // action is called to fetch record
-            dispatch(getSkillsCategory())
+            
         // returned function will be called on component unmount 
         return () => {
             // dispatch(resetUserData())
         }
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
+    /**hook equivalent to componentdidmount lifecycle */
+    useEffect(() => {
+        if(currentId)
+        dispatch(getSkillsCategory()) // action is called to fetch skills category list
+
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
+    
 
 
 
@@ -138,7 +147,7 @@ const SkillsForm = (props) => {
                                         )}
                                     </Form.Group>
                                     <Form.Group className="mb-2 col-md-12">
-                                        <Form.Label>Level</Form.Label>
+                                        <Form.Label>Select Skill Category</Form.Label>
                                         <Form.Select 
                                         aria-label="Default select example" 
                                         style={{ border: errors?.skillLevel ? "2px solid red" : "" }} 
