@@ -107,7 +107,8 @@ const StepOne = (props) => {
                     <div className="card">
                       <div className="card-body">
                       <div className="text-center">
-                        <h3 className="page-title" style={{fontSize: '25px'}}> Complete Your Profile <br/><span style={{fontSize: '12px'}}>Employers will use this information to contact you.</span></h3>
+                        <h3 className="page-title" style={{fontSize: '25px'}}> {currentId ? "Complete Your Profile ":"Complete Candidate Profile"} 
+                            <br/><span style={{fontSize: '12px'}}> {currentId ? "Employers will use this information to contact you. ":"Employers will use this information to candidate."} </span></h3>
                       </div>
                       <hr className="mb-4" />
                       <h3 className="page-title font-style-bold mb-4">
