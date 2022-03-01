@@ -7,7 +7,7 @@ import BlockUI from "../../../components/BlockUI";
 import './SelectResume.css';
 
 import { getCandidateList } from '../../../actions/Resume';
-import {history} from '../../../utils/helper'
+import {history, displayErrorMessage} from '../../../utils/helper'
 
 
 const SelectResume = () => {
@@ -16,6 +16,7 @@ const SelectResume = () => {
     const [developerShow, setDeveloperShow] = useState(false);
     const [fields, setFields] = useState({});
     const [errors, setErrors] = useState({});
+    const [coreCompetencie, setCoreCompetencie] = useState([{ core_competencies: ""}]);
 
     const messages = useSelector(state => state.resume);
     const { blocking, candidateList } = messages;
@@ -28,15 +29,56 @@ const SelectResume = () => {
         dispatch(getCandidateList());
     }
 
-    const _handleChange = (event) =>{
+    const _create_core_competencie=()=>{
+       
+        return coreCompetencie.map((index, key) => 
+            <div className="input-group mb-3" key={key}>
+                <input type="text" className="form-control" value={index.core_competencies  } maxLength={80} name="core_competencies" onChange={ event=>_handleChange(event,key)} placeholder=""/>
+                <div class="input-group-append">
+                    <button class="btn btn-danger" onClick={event=>_remove_click(key)} type="button"><i className="mdi mdi-delete"></i></button>
+                </div>
+                 
+            </div>          
+        )  
+    }
+    const _add_core_competencie = () =>{
+        if(coreCompetencie.length < 4 ){
+            setCoreCompetencie([...coreCompetencie, { core_competencies: "" }])
+        }else{
+            displayErrorMessage('you can not add more the 4.')
+        }
+        
+    }
+
+    const _remove_click = (i) => {
+        if(coreCompetencie.length>1){
+            let newCoreCompetencie = [...coreCompetencie];
+            newCoreCompetencie.splice(i, 1);
+            setCoreCompetencie(newCoreCompetencie)
+        }
+
+     }
+
+    const _handleChange = (event,key=null) =>{
         event.preventDefault();
         let data = fields;
-        data[event.target.name] = event.target.value;
+        
+        if(event.target.name === 'core_competencies'){
+            
+            coreCompetencie[key][event.target.name] = event.target.value
+            setCoreCompetencie([...coreCompetencie])
+            let d = coreCompetencie.map(function( data){ return data.core_competencies})   
+            data[event.target.name]= d;
+        }else{
+            data[event.target.name] = event.target.value;
+            
+        }
         setFields({...data})
+        
     }
 
     const validateForm = () => {
-
+        
         let formIsValid = true;        
         let error = {}
         if (!fields["candidate_name"] || fields["candidate_name"].trim() === '') {
@@ -59,6 +101,32 @@ const SelectResume = () => {
             error["template"] = "*Please select template.";
         }
         
+        if (!fields["tools"] || fields["tools"].trim() === '') {
+            formIsValid = false;
+            error["tools"] = "*Please select tools.";
+        }
+
+        if (!fields["core_competencies"] || fields["core_competencies"].length === 0) {
+           
+            formIsValid = false;
+            error["core_competencies"] = "*Please select core competencies.";
+        }
+
+        if(coreCompetencie.length > 0){
+            let err = {}
+            coreCompetencie.map((data,index)=>{
+                
+                if (data["core_competencies"].trim() === '') {
+                    formIsValid = false;
+                    err['core_competencies'] = 'Please select core competencies'
+                } 
+            })
+            if(Object.keys(err).length > 0){
+                error["core_competencies"] = 'Please select core competencies.'
+            }
+            
+        }
+        
         return {
             errors : error,
             formIsValid : formIsValid
@@ -67,7 +135,6 @@ const SelectResume = () => {
 
     const _validateForm =() =>{
         let response = validateForm()
-        
         setErrors(response.errors)
         return response.formIsValid;
     }
@@ -79,8 +146,8 @@ const SelectResume = () => {
             if(fields.template ==="developer"){
                 redirectTo = 'developer-preview'
             }
-            // console.log('fields',fields);
-            history.push({pathname : `/${redirectTo}`,state : { templateData : fields }}); 
+            console.log('coreCompetencie',coreCompetencie);
+            history.push({pathname : `/${redirectTo}`,state : { templateData : fields , coreCompetencie:coreCompetencie }}); 
         }    
     }
 
@@ -117,6 +184,22 @@ const SelectResume = () => {
                                             <label className="mb-3 required" for="inlineFormInputName2">Title/Designation</label>
                                             <input type="text" className="form-control" name="emp_title" onChange={ event=>_handleChange(event)} placeholder="Software Engineer"/>
                                             <div className="errorMsg">{errors.emp_title}</div> 
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <label className="mb-3 required" for="inlineFormInputName2">Tools</label>
+                                            <input type="text" className="form-control" maxLength = {140} name="tools" onChange={ event=>_handleChange(event)} placeholder="Dreamweaver, Visual studio, Netbeans, Sublime, Slack"/>
+                                            <div className="errorMsg">{errors.tools}</div> 
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12 mb-4">
+                                            <label className="mb-3 required" for="inlineFormInputName2">Core Competencies</label>
+                                            
+                                            {_create_core_competencie()}      
+                                            <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/>
+                                            <div className="errorMsg">{errors.core_competencies}</div>
                                         </div>
                                     </div>
                                     <div className="col-md-12 mt-4">

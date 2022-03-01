@@ -113,7 +113,7 @@ const StepTwo = (props) => {
     const submitFormData = (event) => {
         event.preventDefault();
         let postData = formValues;
-        // console.log("postData ",postData)
+       // console.log("postData ",postData)
         if(currentId){
             dispatch(submitCandidateData(currentId, {workExperience:postData,step:2}));
             setTimeout(function(){  props.nextStep(); }, 2000);

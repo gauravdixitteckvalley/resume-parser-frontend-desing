@@ -128,7 +128,7 @@ section {
 
 
 .right-col ul.inline-list li {
-    padding: 0 12px 0 13px;
+    padding: 0 10px 0 10px;
     font-weight: bold;
 }
 
@@ -139,7 +139,7 @@ section {
 
 .right-col ul li {
 	position: relative;
-    line-height: 1.7;
+    line-height: 1.5;
     font-size: 16px;
 	box-sizing: border-box;
     padding: 0 0 0 18px;

@@ -461,3 +461,11 @@ h1.inner-heading span:after {
       width: 100% !important;
   }
 }
+
+@media print {
+	html, body {
+	  height: initial !important;
+	  overflow: initial !important;
+	  -webkit-print-color-adjust: exact;
+	}
+  }

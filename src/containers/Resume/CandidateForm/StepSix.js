@@ -10,7 +10,7 @@ import validateCandidateForm  from "./CandidateFromValidation";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepSix = (props) => {
-  console.log(props)
+  //console.log("props ",props)
   const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);

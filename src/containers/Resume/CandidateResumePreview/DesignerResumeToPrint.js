@@ -1,78 +1,95 @@
-import React,{ Fragment, useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { fetchCandidateData } from '../../../actions/Candidate'
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+
 import './DesignerResume.css'
-import {DesignerResumeToPrint} from './DesignerResumeToPrint';
-import BlockUI from "../../../components/BlockUI";
-import _ from "lodash";
-import ReactToPrint from 'react-to-print';
-
-const DesignerResume = () => {
-    
-    const candidateData = useSelector(state=> state.candidate)
-    const location = useLocation();
-    const dispatch = useDispatch()
-    const [empCode, setEmpCode] = useState('') 
-    const [empTitle, setEmpTitle] = useState('')
-    const [empTools, setEmpTools] = useState('') 
-    const [empCoreCompetencie, setEmpCoreCompetencie] = useState([]) 
-    const componentRef = useRef();
 
 
+export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
+    var pindex = 1;
+    const _project_page =(project,index)=>{
 
-    useEffect(() => {
-       
-       setEmpCode(location.state.templateData.emp_code);
-       setEmpTitle(location.state.templateData.emp_title);
-       setEmpTools(location.state.templateData.tools)
-       setEmpCoreCompetencie(location.state.templateData.core_competencies)
-       if(location.state.templateData.candidate_name){
-            dispatch(fetchCandidateData(location.state.templateData.candidate_name))
-       }
-    }, [location]);
+        return (
+        <div className="page fifth-page">
+                <div className="header innerpage-header">
+                    <div className="logo_bg">
+                        <img src="./assets/img/designer-images/logo.png"/>
+                        <p className="empcode">{ empCode }</p>
+                    </div>	
+                </div>
+                
+                <div className="page-inner inner-page" style={{paddingRight: '20px'}}>	
+                    <div style={{pageBreakInside: 'avoid'}}>&nbsp;</div>
+                    <h1 className="inner-heading"><span>Portfolio</span></h1>	
+                    <img src="./assets/img/designer-images/quote-icon.png"/>
+                    {  project?.map((data,innerindex)=>( 
+                    <>   
+                    { (index===0 && innerindex ===0)?  
+                    <h2>Created strong design concepts and developed design layouts for a variety of creative projects, you can see more at my portfolio.</h2>
+                    :''}
+                    <div className="col-two-col-second">
+                        <div className="col-left">
+                            <h5 className="orange-box">{pindex}</h5>
+                        </div>
+                        <div className="col-right">
+                            <h4>{data.project_name}</h4>
+                            <p><strong>Description:</strong>{ data.project_description }</p>
+                            <p><strong>Role:</strong> { data.role}</p>
+                            {/* <p><strong>Responsibilities:</strong></p>
+                            <ul>
+                                <li>Created UI Mopckups and implemented that design into Drupal templates</li>
+                                <li>Created the website Cross Browser (Chrome, IE, Firefox and Safari) compatible and optimizing the web pages for a good performance.</li>
+                                <li>Using the pre-processing platforms, such as SASS</li>
+                                <li>Managing & providing design support to Development team</li>
+                            </ul> */}
+                            <p><strong>Technologies: </strong> { data.technologies }</p>
+                            <p><strong>Project URL: </strong> { data.project_link }</p>
+                        </div>
+                        
+                    
+                    </div>
+                    <br />
+                
+                    </>
+                    )) }
+                    {/* <div className="col-two-col-second">
+                        <div className="col-left">
+                            <h5 className="orange-box">02.</h5>
+                        </div>
+                        <div className="col-right">
+                            <h4>iDstyle</h4>
+                            <p><strong>Description:</strong> iDStyle is one of Australia's oldest web design and hosting companies.</p>
+                            <p><strong>Role:</strong> Sr. Front-end Developer</p>
+                            <p><strong>Responsibilities:</strong></p>
+                            <ul>
+                                <li>Created UI mockups and HTML and implemented that into Wordpress and  Joomla CMS</li>
+                                <li>Created the responsive website and Cross Browser (Chrome, IE, Firefox and Safari) compatible</li>
+                                <li>Client Interaction through Skype and Email</li>
+                            </ul>
+                            <p><strong>Technologies: </strong> Photoshop, Illustrator, HTML, CSS, Bootstrap, Google Fonts,</p>	
+                        </div>
+                        
+                    
+                    </div> */}
+                    
+                </div>
+                
+                    
+                <div className="copyright-footer"><span className="copyright">Copyright 2021 – Virtual Employee. All Rights Reserved</span> <span className="copyright-box">4</span></div>
 
-    const { blocking , candidateInfo} = candidateData;
-    var projectArray = [];
-    if(candidateInfo?.project !== undefined){
-        projectArray = _.chunk(candidateInfo.project, 2)
+            </div>
+        )   
+
     }
+    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie } = props;
+
     return (
-        <div>
-            <BlockUI blocking={blocking} /> 
-            <div className="add-items row">
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3>
-                </div>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                  <NavLink to="/select-resume">
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Back
-                    </button>
-                  </NavLink>
-                  <ReactToPrint
-                        trigger={() => <button className="btn btn-gradient-primary btn-fw mb-2" >Download</button>}
-                        content={() => componentRef.current}
-                    />
-                </div>
-              </div>
-              <DesignerResumeToPrint 
-                ref={componentRef} 
-                projectArray={projectArray} 
-                empCode={empCode} 
-                empTitle={empTitle} 
-                empTools={empTools} 
-                candidateInfo={candidateInfo}
-                coreCompetencie={empCoreCompetencie}
-              />
-            {/*<div className="page first-page">
+        <div ref={ref}>
+            
+            <div className="page first-page">
                 <div className="header">
                     <div className="logo_bg">
                         <img src="./assets/img/designer-images/logo.png"/>
-                        <p className="empcode">VE-VK-1144</p>
+                        <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
                 
@@ -96,7 +113,7 @@ const DesignerResume = () => {
                             <li><img src ="./assets/img/designer-images/tech-icon/15icon.png"/></li>	
                         </ul>
                         <h1>I am working as 
-                            <br /><span>UI/UX</span> Developer</h1>
+                            <br />{ empTitle }</h1>
                             
                         <p style={{fontSize:'24px', margin: '30px 0'}}>Working with a strong focus on design and user<br /> experience. I create digital experiences for brands<br /> and companies.</p>
                         
@@ -110,7 +127,7 @@ const DesignerResume = () => {
                 <div className="header innerpage-header">
                     <div className="logo_bg">
                         <img src="./assets/img/designer-images/logo.png"/>
-                        <p className="empcode">VE-VK-1144</p>
+                        <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
                 
@@ -120,13 +137,15 @@ const DesignerResume = () => {
                     <img src="./assets/img/designer-images/quote-icon.png"/>
                     <h2>We design websites with conversions in mind, our websites look great, but each page has a clearly deﬁned conversion goal. </h2>
                     <ul>
-                        <li style={{lineHeight: '1.5'}}>Experience of 6+ years as a Web/Graphic Designer and 5+ years as a UI/UX Developer. Total having 11 years of experience in the industry</li>
-                        <li style={{lineHeight: '1.5'}}>Proficient in Graphic Design, Website Design, UI Design and Front-end development.</li>
+                        { coreCompetencie.map(( data, index)=>(                         
+                            <li style={{lineHeight: '1.5'}}>{ data }</li>
+                        )) }
+                        {/* <li style={{lineHeight: '1.5'}}>Proficient in Graphic Design, Website Design, UI Design and Front-end development.</li>
                         <li style={{lineHeight: '1.5'}}>Understanding of Cross/Mobile Browser (Chrome, IE, Firefox and Safari) and Creating SEO friendly HTML with Website Optimization.</li>
                         <li style={{lineHeight: '1.5'}}>Implement HTML into Wordpress and Joomla.</li>
                         <li style={{lineHeight: '1.5'}}>Experience of pre-processing platforms, such as SASS and LESS.</li>
                         <li style={{lineHeight: '1.5'}}>Worked with project teams to create user-friendly and appealing application interfaces and websites for users. </li>
-                        <li style={{lineHeight: '1.5'}}>Managing & providing designing support to the team and managed the team members for efficient management work.</li>
+                        <li style={{lineHeight: '1.5'}}>Managing & providing designing support to the team and managed the team members for efficient management work.</li> */}
                     </ul>
                 </div>
                 
@@ -134,11 +153,11 @@ const DesignerResume = () => {
                 <div className="copyright-footer"><span className="copyright">Copyright 2021 – Virtual Employee. All Rights Reserved</span> <span className="copyright-box">2</span></div>
                 
             </div>
-             <div className="page third-page">
+            <div className="page third-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
                         <img src="./assets/img/designer-images/logo.png"/>
-                        <p className="empcode">VE-VK-1144</p>
+                        <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
                 
@@ -195,18 +214,29 @@ const DesignerResume = () => {
                         </div>
                     </div>
                     <h1 className="inner-heading" style={{marginTop:'100px'}}><span>Tools</span></h1>
-                    <p>Wrike, Slack, Trello, Notepad++, Netbean, Sublime Editor, Visual Studio Code</p>
+                    {/* {   empTools.split(',').map((data,index)=>(
+                            <li>{data}</li>
+                        )) 
+                    } */}
+                    <p>{empTools}</p>
                 </div>
                 
                     
                 <div className="copyright-footer"><span className="copyright">Copyright 2021 – Virtual Employee. All Rights Reserved</span> <span className="copyright-box">3</span></div>
 
             </div>
-            <div className="page fifth-page">
+
+            {   
+               projectArray?.map((data,index) => ( 
+                   _project_page(data,index)
+               
+               )) 
+           }
+            {/* <div className="page fifth-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
                         <img src="./assets/img/designer-images/logo.png"/>
-                        <p className="empcode">VE-VK-1144</p>
+                        <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
                 
@@ -268,7 +298,7 @@ const DesignerResume = () => {
                 <div className="header innerpage-header">
                     <div className="logo_bg">
                         <img src="./assets/img/designer-images/logo.png"/>
-                        <p className="empcode">VE-VK-1144</p>
+                        <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
                 
@@ -330,12 +360,12 @@ const DesignerResume = () => {
                     
                 <div className="copyright-footer"><span className="copyright">Copyright 2021 – Virtual Employee. All Rights Reserved</span> <span className="copyright-box">5</span></div>
 
-            </div>
+            </div> */}
             <div className="page sixth-page" style={{marginBottom: '0'}}>
                 <div className="header innerpage-header">
                     <div className="logo_bg">
                         <img src="./assets/img/designer-images/logo.png"/>
-                        <p className="empcode">VE-VK-1144</p>
+                        <p className="empcode">{ empCode }</p>
                     </div>	
                 </div>
                 
@@ -344,22 +374,29 @@ const DesignerResume = () => {
                     <h1 className="inner-heading"><span>Education</span></h1>	
                     <img src="./assets/img/designer-images/quote-icon.png"/>
                     <h2>Education is not the learning of facts, but the training of the mind to think. Education is a gift that none can take away. I am still learning every day.</h2>
-                    
-                    <div className="col-two-col-second">
-                        <div className="col-left">
-                            <h5 className="orange-box">01.</h5>
-                        </div>
-                        <div className="col-right">
-                            <h4>Mahatma Gandhi University</h4>
-                            <p>MBA dual specilization (IT and Marketing)</p>
-                            <p><strong>2011 - 2013</strong></p>
+                    { candidateInfo?.education?.map((edu,index)=>( 
+                                
+                        // <li key={index} ><strong>{edu.degree}</strong><span>{edu.degree} in { edu.schoolOrCollege } — { edu.gradMonth +'-'+ edu.gradYear }</span></li>
+                        <>        
+                        <div className="col-two-col-second">
+                            <div className="col-left">
+                                <h5 className="orange-box">{ index+1 }</h5>
+                            </div>
+                            <div className="col-right">
+                                <h4>{edu.schoolOrCollege}</h4>
+                                <p>{edu.degree}</p>
+                                <p><strong>{ edu.gradMonth +'-'+ edu.gradYear }</strong></p>
+                                
+                            </div>
                             
-                        </div>
                         
+                        </div>
+                        <br />
+                        </>       
+                                
+                    ))}
                     
-                    </div>
-                    <br />
-                    <div className="col-two-col-second">
+                    {/* <div className="col-two-col-second">
                         <div className="col-left">
                             <h5 className="orange-box">02.</h5>
                         </div>
@@ -384,35 +421,17 @@ const DesignerResume = () => {
                         </div>
                         
                     
-                    </div>
+                    </div> */}
                     
                 </div>
                 
                     
                 <div className="copyright-footer"><span className="copyright">Copyright 2021 – Virtual Employee. All Rights Reserved</span> <span className="copyright-box">6</span></div>
 
-            </div> */}
-            <div className="add-items row mt-5">
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-                  {/* <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3> */}
-                </div>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                  <NavLink to="/select-resume">
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Back
-                    </button>
-                  </NavLink>
-                  <ReactToPrint
-                        trigger={() => <button className="btn btn-gradient-primary btn-fw mb-2" >Download</button>}
-                        content={() => componentRef.current}
-                    />
-                </div>
-              </div>
+            </div>
+            
         </div>
     )
-}
+})
 
-export default DesignerResume;
+// export default DesignerResumeToPrint;
