@@ -22,10 +22,22 @@ const StepFour = (props) => {
 
   const { skills } = useSelector( (state) => state.candidate);
   const dispatch = useDispatch(); 
-  console.log('skills', options)
 
-  
+  useEffect(() => {
+    //fetch skills list
+    dispatch(fetchSkillsList({ search: ''}))
 
+    
+}, []);  
+
+//set props skills values coming from the candidate table
+if(!_.isEmpty(props.handleFormData) && status){
+  setFormValues(props.handleFormData.skills)
+  setFormValuesLength(props.handleFormData.skills.length)
+  setStatus(false)
+}
+
+  //set skills array as an options to pass on select dropdown
   if(typeof skills != "undefined" && (_.size(skills) > 0))
         if (_.size(skills) !== _.size(options))
             setOptions([...skills])
@@ -37,7 +49,7 @@ const StepFour = (props) => {
         let error = {}
         if (!fields["skill"] || fields["skill"].trim() === '') {
             formIsValid = false;
-            error["skill"] = "*Please enter your School Name.";
+            error["skill"] = "*Please select your Skill Name.";
         }
     
         if (!fields["skillLevel"] || fields["skillLevel"].trim() === '') {
@@ -62,17 +74,6 @@ const StepFour = (props) => {
     setErrors(response.errors)
     return response.formIsValid;
   }
-
-useEffect(() => {
-    //fetch skills list
-    dispatch(fetchSkillsList({ search: ''}))
-
-    if(!_.isEmpty(props.handleFormDataa)){
-    setFormValues(props.handleFormData.skills)
-    setFormValuesLength(props.handleFormData.skills.length)
-    setStatus(false)
-    }
-}, []);
 
   // after form submit validating the form data using validator
   const submitFormData = (e) => {
@@ -117,9 +118,8 @@ useEffect(() => {
 
   const _handleSkill = (event, key) => {
     // event.preventDefault()
-    console.log(event[0])
-    formValues[key]['skill'] = event[0].value
-    formValues[key]['skillId'] = event[0]._id
+    formValues[key]['skill'] = event.value
+    formValues[key]['skillId'] = event._id
     setFormValues([ ...formValues ])
   }
 
@@ -141,19 +141,13 @@ useEffect(() => {
                 <Row key={key}>
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Skill</Form.Label>
-                    {/* <Form.Control
-                        style={{ border: errors[key]?.skill ? "2px solid red" : "" }}
-                        type="text"
-                        name="skill"
-                        placeholder="School Name"
-                        value={index.skill}
-                        onChange={(event) => _handleChange(event,key)} 
-                    /> */}
                     <Select
                         placeholder={"Select Skills"}
                         options={options}
                         onChange={ event =>_handleSkill(event, key) }
-                        value={console.log( 'skillvalue', index)}
+                        value={options.filter(function(option) {
+                                return option.value === index.skill;
+                              })}
                       />
                     {errors[key]?.skill ? (
                         <Form.Text style={{ color: "red" }}>
