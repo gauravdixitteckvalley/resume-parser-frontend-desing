@@ -54,7 +54,7 @@ const CandidatePreview = (props) => {
       if(user.isCandidateLogin){
         return (
           <>
-            <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 mb-2 text-end text-right candid-profile">
+            <div className="candid-profile">
               
               <button className="btn btn-gradient-primary mb-2" onClick={(event) => uploadOption(event)}> Upload Resume</button>
               <Link to={`/candidate/view/career-preference/${user.id}`} rel="noreferrer">
