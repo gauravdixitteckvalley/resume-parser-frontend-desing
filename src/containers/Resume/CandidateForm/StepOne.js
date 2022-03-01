@@ -151,7 +151,7 @@ const StepOne = (props) => {
                                 <Form.Group className="mb-2 col-md-12">
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control
-                                        style={{ border: errorFields?.location ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.address ? "2px solid red" : "" }}
                                         name="address"
                                         value={fields.address}
                                         as="textarea"
@@ -159,7 +159,7 @@ const StepOne = (props) => {
                                         onChange={(event) => _handleChange(event)} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {errorFields.location}
+                                        {errorFields.address}
                                     </Form.Text>
                                 </Form.Group>
                             </Row>
