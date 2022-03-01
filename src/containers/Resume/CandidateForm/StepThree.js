@@ -17,19 +17,21 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
     const d = new Date();
     let currentYear = d.getFullYear();
     let oldYear = 1950;
-    //console.log("year ",year)
+    
     let years = [];
     //fetch data from store
     const resumeData = useSelector(state => state.resume );
     const { countryList, stateList } = resumeData;
     const currentId = props.cdId;
     const dispatch = useDispatch();
+    const [formValuesLength,setFormValuesLength] = useState('')
     let months=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     useEffect(() => {
 
         if(!_.isEmpty(props?.handleFormData)){
             if(props?.handleFormData?.education?.length >0 ){
                 setFormValues(props.handleFormData.education)
+                setFormValuesLength(props.handleFormData.education.length)
             }
             else if(formValues.length === 0){
                 setFormValues([...formValues, { 
@@ -238,6 +240,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         stateArray: null,
                                         city: null
                                     }])
+                                    setFormValuesLength(formValuesLength + 1);
     }
 
     //removing formValues object
@@ -253,6 +256,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
         let newFormValues = [...formValues];
         newFormValues.splice(index, 1);
         setFormValues(newFormValues)
+        setFormValuesLength(formValuesLength - 1);
     }
 
     if(years.length === 0){
@@ -469,15 +473,18 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                     </Form.Group>
                                     </Row>
                                 </Form.Group>
-                                {
-                                index ? 
+                                {formValuesLength > 1 ? 
+                                <>
+                                {index ? 
                                 <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
                                     <Link to="#" onClick={(event) => removeFormFields(event, key)}>
                                         <i className="mdi mdi-delete"></i>
                                     </Link>
                                 </div>
-                                : null
-                                }  
+                                : null}
+                                </>
+                                  :" "}
+                                 
                             </Row>
                             
                             <hr className="mb-4"/> 

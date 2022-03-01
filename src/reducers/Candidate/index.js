@@ -93,6 +93,25 @@ export function candidate(state = [], action) {
                 blocking : false,
             };
 
+        case 'SUBMIT_SKILLS_REQUEST':
+            return{
+                ...state,
+                blocking : true,
+                skills: []
+            }
+        case 'SUBMIT_SKILLS_SUCCESS':
+            return {
+                ...state,
+                blocking : false,
+                skills: action.payload.skills
+            };
+        
+        case 'SUBMIT_SKILLS_FAILURE':
+            return {
+                blocking : false,
+            };
+
+            
 
         default:
             return state;

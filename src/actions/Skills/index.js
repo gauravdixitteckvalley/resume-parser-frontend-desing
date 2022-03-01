@@ -127,3 +127,22 @@ export const approveTempSkill = (id,postData,params) => {
         }
     }
 }
+
+/* action for get skills Category */
+export const getSkillsCategory = () => {
+    return async dispatch => {
+        dispatch({ type: 'GET_SKILLSCATEGORY_REQUEST' });
+        try {
+            let response = await api.get(`/resume/getSkillsCategory`, {
+                headers : requestTokenHeader(),
+            });
+            
+            if (response.data.success) {
+                dispatch({ type : 'GET_SKILLSCATEGORY_SUCCESS', payload: response.data.data});
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'GET_SKILLSCATEGORY_FAILURE' });
+        }
+    }
+}

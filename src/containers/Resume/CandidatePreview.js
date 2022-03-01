@@ -67,13 +67,13 @@ const CandidatePreview = (props) => {
                 <button type="submit" className="btn btn-gradient-primary mb-2">Upload image</button>
               </Link>
               <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer">
-                <button type="submit" className="btn btn-gradient-primary mb-2">Edit Profile</button>
+                <button type="submit" className="btn btn-gradient-primary mb-2">Update Profile</button>
               </Link>
             </div>
           </>
         )
         
-      }else if(fields.resumePath){
+      }else {
         return (
           <>
             <div>
@@ -88,7 +88,7 @@ const CandidatePreview = (props) => {
                 <button type="submit" className="btn btn-gradient-primary mb-2 me-1">Upload image</button>
             </Link>
             <Link to={`/candidate/details/edit/${currentId}`} rel="noreferrer">
-                <button type="submit" className="btn btn-gradient-primary mb-2 me-1">Edit Profile</button>
+                <button type="submit" className="btn btn-gradient-primary mb-2 me-1">Update Profile</button>
             </Link>
             <Link to={`${API_URL}resume/view/${fields.resumePath}`} target="_blank" rel="noreferrer">
               <button type="button" className="btn btn-gradient-primary mb-2">Download</button>

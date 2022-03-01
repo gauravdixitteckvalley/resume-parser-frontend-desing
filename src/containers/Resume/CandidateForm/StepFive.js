@@ -10,13 +10,14 @@ import validateCandidateForm  from "./CandidateFromValidation";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepFive = (props) => {
-  console.log(props)
+  //console.log(props)
   const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ language: "", langLevel : ""}])
   const dispatch = useDispatch(); 
   const [status,setStatus] =useState(true);
+  const [formValuesLength,setFormValuesLength] = useState('')
 
   const validateForm = (formValuesArray) => {
     let errors = [];
@@ -70,6 +71,7 @@ const StepFive = (props) => {
 
   const addFormFields = () => {
     setFormValues([...formValues, { language: "", langLevel: "" }])
+    setFormValuesLength(formValuesLength + 1)
   }
 
   const removeFormFields = (event, index) => {
@@ -83,6 +85,7 @@ const StepFive = (props) => {
     let newFormValues = [...formValues];
     newFormValues.splice(index, 1);
     setFormValues(newFormValues)
+    setFormValuesLength(formValuesLength - 1)
   }
 
   const _handleChange = (event,key ) => {
@@ -94,6 +97,7 @@ const StepFive = (props) => {
 useEffect(() => {
   if(!_.isEmpty(props.handleFormData)){
     setFormValues(props.handleFormData.langauge)
+    setFormValuesLength(props.handleFormData.langauge.length)
     setStatus(false)
   }
 }, []);
@@ -174,15 +178,17 @@ useEffect(() => {
                             ""
                         )}
                     </Form.Group> 
-                    {
-                      index ? 
-                      <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
-                          <Link to="#" onClick={(event) => removeFormFields(event, key)}>
-                              <i className="mdi mdi-delete"></i>
-                          </Link>
-                      </div>
-                      : null
-                    }                  
+                    {formValuesLength > 1 ? 
+                                <>
+                                {index ? 
+                                  <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
+                                      <Link to="#" onClick={(event) => removeFormFields(event, key)}>
+                                          <i className="mdi mdi-delete"></i>
+                                      </Link>
+                                  </div>
+                                : null}
+                                </>
+                                  :" "}                
                   </Row>
                 )
               })}

@@ -116,7 +116,6 @@ export const submitManualResumeFormData = (postData) => {
 /* action for update resume recode */
 export const updateProfileImage = (id, postData) => {
     return async dispatch => {
-        console.log("postData ",postData, " id ", id)
         dispatch({ type: 'UPDATE_IMAGE_REQUEST' });
         try {
             let response = await api.put(`/resume/candidate/profileImageUpload/${id}`, postData, {
@@ -131,6 +130,25 @@ export const updateProfileImage = (id, postData) => {
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'UPDATE_IMAGE_FAILURE' });
+        }
+    }
+}
+
+export const fetchSkillsList = postData => {
+    return async dispatch => {
+        dispatch({ type: 'SUBMIT_SKILLS_REQUEST' });
+        try {
+            let response = await api.post(`/resume/skillsOnSearch`, postData, {
+                headers : requestTokenHeader(),
+            });
+           
+            if (response.data.success) {
+                dispatch({ type : 'SUBMIT_SKILLS_SUCCESS', payload: response.data.data});
+
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SUBMIT_SKILLS_FAILURE' });
         }
     }
 }

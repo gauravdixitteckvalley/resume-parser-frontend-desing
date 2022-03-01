@@ -1,11 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { Form, Row } from "react-bootstrap";
 import _ from 'lodash'
 
 import BlockUI from "../../components/BlockUI"
 import {history} from '../../utils/helper'
 import validateSkillsForm from './SkillsValidation'
-import { fetchSkillsEditFormData, submitSkillsFormData } from '../../actions/Skills';
+import { fetchSkillsEditFormData, submitSkillsFormData, getSkillsCategory } from '../../actions/Skills';
 import "./Skill.css";
 
 const SkillsForm = (props) => {
@@ -23,12 +24,14 @@ const SkillsForm = (props) => {
     useEffect(() => {
         if(currentId)
             dispatch(fetchSkillsEditFormData(currentId)) // action is called to fetch record
-
+            dispatch(getSkillsCategory())
         // returned function will be called on component unmount 
         return () => {
             // dispatch(resetUserData())
         }
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
+
 
 
     /**section to be executed when we open the form in edit mode */
@@ -59,23 +62,50 @@ const SkillsForm = (props) => {
         event.preventDefault();
         
         if (_validateForm()) {
-            const { skills_name } = event.target;
-            const postData = {
-                skills_name  : skills_name.value
+            const { skills_name, skillCategory } = event.target;
+            console.log(skillCategory.value)
+            debugger
+            if (skillCategory.value === '') {
+                errors["skillCategory"] = "*Please select your skill.";
+                setErrors({...errors})
+            }else{
+                const postData = {
+                    skills_name  : skills_name.value,
+                    skill_category: skillCategory.value
+                }
+    
+                if(currentId){
+                    dispatch(submitSkillsFormData (currentId,postData));  //action is called to submit data
+                } else {
+                    postData.skills_name = skills_name.value
+                    dispatch(submitSkillsFormData('',postData));  // action is called to submit data
+                }
             }
-
-            if(currentId){
-                dispatch(submitSkillsFormData (currentId,postData));  //action is called to submit data
-            } else {
-                postData.skills_name = skills_name.value
-                dispatch(submitSkillsFormData('',postData));  // action is called to submit data
-            }
+            
         }
     }
 
     /**method called when form is cancelled */
     const _handleCancelForm = () => {
         history.push('/skills')
+    }
+
+    const selectSkillCategory = () => {
+        if(skillsData?.skillsCategory?.length > 0){
+            return skillsData?.skillsCategory.map( category => {
+                return (
+                    <>
+                        <option
+                            key={ category._id } 
+                            value={ category._id} 
+                            selected={(category._id == fields?.skill_category) ? true :false }>
+                                { category.name }
+                        </option>
+                    </>
+                )
+            })
+        }
+        
     }
 
     const { blocking } = skillsData
@@ -91,15 +121,43 @@ const SkillsForm = (props) => {
                     <div className="card">
                         <div className="card-body">
                             <form className="form-inline user-form" onSubmit={(event) => _handleSubmit(event)}>
-                              
-                                    <label className=" mb-1" htmlFor="inlineFormInputName2">Skill</label>
-                                    <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Python"
-                                        name="skills_name"  
-                                        value={fields.skills_name || ''} 
-                                        onChange={(event) => _handleChange(event)}
-                                    />
-                                    <div className="errorMsg">{errors.skills_name}</div>
+                                <Row>
+                                    <Form.Group className="mb-2 col-md-12">
+                                        <label className=" mb-1" htmlFor="inlineFormInputName2">Skill</label>
+                                        <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Python"
+                                            name="skills_name"  
+                                            value={fields.skills_name || ''} 
+                                            onChange={(event) => _handleChange(event)}
+                                        />
+                                        {errors?.skills_name ? (
+                                            <Form.Text style={{ color: "red" }}>
+                                            { errors?.skills_name }
+                                            </Form.Text>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </Form.Group>
+                                    <Form.Group className="mb-2 col-md-12">
+                                        <Form.Label>Level</Form.Label>
+                                        <Form.Select 
+                                        aria-label="Default select example" 
+                                        style={{ border: errors?.skillLevel ? "2px solid red" : "" }} 
+                                        name="skillCategory" 
+                                        onChange={(event) => _handleChange(event)} 
+                                        >
+                                            <option value='' >Select your skill level</option>
+                                            { selectSkillCategory()}
+                                        </Form.Select>
+                                        {errors?.skillCategory ? (
+                                            <Form.Text style={{ color: "red" }}>
+                                            { errors?.skillCategory }
+                                            </Form.Text>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </Form.Group> 
                             
+                                </Row>
                                 <button type="submit" className="btn btn-gradient-primary mb-2">Submit</button>
                                 <button className="btn btn-light mb-2"  onClick={_handleCancelForm}>Cancel</button>
                             </form>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import Select from "react-select";
 import { Link } from "react-router-dom";
+
 import './CandidateMultiForm.css';
 import _ from "lodash";
-import {  submitCandidateData  } from "../../../actions/Candidate";
+import {  submitCandidateData, fetchSkillsList  } from "../../../actions/Candidate";
 import validateCandidateForm  from "./CandidateFromValidation";
 
 
@@ -13,9 +15,20 @@ const StepFour = (props) => {
   const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
+  const [options, setOptions] = useState([])
   const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
-  const dispatch = useDispatch(); 
   const [status,setStatus] =useState(true);
+  const [formValuesLength,setFormValuesLength] = useState('')
+
+  const { skills } = useSelector( (state) => state.candidate);
+  const dispatch = useDispatch(); 
+  console.log('skills', options)
+
+  
+
+  if(typeof skills != "undefined" && (_.size(skills) > 0))
+        if (_.size(skills) !== _.size(options))
+            setOptions([...skills])
 
   const validateForm = (formValuesArray) => {
     let errors = [];
@@ -51,8 +64,12 @@ const StepFour = (props) => {
   }
 
 useEffect(() => {
-    if(!_.isEmpty(props.handleFormData)){
+    //fetch skills list
+    dispatch(fetchSkillsList({ search: ''}))
+
+    if(!_.isEmpty(props.handleFormDataa)){
     setFormValues(props.handleFormData.skills)
+    setFormValuesLength(props.handleFormData.skills.length)
     setStatus(false)
     }
 }, []);
@@ -73,6 +90,7 @@ useEffect(() => {
 
   const addFormFields = () => {
     setFormValues([...formValues, { skill: "", skillLevel: "" }])
+    setFormValuesLength(formValuesLength + 1)
   }
 
   //removing formValues object
@@ -88,6 +106,7 @@ useEffect(() => {
     let newFormValues = [...formValues];
     newFormValues.splice(index, 1);
     setFormValues(newFormValues)
+    setFormValuesLength(formValuesLength - 1)
   }
 
   const _handleChange = (event,key) => {
@@ -95,6 +114,14 @@ useEffect(() => {
     formValues[key][target.name] = target.value
     setFormValues([...formValues])
   };
+
+  const _handleSkill = (event, key) => {
+    // event.preventDefault()
+    console.log(event[0])
+    formValues[key]['skill'] = event[0].value
+    formValues[key]['skillId'] = event[0]._id
+    setFormValues([ ...formValues ])
+  }
 
   return (
     <>
@@ -109,19 +136,25 @@ useEffect(() => {
         <p style={{fontSize: '13px'}}>Highlight 6-8 of you top skills.</p>
           {/* <Form onSubmit={submitFormData} className="mt-4"> */}
           <Form onSubmit={submitFormData}>
-            {formValues.map((index, key) => {
+            {formValues?.map((index, key) => {
               return (
                 <Row key={key}>
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Skill</Form.Label>
-                    <Form.Control
+                    {/* <Form.Control
                         style={{ border: errors[key]?.skill ? "2px solid red" : "" }}
                         type="text"
                         name="skill"
                         placeholder="School Name"
                         value={index.skill}
                         onChange={(event) => _handleChange(event,key)} 
-                    />
+                    /> */}
+                    <Select
+                        placeholder={"Select Skills"}
+                        options={options}
+                        onChange={ event =>_handleSkill(event, key) }
+                        value={console.log( 'skillvalue', index)}
+                      />
                     {errors[key]?.skill ? (
                         <Form.Text style={{ color: "red" }}>
                         { errors[key]?.skill }
@@ -178,15 +211,18 @@ useEffect(() => {
                         ""
                     )}
                 </Form.Group> 
-                {
-                  index ? 
-                  <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
-                      <Link to="#" onClick={(event) => removeFormFields(event, key)}>
-                          <i className="mdi mdi-delete"></i>
-                      </Link>
-                  </div>
-                  : null
-                }                  
+                {formValuesLength > 1 ? 
+                                <>
+                                {index ? 
+                                  <div className="icons-list col-md-1 candidate-del" style={{borderBottom: '0 !important', borderRight: '0 !important', padding: '0 !important'}}>
+                                      <Link to="#" onClick={(event) => removeFormFields(event, key)}>
+                                          <i className="mdi mdi-delete"></i>
+                                      </Link>
+                                  </div>
+                                : null}
+                                </>
+                                  :" "}
+                 
               </Row>
               )
             })}
