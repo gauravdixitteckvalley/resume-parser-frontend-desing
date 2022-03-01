@@ -67,13 +67,13 @@ const CandidatePreview = (props) => {
                 <button type="submit" className="btn btn-gradient-primary mb-2">Upload image</button>
               </Link>
               <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer">
-                <button type="submit" className="btn btn-gradient-primary mb-2">Edit Profile</button>
+                <button type="submit" className="btn btn-gradient-primary mb-2">Update Profile</button>
               </Link>
             </div>
           </>
         )
         
-      }else if(fields.resumePath){
+      }else {
         return (
           <>
             <div>

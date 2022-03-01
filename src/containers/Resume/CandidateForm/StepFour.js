@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import Select from 'react-select'
 import { Link } from "react-router-dom";
-
 import './CandidateMultiForm.css';
 import _ from "lodash";
-import {  submitCandidateData, fetchSkillsList  } from "../../../actions/Candidate";
+import {  submitCandidateData  } from "../../../actions/Candidate";
 import validateCandidateForm  from "./CandidateFromValidation";
 
 
@@ -18,15 +16,6 @@ const StepFour = (props) => {
   const [formValues, setFormValues] = useState([{ project_name: "", role:"", technologies:"", project_link:"", project_description : ""}])
   const dispatch = useDispatch(); 
   const [status,setStatus] =useState(true);
-
-  const { skills } = useSelector( (state) => state.candidate);
-  console.log('skills', options)
-
-  
-
-  if(typeof skills != "undefined" && (_.size(skills) > 0))
-        if (_.size(skills) !== _.size(options))
-            setOptions([...skills])
 
   const validateForm = (formValuesArray) => {
     let errors = [];
@@ -99,7 +88,6 @@ useEffect(() => {
     setFormValues([...formValues, { project_name: "", role:"", technologies:"", project_link:"", project_description : "" }])
   }
 
-  //removing formValues object
   const removeFormFields = (event, index) => {
     event.preventDefault()
 
@@ -118,14 +106,7 @@ useEffect(() => {
     const { target } = event
     formValues[key][target.name] = target.value
     setFormValues([...formValues])
-    debugger
   };
-
-  const _handleSkill = (event, key) => {
-    event.preventDefault()
-    formValues[key]['skill'] = event.target.value
-    debugger
-  }
 
   return (
     <>

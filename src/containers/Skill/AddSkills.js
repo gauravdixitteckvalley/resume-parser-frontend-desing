@@ -18,7 +18,7 @@ const SkillsForm = (props) => {
     /**fetched data from redux store */
     const skillsData = useSelector(state => state.skills);
     const dispatch = useDispatch();
-
+console.log('skillsData',skillsData);
     
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
@@ -63,8 +63,7 @@ const SkillsForm = (props) => {
         
         if (_validateForm()) {
             const { skills_name, skillCategory } = event.target;
-            console.log(skillCategory.value)
-            debugger
+            // debugger
             if (skillCategory.value === '') {
                 errors["skillCategory"] = "*Please select your skill.";
                 setErrors({...errors})
@@ -90,9 +89,25 @@ const SkillsForm = (props) => {
         history.push('/skills')
     }
 
-    const selectSkillCategory = () => {
-        if(skillsData?.skillsCategory?.length > 0){
-            return skillsData?.skillsCategory.map( category => {
+    const _skill_options = (category) =>{
+        return (
+            
+                <option
+                    key={ category._id } 
+                    value={ category._id} 
+                    selected={(category._id == fields?.skill_category) ? true :false }>
+                        { category.name }
+                </option>
+            
+        )
+    }
+    const selectSkillCategory = (category) => {
+        
+        if(category.length > 0){
+           
+            // return skillsData?.skillsCategory.map( (category,index) => (
+                // console.log('skillsData',skillsData);
+                // _skill_options(category)
                 return (
                     <>
                         <option
@@ -103,7 +118,7 @@ const SkillsForm = (props) => {
                         </option>
                     </>
                 )
-            })
+                // ))
         }
         
     }
@@ -146,7 +161,9 @@ const SkillsForm = (props) => {
                                         onChange={(event) => _handleChange(event)} 
                                         >
                                             <option value='' >Select your skill level</option>
-                                            { selectSkillCategory()}
+                                            { skillsData?.skillsCategory?.map( (category,index) => ( 
+                                             selectSkillCategory(category)
+                                            ))}
                                         </Form.Select>
                                         {errors?.skillCategory ? (
                                             <Form.Text style={{ color: "red" }}>
