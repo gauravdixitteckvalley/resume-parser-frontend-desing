@@ -268,7 +268,7 @@ const CandidatePreview = (props) => {
                       {fields.email || ""}
                     </div>
                   </div>
-                  <div className="displayPdreviewRow col-md-6">
+                  <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
                       <b>Phone</b>
                     </label>
