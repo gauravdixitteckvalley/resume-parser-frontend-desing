@@ -77,9 +77,9 @@ function MainRoute() {
                         <PrivateRoute exact path="/message/sent-item" component={SentMessageListing} />
                         <PrivateRoute exact path="/message/message-details/:id" component={MessageDetails} />
                         <PrivateRoute exact path="/sent-message-details/:id" component={SentMessageDetails} />
-                        <PrivateRoute exact path="/developer-preview" component={DeveloperResume} />
-                        <PrivateRoute exact path="/designer-preview" component={DesignerResume} />
-                        <PrivateRoute exact path="/select-resume" component={SelectResume} />
+                        <PrivateRoute exact path="/template/developer-preview" component={DeveloperResume} />
+                        <PrivateRoute exact path="/template/designer-preview" component={DesignerResume} />
+                        <PrivateRoute exact path="/template" component={SelectResume} />
                         <PrivateRoute exact path="/candidate/view/career-preference/:id" component={CareerPreference} />
                         <PrivateRoute exact path="/candidate/view/video-profile/:id" component={VideoProfile} />
                         <PrivateRoute exact path="/candidate/view/upload-image/:id" component={UploadImage} />

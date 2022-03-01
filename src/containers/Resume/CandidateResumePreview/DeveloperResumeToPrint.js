@@ -11,12 +11,12 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
              <div className="page inner" >
                 <div className="header">
                 <h2 className="emp-id">{ empCode }</h2>
-                <img src="./assets/img/designer-resume-img/logo.png" className="logo" />
+                <img src="../../assets/img/designer-resume-img/logo.png" className="logo" />
                 </div>
                 <div className="inner-content">
                 <div className="two-col">
                     <div className="left-col">
-                        <img src="./assets/img/designer-resume-img/projects-icon.png" style={{margin: '6px 0 0'}}/>
+                        <img src="../../assets/img/designer-resume-img/projects-icon.png" style={{margin: '6px 0 0'}}/>
                     </div>
                     <div className="right-col">
                         <h2>Projects</h2>
@@ -46,19 +46,19 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
             
         )
     }
-    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie } = props;
+    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie, skillsArray } = props;
 
-    
+    console.log('skillsArray',skillsArray);
     return (
         // <Fragment>
           
             <div ref={ref}>
              {/* Page 1 Start */}
-            <div className="page main-page" PageSize="A4" style={{backgroundImage: 'url(./assets/img/designer-resume-img/web-capability-bg.png)'}}>
-                <section id="top-head-main" style={{backgroundImage: 'url(./assets/img/designer-resume-img/top-dotted-bg.png)'}}>
+            <div className="page main-page" PageSize="A4" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/web-capability-bg.png)'}}>
+                <section id="top-head-main" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/top-dotted-bg.png)'}}>
                 <div className="page-container">
                     <div className="logo-main">
-                        <img src="./assets/img/designer-resume-img/main-logo.png" />
+                        <img src="../../assets/img/designer-resume-img/main-logo.png" />
                     </div>
                 </div>
                 </section>
@@ -78,70 +78,70 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                             <div className="icon-main">
                             <ul className="icon-box">
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_1.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_1.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_2.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_2.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_3.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_3.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_4.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_4.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_5.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_5.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_6.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_6.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_7.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_7.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_8.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_8.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_9.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_9.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_10.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_10.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_11.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_11.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_12.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_12.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_13.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_13.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_14.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_14.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_15.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_15.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_16.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_16.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_17.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_17.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_18.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_18.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_19.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_19.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_20.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_20.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_21.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_21.png"/>
                                 </li>
                                 <li>
-                                    <img src ="./assets/img/designer-resume-img/software-icon/icon_22.png"/>
+                                    <img src ="../../assets/img/designer-resume-img/software-icon/icon_22.png"/>
                                 </li>
                             </ul>
                             </div>
@@ -168,12 +168,12 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
             <div className="page inner">
                 <div className="header">
                     <h2 className="emp-id">{ empCode }</h2>
-                    <img src="./assets/img/designer-resume-img/logo.png" className="logo" />
+                    <img src="../../assets/img/designer-resume-img/logo.png" className="logo" />
                 </div>
                 <div className="inner-content">
                  <div className="two-col">
                     <div className="left-col">
-                        <img src="./assets/img/designer-resume-img/abt-icon.png" style={{margin: '6px 0 0'}}/>
+                        <img src="../../assets/img/designer-resume-img/abt-icon.png" style={{margin: '6px 0 0'}}/>
                     </div>
                     <div className="right-col">
                         <h2>Core Competencies</h2>
@@ -194,7 +194,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                 </div> 
                  <div className="two-col">
                     <div className="left-col">
-                        <img src="./assets/img/designer-resume-img/tech-icon.png"/>
+                        <img src="../../assets/img/designer-resume-img/tech-icon.png"/>
                     </div>
                     <div className="right-col">
                         <h2>Technical Skills</h2>
@@ -202,10 +202,12 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                             <div className="circle first">
                             Web<br /> Server & Hosting
                             <ul>
-                                <li>AWS</li>
-                                <li>GODaddy</li>
+                                { 
+                                    <li>AWS</li> 
+                                }
+                                {/* <li>GODaddy</li>
                                 <li>LAMP</li>
-                                <li>WAMP</li>
+                                <li>WAMP</li> */}
                             </ul>
                             </div>
                             <div className="circle second">
@@ -247,7 +249,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                 </div> 
                 <div className="two-col">
                     <div className="left-col">
-                        <img src="./assets/img/designer-resume-img/tools-icon.png" style={{margin: '6px 0 0'}}/>
+                        <img src="../../assets/img/designer-resume-img/tools-icon.png" style={{margin: '6px 0 0'}}/>
                     </div>
                     <div className="right-col">
                         <h2>Tools</h2>
@@ -290,12 +292,12 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
             <div className="page inner last-page">
                 <div className="header">
                 <h2 className="emp-id">{ empCode }</h2>
-                <img src="./assets/img/designer-resume-img/logo.png" className="logo" />
+                <img src="../../assets/img/designer-resume-img/logo.png" className="logo" />
                 </div>
                 <div className="inner-content">
                     <div className="two-col second">
                         <div className="left-col">
-                            <img src="./assets/img/designer-resume-img/education-icon.png" style={{margin: '6px 0 0'}}/>
+                            <img src="../../assets/img/designer-resume-img/education-icon.png" style={{margin: '6px 0 0'}}/>
                         </div>
                         <div className="right-col">
                             <h2>Education</h2>

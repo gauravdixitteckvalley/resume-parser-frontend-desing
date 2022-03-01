@@ -99,6 +99,12 @@ const Sidebar = () => {
                         <i className="mdi mdi-message-reply menu-icon"></i>
                     </Link>
                     </li>
+                    <li  className={splitLocation[1] ==="template" ? "active nav-item" : "nav-item "}>
+                    <Link to='/template' className="nav-link">
+                        <span className="menu-title">Template</span>
+                        <i className="mdi mdi-calendar menu-icon"></i>
+                    </Link>
+                    </li>
                 </>
             )
         }
