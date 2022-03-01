@@ -69,26 +69,7 @@ export const submitResumeData = (postData) => {
     }
 }
 
-/* action for submitting manual resume record */
-export const submitManualResumeFormData = (postData) => {
-    return async dispatch => {
-        dispatch({ type: 'SUBMIT_MANUAL_RESUME_FORM_REQUEST' });
-        try {
-            let response = await api.post(`resume/manual`, postData, {
-                headers : requestTokenHeader(),
-            });
-            
-            if (response.data.success) {
-                dispatch({ type : 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS'});
-                displaySuccessMessage(response.data.data.data);
-                // history.push('/resume');
-            } 
-        } catch(error) {
-            handleHttpError(error.response);
-            dispatch({ type: 'SUBMIT_MANUAL_RESUME_FORM_FAILURE' });
-        }
-    }
-}
+
 
 /* action for update resume recode */
 export const updateResumeFormData = (id, postData) => {

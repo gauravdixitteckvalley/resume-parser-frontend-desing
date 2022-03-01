@@ -61,6 +61,23 @@ export function candidate(state = [], action) {
                 blocking: true
             }
 
+
+             /* cases for manual submit form starts */
+        case 'SUBMIT_MANUAL_RESUME_FORM_REQUEST':
+            return {
+                ...state,
+                blocking : true,
+                candidateId       : '',
+            };
+        
+        case 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS':
+            return {
+                ...state,
+                blocking : false,
+                candidateId       : action.payload,
+            };
+        
+        case 'SUBMIT_MANUAL_RESUME_FORM_FAILURE':
         /* ================== image upload ================ */
         case 'UPDATE_IMAGE_REQUEST':
             return{

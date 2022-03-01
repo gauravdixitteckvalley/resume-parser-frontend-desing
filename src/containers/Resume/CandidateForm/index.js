@@ -19,15 +19,24 @@ function CandidateMultiStep(props) {
   //const cdIdData = JSON.parse(localStorage.getItem("data"));
   const [filData,setFilData] = useState(null)
   const [isData,setIsData] = useState(false)
-  const cdId =props?.match?.params?.id;
+  let cdId =props?.match?.params?.id;
   const dispatch = useDispatch(); 
   const userData = useSelector( (state) => state.candidate);
-  const { candidateInfo, blocking } = userData;
+  const { candidateInfo, blocking, candidateId } = userData;
 
+  if(cdId === undefined && candidateId === undefined){
+    cdId = "";
+  }else if( candidateId !== undefined){
+    cdId = candidateId
+  }
+  console.log('cdId ',cdId)
   useEffect(() => {
+    if(cdId)
       dispatch(fetchCandidateData(cdId));
-  }, []);
+      
+  }, [cdId]);
  
+
  
  if(cdId && typeof userData != "undefined" && (_.size(userData) > 0)){
      // console.log("demo ",typeof userData)
@@ -36,23 +45,7 @@ function CandidateMultiStep(props) {
           setFilData(userData)
         }
 }
- //  console.log('candidateInfo  ',userData);
-   /*if(userData){
-     console.log("userData ", userData)
-   }
- if(!_.isEmpty(candidateInfo && isData === false)){
-    
-     setIsData(true) 
-      
-     console.log('candidateInfo1',candidateInfo,isData);
-    
-   setTimeout(function(){ setFilData(candidateInfo) }, 200);
-  }*/
-
-  
-
-
-
+ 
   //state for form data
   const [formData, setFormData] = useState({
     firstName: "",
@@ -98,9 +91,7 @@ function CandidateMultiStep(props) {
   }));
   }
   
-
-console.log('userData.candidateInfo',userData.candidateInfo);
-
+console.log("candidateInfo ",userData.candidateInfo)
 // javascript switch case to show different form in each step
   switch (step) {
     // case 1 to show stepOne form and passing nextStep, prevStep, and handleInputData as handleFormData method as prop and also formData as value to the fprm
@@ -111,12 +102,22 @@ console.log('userData.candidateInfo',userData.candidateInfo);
           <Container>
             <Row>
               <Col>
-            { !_.isEmpty(userData.candidateInfo) ? <StepOne 
+              {cdId ? 
+                 !_.isEmpty(userData.candidateInfo) ? <StepOne 
                   nextStep={() => nextStep()} 
                   handleFormData={userData?.candidateInfo} 
                   name={userData?.candidateInfo?.name} 
                   cdId={cdId}
-                /> :'' }
+                /> :'' 
+
+                :
+                <StepOne 
+                  nextStep={() => nextStep()} 
+                  handleFormData=""
+                  name=""
+                  cdId=""
+                />
+                }
               </Col>
             </Row>
           </Container>

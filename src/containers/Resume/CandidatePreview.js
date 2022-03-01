@@ -18,6 +18,7 @@ const CandidatePreview = (props) => {
     const resumeDataList = useSelector(state => state.resume );
     const { countryList, stateList } = resumeDataList;
     const [showModal,setShowModal] =useState(false);
+    console.log(props)
 
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
@@ -66,7 +67,7 @@ const CandidatePreview = (props) => {
                 <button type="submit" className="btn btn-gradient-primary mb-2">Upload image</button>
               </Link>
               <Link to={`/candidate/details/edit/${user.id}`} rel="noreferrer">
-                <button type="submit" className="btn btn-gradient-primary mb-2">Edit</button>
+                <button type="submit" className="btn btn-gradient-primary mb-2">Edit Profile</button>
               </Link>
             </div>
           </>
@@ -76,10 +77,19 @@ const CandidatePreview = (props) => {
         return (
           <>
             <div>
-            <button className="btn btn-gradient-primary mb-2 me-2" onClick={(event) => uploadOption(event)}> Upload Resume</button>
-            <Link to={`/candidate/view/video-profile/${user.id}`} rel="noreferrer" className=" me-2">
-                <button type="submit" className="btn btn-gradient-primary mb-2">Video profile</button>
-              </Link>
+            <button className="btn btn-gradient-primary mb-2 me-1" onClick={(event) => uploadOption(event)}> Upload Resume</button>
+            <Link to={`/candidate/view/career-preference/${currentId}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2  me-1">Career preference</button>
+            </Link>
+            <Link to={`/candidate/view/video-profile/${currentId}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2 me-1">Video profile</button>
+            </Link>
+            <Link to={`/candidate/view/upload-image/${currentId}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2 me-1">Upload image</button>
+            </Link>
+            <Link to={`/candidate/details/edit/${currentId}`} rel="noreferrer">
+                <button type="submit" className="btn btn-gradient-primary mb-2 me-1">Update Profile</button>
+            </Link>
             <Link to={`${API_URL}resume/view/${fields.resumePath}`} target="_blank" rel="noreferrer">
               <button type="button" className="btn btn-gradient-primary mb-2">Download</button>
             </Link>
