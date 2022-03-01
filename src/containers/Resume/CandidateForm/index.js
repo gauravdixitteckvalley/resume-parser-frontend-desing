@@ -14,12 +14,12 @@ import BlockUI from "../../../components/BlockUI";
 
 function CandidateMultiStep(props) {
   //state for steps
- // console.log(props?.match?.params?.id, " props")
   const [step, setstep] = useState(1);
-  //const cdIdData = JSON.parse(localStorage.getItem("data"));
   const [filData,setFilData] = useState(null)
   const [isData,setIsData] = useState(false)
+
   let cdId =props?.match?.params?.id;
+  
   const dispatch = useDispatch(); 
   const userData = useSelector( (state) => state.candidate);
   const { candidateInfo, blocking, candidateId } = userData;
@@ -29,7 +29,8 @@ function CandidateMultiStep(props) {
   }else if( candidateId !== undefined){
     cdId = candidateId
   }
-  console.log('cdId ',cdId)
+
+
   useEffect(() => {
     if(cdId)
       dispatch(fetchCandidateData(cdId));
@@ -39,8 +40,6 @@ function CandidateMultiStep(props) {
 
  
  if(cdId && typeof userData != "undefined" && (_.size(userData) > 0)){
-     // console.log("demo ",typeof userData)
-     
         if (filData !== null){
           setFilData(userData)
         }
@@ -91,7 +90,6 @@ function CandidateMultiStep(props) {
   }));
   }
   
-console.log("candidateInfo ",userData.candidateInfo)
 // javascript switch case to show different form in each step
   switch (step) {
     // case 1 to show stepOne form and passing nextStep, prevStep, and handleInputData as handleFormData method as prop and also formData as value to the fprm
