@@ -199,49 +199,74 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                     <div className="right-col">
                         <h2>Technical Skills</h2>
                         <div className="skills-div">
+                       
                             <div className="circle first">
                             Web<br /> Server & Hosting
                             <ul>
-                                { 
-                                    <li>AWS</li> 
-                                }
-                                {/* <li>GODaddy</li>
-                                <li>LAMP</li>
-                                <li>WAMP</li> */}
+                            { (skillsArray.Server !== undefined)? 
+                                 skillsArray.Server.map((data,index)=>(
+                                    <li>{ data.skill }</li>
+                                 )) 
+                            :
+                                <>
+                                <li>Godaddy</li>
+                                <li>Xampp</li>
+                                <li>Wampp</li>
+                                </>
+                            }
                             </ul>
                             </div>
+                       
+                           
                             <div className="circle second">
                             PHP<br /> MVC/CMS
                             <ul>
-                                <li>PHP7</li>
-                                <li>Laravel</li>
-                                <li>Codeigniter</li>
-                                <li>Magento</li>
-                                <li>OpenCart</li>
-                                <li>Core PHP</li>
+                            { (skillsArray.Backend !== undefined)?  
+                                 skillsArray.Backend.map((data,index)=>(
+                                        <li>{ data.skill }</li>
+                                )) 
+                             :
+                                <>
+                                <li>PHP</li>
                                 <li>WordPress</li>
-                                <li>Joomla</li>
+                                <li>Core PHP</li>
+                                </>
+                             }
                             </ul>
                             </div>
+                        
+                        
                             <div className="circle third">
                             Payment<br /> Gateway
                             <ul>
+                                { (skillsArray.Other !== undefined)?
+                                     skillsArray.Other.map((data,index)=>(
+                                        <li>{ data.skill }</li>
+                                )) 
+                            :
+                                <>
                                 <li>Paypal Checkout</li>
                                 <li>Google Checkout</li>
-                                <li>PAYTM</li>
-                                <li>BrainTree</li>
+                                </>
+                            }
                             </ul>
                             </div>
+                            
+                        
                             <div className="circle fourth">
                             Frontend 
                             <ul>
-                                <li>Angular</li>
-                                <li>React</li>
-                                <li>TypeScript</li>
-                                <li>JavaScript</li>
-                                <li>AJAX</li>
+                                { (skillsArray.Frontend !== undefined)?
+                                skillsArray.Frontend.map((data,index)=>(
+                                        <li>{ data.skill }</li>
+                                )) 
+                                :
+                                <>
                                 <li>HTML</li>
                                 <li>CSS</li>
+                                <li>JavaScript</li>
+                                </>
+                                }
                             </ul>
                             </div>
                         </div>

@@ -198,6 +198,339 @@ p.orange {
   padding-bottom: 150px !important;
 }
 
+.two-col {
+  display: flex;
+  justify-content: center;
+}
+
+.two-col.second span {
+	display: block;
+	font-size: 14px;
+}
+
+.two-col.second h2 {
+	line-height: 1;
+}
+
+.left-col {
+    width: 8%;
+}
+
+.right-col {
+	width: 92%;
+}
+.skills-div {
+	width: 664px;
+	height: 515px;
+	position: relative;
+	margin: 100px 0 0 -26px;
+}
+
+.circle {
+	width: 221px;
+	height: 221px;
+	border-radius: 50%;
+	display: block;
+	position: absolute;
+	display: flex;
+	font-size: 19px;
+    font-weight: 700;
+	color: #FFFFFF;
+}
+
+.circle.first {
+    background: rgba(57,113,1,0.9);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+	z-index: 5;
+	text-align: center;
+    justify-content: center;
+    padding: 36px 0 0;
+}
+
+
+
+.circle.second {
+    background: rgba(54,54,55,0.9);
+    left: 0;
+    right: -220px;
+    margin: 0 auto;
+    top: 80px;
+	text-align: center;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 14px 0 0;
+}
+
+.circle.third {
+	background: rgba(3,79,146,0.9);
+	left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 180px;
+	z-index: 5;
+	justify-content: center;
+	align-items: flex-end;
+	padding: 0 0 40px;
+}
+
+.circle.fourth {
+	background: rgba(76,40,194,0.9);
+	left: -220px;
+    right: 0;
+    margin: 0 auto;
+    top: 80px;
+	align-items: center;
+    justify-content: flex-start;
+	padding: 0 0 0 14px;
+}
+
+.circle ul {
+	position: absolute;
+	list-style: none;
+	margin: 0;
+}
+
+.circle ul:before {
+	display: none;
+}
+
+/*first*/
+
+.circle.first ul {
+	top: 0;
+	display: flex;
+	top: -50px;
+	border-bottom: 3px solid rgba(57,113,1,1);
+}
+
+
+.circle.first ul:after {
+    content: "";
+    width: 3px;
+    height: 13px;
+    background: #397101;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 37px;
+}
+
+.right-col .skills-div .circle.first ul li {
+	color: rgba(57,113,1,1);
+	padding: 0 10px 15px;
+	position: relative;
+}
+
+
+.right-col .skills-div .circle.first ul li:after {
+	content: "";
+    width: 3px;
+    height: 13px;
+    background: #397101;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 0;
+}
+
+.right-col .skills-div .circle.first ul li:before {
+	content: "";
+    width: 5px;
+    height: 5px;
+    background: #397101;
+	border-radius: 50%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 9px;
+    top: auto;
+}
+
+	
+
+.right-col.first .skills-div ul li:first-child {
+	padding-left: 0;
+}
+.right-col.first .skills-div ul li:last-child {
+	padding-right: 0;
+}
+
+
+
+/*Second*/
+
+.circle.second ul {
+    display: flex;
+    top: 50%;
+    border-left: 3px solid #363637;
+    right: -126px;
+    flex-direction: column;
+    transform: translateY(-50%);
+}
+
+.circle.second ul:after {
+    content: "";
+    width: 13px;
+    height: 3px;
+    background: #363637;
+    position: absolute;
+    left: -16px;
+    margin: 0 auto;
+    top: 50%;
+}
+
+
+.right-col .skills-div .circle.second ul li {
+    color: #363637;
+    padding: 0 0 0 21px;
+    position: relative;
+	line-height: 1.7;
+}
+
+
+.right-col .skills-div .circle.second ul li:after {
+    content: "";
+    width: 13px;
+    height: 3px;
+    background: #363637;
+    position: absolute;
+    left: -1px;
+    top: 10px;
+}
+
+.right-col .skills-div .circle.second ul li:before {
+	content: "";
+    width: 5px;
+    height: 5px;
+    background: #363637;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 9px;
+    top: 9px;
+    left: 10px;
+}
+
+
+
+
+/*third*/
+
+.circle.third ul {
+    display: flex;
+    top: 234px;
+    border-top: 3px solid #034f92;
+}
+
+.circle.third ul:after {
+    content: "";
+    width: 3px;
+    height: 13px;
+    background: #034f92;
+    position: absolute;
+    left: 0;
+    margin: 0 auto;
+    top: -16px;
+    right: 0;
+}
+
+
+.right-col .skills-div .circle.third ul li {
+    color: #034f92;
+    padding: 14px 9px 0;
+    position: relative;
+	text-align: center;
+}
+
+
+.right-col .skills-div .circle.third ul li:after {
+    content: "";
+    width: 3px;
+    height: 13px;
+    background: #034f92;
+    position: absolute;
+    left: 0;
+    top: -1px;
+    right: 0;
+    margin: 0 auto;
+}
+
+.right-col .skills-div .circle.third ul li:before {
+	content: "";
+    width: 5px;
+    height: 5px;
+    background: #034f92;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 9px;
+    top: 9px;
+    left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+	
+
+
+/*Second*/
+
+.circle.fourth ul {
+    display: flex;
+    top: 50%;
+    border-right: 3px solid #4c28c2;
+    right: 234px;
+    flex-direction: column;
+    transform: translateY(-50%);
+	text-align: right;
+}
+
+.circle.fourth ul:after {
+    content: "";
+    width: 13px;
+    height: 3px;
+    background: #4c28c2;
+    position: absolute;
+    right: -16px;
+    margin: 0 auto;
+    top: 50%;
+}
+
+
+.right-col .skills-div .circle.fourth ul li {
+    color: #4c28c2;
+    padding: 0 22px 0 21px;
+    position: relative;
+	line-height: 1.7;
+}
+
+
+.right-col .skills-div .circle.fourth ul li:after {
+    content: "";
+    width: 13px;
+    height: 3px;
+    background: #4c28c2;
+    position: absolute;
+    right: -3px;
+    top: 10px;
+}
+
+.right-col .skills-div .circle.fourth ul li:before {
+	content: "";
+    width: 5px;
+    height: 5px;
+    background: #4c28c2;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 9px;
+    top: 9px;
+    right: 10px;
+	left: auto;
+}
+
 @media print {
   * {
       -webkit-print-color-adjust: exact;

@@ -16,7 +16,7 @@ const StepFive = (props) => {
    //creating error state for validation
   const [errors, setErrors] = useState(false);
   const [options, setOptions] = useState([])
-  const [formValues, setFormValues] = useState([{ skill: "", skillLevel : ""}])
+  const [formValues, setFormValues] = useState([{ skill: "", skillLevel : "",skill_category:""}])
   const [status,setStatus] =useState(true);
   const [formValuesLength,setFormValuesLength] = useState('')
 
@@ -99,7 +99,7 @@ if(!_.isEmpty(props.handleFormData) && status){
   };
 
   const addFormFields = () => {
-    setFormValues([...formValues, { skill: "", skillLevel: "" }])
+    setFormValues([...formValues, { skill: "", skillLevel: "", skill_category:"" }])
     setFormValuesLength(formValuesLength + 1)
   }
 
@@ -127,8 +127,10 @@ if(!_.isEmpty(props.handleFormData) && status){
 
   const _handleSkill = (event, key) => {
     // event.preventDefault()
+    // console.log('event',event);
     formValues[key]['skill'] = event.value
     formValues[key]['skillId'] = event._id
+    formValues[key]['skillMaster'] = event.skill_category.name
     setFormValues([ ...formValues ])
   }
 
@@ -148,6 +150,7 @@ if(!_.isEmpty(props.handleFormData) && status){
             {formValues?.map((index, key) => {
               return (
                 <Row key={key}>
+                <input type="hidden" name="skill_category" value={index.skill_category} />
                 <Form.Group className="mb-2 col-md-6">
                     <Form.Label>Skill</Form.Label>
                     <Select
