@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 import BlockUI from "../../components/BlockUI"
 import SearchBox from "../../components/Search/SearchBox"
-import { fetchSkillsData, deleteSkill } from "../../actions/Skills"
+import { fetchSkillsData, deleteSkill,getSkillsCategory } from "../../actions/Skills"
 import { displayRecordNotFound } from '../../utils/helper'
 import Modal from '../../components/ConfirmationModal/Modal';
 import "./Skill.css";
@@ -26,6 +26,11 @@ const SkillsList = (props) => {
         _getData();
 
     }, [searchTitle]);// eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        dispatch(getSkillsCategory()) // action is called to fetch skills category list
+
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     
     /**method to call the configure the data and call the action */
@@ -80,6 +85,7 @@ const SkillsList = (props) => {
         }
         dispatch(fetchSkillsData(queryParams));
     }
+    console.log("skills ",skills)
 
     /* build user list */
     const _skillsList = skills => {
@@ -95,6 +101,11 @@ const SkillsList = (props) => {
                                 <button onClick={ () => onClickEventForSorting('value','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
                                 <button onClick={ () => onClickEventForSorting('value','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th>
+                            <th>
+                                 Skill Category
+                                <button  className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button  className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
+                            </th>
                             <th> Actions </th>
                         </tr>
                     </thead>
@@ -104,6 +115,7 @@ const SkillsList = (props) => {
                             <tr key={index} role="row" className={index % 2 === 0 ? "even" : "odd"}>
                                 <td>{ data.serial_no }</td>
                                 <td>{data.value}</td>
+                                <td>{data.skill_category_name}</td>
                                 <td className="icons-list">
                                     <div  style={tbodyDiv}>
                                         <NavLink to={`/skills/edit/${data.id}`} className="ms-2" title="Edit">

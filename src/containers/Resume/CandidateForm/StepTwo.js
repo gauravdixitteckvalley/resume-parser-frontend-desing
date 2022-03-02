@@ -22,8 +22,16 @@ const StepTwo = (props) => {
     useEffect(() => {
 
         if(!_.isEmpty(props.handleFormData)){
+            let string  = false ;
+            let  propsData =  props.handleFormData.workExperience;
+            propsData.map((ppData)=>{
+                if(typeof(ppData) == 'string'){
+                    string = true 
+                }
+            })
+            //console.log(typeof(props.handleFormData.workExperience[0]) , " trype " , props.handleFormData.workExperience)
             // console.log("props.workExperience ",props.handleFormData.workExperience);
-            if(props.handleFormData.workExperience.length >0 && formValues.length === 0 ){
+            if(props.handleFormData.workExperience.length >0 && formValues.length === 0  && string === false){
                 setFormValues(props.handleFormData.workExperience)
             }
             else if(formValues.length === 0){
@@ -112,7 +120,7 @@ const StepTwo = (props) => {
         newFormValues.splice(index, 1);
         setFormValues(newFormValues)
       }
-
+console.log("formValues ",formValues)
     const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey,selectedState) => {
         const stateName = `state${formValuesKey}`
         if(formValues[formValuesKey].isStateFilled){
@@ -165,6 +173,7 @@ const StepTwo = (props) => {
                 {formValues.map((index, key) => {
                     return(
                         <div key={key}>
+                            
                             <Row>
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Employer </Form.Label>

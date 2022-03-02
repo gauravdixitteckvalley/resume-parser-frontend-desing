@@ -29,7 +29,14 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
     useEffect(() => {
 
         if(!_.isEmpty(props?.handleFormData)){
-            if(props?.handleFormData?.education?.length >0 ){
+            let string  = false ;
+            let  propsData =  props.handleFormData.education;
+            propsData.map((ppData)=>{
+                if(typeof(ppData) == 'string'){
+                    string = true 
+                }
+            }) 
+            if(props?.handleFormData?.education?.length >0 && string === false ){
                 setFormValues(props.handleFormData.education)
                 setFormValuesLength(props.handleFormData.education.length)
             }

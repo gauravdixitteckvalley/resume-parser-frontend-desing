@@ -18,30 +18,17 @@ const SkillsForm = (props) => {
     /**fetched data from redux store */
     const skillsData = useSelector(state => state.skills);
     const dispatch = useDispatch();
-//console.log('skillsData',skillsData);
     
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
         if(currentId)
             dispatch(fetchSkillsEditFormData(currentId)) // action is called to fetch record
-            
+        dispatch(getSkillsCategory())   // action is called to fetch skills category list 
         // returned function will be called on component unmount 
         return () => {
             // dispatch(resetUserData())
         }
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
-
-    /**hook equivalent to componentdidmount lifecycle */
-    useEffect(() => {
-        if(currentId)
-        dispatch(getSkillsCategory()) // action is called to fetch skills category list
-
-    }, []);// eslint-disable-line react-hooks/exhaustive-deps
-
-    
-
-
-
 
     /**section to be executed when we open the form in edit mode */
     if(currentId && typeof skillsData != "undefined" && (_.size(skillsData) > 0))

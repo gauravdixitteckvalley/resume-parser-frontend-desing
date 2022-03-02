@@ -13,8 +13,9 @@ import UploadResume from "../../components/UploadResume/UploadResume"
 
 
 const CandidatePreview = (props) => {
+  console.log(API_URL , " API_URL ")
     const currentId = props?.match?.params?.id;
-    const [fields, setFields] = useState({});
+    const [fields, setFields] = useState({country:''});
     const resumeDataList = useSelector(state => state.resume );
     const { countryList, stateList } = resumeDataList;
     const [showModal,setShowModal] =useState(false);
@@ -29,10 +30,12 @@ const CandidatePreview = (props) => {
     
     if(currentId && typeof resumeData != "undefined" && (_.size(resumeData) > 0))
     if (_.size(resumeData.resumeDetails) !== _.size(fields))
-        setFields({...resumeData.resumeDetails})   
+        setFields({...resumeData.resumeDetails})  
+        
     
     const getCandidateDetails = async () => {
         dispatch(getSingleResumeData(currentId));
+        setTimeout(dispatch(getStateList(fields?.country)), 5000); 
     }
     const uploadOption = (event) => {
       event.preventDefault();
@@ -47,8 +50,11 @@ const CandidatePreview = (props) => {
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
         getCandidateDetails();
+        
     }, []);
-
+    
+    console.log(stateList," stateList")
+console.log("fields ",fields)
 
     const manageButtonLinkByLoggedIn = (fields) => {
       if(user.isCandidateLogin){
@@ -90,9 +96,9 @@ const CandidatePreview = (props) => {
             <Link to={`/candidate/details/edit/${currentId}`} rel="noreferrer">
                 <button type="submit" className="btn btn-gradient-primary mb-2 me-1">Update Profile</button>
             </Link>
-            <Link to={`${API_URL}resume/view/${fields.resumePath}`} target="_blank" rel="noreferrer">
+            <a href={`${API_URL}resume/view/${fields.resumePath}`} target="_blank" rel="noreferrer">
               <button type="button" className="btn btn-gradient-primary mb-2">Download</button>
-            </Link>
+            </a>
             </div>
           </>
         )
@@ -117,7 +123,7 @@ const CandidatePreview = (props) => {
               <div className="card-body">
                 <div className="row">
                   <div className="col-md-12 text-center">
-                    <img src={fields.ImageProfile || ""} className="candid-profile-img" alt="image"/>
+                    <img src={fields.ImageProfile? fields.ImageProfile :  "/assets/img/user_icon.png"} className="candid-profile-img" alt="image"/>
                     {/* {console.log(fields)} */}
                     <h3 className="mt-3">{fields.name || ""}</h3>
                     <h5>{fields.designation || ""}</h5>
@@ -222,57 +228,70 @@ const CandidatePreview = (props) => {
                 </div>
                 <div className="row">
                   <div className="displayPreviewRow col-md-12">
-                    <label className="col-lg-4 col-form-label">
+                    <label className="col-lg-12 col-form-label">
                       <b>Address</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">
-                      {fields.location || ""}
+                    <div className="col-lg-12 col-form-label">
+                      {fields.address || ""}
                     </div>
                   </div>
                 </div>
                 <div className="row">
                   <div className="displayPreviewRow col-md-4">
-                    <label className="col-lg-4 col-form-label">
-                      <b>City</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">
-                      {fields.place || ""}
-                    </div>
-                  </div>
-                  <div className="displayPreviewRow col-md-4">
-                    <label className="col-lg-4 col-form-label">
-                      <b>Zip</b>
-                    </label>
-                    <div className="col-lg-7 col-form-label">
-                      {fields.zip || ""}
-                    </div>
-                  </div>
-                  <div className="displayPreviewRow col-md-4">
-                    <label className="col-lg-4 col-form-label">
+                    <label className="col-lg-12 col-form-label">
                       <b>Country</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">
+                    <div className="col-lg-12 col-form-label">
                     {countryList?.map((country, index) => (
                             <span>{country._id == fields?.country ? country.name :" " }</span>
                         ))}
                       
                     </div>
                   </div>
+                  <div className="displayPreviewRow col-md-4">
+                    <label className="col-lg-12 col-form-label">
+                      <b>State</b>
+                    </label>
+                    <div className="col-lg-12 col-form-label">
+                    {stateList?.map((state, index) => (
+                            <span>{state._id == fields?.state ? state.name :" " }</span>
+                        ))}
+                      {fields.place || ""}
+                    </div>
+                  </div>
+                  <div className="displayPreviewRow col-md-4">
+                    <label className="col-lg-12 col-form-label">
+                      <b>City</b>
+                    </label>
+                    <div className="col-lg-12 col-form-label">
+                      {fields.place || ""}
+                    </div>
+                  </div>
+                  
+                  
                 </div>
                 <div className="row">
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
+                  <div className="displayPreviewRow col-md-4">
+                    <label className="col-lg-12 col-form-label">
+                      <b>Zip</b>
+                    </label>
+                    <div className="col-lg-12 col-form-label">
+                      {fields.zip || ""}
+                    </div>
+                  </div>
+                  <div className="displayPreviewRow col-md-4">
+                    <label className="col-lg-12 col-form-label">
                       <b>Email Address</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">
+                    <div className="col-lg-12 col-form-label">
                       {fields.email || ""}
                     </div>
                   </div>
-                  <div className="displayPreviewRow col-md-6">
-                    <label className="col-lg-4 col-form-label">
+                  <div className="displayPreviewRow col-md-4">
+                    <label className="col-lg-12 col-form-label">
                       <b>Phone</b>
                     </label>
-                    <div className="col-lg-7 col-form-label">
+                    <div className="col-lg-12 col-form-label">
                       {fields.phone || ""}
                     </div>
                   </div>
@@ -334,7 +353,7 @@ const CandidatePreview = (props) => {
 
                 <div className="row">
                   <div className=" col-md-12 ">
-                    <a href={`http://localhost:1234/api/resume/view/${fields.resumePath}`} 
+                    <a href={API_URL+`resume/view/${fields.resumePath}`} 
                       target="_blank" rel="noreferrer" className="cv_icon_section">
                       <label className=" col-form-label">
                         <img src="/resume_icon.png" alt="logo"  className="cv_icon" />

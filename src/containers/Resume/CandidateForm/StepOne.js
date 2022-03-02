@@ -64,7 +64,7 @@ const StepOne = (props) => {
             setFields({
                 firstName:fname,
                 lastName: lname,
-                address: props.handleFormData.location,
+                address: props.handleFormData.address,
                 country: props?.handleFormData?.country,
                 state: props?.handleFormData?.state,
                 city: props?.handleFormData?.place,
@@ -73,6 +73,7 @@ const StepOne = (props) => {
                 phone: props?.handleFormData?.phone,
                 step:1
             })
+            
             setStatus(false)
         }
     }, []);
