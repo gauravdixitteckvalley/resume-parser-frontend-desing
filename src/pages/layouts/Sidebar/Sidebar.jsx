@@ -101,7 +101,7 @@ const Sidebar = () => {
                     </li>
                     <li  className={splitLocation[1] ==="template" ? "active nav-item" : "nav-item "}>
                     <Link to='/template' className="nav-link">
-                        <span className="menu-title">Template</span>
+                        <span className="menu-title">Resume Template</span>
                         <i className="mdi mdi-calendar menu-icon"></i>
                     </Link>
                     </li>
