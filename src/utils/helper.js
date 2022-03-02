@@ -112,6 +112,9 @@ const displayMessageWithSwitchCase = step => {
         case 7:
             message = 'Step 7'
             break
+        case 8:
+            message = 'Step 8'
+            break
         default:
             return
     }

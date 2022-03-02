@@ -46,7 +46,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
             
         )
     }
-    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie, skillsArray } = props;
+    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie, skillsArray, empWebCompatibility } = props;
 
     console.log('skillsArray',skillsArray);
     return (
@@ -153,7 +153,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                 <div className="page-container">
                     <div className="capability-box">
                         <h2>Get complete web capability </h2>
-                        <div className="technology">PHP | FRAMEWORK | CMS | LMS | CRM | Ecommerce | UI/UX | Frontend </div>
+                        <div className="technology">{ empWebCompatibility }</div>
                     </div>
                     <div className="copyright-footer">
                         <span className="copyright-left">

@@ -8,6 +8,7 @@ import './SelectResume.css';
 
 import { getCandidateList } from '../../../actions/Resume';
 import {history, displayErrorMessage} from '../../../utils/helper'
+import { data } from "jquery";
 
 
 const SelectResume = () => {
@@ -66,8 +67,8 @@ const SelectResume = () => {
         if(event.target.name === 'core_competencies'){
             
             coreCompetencie[key][event.target.name] = event.target.value
-            setCoreCompetencie([...coreCompetencie])
-            let d = coreCompetencie.map(function( data){ return data.core_competencies})   
+            let d = coreCompetencie.map(function( data){ return data.core_competencies})
+            console.log('fields',d);   
             data[event.target.name]= d;
         }else{
             data[event.target.name] = event.target.value;
@@ -106,6 +107,11 @@ const SelectResume = () => {
             error["tools"] = "*Please select tools.";
         }
 
+        if (!fields["webCompatibility"] || fields["webCompatibility"].trim() === '') {
+            formIsValid = false;
+            error["webCompatibility"] = "*Please enter your web compatibility.";
+        }
+
         if (!fields["core_competencies"] || fields["core_competencies"].length === 0) {
            
             formIsValid = false;
@@ -141,17 +147,23 @@ const SelectResume = () => {
 
     const _handleSubmit = (event) => {
         event.preventDefault();
-        if (_validateForm()) {
+        if (true) {
             let redirectTo = 'designer-preview'
             if(fields.template ==="developer"){
                 redirectTo = 'developer-preview'
             }
-            console.log('coreCompetencie',coreCompetencie);
-            history.push({pathname : `/template/${redirectTo}`,state : { templateData : fields , coreCompetencie:coreCompetencie }}); 
-           // console.log('coreCompetencie',coreCompetencie);
+            
+            const { webCompatibility } = fields
+            const splitWebComp =  webCompatibility.split(",")
+            if(splitWebComp.length > 1){
+                let webCompatibilityValue = splitWebComp.join(" | ")
+                fields.webCompatibility = webCompatibilityValue
+                history.push({pathname : `/template/${redirectTo}`,state : { templateData : fields , coreCompetencie:coreCompetencie }}); 
+            }
             
         }    
     }
+
 
     return (
         <Fragment>
@@ -191,20 +203,26 @@ const SelectResume = () => {
                                         </div>
                                     </div>
                                     {/* <div className="row"> */}
-                                        <div className="col-md-12 mb-4">
-                                            <label className="mb-3 required" for="inlineFormInputName2">Tools</label>
-                                            <input type="text" className="form-control" maxLength = {140} name="tools" onChange={ event=>_handleChange(event)} placeholder="Dreamweaver, Visual studio, Netbeans, Sublime, Slack"/>
-                                            <div className="errorMsg">{errors.tools}</div> 
-                                        </div>
+                                    <div className="col-md-12 mb-4">
+                                        <label className="mb-3 required" for="inlineFormInputName2">Tools</label>
+                                        <input type="text" className="form-control" maxLength = {140} name="tools" onChange={ event=>_handleChange(event)} placeholder="Dreamweaver, Visual studio, Netbeans, Sublime, Slack"/>
+                                        <div className="errorMsg">{errors.tools}</div> 
+                                    </div>
                                     {/* </div> */}
                                     {/* <div className="row"> */}
-                                        <div className="col-md-12 mb-4">
-                                            <label className="mb-3 required" for="inlineFormInputName2">Core Competencies</label>
-                                            
-                                            {_create_core_competencie()}      
-                                            <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/>
-                                            <div className="errorMsg">{errors.core_competencies}</div>
-                                        </div>
+                                    
+                                    <div className="col-md-12 mb-4">
+                                        <label className="mb-3 required" for="inlineFormInputName2">Web Compatibility</label>
+                                            <input type="text" className="form-control" maxLength = {140} name="webCompatibility" onChange={ event=>_handleChange(event)} placeholder="LMS , CMS , Framework" />
+                                        <div className="errorMsg">{errors.webCompatibility}</div> 
+                                    </div>
+
+                                    <div className="col-md-12 mb-4">
+                                        <label className="mb-3 required" for="inlineFormInputName2">Core Competencies</label>
+                                        {_create_core_competencie()}      
+                                        <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/>
+                                        <div className="errorMsg">{errors.core_competencies}</div>
+                                    </div>
                                     {/* </div> */}
                                     <div className="col-md-12 mt-4">
                                         <label className="mb-1 required" for="inlineFormInputName2">Select Template</label><br />

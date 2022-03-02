@@ -96,9 +96,18 @@ const StepSix = (props) => {
 
 useEffect(() => {
   if(!_.isEmpty(props.handleFormData)){
-    setFormValues(props.handleFormData.langauge)
-    setFormValuesLength(props.handleFormData.langauge.length)
-    setStatus(false)
+    let string  = false ;
+    let  propsData =  props.handleFormData.workExperience;
+    propsData.map((ppData)=>{
+        if(typeof(ppData) == 'string'){
+            string = true 
+        }
+    }) 
+    if(props?.handleFormData?.langauge?.length >0 && string === false ){
+      setFormValues(props.handleFormData.langauge)
+      setFormValuesLength(props.handleFormData.langauge.length)
+      setStatus(false)
+    }
   }
 }, []);
 

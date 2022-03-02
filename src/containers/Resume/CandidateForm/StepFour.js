@@ -63,9 +63,20 @@ const StepFour = (props) => {
 useEffect(() => {
     
     if(!_.isEmpty(props.handleFormData.project)){
-       
-        setFormValues(props.handleFormData.project)
-        setStatus(false)
+
+        let string  = false ;
+        let  propsData =  props.handleFormData.project;
+        console.log(propsData ," string ",string )
+        propsData.map((ppData)=>{
+            if(typeof(ppData) == 'string'){
+                string = true 
+            }
+        })
+        if(props?.handleFormData?.project?.length >0 && string === false ){
+          setFormValues(props.handleFormData.project)
+          setStatus(false)
+        }
+        
     }
 }, []);
 

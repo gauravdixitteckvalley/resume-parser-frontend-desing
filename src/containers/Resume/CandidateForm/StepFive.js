@@ -32,9 +32,18 @@ const StepFive = (props) => {
 
 //set props skills values coming from the candidate table
 if(!_.isEmpty(props.handleFormData) && status){
-  setFormValues(props.handleFormData.skills)
-  setFormValuesLength(props.handleFormData.skills.length)
-  setStatus(false)
+  let string  = false ;
+  let  propsData =  props.handleFormData.skills;
+  propsData.map((ppData)=>{
+      if(typeof(ppData) == 'string'){
+          string = true 
+      }
+  }) 
+  if(props?.handleFormData?.skills?.length >0 && string === false ){
+    setFormValues(props.handleFormData.skills)
+    setFormValuesLength(props.handleFormData.skills.length)
+    setStatus(false)
+  }
 }
 
   //set skills array as an options to pass on select dropdown

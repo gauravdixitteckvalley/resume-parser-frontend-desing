@@ -19,6 +19,7 @@ const DeveloperResume = (props) => {
     const [empTitle, setEmpTitle] = useState('')
     const [empTools, setEmpTools] = useState('') 
     const [empCoreCompetencie, setEmpCoreCompetencie] = useState([]) 
+    const [empWebCompatibility, setWebCompatibility] = useState('') 
     const componentRef = useRef();
 
 
@@ -29,6 +30,7 @@ const DeveloperResume = (props) => {
        setEmpTitle(location.state.templateData.emp_title);
        setEmpTools(location.state.templateData.tools)
        setEmpCoreCompetencie(location.state.templateData.core_competencies)
+       setWebCompatibility(location.state.templateData.webCompatibility)
        
        if(location.state.templateData.candidate_name){
             dispatch(fetchCandidateData(location.state.templateData.candidate_name))
@@ -83,6 +85,7 @@ const DeveloperResume = (props) => {
                 candidateInfo={candidateInfo} 
                 coreCompetencie={empCoreCompetencie}
                 skillsArray={skillsArray}
+                empWebCompatibility={empWebCompatibility}
             />
             
              {/* Page 5 end  */}
@@ -91,7 +94,7 @@ const DeveloperResume = (props) => {
                   
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                <NavLink to="/select-resume">
+                <NavLink to="/template">
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"

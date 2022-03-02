@@ -80,7 +80,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
         )   
 
     }
-    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie, skillsArray } = props;
+    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie, skillsArray,empWebCompatibility } = props;
 
     return (
         <div ref={ref}>
@@ -119,7 +119,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                         
                         <h2 className="margin-top">Get complete web capability </h2>		
                 </div> 
-                <p className="orange tech">PHP | FRAMEWORK | CMS | LMS | CRM | Ecommerce | UI/UX | Frontend </p>
+                <p className="orange tech">{empWebCompatibility}</p>
                 <div className="copyright-footer"><span className="copyright">Copyright 2021 – Virtual Employee. All Rights Reserved</span> <span className="copyright-box">1</span></div>
             </div>
 
