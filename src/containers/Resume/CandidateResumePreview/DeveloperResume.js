@@ -44,7 +44,7 @@ const DeveloperResume = (props) => {
     }
     
     if(candidateInfo?.skills !== undefined){
-      skillsArray = _.groupBy(candidateInfo.skills, 'skill_category')
+      skillsArray = _.groupBy(candidateInfo.skills, 'skillMaster')
     }
 
     return (
