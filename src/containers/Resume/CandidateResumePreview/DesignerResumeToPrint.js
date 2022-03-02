@@ -147,6 +147,12 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                         <li style={{lineHeight: '1.5'}}>Worked with project teams to create user-friendly and appealing application interfaces and websites for users. </li>
                         <li style={{lineHeight: '1.5'}}>Managing & providing designing support to the team and managed the team members for efficient management work.</li> */}
                     </ul>
+                    <h1 className="inner-heading" style={{marginTop:'100px'}}><span>Tools</span></h1>
+                    {/* {   empTools.split(',').map((data,index)=>(
+                            <li>{data}</li>
+                        )) 
+                    } */}
+                    <p>{empTools}</p>
                 </div>
                 
                 
@@ -183,7 +189,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                     
                     </div>
                     
-                    <div className="app-tech">
+                    {/* <div className="app-tech">
                         <div className="app-tech-inner">
                             <span>Front-end</span>
                             <img src ="../../assets/img/designer-images/tech-icon/1icon.png"/>
@@ -212,13 +218,55 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                             <img src ="../../assets/img/designer-images/tech-icon/17icon.png"/>
                             <img src ="../../assets/img/designer-images/tech-icon/18icon.png"/>
                         </div>
-                    </div>
-                    <h1 className="inner-heading" style={{marginTop:'100px'}}><span>Tools</span></h1>
-                    {/* {   empTools.split(',').map((data,index)=>(
-                            <li>{data}</li>
-                        )) 
-                    } */}
-                    <p>{empTools}</p>
+                    </div> */}
+                    <div className="two-col">
+                        <div className="right-col">
+                            <div className="skills-div">
+                        
+                                <div className="circle first">
+                                Web<br /> Server & Hosting
+                                <ul>
+                                    <li>Godaddy</li>
+                                    <li>Xampp</li>
+                                    <li>Wampp</li>
+                                </ul>
+                                </div>
+                        
+                            
+                                <div className="circle second">
+                                PHP<br /> MVC/CMS
+                                <ul>
+                                
+                                    <li>PHP</li>
+                                    <li>WordPress</li>
+                                    <li>Core PHP</li>
+                                </ul>
+                                </div>
+                            
+                            
+                                <div className="circle third">
+                                Payment<br /> Gateway
+                                <ul>
+                                   
+                                    <li>Paypal Checkout</li>
+                                    <li>Google Checkout</li>
+                                </ul>
+                                </div>
+                                
+                            
+                                <div className="circle fourth">
+                                Frontend 
+                                <ul>
+                                    
+                                    <li>HTML</li>
+                                    <li>CSS</li>
+                                    <li>JavaScript</li>
+                                </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    
                 </div>
                 
                     
