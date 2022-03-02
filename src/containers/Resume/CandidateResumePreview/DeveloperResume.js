@@ -56,7 +56,7 @@ const DeveloperResume = (props) => {
                   <h3 className="page-title" style={{fontWeight: '600'}}> Resume Preview</h3>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
-                  <NavLink to="/select-resume">
+                  <NavLink to="/template">
                     <button
                       type="button"
                       className="btn btn-gradient-primary btn-fw mb-2"

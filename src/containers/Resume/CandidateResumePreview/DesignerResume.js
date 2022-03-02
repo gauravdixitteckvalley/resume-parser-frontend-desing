@@ -34,9 +34,14 @@ const DesignerResume = () => {
 
     const { blocking , candidateInfo} = candidateData;
     var projectArray = [];
+    var skillsArray = [];
     if(candidateInfo?.project !== undefined){
         projectArray = _.chunk(candidateInfo.project, 2)
     }
+    
+    if(candidateInfo?.skills !== undefined){
+        skillsArray = _.groupBy(candidateInfo.skills, 'skillMaster')
+      }
     return (
         <div>
             <BlockUI blocking={blocking} /> 
@@ -67,6 +72,7 @@ const DesignerResume = () => {
                 empTools={empTools} 
                 candidateInfo={candidateInfo}
                 coreCompetencie={empCoreCompetencie}
+                skillsArray={skillsArray}
               />
             {/*<div className="page first-page">
                 <div className="header">

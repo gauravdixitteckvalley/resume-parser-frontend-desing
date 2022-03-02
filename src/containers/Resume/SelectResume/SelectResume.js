@@ -176,7 +176,8 @@ const SelectResume = () => {
                                         </Form.Control>
                                         <div className="errorMsg">{errors.candidate_name}</div> 
                                     </div>
-                                    <div className="row">
+                                    <div className="col-md-12 mb-4">
+                                        <div className="row">
                                         <div className="col-md-6">
                                             <label className="mb-3 required" for="inlineFormInputName2">Employee Code</label>
                                             <input type="text" className="form-control" name="emp_code" onChange={ event=>_handleChange(event)} placeholder="TK-10758"/>
@@ -187,15 +188,16 @@ const SelectResume = () => {
                                             <input type="text" className="form-control" name="emp_title" onChange={ event=>_handleChange(event)} placeholder="Software Engineer"/>
                                             <div className="errorMsg">{errors.emp_title}</div> 
                                         </div>
+                                        </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
+                                    {/* <div className="row"> */}
+                                        <div className="col-md-12 mb-4">
                                             <label className="mb-3 required" for="inlineFormInputName2">Tools</label>
                                             <input type="text" className="form-control" maxLength = {140} name="tools" onChange={ event=>_handleChange(event)} placeholder="Dreamweaver, Visual studio, Netbeans, Sublime, Slack"/>
                                             <div className="errorMsg">{errors.tools}</div> 
                                         </div>
-                                    </div>
-                                    <div className="row">
+                                    {/* </div> */}
+                                    {/* <div className="row"> */}
                                         <div className="col-md-12 mb-4">
                                             <label className="mb-3 required" for="inlineFormInputName2">Core Competencies</label>
                                             
@@ -203,7 +205,7 @@ const SelectResume = () => {
                                             <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/>
                                             <div className="errorMsg">{errors.core_competencies}</div>
                                         </div>
-                                    </div>
+                                    {/* </div> */}
                                     <div className="col-md-12 mt-4">
                                         <label className="mb-1 required" for="inlineFormInputName2">Select Template</label><br />
                                         <div className="check-sec">

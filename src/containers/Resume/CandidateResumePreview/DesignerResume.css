@@ -368,7 +368,7 @@ p.orange {
     display: flex;
     top: 50%;
     border-left: 3px solid #363637;
-    right: -126px;
+    right: -145px;
     flex-direction: column;
     transform: translateY(-50%);
 }
@@ -551,7 +551,7 @@ p.orange {
     height: 100%;
     -webkit-print-color-adjust: exact;
     width: 21cm;
-    height: 29.7cm; 
+    height: 28.8cm; 
     margin: 0 auto 5px;
     background: url(../../../assets/img/designer-images/triangle-bg.png) no-repeat top left #f0f0f0;
     background-size: auto;

@@ -80,7 +80,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
         )   
 
     }
-    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie } = props;
+    const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie, skillsArray } = props;
 
     return (
         <div ref={ref}>
@@ -226,9 +226,16 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <div className="circle first">
                                 Web<br /> Server & Hosting
                                 <ul>
-                                    <li>Godaddy</li>
-                                    <li>Xampp</li>
-                                    <li>Wampp</li>
+                                { (skillsArray.Server !== undefined)? 
+                                 skillsArray.Server.map((data,index)=>(
+                                    <li>{ data.skill }</li>
+                                 )) 
+                                :   <>
+                                        <li>Godaddy</li>
+                                        <li>Xampp</li>
+                                        <li>Wampp</li>
+                                    </>
+                                }
                                 </ul>
                                 </div>
                         
@@ -236,10 +243,17 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <div className="circle second">
                                 PHP<br /> MVC/CMS
                                 <ul>
-                                
+                                { (skillsArray.Backend !== undefined)?  
+                                 skillsArray.Backend.map((data,index)=>(
+                                        <li>{ data.skill }</li>
+                                )) 
+                             :
+                                <>
                                     <li>PHP</li>
                                     <li>WordPress</li>
                                     <li>Core PHP</li>
+                                    </>
+}
                                 </ul>
                                 </div>
                             
@@ -247,9 +261,16 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <div className="circle third">
                                 Payment<br /> Gateway
                                 <ul>
-                                   
+                                { (skillsArray.Other !== undefined)?  
+                                 skillsArray.Other.map((data,index)=>(
+                                        <li>{ data.skill }</li>
+                                )) 
+                             :
+                                <>
                                     <li>Paypal Checkout</li>
                                     <li>Google Checkout</li>
+                                    </>
+}
                                 </ul>
                                 </div>
                                 
@@ -257,10 +278,17 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <div className="circle fourth">
                                 Frontend 
                                 <ul>
-                                    
+                                { (skillsArray.Frontend !== undefined)?  
+                                    skillsArray.Frontend.map((data,index)=>(
+                                        <li>{ data.skill }</li>
+                                    )) 
+                                :
+                                <>
                                     <li>HTML</li>
                                     <li>CSS</li>
                                     <li>JavaScript</li>
+                                </>
+                                }
                                 </ul>
                                 </div>
                             </div>

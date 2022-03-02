@@ -54,7 +54,7 @@ section {
 .page[size="A4"] {
     width: 21cm;
     height: 29.7cm;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .page.inner {
@@ -249,15 +249,18 @@ section {
 		color: #000000;
 		font-family: 'Open Sans', sans-serif;
 		font-size:12pt;
+		/* 	margin-bottom: 3px; */
+		
 	}
 	
+
 	
 	.page {
 	  visibility: visible;
 	  height: 100%;
 	  -webkit-print-color-adjust: exact;
 	  width: 21cm;
-	  height: 29.7cm; 
+	  height: 28.8cm; 
 	  margin: 0 auto;
 	  background-size: auto;
 	  box-sizing: border-box;
@@ -803,9 +806,9 @@ max-height:35px;
   
   @media print {
 	html, body {
-	  height: initial !important;
+	  /* height: initial !important; */
 	  overflow: initial !important;
-	  -webkit-print-color-adjust: exact;
+	  /* -webkit-print-color-adjust: exact; */
 	}
   }
   
