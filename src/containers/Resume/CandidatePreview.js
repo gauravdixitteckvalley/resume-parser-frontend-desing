@@ -13,7 +13,7 @@ import UploadResume from "../../components/UploadResume/UploadResume"
 
 
 const CandidatePreview = (props) => {
-  console.log(API_URL , " API_URL ")
+  
     const currentId = props?.match?.params?.id;
     const [fields, setFields] = useState({country:''});
     const resumeDataList = useSelector(state => state.resume );
