@@ -226,8 +226,8 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <div className="circle first">
                                 Front-end
                                 <ul>
-                                { (skillsArray.Server !== undefined)? 
-                                 skillsArray.Server.map((data,index)=>(
+                                { (skillsArray.Frontend !== undefined)? 
+                                 skillsArray.Frontend.map((data,index)=>(
                                     <li>{ data.skill }</li>
                                  )) 
                                 :   <>
@@ -243,8 +243,8 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <div className="circle second">
                                 CMS
                                 <ul>
-                                { (skillsArray.Backend !== undefined)?  
-                                 skillsArray.Backend.map((data,index)=>(
+                                { (skillsArray.Framework !== undefined)?  
+                                 skillsArray.Framework.map((data,index)=>(
                                         <li>{ data.skill }</li>
                                 )) 
                              :
@@ -278,8 +278,8 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <div className="circle fourth">
                                 UI/UX 
                                 <ul>
-                                { (skillsArray.Frontend !== undefined)?  
-                                    skillsArray.Frontend.map((data,index)=>(
+                                { (skillsArray['UI/UX'] !== undefined)?  
+                                    skillsArray['UI/UX'].map((data,index)=>(
                                         <li>{ data.skill }</li>
                                     )) 
                                 :
