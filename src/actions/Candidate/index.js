@@ -58,7 +58,10 @@ export const submitCareerPreferenceAction = (id, postData) => {
                 dispatch({ type : 'SUBMIT_CANDIDATE_CAREER_PREFERENCE_SUCCESS'});
                 displaySuccessMessage(response.data.data.message)
                 setTimeout(() => {
-                    history.push(`/candidate/view/${id}`); 
+                    const authenticateUser = JSON.parse(localStorage.getItem('data'));
+                    const { isCandidateLogin } = authenticateUser;
+                    const redirectTo = isCandidateLogin? `/candidate/view/${id}` : `/candidate/preview/${id}`;
+                    history.push(redirectTo);  
                 }, 1000);
             } 
         } catch(error) {
