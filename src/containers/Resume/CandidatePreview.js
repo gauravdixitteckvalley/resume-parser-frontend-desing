@@ -55,8 +55,7 @@ const CandidatePreview = (props) => {
         
     }, []);
     
-    console.log(stateList," stateList")
-    console.log("fields ",fields)
+  
 
     const manageButtonLinkByLoggedIn = (fields) => {
       if(user.isCandidateLogin){
