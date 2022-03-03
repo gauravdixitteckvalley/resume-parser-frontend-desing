@@ -243,7 +243,7 @@ function CandidateMultiStep(props) {
           <div className="App">
             <BlockUI blocking={blocking} />
             <Container>
-              <Row>
+              <Row> 
                 <Col>
                   { !_.isEmpty(userData.candidateInfo) ? <StepEight 
                     nextStep={() => nextStep()} 
