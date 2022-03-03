@@ -224,7 +224,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                             <div className="skills-div">
                         
                                 <div className="circle first">
-                                Web<br /> Server & Hosting
+                                Front-end
                                 <ul>
                                 { (skillsArray.Server !== undefined)? 
                                  skillsArray.Server.map((data,index)=>(
@@ -241,7 +241,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                         
                             
                                 <div className="circle second">
-                                PHP<br /> MVC/CMS
+                                CMS
                                 <ul>
                                 { (skillsArray.Backend !== undefined)?  
                                  skillsArray.Backend.map((data,index)=>(
@@ -258,7 +258,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 </div>
                             
                             
-                                <div className="circle third">
+                                {/* <div className="circle third">
                                 Payment<br /> Gateway
                                 <ul>
                                 { (skillsArray.Other !== undefined)?  
@@ -272,11 +272,11 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                     </>
 }
                                 </ul>
-                                </div>
+                                </div> */}
                                 
                             
                                 <div className="circle fourth">
-                                Frontend 
+                                UI/UX 
                                 <ul>
                                 { (skillsArray.Frontend !== undefined)?  
                                     skillsArray.Frontend.map((data,index)=>(
