@@ -1,22 +1,38 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useState, useEffect } from "react"
 import { Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 
 import BlockUI from "../../components/BlockUI"
 import { submitCareerPreferenceAction } from '../../actions/Candidate'
+import { getSingleResumeData } from "../../actions/Resume"
 import './CareerPreference.css';
 
 const CareerPreference = (props) => {
     const [ fields, setFields ] = useState({ preferredShift: '', jobType:[], empType: []})
     const [ errors, setErrors ] = useState({})
+    const [ isCareerResponseFetched , setCareerResponse ] = useState(true)
 
     //use selector to get candidate store data
-    const candidate = useSelector(state => state.candidate );
+    const { resumeDetails, blocking } = useSelector(state => state.resume );
+
     //dispatch function to execute the action
     const dispatch = useDispatch();
 
     //get url id
     const { id : candidateId} = props.match.params
+    
+
+    /**hook equivalent to componentdidmount lifecycle */
+    useEffect(() => {
+        dispatch(getSingleResumeData(candidateId))
+        
+    }, []);
+
+    //set fields value
+    if(resumeDetails !== undefined && Object.keys(resumeDetails).length > 0 && isCareerResponseFetched){
+        setFields( resumeDetails.careerPreference )
+        setCareerResponse(false)
+    }
 
     //handle Change event
     const _handleChange = event => {
@@ -91,8 +107,6 @@ const CareerPreference = (props) => {
             dispatch(submitCareerPreferenceAction(candidateId, {careerPreference: fields, form: "careerPreference"}))
         }
     }
-    
-    const { blocking } = candidate;
 
     //statement dynamic form started
     return (
@@ -120,6 +134,7 @@ const CareerPreference = (props) => {
                                 id="inlineFormInputName2"
                                 placeholder="Preferred Location"
                                 onChange={ event => _handleChange(event)}
+                                value= { fields?.preferredLoc }
                             />
                             {errors?.preferredLoc ? (
                                 <Form.Text style={{ color: "red" }}>
@@ -140,6 +155,7 @@ const CareerPreference = (props) => {
                                 id="inlineFormInputName2"
                                 placeholder="Preferred Role"
                                 onChange={ event => _handleChange(event)}
+                                value= { fields?.preferredRole }
                             />
 
                             {errors?.preferredRole ? (
@@ -163,6 +179,7 @@ const CareerPreference = (props) => {
                             id="inlineFormInputName2"
                             placeholder="Preferred Salary"
                             onChange={ event => _handleChange(event)}
+                            value= { fields?.preferredSal }
                         />
 
                         {errors?.preferredSal ? (
@@ -183,7 +200,6 @@ const CareerPreference = (props) => {
                                 name="preferredShift"
                                 id="inlineRadio1"
                                 value="day"
-                                
                                 onChange={ event => _handleChange(event)}
                                 checked={ fields?.preferredShift === "day" }
                             />
