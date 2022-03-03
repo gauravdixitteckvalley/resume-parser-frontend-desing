@@ -239,7 +239,7 @@ p.orange {
 }
 
 .circle.first {
-    background: rgba(57,113,1,0.9);
+    background: rgb(244 115 0 / 72%);
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -371,6 +371,7 @@ p.orange {
     right: -116px;
     flex-direction: column;
     transform: translateY(-50%);
+    padding-left: 0;
 }
 
 .circle.second ul:after {
@@ -560,11 +561,35 @@ p.orange {
   }
   
   .circle {
-    width: 200px !important;
-    height: 200px !important;
+    width: 150px !important;
+    height: 150px !important;
     border-radius: 48%;
   }
+  .circle.fourth {
+    justify-content: center;
+  }
+  .circle.fourth ul {
+    right: 155px;
+  }
   
+  .circle.second {
+    justify-content: center;
+  }
+  .circle.second ul {
+    right: -145px;
+  }
+  .circle.third{
+    top: 145px;
+  }
+  .circle.third ul {
+    top: 155px;
+  }
+  .right-col .skills-div .circle.third ul li{
+    line-height: 16px;
+  }
+  .circle.second ul {
+    right: -110px;;
+}
 
 }
 
