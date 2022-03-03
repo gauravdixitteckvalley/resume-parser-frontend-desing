@@ -19,11 +19,12 @@ const Header = (props) => {
     const {user} = loggedUser;
     const currentId = user.id;
     //console.log(currentId)
-   
+    let userType =JSON.parse(localStorage.getItem("data"));
+    //console.log(" userType ", userType.user_role_name)
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
         dispatch(resetLoggedUserData())
-        loginRedirect(user)
+        loginRedirect(user, userType.user_role_name)
     }
 
     const _handleChange = (event) => {
