@@ -75,11 +75,11 @@ const Sidebar = () => {
                             <i className="mdi mdi-home menu-icon"></i>
                         </Link>
                     </li> 
-                    {/* {
+                    {
                         user.role_id === '1' ?
                         showRoutesForAdmin() : ''
-                    } */}
-                    {showRoutesForAdmin()}
+                    }
+                    {/* {showRoutesForAdmin()} */}
                      
                     <li  className={splitLocation[2] === "add" ? "active nav-item" : "nav-item "}>
                         <Link to='/resume/add' className="nav-link">

@@ -35,7 +35,7 @@ export const submitCandidateData = (id,postData) => {
                 dispatch({ type : 'SUBMIT_CANDIDATE_FORM_ONE_SUCCESS'});
                 displayMessageWithSwitchCase(postData.step)
                 
-                if(postData.step==7){
+                if(postData.step===8){
                     history.push(`/candidate/view/${id}`);   
                 }
             } 

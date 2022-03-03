@@ -169,7 +169,7 @@ const SelectResume = () => {
         <Fragment>
             <BlockUI blocking={blocking} /> 
             <div className="page-header">
-              <h3 className="page-title">Select Resume</h3>
+              <h3 className="page-title">Preview & Download Resume</h3>
             </div>
             <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">

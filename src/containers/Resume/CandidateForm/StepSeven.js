@@ -52,7 +52,7 @@ const StepSeven = (props) => {
                 AWARDS 
               </h3>
               <Form.Group className="mb-2 col-md-12">
-                <Form.Label>Content</Form.Label>
+                
                 <Form.Control
                     style={{ height: '150px' }}
                     name="award"
@@ -72,7 +72,7 @@ const StepSeven = (props) => {
                 PUBLICATIONS 
               </h3>
               <Form.Group className="mb-2 col-md-12">
-                <Form.Label>Content</Form.Label>
+                
                 <Form.Control
                     style={{ height: '150px' }}
                     name="publication"

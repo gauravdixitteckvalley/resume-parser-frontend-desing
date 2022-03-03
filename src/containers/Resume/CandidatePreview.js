@@ -619,7 +619,7 @@ const CandidatePreview = (props) => {
                       </div>
                       <div className="displayPreviewRow col-md-6">
                         <label className="col-lg-4 col-form-label">
-                          <b>Prokect Link</b>
+                          <b>Project URL</b>
                         </label>
                         <div className="col-lg-7 col-form-label">
                           {proj?.project_link}

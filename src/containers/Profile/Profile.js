@@ -29,7 +29,7 @@ export default function Profile() {
                                 <b> Profile Image</b>
                             </label>
                             <div className="col-lg-7 col-form-label ">
-                                <img src={userData.user.profile_image ? IMAGE_URL+userData.user.profile_image :"/assets/img/user_icon.png"} alt="profile" className="img-fluid profile_image" />
+                                <img src={userData.user.profile_image ? userData.user.profile_image :"/assets/img/user_icon.png"} alt="profile" className="img-fluid profile_image" />
                             </div>
                         </div>
                         <div className="displayPreviewRow">

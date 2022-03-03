@@ -227,9 +227,9 @@ p.orange {
 }
 
 .circle {
-	width: 221px;
-	height: 221px;
-	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+	border-radius: 48%;
 	display: block;
 	position: absolute;
 	display: flex;
@@ -368,7 +368,7 @@ p.orange {
     display: flex;
     top: 50%;
     border-left: 3px solid #363637;
-    right: -145px;
+    right: -116px;
     flex-direction: column;
     transform: translateY(-50%);
 }
@@ -422,7 +422,7 @@ p.orange {
 
 .circle.third ul {
     display: flex;
-    top: 234px;
+    top: 213px;
     border-top: 3px solid #034f92;
 }
 
@@ -482,7 +482,7 @@ p.orange {
     display: flex;
     top: 50%;
     border-right: 3px solid #4c28c2;
-    right: 234px;
+    right: 213px;
     flex-direction: column;
     transform: translateY(-50%);
 	text-align: right;
@@ -551,7 +551,7 @@ p.orange {
     height: 100%;
     -webkit-print-color-adjust: exact;
     width: 21cm;
-    height: 28.8cm; 
+    height: 28.7cm; 
     margin: 0 auto 5px;
     background: url(../../../assets/img/designer-images/triangle-bg.png) no-repeat top left #f0f0f0;
     background-size: auto;
@@ -559,6 +559,11 @@ p.orange {
     position: relative;
   }
   
+  .circle {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 48%;
+  }
   
 
 }

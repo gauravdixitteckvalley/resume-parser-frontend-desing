@@ -24,7 +24,7 @@ const StepEight = (props) => {
       setFields({
         accomplishment:props?.handleFormData?.accomplishment,
         additionalInfo: props?.handleFormData?.additional_info,
-        step:7
+        step:8
       })
     }
   }, []);
@@ -51,7 +51,7 @@ const StepEight = (props) => {
           <Row>
           <h3 className="page-title font-style-bold mb-4">ACCOMPLISHMENTS </h3>
                 <Form.Group className="mb-2 col-md-12">
-                <Form.Label>Content</Form.Label>
+                
                     <Form.Control
                         style={{ height: '150px' }}
                         name="accomplishment"
@@ -65,7 +65,7 @@ const StepEight = (props) => {
             <Row>
             <h3 className="page-title font-style-bold mt-4 mb-4">ADDITIONAL INFORMATION </h3>
                 <Form.Group className="mb-2 col-md-12">
-                <Form.Label>Content</Form.Label>
+                
                     <Form.Control
                         style={{ height: '150px' }}
                         name="additionalInfo"
