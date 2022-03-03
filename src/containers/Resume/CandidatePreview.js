@@ -35,7 +35,9 @@ const CandidatePreview = (props) => {
     
     const getCandidateDetails = async () => {
         dispatch(getSingleResumeData(currentId));
-        setTimeout(dispatch(getStateList(fields?.country)), 5000); 
+        if(fields?.country)
+          dispatch(getStateList(fields?.country))
+        
     }
     const uploadOption = (event) => {
       event.preventDefault();
@@ -54,7 +56,7 @@ const CandidatePreview = (props) => {
     }, []);
     
     console.log(stateList," stateList")
-console.log("fields ",fields)
+    console.log("fields ",fields)
 
     const manageButtonLinkByLoggedIn = (fields) => {
       if(user.isCandidateLogin){
@@ -256,7 +258,7 @@ console.log("fields ",fields)
                     {stateList?.map((state, index) => (
                             <span>{state._id == fields?.state ? state.name :" " }</span>
                         ))}
-                      {fields.place || ""}
+                      
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-4">
@@ -313,12 +315,11 @@ console.log("fields ",fields)
                 </h4>
                 <hr className="mb-4" />
 
-                { fields?.videoProfile ? 
-              (
-              <>
                 <div className="row">
                   <div className="displayPreviewRow col-md-12">
                     <div className="col-lg-7 col-form-label">
+                    { fields?.videoProfile ? 
+                      
                       <VideoPlayer
                           controls={true}
                           src={fields.videoProfile}
@@ -326,13 +327,13 @@ console.log("fields ",fields)
                           width="720"
                           height="420"
                       /> 
+                      
+                : <img src="/assets/img/video_image.png" className="img_resonsive" alt="image"/>}
+                
                     </div>
                   </div>
                 </div>
-              </> )
-                
-                : ''}
-                
+              
               </div>
             </div>
           </div>

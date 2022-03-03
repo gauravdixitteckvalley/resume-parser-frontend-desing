@@ -26,3 +26,6 @@
     border-radius: 70px;
     border: 1px solid lightgray;
 }
+.img_resonsive{
+    max-width: 100%;
+}
