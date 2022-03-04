@@ -20,17 +20,19 @@ const CandidatePreview = (props) => {
     const { countryList, stateList } = resumeDataList;
     const [showModal,setShowModal] =useState(false);
     //console.log(props)
-
+    const [status,setStatus]=useState(true)
     /**fetched data from redux store */
     const resumeData = useSelector(state => state.resume );
     const loggedUser = useSelector(state => state.authenticatedUser);
     const dispatch = useDispatch();
 
     const { user } = loggedUser;
+    console.log("user ", user, " resumeData ",resumeData )
     
-    if(currentId && typeof resumeData != "undefined" && (_.size(resumeData) > 0))
+    if(currentId && !_.isEmpty(resumeData.resumeDetails)  ){
     if (_.size(resumeData.resumeDetails) !== _.size(fields))
-        setFields({...resumeData.resumeDetails})  
+        setFields({...resumeData.resumeDetails}) 
+    } 
         
     
     const getCandidateDetails = async () => {
@@ -51,12 +53,13 @@ const CandidatePreview = (props) => {
     
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
+      
         getCandidateDetails();
         
     }, []);
     
   
-
+    console.log("fields ",fields)
     const manageButtonLinkByLoggedIn = (fields) => {
       if(user.isCandidateLogin){
         return (
