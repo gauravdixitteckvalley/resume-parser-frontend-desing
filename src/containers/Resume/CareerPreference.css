@@ -4,3 +4,10 @@
 .Radio-btn .form-check {
     margin-top: 5px;
 }
+.back-btn div:nth-child(2) {
+    text-align: right;
+}
+.back-btn {
+    display: flex;
+    align-items: center;
+}

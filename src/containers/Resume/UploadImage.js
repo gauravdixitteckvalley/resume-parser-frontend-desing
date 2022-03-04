@@ -2,8 +2,10 @@ import React, { Fragment, useState } from "react"
 import { Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProfileImage } from '../../actions/Candidate';
+import { Link } from "react-router-dom";
 
 import BlockUI from "../../components/BlockUI"
+import './CareerPreference.css';
 
 const UploadImage = (props) => {
 
@@ -12,6 +14,13 @@ const UploadImage = (props) => {
     let id = props.match.params.id;
     //console.log(props)
     const [error,setError] = useState("");
+
+    //get url id
+  const { id : candidateId} = props.match.params
+
+     //fetch user from redux store
+  const loggedUser = useSelector(state => state.authenticatedUser);
+  const { user } = loggedUser;
 
   const candidate = useSelector(state => state.candidate );
   const dispatch = useDispatch();
@@ -65,9 +74,16 @@ const UploadImage = (props) => {
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
-              <h4 className="page-title font-style-bold mb-2">
-                Upload Profile Image
-              </h4>
+              <div className="row back-btn">
+                  <div className="col-md-10 col-sm-12">
+                      <h4 className="page-title font-style-bold">Upload Profile Image</h4>
+                  </div>
+                  <div className="col-md-2 col-md-2">
+                      <Link to={user.isCandidateLogin ? `/candidate/view/${candidateId}` : `/candidate/preview/${candidateId}`} rel="noreferrer" className="p-0">
+                          <button type="submit" className="btn btn-gradient-primary mb-4">Back</button>
+                      </Link>
+                  </div>
+              </div>
               <hr className="mb-4" />
 
               <Form onSubmit={(event) => _handleSubmitImage(event)} className="form-inline edit-form">

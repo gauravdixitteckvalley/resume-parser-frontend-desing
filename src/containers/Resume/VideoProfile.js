@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react"
 import { Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import BlockUI from "../../components/BlockUI"
 import { history, displayErrorMessage } from '../../utils/helper'
 import { submitVideoProfileAction } from '../../actions/Candidate'
+import './CareerPreference.css';
 
 let base64File = ''
 const VideoProfile = (props) => {
@@ -14,6 +16,11 @@ const VideoProfile = (props) => {
 
   //use selector to get candidate store data
   const candidate = useSelector(state => state.candidate );
+
+  //fetch user from redux store
+  const loggedUser = useSelector(state => state.authenticatedUser);
+  const { user } = loggedUser;
+
   //dispatch function to execute the action
   const dispatch = useDispatch();
 
@@ -58,9 +65,16 @@ const VideoProfile = (props) => {
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
-              <h4 className="page-title font-style-bold mb-2">
-                Video Profile
-              </h4>
+              <div className="row back-btn">
+                  <div className="col-md-10 col-sm-12">
+                      <h4 className="page-title font-style-bold">Video Profile</h4>
+                  </div>
+                  <div className="col-md-2 col-md-2">
+                      <Link to={user.isCandidateLogin ? `/candidate/view/${candidateId}` : `/candidate/preview/${candidateId}`} rel="noreferrer" className="p-0">
+                          <button type="submit" className="btn btn-gradient-primary">Back</button>
+                      </Link>
+                  </div>
+              </div>
               <p style={{ fontSize: "13px" }}>
                 List your work experience, from the most recent to the oldest.
                 Feel free to use out pre-written examples.
