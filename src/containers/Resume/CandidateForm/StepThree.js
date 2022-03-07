@@ -61,7 +61,6 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
     const validateForm = (formValuesArray) => {
         let errors = [];
         let formIsValid = true;
-    
         formValuesArray.map ( (fields, index) => {
             let error = {}
             const state = `state${index}`
@@ -79,21 +78,26 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                 formIsValid = false;
                 error["studyField"] = "*Please enter your field of Study.";
             }
-        
-            if (!fields["gradMonth"] || fields["gradMonth"].trim() === '') {
-                if(fields["presentAttend"] === false){
-                    formIsValid = false;
-                    error["gradMonth"] = "*Please select your Graduation Month.";
+            if(fields["presentAttend"] == false){
+                if (!fields["gradMonth"] || fields["gradMonth"].trim() === '') {
+                    if(fields["presentAttend"] === false){
+                        formIsValid = false;
+                        error["gradMonth"] = "*Please select your Graduation Month.";
+                    }
+                    
                 }
-                
-            }
-        
-            if (!fields["gradYear"] || fields["gradYear"].trim() === '') {
-                if(fields["presentAttend"] === false){
-                    formIsValid = false;
-                    error["gradYear"] = "*Please select your Graduation Year.";
+            
+                if (!fields["gradYear"] || fields["gradYear"].trim() === '') {
+                    if(fields["presentAttend"] === false){
+                        formIsValid = false;
+                        error["gradYear"] = "*Please select your Graduation Year.";
+                    }
                 }
+            }else{
+                error["gradMonth"] = "";
+                error["gradYear"] = "";
             }
+            
         
             if (!fields["country"] || fields["country"].trim() === '') {
                 formIsValid = false;
@@ -130,7 +134,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
     }
 
     /* Checking is there any present attend here or not */
-    const _isPresentlyAttendChecked = () => {
+   /* const _isPresentlyAttendChecked = () => {
         let count = 0
         formValues.map( (data) => {
             if(data.presentAttend === true){
@@ -143,6 +147,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
         }
         return true
     }
+    */
 
     // after form submit validating the form data using validator
     const submitFormData = (e) => {
@@ -150,7 +155,8 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
         //console.log("formValues ",formValues)
         let postData = formValues;
         // validate the fields and then move to next form
-        if (_validateForm() && _isPresentlyAttendChecked()){
+        //if (_validateForm() && _isPresentlyAttendChecked()){
+        if (_validateForm()){
             if(currentId){
                 dispatch(submitCandidateData(currentId, {education:postData,step:3}));
                 setTimeout(function(){  props.nextStep(); }, 2000);
