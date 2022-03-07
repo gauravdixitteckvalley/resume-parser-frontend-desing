@@ -27,8 +27,7 @@ const CandidatePreview = (props) => {
     const dispatch = useDispatch();
 
     const { user } = loggedUser;
-    console.log("user ", user, " resumeData ",resumeData )
-    
+      
     if(currentId && !_.isEmpty(resumeData.resumeDetails)  ){
     if (_.size(resumeData.resumeDetails) !== _.size(fields))
         setFields({...resumeData.resumeDetails}) 

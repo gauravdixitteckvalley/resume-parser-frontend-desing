@@ -11809,9 +11809,9 @@
       -webkit-box-direction: normal;
       -ms-flex-direction: column;
       flex-direction: column;
-      -webkit-box-align: end;
-      -ms-flex-align: end;
-      align-items: end; }
+      -webkit-box-align: flex-end;
+      -ms-flex-align: flex-end;
+      align-items: flex-end; }
   
   .sales-mini-tabs {
     border-bottom: none; }

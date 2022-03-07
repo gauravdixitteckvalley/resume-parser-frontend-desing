@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import _ from 'lodash'
+//import _ from 'lodash'
 
 import BlockUI from "../../components/BlockUI";
 import NoticeFormValidation from "./NoticeFormValidation";
@@ -64,7 +64,7 @@ const Notice = (props) => {
                             <form className="form-inline edit-form" onSubmit={(event) => _handleSubmit(event)}>
                                 <div className="row">
                                     <div className="col-md-12">
-                                        <label className="mb-1 required" for="inlineFormInputName2">Select User</label>
+                                        <label className="mb-1 required" htmlFor="inlineFormInputName2">Select User</label>
                                         <select name="to" value={fields.to || ''} onChange={(event) => _handleChange(event.target)} className="form-control mb-2 mr-sm-2 col-md-6">
                                             <option value="">Select User</option>
                                             <option name="all" value="all">All</option>
@@ -76,7 +76,7 @@ const Notice = (props) => {
                                 </div>
                                 <div className="row mt-2">
                                     <div className="col-md-12">
-                                        <label className="mb-1 required" for="inlineFormInputName2">Description</label>
+                                        <label className="mb-1 required" htmlFor="inlineFormInputName2">Description</label>
                                         <textarea style={{minHeight: '150px'}} 
                                         name="message" 
                                         onChange={(event) => _handleChange(event.target)} 

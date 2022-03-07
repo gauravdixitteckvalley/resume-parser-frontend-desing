@@ -65,7 +65,6 @@ const ResumeList = (props) => {
     /**method to call the configure the data and call the action */
     const _getData = (data, params = {}) => {
       const localName = localStorage.getItem('headerSearch');
-      console.log('localName',localName);
       const queryParams = {
         page    : data ? data : 1,
         name    : (localName===null)?params?.name:localName,
@@ -290,7 +289,6 @@ const ResumeList = (props) => {
                             ></i>
                           </Link>
                           <Link 
-                            className="" 
                             title="Delete" 
                             className="ms-2" 
                             style={{'cursor':'pointer'}}

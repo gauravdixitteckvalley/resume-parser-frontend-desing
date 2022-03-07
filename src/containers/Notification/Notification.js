@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import Pagination from "react-js-pagination"
 
@@ -7,7 +6,7 @@ import BlockUI from "../../components/BlockUI";
 import './Notification.css';
 import { fetchNoticeData } from '../../actions/Notice';
 import _ from 'lodash';
-import { displayRecordNotFound, API_URL, displayErrorMessage,IMAGE_URL } from '../../utils/helper';
+import { displayRecordNotFound } from '../../utils/helper';
 import moment from 'moment'
 
 const Notification = () => {

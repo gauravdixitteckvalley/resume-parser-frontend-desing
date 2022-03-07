@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import LoginStyle from './style';
 import {login} from '../../actions/Login'
 import BlockUI from "../../components/BlockUI";
-import Footer from '../../pages/layouts/Footer/Footer';
 
 const Login = (props) => {
     const [fields, setFields] = useState({});
@@ -30,24 +29,14 @@ const Login = (props) => {
         const em = fields.email;
         const pw = fields.password;
 
-        if (em == '') {
+        if (em === '') {
             formIsValid = false;
             errors["email"] = "*Please enter your email";
         }
-        if (pw == '') {
+        if (pw === '') {
             formIsValid = false;
             errors["password"] = "*Please enter your password";
         }
-
-        /*if (!formFields["email"] || formFields["email"].trim() === '') {
-            formIsValid = false;
-            errors["email"] = "*Please enter your email";
-        }
-
-        if (!formFields["password"] || formFields["password"].trim() === '') {
-            formIsValid = false;
-            errors["password"] = "*Please enter your password";
-        }*/
 
         setErrors(errors);
         return formIsValid;
@@ -114,7 +103,7 @@ const Login = (props) => {
                                             <h4 className="card-title text-center">Login</h4>
                                             <form className="form-signin forms-sample" onSubmit={(event) => handleSubmit(event)}>
                                                 <div className="form-group">
-                                                    <label for="exampleInputEmail1">Email address</label>
+                                                    <label htmlFor="exampleInputEmail1">Email address</label>
                                                     <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Email" 
                                                         required={true}
                                                         name="email"
@@ -123,7 +112,7 @@ const Login = (props) => {
                                                     <div className="errorMsg">{errors.email}</div>
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="exampleInputPassword1">Password</label>
+                                                    <label htmlFor="exampleInputPassword1">Password</label>
                                                     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
                                                         required={true}
                                                         name="password"

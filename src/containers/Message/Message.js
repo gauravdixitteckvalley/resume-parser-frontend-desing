@@ -1,9 +1,9 @@
-import React, { Fragment, useState, useEffect, } from "react"
+import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import _ from 'lodash'
-import { Form } from "react-bootstrap";
+//import _ from 'lodash'
+//import { Form } from "react-bootstrap";
 
-import {history} from '../../utils/helper'
+//import {history} from '../../utils/helper'
 import BlockUI from "../../components/BlockUI"
 import validateMessageForm from './MessageFormValidation'
 import "./message.css";
@@ -59,9 +59,9 @@ const Message = (props) => {
     }
 
     /**method called when form is cancelled */
-    const _handleCancelForm = () => {
-        history.push('/candidate/dashboard')
-    }
+    // const _handleCancelForm = () => {
+    //     history.push('/candidate/dashboard')
+    // }
 
     return (
         <Fragment>
@@ -76,7 +76,7 @@ const Message = (props) => {
                             <form className="form-inline user-form" onSubmit={(event) => _handleSubmit(event)}>
                                 <div className="row">
                                     <div className="col-md-12">
-                                        <label className="mb-1 required" for="inlineFormInputName2">To</label>
+                                        <label className="mb-1 required" htmlFor="inlineFormInputName2">To</label>
                                         <select name="to" className="form-control mb-2 mr-sm-2 col-md-6" 
                                         value={fields.to || ''} 
                                         onChange={(event) => _handleChange(event.target)} 
@@ -88,7 +88,7 @@ const Message = (props) => {
                                         </select>
                                     </div>
                                     <div className="col-md-12 mt-2">
-                                        <label className="mb-1 required" for="inlineFormInputName2">Subject</label>
+                                        <label className="mb-1 required" htmlFor="inlineFormInputName2">Subject</label>
                                         <input type="text" name="subject" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                         value={fields.subject || ''} 
                                                         onChange={(event) => _handleChange(event.target)}
@@ -99,7 +99,7 @@ const Message = (props) => {
                                 </div>
                                 <div className="row">
                                     <div className="col-md-12">
-                                        <label className="mb-1 required" for="inlineFormInputName2">Message</label>
+                                        <label className="mb-1 required" htmlFor="inlineFormInputName2">Message</label>
                                         <textarea style={{minHeight: '150px'}} name="message" className="form-control mb-2 mr-sm-2 col-md-12" id="inlineFormInputName2" 
                                             placeholder="Type Your Message" 
                                             value={fields.message || ''} 

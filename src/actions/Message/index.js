@@ -1,5 +1,5 @@
 import api from '../../axios';
-import handleHttpError,{requestTokenHeader, history, displaySuccessMessage,loginRedirect, API_URL} from '../../utils/helper';
+import handleHttpError,{requestTokenHeader,  displaySuccessMessage, API_URL} from '../../utils/helper';
 
 export const messageSend = (postData = {}) => {
     return async dispatch => {

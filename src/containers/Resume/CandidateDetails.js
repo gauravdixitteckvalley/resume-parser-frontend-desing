@@ -131,38 +131,38 @@ const CandidateDetails = (props) => {
                         <form onSubmit={(event) => _handleSubmit(event)} className="form-inline edit-form">
                           <div className="row">
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Name</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Name</label>
                                 <input type="text" name="name" value={fields.name || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Name" />
                                 <div className="errorMsg">{errors.name}</div>  
                               </div>
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Email</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Email</label>
                                 <input type="email" name="email" value={fields.email || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Email" />
                                 <div className="errorMsg">{errors.email}</div>  
                               </div>
                           </div>
                           <div className="row mt-2">
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Phone</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Phone</label>
                                 <input type="text" name="phone" value={fields.phone || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Phone" />
                                 <div className="errorMsg">{errors.phone}</div>   
                               </div>
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">D.O.B</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">D.O.B</label>
                                 <input type="date" name="dob" value={fields.dob || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" />
                                 <div className="errorMsg">{errors.dob}</div>
                               </div>
                           </div>
                           <div className="row mt-2">
                               <div className="col-md-12">
-                                <label className="mb-1" for="inlineFormInputName2">Address</label>
+                                <label className="mb-1" htmlFor="inlineFormInputName2">Address</label>
                                 <textarea className="form-control" name="location" value={fields.location || ''}  onChange={(event) => _handleChange(event)}></textarea>
                                     <div className="errorMsg">{errors.location}</div>   
                               </div>
                           </div>
                           <div className="row mt-2">
                               <div className="col-md-3">
-                                <label className="mb-1 required" for="inlineFormInputName2">Country</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Country</label>
                                 <select name="country" className="form-control" value={fields.country || ''} 
                                         onChange={(event) => _handleChange(event)} 
                                     >
@@ -174,7 +174,7 @@ const CandidateDetails = (props) => {
                                     <div className="errorMsg">{errors.country}</div>   
                               </div>
                               <div className="col-md-3">
-                                <label className="mb-1 required" for="inlineFormInputName2">State</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">State</label>
                                 <select name="state" className="form-control" value={fields.state || ''} 
                                         onChange={(event) => _handleChange(event)} 
                                     >
@@ -186,62 +186,62 @@ const CandidateDetails = (props) => {
                                     <div className="errorMsg">{errors.state}</div>  
                               </div>
                               <div className="col-md-3">
-                                <label className="mb-1 required" for="inlineFormInputName2">City</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">City</label>
                                 <input type="text" name="place" value={fields.place || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="City" />
                                     <div className="errorMsg">{errors.city}</div>  
                               </div>
                               <div className="col-md-3">
-                                <label className="mb-1 required" for="inlineFormInputName2">Zip</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Zip</label>
                                 <input type="text" name="zip" value={fields.zip || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Zip" />
                                     <div className="errorMsg">{errors.zip}</div>  
                               </div>
                           </div>
                           <div className="row mt-2">
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Company Name</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Company Name</label>
                                 <input type="text" name="workExperience" value={fields.workExperience || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Company Name" />
                                 <div className="errorMsg">{errors.workExperience}</div> 
                               </div>
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Skills</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Skills</label>
                                 <input type="text" name="skills" value={fields.skills || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="HTML,CSS,PHP,.NET,JAVASCRIPT" />
                                 <div className="errorMsg">{errors.skills}</div>   
                               </div>
                           </div>
                           <div className="row mt-2">
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Total Experience</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Total Experience</label>
                                 <input type="text"  pattern="[+-]?\d+(?:[.,]\d{1}+)?" name="exp" value={fields.exp || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Total Experience" />
                                 <div className="errorMsg">{errors.exp}</div>
                               </div>
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Designation</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Designation</label>
                                 <input type="text" name="designation" value={fields.designation || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Designation" />
                                 <div className="errorMsg">{errors.designation}</div>
                               </div>
                           </div>
                           <div className="row mt-2">
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Current CTC</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Current CTC</label>
                                 <input type="text" name="current_ctc" value={fields.current_ctc || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Current CTC" />
                                 <div className="errorMsg">{errors.current_ctc}</div>
                               </div>
                               <div className="col-md-6">
-                                <label className="mb-1" for="inlineFormInputName2">Expected CTC</label>
+                                <label className="mb-1" htmlFor="inlineFormInputName2">Expected CTC</label>
                                 <input type="text" name="expected_ctc" value={fields.expected_ctc || ''} onChange={(event) => _handleChange(event)} className="form-control mb-2 mr-sm-2 col-md-6" id="inlineFormInputName2" placeholder="Expected CTC" />
                                 <div className="errorMsg">{errors.expected_ctc}</div>
                               </div>
                           </div>
                           <div className="row mt-2 mb-4">
                               <div className="col-md-6">
-                                <label className="mb-1 required" for="inlineFormInputName2">Other Information</label>
+                                <label className="mb-1 required" htmlFor="inlineFormInputName2">Other Information</label>
                                 <textarea className="form-control" name="resume_label" cols="30" rows="3" 
                                      value={fields.resume_label || ''} 
                                     onChange={(event) => _handleChange(event)}></textarea>
                                     <div className="errorMsg">{errors.resume_label}</div>
                               </div>
                               <div className="col-md-6 mb-3">
-                                <label for="formFile" className="form-label required">Resume</label>
+                                <label htmlFor="formFile" className="form-label required">Resume</label>
                                 <input name="document" onChange={(event) => _handleChange(event)} className="form-control" type="file" id="formFile" />
                               </div>
                           </div>

@@ -29,8 +29,7 @@ const StepTwo = (props) => {
                     string = true 
                 }
             })
-            //console.log(typeof(props.handleFormData.workExperience[0]) , " trype " , props.handleFormData.workExperience)
-            // console.log("props.workExperience ",props.handleFormData.workExperience);
+            
             if(props.handleFormData.workExperience.length >0 && formValues.length === 0  && string === false){
                 setFormValues(props.handleFormData.workExperience)
             }
@@ -57,7 +56,7 @@ const StepTwo = (props) => {
     const submitFormData = (event) => {
         event.preventDefault();
         let postData = formValues;
-       // console.log("postData ",postData)
+       
         if(currentId){
             dispatch(submitCandidateData(currentId, {workExperience:postData,step:2}));
             setTimeout(function(){  props.nextStep(); }, 2000);
@@ -120,7 +119,7 @@ const StepTwo = (props) => {
         newFormValues.splice(index, 1);
         setFormValues(newFormValues)
       }
-console.log("formValues ",formValues)
+
     const selectStateOrCountryOption = (formValues, optionsArray, formValuesKey,selectedState) => {
         const stateName = `state${formValuesKey}`
         if(formValues[formValuesKey].isStateFilled){

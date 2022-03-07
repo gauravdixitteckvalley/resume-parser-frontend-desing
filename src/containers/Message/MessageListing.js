@@ -7,7 +7,7 @@ import BlockUI from "../../components/BlockUI"
 import './MessageListing.css';
 import { fetchMessageData } from '../../actions/Message';
 import _ from 'lodash';
-import { displayRecordNotFound, API_URL, displayErrorMessage,IMAGE_URL } from '../../utils/helper';
+import { displayRecordNotFound, IMAGE_URL } from '../../utils/helper';
 import moment from 'moment'
 
 const MessageListing = () => {
@@ -15,7 +15,6 @@ const MessageListing = () => {
     const [searchTitle, setSearchTitle] = useState('');
     const [sortingOption, setSortingOption] = useState({})
     /**fetched data from redux store */
-    // console.log(state.message);
     const messages = useSelector(state =>  state.message);
 
     const dispatch = useDispatch();
@@ -44,7 +43,7 @@ const MessageListing = () => {
         return (
             <> 
             { data.map((data, index) => ( 
-                <>
+                <Fragment key={index}>
                 <div className="listings mb-3" key={index}>
                     <Link to={`message/message-details/${data._id}`}  style={{ fontWeight : (!data.is_view)?'700':'' }}  >
                         <div className="row align-items-center">
@@ -55,7 +54,7 @@ const MessageListing = () => {
                     </Link>
                 </div> 
                 <hr className="mb-4" />
-                </>
+                </Fragment>
             )) }  
             </>  
         )
@@ -65,12 +64,12 @@ const MessageListing = () => {
             )
           }
     }
-    // const { blocking, messageList } = messages;
+    
     const { totalRecords, per_page , blocking, messageList,currentPage } = messages;
     let total = 0;
     if(typeof totalRecords != 'undefined')
         total = totalRecords;
-        console.log(messageList);
+        
     return (
         <Fragment>
             

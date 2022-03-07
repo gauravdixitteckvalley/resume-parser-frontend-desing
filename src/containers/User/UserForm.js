@@ -106,7 +106,7 @@ const UserForm = (props) => {
                        
                                     <div className="row">
                                         <div className="col-md-6">
-                                        <label className="mb-1" for="inlineFormInputName2">First Name</label>
+                                        <label className="mb-1" htmlFor="inlineFormInputName2">First Name</label>
                                                 <input type="text" name="first_name" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.first_name || ''} 
                                                         onChange={(event) => _handleChange(event)} 
@@ -116,7 +116,7 @@ const UserForm = (props) => {
                                         </div>
 
                                         <div className="col-md-6"> 
-                                         <label className="mb-1" for="inlineFormInputName2">Last Name</label>
+                                         <label className="mb-1" htmlFor="inlineFormInputName2">Last Name</label>
                                           <input type="text" name="last_name" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.last_name || ''} 
                                                         onChange={(event) => _handleChange(event)} 
@@ -127,7 +127,7 @@ const UserForm = (props) => {
                                         
                                         <div className="row mt-2">
                                         <div className="col-md-6">
-                                            <label className="mb-1" for="inlineFormInputName2">Username</label>
+                                            <label className="mb-1" htmlFor="inlineFormInputName2">Username</label>
                                                <input type="text" name="username" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.username || ''}
                                                         onChange={(event) => _handleChange(event)} 
@@ -137,7 +137,7 @@ const UserForm = (props) => {
                                         </div>
                                         
                                         <div className="col-md-6"> 
-                                        <label className="mb-1" for="inlineFormInputName2">Email</label>
+                                        <label className="mb-1" htmlFor="inlineFormInputName2">Email</label>
                                                 <input type="email" name="email" className="form-control mb-2 mr-sm-2 col-md-6" 
                                                         value={fields.email || ''}
                                                         onChange={(event) => _handleChange(event)} 
@@ -150,7 +150,7 @@ const UserForm = (props) => {
                                         {!currentId ? 
                                             <div className="row mt-2">
                                                <div className="col-md-6">
-                                                        <label className="mb-1" for="inlineFormInputName2">Password</label>
+                                                        <label className="mb-1" htmlFor="inlineFormInputName2">Password</label>
                                                             <input type="password" name="password" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                                         value={fields.password || ''} 
                                                                         onChange={(event) => _handleChange(event)} 
@@ -158,7 +158,7 @@ const UserForm = (props) => {
                                                                 <div className="errorMsg">{errors.password}</div>        
                                                 </div>       
                                                 <div className="col-md-6"> 
-                                                 <label className="mb-1" for="inlineFormInputName2">Confirm Password</label>
+                                                 <label className="mb-1" htmlFor="inlineFormInputName2">Confirm Password</label>
                                                     <div className="form-group">
                                                         <input type="password" name="confirm_password" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                                 value={fields.confirm_password || ''} 
@@ -172,7 +172,7 @@ const UserForm = (props) => {
                                         {(user_roles) && user_roles.length > 0 ?
                                      <div className="row mt-2 mb-4">
                                          <div className="col-md-6">
-                                         <label className="mb-1" for="inlineFormInputName2">User Role</label>
+                                         <label className="mb-1" htmlFor="inlineFormInputName2">User Role</label>
                                             <Form.Control className="form-control form-control-md" as="select" name="user_role" value={fields.user_role || ''} onChange={(event) => _handleChange(event)}>
                                                 <option value="">Select Role</option>
                                                 {user_roles.map((role, index) => (
@@ -184,7 +184,7 @@ const UserForm = (props) => {
                                       
                                             { ((user_list) && user_list.length > 0) ?
                                         <div className="col-md-6"> 
-                                        <label className="mb-1" for="inlineFormInputName2">Assign To</label>
+                                        <label className="mb-1" htmlFor="inlineFormInputName2">Assign To</label>
                                             <Form.Control className="form-control form-control-md" as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
                                                 <option value="">Choose Option</option>
                                                 {user_list.map((assigned, index) => (
@@ -199,7 +199,7 @@ const UserForm = (props) => {
 
                                         {(currentId && !user_list) ?
                                         <div className="col-md-6"> 
-                                        <label className="mb-1" for="inlineFormInputName2">Assign To</label>
+                                        <label className="mb-1" htmlFor="inlineFormInputName2">Assign To</label>
                                                 <Form.Control className="form-control form-control-md" as="select" name="assigned_to" value={fields.assigned_to || ''} onChange={(event) => _handleChange(event)}>
                                                     <option value={fields.assigned_to}>{fields.assigned_name}</option>
                                                 </Form.Control>      

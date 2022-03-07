@@ -9,7 +9,6 @@ const InputBox = ({labelStatus,labelValue,labelClass,labelFor, id, type, name, h
     : ""
     }
         <input type={type ? type : "text"}
-        className={className ? className : " "}
         onChange={handleClick}
         className={className ? className : ""}
         value={value ? value : ""}

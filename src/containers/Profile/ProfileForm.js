@@ -1,18 +1,14 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Form } from "react-bootstrap";
 import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
 import { history } from "../../utils/helper";
-import { IMAGE_URL } from './../../utils/helper'
 import validateProfileForm from "./ProfileFormValidation";
 import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
-  resetUserData,
-  fetchUserRolesData,
-  fetchUserByRole,
+  resetUserData
 } from "../../actions/User";
 import {
   submitProfileFormData,
@@ -23,9 +19,7 @@ const ProfileForm = (props) => {
   
   const [fields, setFields] = useState({'profile_image':''});
   const [errors, setErrors] = useState({});
-  
-  const [roles, setRoles] = useState([]);
-  const [usersList, setusersList] = useState({});
+
   /**fetched data from redux store */
   const userData = useSelector(state => state.authenticatedUser);
   const dispatch = useDispatch();
@@ -98,7 +92,7 @@ console.log(userData , " userdata")
   const _handleCancelForm = () => {
     history.push("/profile");
   };
-  const { blocking, user_roles, user_list } = userData;
+  const { blocking } = userData;
   return (
     <Fragment>
       <BlockUI blocking={blocking} />

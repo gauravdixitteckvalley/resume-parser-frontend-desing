@@ -12,7 +12,6 @@ const UploadImage = (props) => {
     const [fields,setFields] = useState();
     const [fileName,setFileName] =useState("")
     let id = props.match.params.id;
-    //console.log(props)
     const [error,setError] = useState("");
 
     //get url id
@@ -48,10 +47,8 @@ const UploadImage = (props) => {
 
   const _handleChange = event => {
     const { name, value } = event.target;
-        //console.log("event.target ",event.target.files[0])
         setFileName(event.target.files[0])
         setFields(value);
-        console.log(value);
   }
 
   const _handleSubmitImage = (event) => {
@@ -62,7 +59,6 @@ const UploadImage = (props) => {
         if(id){
             dispatch(updateProfileImage(id,postData));
         }
-        console.log(postData);
     } 
   }
 

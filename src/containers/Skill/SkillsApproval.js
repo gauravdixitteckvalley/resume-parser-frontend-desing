@@ -105,7 +105,6 @@ const SkillsApproval = (props) => {
 
     const _handleClick = (event)=>{
         setEditRowValue(event.target.value)
-        // console.log('value',event.target.value);
     }
     /* build user list */
     const _skillsList = skills => {

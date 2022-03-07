@@ -14,8 +14,6 @@ const MessageDetails = (props) => {
     const [isReply,setIsReply] = useState(false);
     const [showReply,setShowReply] = useState(true);
     const [replyMessage,setReplyMessage] = useState(false);
-    const [replyTo,setReplyTo] = useState();
-    const [replyOn,setReplyOn] = useState();
 
     useEffect(()=>{
         dispatch(fetchMessageDetail(currentId));

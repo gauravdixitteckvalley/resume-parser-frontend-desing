@@ -152,7 +152,6 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
     // after form submit validating the form data using validator
     const submitFormData = (e) => {
         e.preventDefault();
-        //console.log("formValues ",formValues)
         let postData = formValues;
         // validate the fields and then move to next form
         //if (_validateForm() && _isPresentlyAttendChecked()){

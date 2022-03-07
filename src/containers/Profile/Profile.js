@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { IMAGE_URL } from './../../utils/helper'
-import "./style.css"
+import "./style.css";
 
 export default function Profile() {
     const userData = useSelector(state => state.authenticatedUser);
