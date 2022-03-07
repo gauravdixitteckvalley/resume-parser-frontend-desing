@@ -14,8 +14,7 @@ const UserForm = (props) => {
     const [fields, setFields] = useState({});
     const [errors, setErrors] = useState({});
     const [applyCheck] = useState(currentId ? false : true);
-    const [roles, setRoles] = useState([]);
-    const [usersList, setusersList] = useState({});
+    
     /**fetched data from redux store */
     const userData = useSelector(state => state.user);
     const dispatch = useDispatch();

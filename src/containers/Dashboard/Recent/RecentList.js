@@ -6,7 +6,6 @@ import './RecentList.css';
 
 const RecentList = (props) => {
     const { topResume } = props;
-    // const topResume  = '';
 
     const _ManageStatus = (data) =>{
       if(data.candidate_status === "1"){
@@ -26,13 +25,8 @@ const RecentList = (props) => {
       if (!_.isEmpty(topResume)) {
         return( 
           topResume.map((data, index) => (
-            <tr>
+            <tr key={index}>
               <td>
-                {/* <img
-                  src="./../../assets/img/faces/face1.jpg"
-                  className="me-2"
-                  alt="image"
-                /> */}
                 {data.name}
               </td>
               <td> {data.email} </td>
@@ -50,8 +44,6 @@ const RecentList = (props) => {
       )
       }
     }
-    // console.log('asasd',props);
-    // if (!_.isEmpty(topResume)) {
 
     return (
         <div className="row">
@@ -82,8 +74,5 @@ const RecentList = (props) => {
       </div>
       
     )
-  // }else{
-  //   return ( 's')
-  // }
 }
 export default RecentList;
