@@ -35,10 +35,11 @@ const Header = (props) => {
     const searchResume = () => {
         if(_.isEmpty(searchValue))
             displayErrorMessage('Please input any search name first');
-    
+        
+        localStorage.setItem("headerSearch",searchValue)
         _getData('', {searchValue});
 
-        history.push('/resume');
+        
     }
 
     var status = false;
@@ -72,13 +73,24 @@ const Header = (props) => {
         const queryParams = {
             page    : data ? data : 1,
             name    : params?.searchValue,
+            // email   : params?.searchValue,
+            // phone   : params?.searchValue,
+            // city    : params?.searchValue,
+            // company : params?.searchValue,
+            sortingData : {},
+            // status  : '',
+            // minExp  : '',
+            // maxExp  : ''
             /*email   : params?.searchValue,
             phone   : params?.searchValue,
             city    : params?.searchValue,
             company : params?.searchValue,
             skills  : params?.searchValue*/
+            
+            
         }
         dispatch(fetchResumeData(queryParams));
+        // history.push('/resume');
     } 
 
 
@@ -116,7 +128,7 @@ const Header = (props) => {
                                 <form className="d-flex align-items-center h-100" action="#">
                                     <div className="input-group">
                                         <div className="input-group-prepend bg-transparent">
-                                            <Link className="search-btn" onClick={() => searchResume()}>
+                                            <Link to='/resume' className="search-btn" onClick={() => searchResume()}>
                                                 <i className="input-group-text border-0 mdi mdi-magnify"></i>
                                             </Link>
                                         </div>

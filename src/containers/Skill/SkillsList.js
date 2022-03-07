@@ -15,7 +15,7 @@ const SkillsList = (props) => {
     const [searchTitle, setSearchTitle] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedRowId, setSelectedRowId] = useState('');
-    const [sortingOption, setsortingOption]               = useState({});
+    const [sortingOption, setsortingOption] = useState({});
 
     /**fetched data from redux store */
     const skills = useSelector(state => state.skills);
@@ -85,7 +85,6 @@ const SkillsList = (props) => {
         }
         dispatch(fetchSkillsData(queryParams));
     }
-    console.log("skills ",skills)
 
     /* build user list */
     const _skillsList = skills => {
@@ -160,7 +159,6 @@ const SkillsList = (props) => {
                         <div className="card-body">
                             <div className="add-items row">
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2"><NavLink to={'/skills/create'}><button type="button" className="btn btn-gradient-primary btn-fw">Create Skill</button></NavLink> <NavLink to={'/skills/approval'}><button type="button" className="btn btn-gradient-primary btn-fw">Approve Skill</button></NavLink></div>
-                                {/* <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-2 float-left"><NavLink to={'/skills/approval'}><button type="button" className="btn btn-gradient-primary btn-fw">Approve Skill</button></NavLink></div> */}
                                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
                                     <SearchBox searchParentclassName="col-xs-12 col-sm-12 col-md-3 col-lg-3 mb-2 offset-lg-7 offset-md-7"
                                         searchText="Search by Skills"
@@ -173,7 +171,6 @@ const SkillsList = (props) => {
                             
                             {/* list of records */}
                             {_skillsList(skillsList)}
-                            {/* <div className="position-absolute">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div> */}
                             {(total > per_page) ? 
                                 <div className="pagination justify-content-between" aria-label="Page navigation example">
                                     <div>Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
@@ -183,7 +180,6 @@ const SkillsList = (props) => {
                                         totalItemsCount={total}
                                         pageRangeDisplayed={5}
                                         onChange={_handlePageChange}
-                                        itemClass="page-item"
                                         itemClass="page-item"
                                         linkClass="page-link"
                                         prevPageText=" Previous"
