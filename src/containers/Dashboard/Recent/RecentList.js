@@ -26,7 +26,7 @@ const RecentList = (props) => {
       if (!_.isEmpty(topResume)) {
         return( 
           topResume.map((data, index) => (
-            <tr>
+            <tr key={`topResume-${index}`}>
               <td>
                 {/* <img
                   src="./../../assets/img/faces/face1.jpg"
