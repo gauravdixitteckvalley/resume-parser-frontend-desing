@@ -8,7 +8,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
         
         return (
             
-             <div className="page inner" >
+             <div key={"project"+index} className="page inner" >
                 <div className="header">
                 <h2 className="emp-id">{ empCode }</h2>
                 <img src="../../assets/img/designer-resume-img/logo.png" className="logo" />
@@ -23,7 +23,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                     </div>
                 </div>
                 { project?.map((data,index)=>( 
-                <div className="two-col-line" key={index}>
+                <div className="two-col-line" key={"projdetail"+index}>
                     <div className="left-col">
                         <span className="circle-arrow"></span>
                     </div>
@@ -53,7 +53,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
           
             <div ref={ref}>
              {/* Page 1 Start */}
-            <div className="page main-page" PageSize="A4" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/web-capability-bg.png)'}}>
+            <div className="page main-page" pagesize="A4" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/web-capability-bg.png)'}}>
                 <section id="top-head-main" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/top-dotted-bg.png)'}}>
                 <div className="page-container">
                     <div className="logo-main">
@@ -279,7 +279,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                         <h2>Tools</h2>
                         <ul className="inline-list">
                             {   empTools.split(',').map((data,index)=>(
-                                    <li>{data}</li>
+                                    <li key={"tools"+index}>{data}</li>
                                 )) 
                             }
                             {/* <li>Dreamweaver</li>

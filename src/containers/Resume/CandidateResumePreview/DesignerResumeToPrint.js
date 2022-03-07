@@ -257,24 +257,6 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 </ul>
                                 </div>
                             
-                            
-                                {/* <div className="circle third">
-                                Payment<br /> Gateway
-                                <ul>
-                                { (skillsArray.Other !== undefined)?  
-                                 skillsArray.Other.map((data,index)=>(
-                                        <li>{ data.skill }</li>
-                                )) 
-                             :
-                                <>
-                                    <li>Paypal Checkout</li>
-                                    <li>Google Checkout</li>
-                                    </>
-}
-                                </ul>
-                                </div> */}
-                                
-                            
                                 <div className="circle fourth">
                                 UI/UX 
                                 <ul>
