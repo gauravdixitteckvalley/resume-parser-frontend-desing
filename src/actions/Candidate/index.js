@@ -22,7 +22,6 @@ export const fetchCandidateData = (params) => {
 /* action for submitting user record */
 export const submitCandidateData = (id,postData) => {
     return async dispatch => {
-        console.log(id, " action id ",postData,"  action data")
         dispatch({ type: 'SUBMIT_CANDIDATE_FORM_ONE_REQUEST' });
         try {
             let response = '';
@@ -106,13 +105,11 @@ export const submitManualResumeFormData = (postData) => {
             if (response.data.success) {
                 dispatch({ type : 'SUBMIT_MANUAL_RESUME_FORM_SUCCESS', payload :response.data.data.candidateId });
                 displaySuccessMessage(response.data.data.message);
-                console.log("response.data.data ",response.data.data)
                 // history.push('/resume');
             } 
         } catch(error) {
             handleHttpError(error.response);
             dispatch({ type: 'SUBMIT_MANUAL_RESUME_FORM_FAILURE' });
-            console.log(error , " error")
         }
     }
 }

@@ -55,22 +55,18 @@ const ProfileForm = (props) => {
   const _handleChange = (event) => {
     let data = fields;
     data[event.target.name] = event.target.value;
-    // console.log(event.target.name, event.target.value);
     setFields({ ...data });
-    // console.log(fields , " fields")
   };
 
   /* submit form */
   const _handleSubmit = (event) => {
     event.preventDefault();
-    //console.log(fields);
     if (_validateForm()) {
       const { password, old_password } = fields;
       const postData = {
         password: password,
         old_password: old_password
       };
-      //console.log("postData ",postData)
       if(userData.user.id)
         dispatch(submitUpdatePasswordFormData(userData,postData)); //action is called to submit data
     }

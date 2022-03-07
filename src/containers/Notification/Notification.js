@@ -19,7 +19,6 @@ const Notification = () => {
     
     const authenticateUser = useSelector(state => state.authenticatedUser);
     const { user } = authenticateUser;
-    console.log(user);
 
     const dispatch = useDispatch();
 
@@ -46,7 +45,7 @@ const Notification = () => {
 
         if (user.user_role_name === 'Admin' ){
             if (!_.isEmpty(data)) {
-                console.log(data)
+                
                 return (
                     <> 
                     { data.map((data, index) => ( 

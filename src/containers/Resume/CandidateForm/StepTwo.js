@@ -327,8 +327,7 @@ const StepTwo = (props) => {
                                 <Form.Group className="mb-2 col-md-12">
                                 <Form.Label>Job Description</Form.Label>
                                     <Form.Control
-                                        style={{ height: '150px' }}
-                                        style={{ border: errors[key]?.jd ? "2px solid red" : "" }}
+                                        style={{ height: '150px', border: errors[key]?.jd ? "2px solid red" : "" }}
                                         name="jd"
                                         as="textarea"
                                         placeholder="Describe Your Job"

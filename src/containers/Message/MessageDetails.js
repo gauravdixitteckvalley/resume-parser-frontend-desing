@@ -76,7 +76,7 @@ const MessageDetails = (props) => {
               }
     }
     const { blocking, messageDetail } = messages;
-    // console.log('messageDetail',messageDetail);
+    
     return (
         <Fragment>
             <BlockUI blocking={blocking} /> 

@@ -25,7 +25,6 @@ const ProfileForm = (props) => {
   const dispatch = useDispatch();
   const currentId = userData.user.id;
   const [applyCheck] = useState(currentId ? false : true);
-console.log(userData , " userdata")
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
     // if (userData.user.id) {
@@ -43,7 +42,6 @@ console.log(userData , " userdata")
   /**section to be executed when we open the form in edit mode */
   if (currentId && typeof userData != "undefined" && _.size(userData) > 0){
     if (_.size(userData.user) !== _.size(fields)){
-      //console.log("demo")
       setFields({ ...userData.user });
     }
   }
@@ -82,7 +80,6 @@ console.log(userData , " userdata")
       const postData = new FormData(event.target);
        // postData.append('frontendURL', window.location.origin);
        // dispatch(submitManualResumeFormData(postData));
-      console.log("1")
       
       dispatch(submitProfileFormData(currentId, postData)); //action is called to submit data
     }

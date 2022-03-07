@@ -11,7 +11,6 @@ class PopUpModal extends Component {
     }
 
     _executeSubmitRequest = () => {
-        console.log('modal',this.state);
         this.props.addCommentData(this.state)
     }
 

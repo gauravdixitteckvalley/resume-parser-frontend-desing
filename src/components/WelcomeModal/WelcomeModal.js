@@ -13,8 +13,6 @@ export default function WelcomeModal(props) {
     const {showModal, modalTitle} = props
     const _handleSubmit = (event) => {
         event.preventDefault();
-        // const { multi_Mail } = event.target;
-        //console.log("123: ",fields);
         const mails = {
             '1': 'abs@ww.com',
             '2': 'ees@ww.com',
