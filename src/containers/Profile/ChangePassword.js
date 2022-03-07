@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Form } from "react-bootstrap";
 
 import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
@@ -12,7 +11,6 @@ import {
   fetchUserEditFormDependantData,
   resetUserData,
   fetchUserRolesData,
-  fetchUserByRole,
 } from "../../actions/User";
 import { submitUpdatePasswordFormData } from "../../actions/Profile";
 
@@ -21,12 +19,9 @@ const ProfileForm = (props) => {
   const [fields, setFields] = useState({});
   const [errors, setErrors] = useState({});
   const [applyCheck] = useState(currentId ? false : true);
-  const [roles, setRoles] = useState([]);
-  const [usersList, setusersList] = useState({});
   const userData = useSelector((state) => state.authenticatedUser);
   const dispatch = useDispatch();
-  const [oldPass, setOldPass] = useState("");
-  const [newPass, setNewPass] = useState("");
+ 
 
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
@@ -60,22 +55,18 @@ const ProfileForm = (props) => {
   const _handleChange = (event) => {
     let data = fields;
     data[event.target.name] = event.target.value;
-    // console.log(event.target.name, event.target.value);
     setFields({ ...data });
-    // console.log(fields , " fields")
   };
 
   /* submit form */
   const _handleSubmit = (event) => {
     event.preventDefault();
-    //console.log(fields);
     if (_validateForm()) {
-      const { password, old_password,confirm_password } = fields;
+      const { password, old_password } = fields;
       const postData = {
         password: password,
         old_password: old_password
       };
-      //console.log("postData ",postData)
       if(userData.user.id)
         dispatch(submitUpdatePasswordFormData(userData,postData)); //action is called to submit data
     }
@@ -85,7 +76,7 @@ const ProfileForm = (props) => {
   const _handleCancelForm = () => {
     history.push("/profile");
   };
-  const { blocking, user_roles, user_list } = userData;
+  const { blocking } = userData;
   return (
     <Fragment>
       <BlockUI blocking={blocking} />

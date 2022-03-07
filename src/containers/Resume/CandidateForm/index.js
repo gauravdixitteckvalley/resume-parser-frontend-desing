@@ -68,11 +68,10 @@ function CandidateMultiStep(props) {
     endDate: "",
     jd: ""
   })
-  //console.log('step',step);
+
   // function for going to next step by increasing step state by 1
   const nextStep = () => {
     setstep( parseInt(step) + 1);
-    //console.log('nextStep',step);
   };
 
   // function for going to previous step by decreasing step state by 1
@@ -93,9 +92,6 @@ function CandidateMultiStep(props) {
   }));
   }
   
-
-
-// console.log("candidateInfo ",userData.candidateInfo)
 // javascript switch case to show different form in each step
   switch (step) {
     // case 1 to show stepOne form and passing nextStep, prevStep, and handleInputData as handleFormData method as prop and also formData as value to the fprm

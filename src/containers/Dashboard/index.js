@@ -46,7 +46,6 @@ const _deleteskillData = (status) => {
           </span>{" "}
           Dashboard
         </h3>
-        
       </div>
       <div className="row">
         <div className="col-md-4 stretch-card grid-margin">
@@ -62,7 +61,6 @@ const _deleteskillData = (status) => {
                 <i className="mdi mdi-chart-line mdi-24px float-right"></i>
               </h4>
               <h2 className="mb-5">{totalList} + {totalResumessubuser} = {totalList+totalResumessubuser}</h2>
-              {/* <h6 className="card-text">Increased by 60%</h6> */}
             </div>
           </div>
         </div>
@@ -79,7 +77,6 @@ const _deleteskillData = (status) => {
                 <i className="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
               <h2 className="mb-5">{monthlyList} + {monthlyResumessubuser} = {monthlyList+monthlyResumessubuser}</h2>
-              {/* <h6 className="card-text">Decreased by 10%</h6> */}
             </div>
           </div>
         </div>
@@ -96,12 +93,10 @@ const _deleteskillData = (status) => {
                 <i className="mdi mdi-diamond mdi-24px float-right"></i>
               </h4>
               <h2 className="mb-5">{weeklyList} + {weeklyResumessubuser} = {weeklyList+weeklyResumessubuser}</h2>
-              {/* <h6 className="card-text">Increased by 5%</h6> */}
             </div>
           </div>
         </div>
       </div>
-      
       <div className="row">
         <div className="col-12 grid-margin">
          { statusData ? <CandidateStatusGraph statusList ={statusList} statusData={statusData} /> : null }
@@ -117,9 +112,6 @@ const _deleteskillData = (status) => {
                             modalTitle="Welcome Popup"
                             
             />) : null}
-      {/* <Graph />
-      <RecentEntries /> */}
-      
     </>
   );
 };

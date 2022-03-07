@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash'
 import "./header.css";
@@ -13,14 +13,13 @@ import moment from 'moment'
 const Header = (props) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
-    const [toggleView, setToggleView] = useState("");
+    //const [toggleView, setToggleView] = useState("");
 
     const loggedUser = useSelector(state => state.authenticatedUser);
     const {user} = loggedUser;
-    const currentId = user.id;
-    //console.log(currentId)
+    //const currentId = user.id;
+
     let userType =JSON.parse(localStorage.getItem("data"));
-    //console.log(" userType ", userType.user_role_name)
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
         dispatch(resetLoggedUserData())
@@ -45,7 +44,7 @@ const Header = (props) => {
     var status = false;
     const toggleSidebar = () => {
         
-        if (status == false) {
+        if (status === false) {
             document.body.classList.add('sidebar-icon-only');
             status = !status;
         }else{
@@ -167,8 +166,8 @@ const Header = (props) => {
                                
                                 { ( typeof loggedUser.user.message != "undefined" && Object.keys(loggedUser.user.message).length > 0 )?
                                  loggedUser.user?.message.map((data, index) => (
-                                        <>
-                                        <Link key={data._id} to={`/message/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
+                                        <Fragment key={index}>
+                                        <Link to={`/message/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
                                             <img src={ data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} alt="image" className="profile-pic" />
                                         </div>
@@ -177,8 +176,8 @@ const Header = (props) => {
                                             <p className="text-gray mb-0"> { moment(data.createdAt).calendar() }  </p>
                                         </div>
                                         </Link>
-                                        <div key={index} className="dropdown-divider"></div>
-                                        </>
+                                        <div className="dropdown-divider"></div>
+                                        </Fragment>
                                 ))
                                 : 
                                 <>
@@ -207,8 +206,8 @@ const Header = (props) => {
                                     <div className="dropdown-divider"></div>
                                     {( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
                                     loggedUser.user?.notice.map((data, index) => (
-                                        <>
-                                            <Link key={data._id} to={'/notifications'} className="dropdown-item preview-item">
+                                        <Fragment key={index}>
+                                            <Link to={'/notifications'} className="dropdown-item preview-item">
                                             <div className="preview-thumbnail">
                                                 <div className="preview-icon bg-success">
                                                 <i className="mdi mdi-calendar"></i>
@@ -219,8 +218,8 @@ const Header = (props) => {
                                                 <p className="text-gray ellipsis mb-0"> { moment(data.createdAt).calendar() } </p>
                                             </div>
                                             </Link>
-                                            <div key={data.createdAt} className="dropdown-divider"></div>
-                                        </>
+                                            <div className="dropdown-divider"></div>
+                                        </Fragment>
                                     ))
                                     : 
                                     <>
@@ -239,7 +238,7 @@ const Header = (props) => {
                         }
                         
                         <li className="nav-item nav-logout d-none d-lg-block">
-                            <a className="nav-link" href="javascript;;" onClick={() => _loggedOutUser()}>
+                            <a className="nav-link" onClick={() => _loggedOutUser()}>
                             <i className="mdi mdi-power"></i>
                             </a>
                         </li>

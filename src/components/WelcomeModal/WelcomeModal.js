@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import Modal from "react-bootstrap/Modal";
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchResumeData, resetResumeData,updateStatusField,sendMultiMail } from "../../actions/Resume";
-import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
-import axios from 'axios';
+import {  useDispatch } from 'react-redux'
+import { sendMultiMail } from "../../actions/Resume";
+
 
 export default function WelcomeModal(props) {
     const [fields,setFields] = useState();
@@ -14,8 +13,6 @@ export default function WelcomeModal(props) {
     const {showModal, modalTitle} = props
     const _handleSubmit = (event) => {
         event.preventDefault();
-        // const { multi_Mail } = event.target;
-        //console.log("123: ",fields);
         const mails = {
             '1': 'abs@ww.com',
             '2': 'ees@ww.com',
@@ -28,7 +25,7 @@ export default function WelcomeModal(props) {
         props.handleModalClose(false);
     }
     const _handleChange = (event) => {
-        const { name, value } = event.target;
+        const { value } = event.target;
         setFields(value);
     }
     return (

@@ -6,7 +6,7 @@ import "react-dropzone-uploader/dist/styles.css";
 
 import BlockUI from "../../components/BlockUI";
 import { API_URL, displayErrorMessage } from "../../utils/helper";
-import { submitResumeData, deleteResumeOnRemove } from "../../actions/Resume";
+import { submitResumeData } from "../../actions/Resume";
 import "./addResume.css";
 import resumeSampleFile from "../../assets/files/resumeSampleFile.docx";
 

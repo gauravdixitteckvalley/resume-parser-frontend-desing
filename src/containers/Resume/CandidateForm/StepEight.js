@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import validator from "validator";
 import './CandidateMultiForm.css';
 import { useDispatch } from "react-redux";
 import _ from "lodash";
@@ -9,9 +8,6 @@ import {  submitCandidateData  } from "../../../actions/Candidate";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepEight = (props) => {
-   //creating error state for validation
-  //console.log("props8 ",props)
-  const [error, setError] = useState(false);
   const currentId = props.cdId;
   const dispatch = useDispatch(); 
   const [fields, setFields] = useState({

@@ -16,8 +16,6 @@ const StepOne = (props) => {
     let countries = ''
     let states = '';
     const { countryList, stateList } = resumeData;
-   // console.log("stateList " ,stateList)
-   // debugger;
     let name = props.handleFormData.name;
     const [status,setStatus] =useState(true);
     const [fields, setFields] = useState({
@@ -51,11 +49,7 @@ const StepOne = (props) => {
     }
     useEffect(() => {
         countries = dispatch(getCountryList());
-        //if(!_.isEmpty(props.handleFormData)){
-          //  console.log("props?.handleFormData?.country ",props?.handleFormData?.country)
           states= dispatch(getStateList(101))
-            //console.log("states ",states)
-       // }
         if(!_.isEmpty(props.handleFormData)){
             let fname=''
             let lname=''

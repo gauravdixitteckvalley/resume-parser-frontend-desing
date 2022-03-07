@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import {
   sendMultiMail,
 } from "../../actions/Resume";

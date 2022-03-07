@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import './CandidateMultiForm.css';
 import _ from "lodash";
 import {  submitCandidateData, fetchSkillsList  } from "../../../actions/Candidate";
-import validateCandidateForm  from "./CandidateFromValidation";
 
 
 // creating functional component ans getting props from app.js and destucturing them
@@ -89,8 +88,6 @@ if(!_.isEmpty(props.handleFormData) && status){
     e.preventDefault();
     let postData = formValues;    
     if (_validateForm()){
-      //props.nextStep();
-      //console.log("postData4 ",postData)
       if(currentId){
           dispatch(submitCandidateData(currentId, {skills:postData,step:5}));
           setTimeout(function(){  props.nextStep(); }, 2000);
@@ -127,7 +124,6 @@ if(!_.isEmpty(props.handleFormData) && status){
 
   const _handleSkill = (event, key) => {
     // event.preventDefault()
-    // console.log('event',event);
     formValues[key]['skill'] = event.value
     formValues[key]['skillId'] = event._id
     formValues[key]['skillMaster'] = event.skill_category.name

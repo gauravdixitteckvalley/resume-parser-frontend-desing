@@ -46,18 +46,13 @@ export const submitResumeData = (postData) => {
                     existEmails = JSON.parse(response.data.data.preExistEmails);                    
                 }
                 
-                console.log('Length: ', existEmails.length);
-                if (existEmails.length == 0) {
+                if (existEmails.length === 0) {
                     displaySuccessMessage(response.data.data.data);
-                    console.log('Upload Responce: ', existEmails);
-                    console.log('Exist Responce: ', response.data.data.preExistEmails);
                 } else {
                     existEmails.forEach(element => {
                         displayErrorMessage('Resume of '+ element +' is already exist with the mail id ');
                     });
                     // displaySuccessMessage(response.data.data.data);
-                    console.log('Upload Responce123: ', existEmails);
-                    console.log('Exist Responce456: ', response.data.data.preExistEmails);
                 }
                 
                 
@@ -365,7 +360,6 @@ export const getCandidateList = () => {
 /* action for update resume recode */
 export const updateResume = (id, postData) => {
     return async dispatch => {
-        //console.log("postData ",postData, " id ", id)
         dispatch({ type: 'UPDATE_RESUME_REQUEST' });
         try {
             let response = await api.put(`/resume/candidate/resumeUpload/${id}`, postData, {

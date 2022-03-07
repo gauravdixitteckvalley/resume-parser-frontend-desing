@@ -7,7 +7,7 @@ import BlockUI from "../../components/BlockUI"
 import './MessageListing.css';
 import { fetchMessageData } from '../../actions/Message';
 import _ from 'lodash';
-import { displayRecordNotFound, API_URL, displayErrorMessage,IMAGE_URL } from '../../utils/helper';
+import { displayRecordNotFound, IMAGE_URL } from '../../utils/helper';
 import moment from 'moment'
 
 const MessageListing = () => {
@@ -15,7 +15,6 @@ const MessageListing = () => {
     const [searchTitle, setSearchTitle] = useState('');
     const [sortingOption, setSortingOption] = useState({})
     /**fetched data from redux store */
-    // console.log(state.message);
     const messages = useSelector(state =>  state.message);
 
     const dispatch = useDispatch();
@@ -44,8 +43,8 @@ const MessageListing = () => {
         return (
             <> 
             { data.map((data, index) => ( 
-                <>
-                <div className="listings mb-3" key={data._id}>
+                <Fragment key={index}>
+                <div className="listings mb-3" key={index}>
                     <Link to={`message/message-details/${data._id}`}  style={{ fontWeight : (!data.is_view)?'700':'' }}  >
                         <div className="row align-items-center">
                             <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
@@ -54,8 +53,8 @@ const MessageListing = () => {
                         </div>
                     </Link>
                 </div> 
-                <hr className="mb-4" key={index} />
-                </>
+                <hr className="mb-4" />
+                </Fragment>
             )) }  
             </>  
         )
@@ -65,7 +64,7 @@ const MessageListing = () => {
             )
           }
     }
-    // const { blocking, messageList } = messages;
+    
     const { totalRecords, per_page , blocking, messageList,currentPage } = messages;
     let total = 0;
     if(typeof totalRecords != 'undefined')

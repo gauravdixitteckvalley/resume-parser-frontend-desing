@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import LoginStyle from './style';
 import {login} from '../../actions/Login'
 import BlockUI from "../../components/BlockUI";
-import Footer from '../../pages/layouts/Footer/Footer';
 
 const Login = (props) => {
     const [fields, setFields] = useState({});
@@ -30,24 +29,14 @@ const Login = (props) => {
         const em = fields.email;
         const pw = fields.password;
 
-        if (em == '') {
+        if (em === '') {
             formIsValid = false;
             errors["email"] = "*Please enter your email";
         }
-        if (pw == '') {
+        if (pw === '') {
             formIsValid = false;
             errors["password"] = "*Please enter your password";
         }
-
-        /*if (!formFields["email"] || formFields["email"].trim() === '') {
-            formIsValid = false;
-            errors["email"] = "*Please enter your email";
-        }
-
-        if (!formFields["password"] || formFields["password"].trim() === '') {
-            formIsValid = false;
-            errors["password"] = "*Please enter your password";
-        }*/
 
         setErrors(errors);
         return formIsValid;

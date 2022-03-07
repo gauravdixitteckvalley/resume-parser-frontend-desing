@@ -4,14 +4,13 @@ import { useSelector } from "react-redux";
 // import siderbarMenu from './siderbarMenu';
 import { useLocation } from "react-router-dom";
 import "./sidebar.css";
-import { IMAGE_URL } from '../../../utils/helper'
+//import { IMAGE_URL } from '../../../utils/helper'
 
 
 const Sidebar = () => {
     
     /**fetched data from redux store */
     const authenticateUser = useSelector(state => state.authenticatedUser);
-    //console.log(authenticateUser,' authenticateUser')
     const { user } = authenticateUser;
 
     const location = useLocation();

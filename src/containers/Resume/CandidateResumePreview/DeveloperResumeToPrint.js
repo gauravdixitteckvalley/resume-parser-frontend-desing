@@ -48,7 +48,6 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
     }
     const {   projectArray , empCode, empTitle, candidateInfo, empTools, coreCompetencie, skillsArray, empWebCompatibility } = props;
 
-    console.log('skillsArray',skillsArray);
     return (
         // <Fragment>
           

@@ -1,18 +1,14 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { Form } from "react-bootstrap";
 import UserStyle from "./style";
 import BlockUI from "../../components/BlockUI";
 import { history } from "../../utils/helper";
-import { IMAGE_URL } from './../../utils/helper'
 import validateProfileForm from "./ProfileFormValidation";
 import InputBox from "../../components/InputBox/InputBox";
 import {
   fetchUserEditFormDependantData,
-  resetUserData,
-  fetchUserRolesData,
-  fetchUserByRole,
+  resetUserData
 } from "../../actions/User";
 import {
   submitProfileFormData,
@@ -23,15 +19,12 @@ const ProfileForm = (props) => {
   
   const [fields, setFields] = useState({'profile_image':''});
   const [errors, setErrors] = useState({});
-  
-  const [roles, setRoles] = useState([]);
-  const [usersList, setusersList] = useState({});
+
   /**fetched data from redux store */
   const userData = useSelector(state => state.authenticatedUser);
   const dispatch = useDispatch();
   const currentId = userData.user.id;
   const [applyCheck] = useState(currentId ? false : true);
-console.log(userData , " userdata")
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
     // if (userData.user.id) {
@@ -49,7 +42,6 @@ console.log(userData , " userdata")
   /**section to be executed when we open the form in edit mode */
   if (currentId && typeof userData != "undefined" && _.size(userData) > 0){
     if (_.size(userData.user) !== _.size(fields)){
-      //console.log("demo")
       setFields({ ...userData.user });
     }
   }
@@ -88,7 +80,6 @@ console.log(userData , " userdata")
       const postData = new FormData(event.target);
        // postData.append('frontendURL', window.location.origin);
        // dispatch(submitManualResumeFormData(postData));
-      console.log("1")
       
       dispatch(submitProfileFormData(currentId, postData)); //action is called to submit data
     }
@@ -98,7 +89,7 @@ console.log(userData , " userdata")
   const _handleCancelForm = () => {
     history.push("/profile");
   };
-  const { blocking, user_roles, user_list } = userData;
+  const { blocking } = userData;
   return (
     <Fragment>
       <BlockUI blocking={blocking} />

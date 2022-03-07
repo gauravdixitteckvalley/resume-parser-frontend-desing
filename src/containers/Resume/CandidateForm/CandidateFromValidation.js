@@ -3,8 +3,8 @@ const validateCandidateForm = (formNumber,fields) => {
     //, applyCheck = false
     let errorFields = {};
     let formIsValid = true;
-    //console.log(fields, "  error fields")
-    if(formNumber=="form1"){
+
+    if(formNumber==="form1"){
         if (!fields["firstName"] || fields["firstName"].trim() === '') {
             formIsValid = false;
             errorFields["firstName"] = "*Please enter your first name.";
@@ -63,7 +63,7 @@ const validateCandidateForm = (formNumber,fields) => {
         if (!fields["zip"] || fields["zip"].trim() === '') {
             formIsValid = false;
             errorFields["zip"] = "*Please enter your zip code.";
-        }else if (fields["zip"].length != 6) {
+        }else if (fields["zip"].length !== 6) {
             formIsValid = false;
             errorFields["zip"] = "*Please enter correct zip code.";
         }else{
@@ -74,16 +74,14 @@ const validateCandidateForm = (formNumber,fields) => {
             formIsValid = false;
             errorFields["phone"] = "*Please enter your phone number.";
         }
-        else if (fields["phone"].length != 10) {
+        else if (fields["phone"].length !== 10) {
             formIsValid = false;
             errorFields["phone"] = "*Please enter correct phone number.";
         }else{
             errorFields["phone"] = "";
         }
     } 
-    if(formNumber=="form4"){
-        
-    } 
+    
     return {
         errorFields : errorFields,
         formIsValid : formIsValid

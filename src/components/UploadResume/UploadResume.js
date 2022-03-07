@@ -1,9 +1,7 @@
 import React,{useState} from 'react';
 import Modal from "react-bootstrap/Modal";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateResume } from "../../actions/Resume";
-import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
-import axios from 'axios';
 
 export default function UploadResume(props) {
     const [fields,setFields] = useState();
@@ -34,7 +32,6 @@ export default function UploadResume(props) {
       };
     const _handleChange = (event) => {
         const { name, value } = event.target;
-        //console.log("event.target ",event.target.files[0])
         setFileName(event.target.files[0])
         setFields(value);
     }

@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect } from "react"
+import React, { Fragment,  useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash';
-import { Link } from "react-router-dom"
 import BlockUI from "../../components/BlockUI"
 import { IMAGE_URL,displayRecordNotFound } from '../../utils/helper';
 import { fetchMessageDetail } from '../../actions/Message';

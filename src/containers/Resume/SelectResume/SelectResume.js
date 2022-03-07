@@ -68,7 +68,6 @@ const SelectResume = () => {
             
             coreCompetencie[key][event.target.name] = event.target.value
             let d = coreCompetencie.map(function( data){ return data.core_competencies})
-            console.log('fields',d);   
             data[event.target.name]= d;
         }else{
             data[event.target.name] = event.target.value;

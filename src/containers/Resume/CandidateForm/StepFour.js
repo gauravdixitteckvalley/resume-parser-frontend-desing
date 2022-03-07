@@ -66,7 +66,6 @@ useEffect(() => {
 
         let string  = false ;
         let  propsData =  props.handleFormData.project;
-        console.log(propsData ," string ",string )
         propsData.map((ppData)=>{
             if(typeof(ppData) == 'string'){
                 string = true 
@@ -85,9 +84,6 @@ useEffect(() => {
     e.preventDefault();
     let postData = formValues;    
     if (_validateForm()){
-      
-      //props.nextStep();
-      //console.log("postData4 ",postData)
       if(currentId){
           dispatch(submitCandidateData(currentId, {project:postData,step:4}));
           setTimeout(function(){  props.nextStep(); }, 2000);

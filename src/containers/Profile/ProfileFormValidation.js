@@ -36,11 +36,9 @@ const validateProfileForm = (fields, applyCheck = false) => {
         errors["profile_image"] = "*Please upload image file ";
     }*/
     if(fields["profile_image"]){
-        console.log('wrong file',fields)
         if (!fields["profile_image"].match(/\.(jpg|jpeg|png|gif)$/)) {
             formIsValid = false;
             errors["profile_image"] = "*Please upload image file ";
-            console.log('wrong file')
         }
     }
     

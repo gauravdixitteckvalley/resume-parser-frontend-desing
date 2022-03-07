@@ -4,3 +4,6 @@
 .dropdown .dropdown-menu .dropdown-item:hover {
     color: #000 !important;
 }
+.nav-link{
+    cursor: pointer;
+}
