@@ -21,7 +21,7 @@ const UserList = (props) => {
     /**fetched data from redux store */
     const users = useSelector(state => state.user);
     const dispatch = useDispatch();
-    //console.log('users',users);
+    
     /**hook equivalent to componentdidmount lifecycle */
     useEffect(() => {
         _getData();
@@ -68,11 +68,6 @@ const UserList = (props) => {
                 <table className="table table-bordered mb-4">
                     <thead>
                         <tr>
-                            {/* <th>
-                                Username
-                                <button onClick={ () => onClickEventForSorting('username','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
-                                <button onClick={ () => onClickEventForSorting('username','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
-                            </th> */}
                             <th>
                                 First Name
                                 <button onClick={ () => onClickEventForSorting('first_name','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
@@ -102,7 +97,6 @@ const UserList = (props) => {
                     <tbody>
                         {users.map((data, index) => (
                             <tr key={index} role="row">
-                                {/* <td>{data.username}</td> */}
                                 <td>{data.first_name}</td>
                                 <td>{data.last_name}</td>
                                 <td>{data.email}</td>
@@ -117,7 +111,7 @@ const UserList = (props) => {
                                     :"" }
                                     {/* eslint-disable-next-line */}
                                     { (userRole === "1")? 
-                                    <Link className="delete" title="Delete" className="ms-2" style={{'cursor':'pointer'}}
+                                    <Link className="delete ms-2" title="Delete" style={{'cursor':'pointer'}}
                                         onClick={(event) => _handleModalShowClick(event,index)}>
                                         <i className="mdi mdi-delete" aria-hidden="true"></i>
                                     </Link>

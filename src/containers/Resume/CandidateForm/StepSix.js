@@ -10,7 +10,6 @@ import validateCandidateForm  from "./CandidateFromValidation";
 
 // creating functional component ans getting props from app.js and destucturing them
 const StepSix = (props) => {
-  //console.log(props)
   const currentId = props.cdId;
    //creating error state for validation
   const [errors, setErrors] = useState(false);
@@ -60,7 +59,6 @@ const StepSix = (props) => {
     let postData = formValues; 
      // checking if value of first name and last name is empty show error else take to next step
     if (_validateForm()){
-     // console.log("postData4 ",postData)
       if(currentId){
           dispatch(submitCandidateData(currentId, {language:postData,step:6}));
           setTimeout(function(){  props.nextStep(); }, 2000);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Row, Button } from "react-bootstrap";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 import validateCandidateForm  from "./CandidateFromValidation";
 import {  getCountryList,getStateList } from "../../../actions/Resume"
 import {  submitCandidateData,submitManualResumeFormData  } from "../../../actions/Candidate";
@@ -15,8 +16,6 @@ const StepOne = (props) => {
     let countries = ''
     let states = '';
     const { countryList, stateList } = resumeData;
-   // console.log("stateList " ,stateList)
-   // debugger;
     let name = props.handleFormData.name;
     const [status,setStatus] =useState(true);
     const [fields, setFields] = useState({
@@ -32,6 +31,10 @@ const StepOne = (props) => {
         step:1
     });
 
+      //fetch user from redux store
+    const loggedUser = useSelector(state => state.authenticatedUser);
+    const { user } = loggedUser;
+
     const [error, setError] = useState(false);
     const dispatch = useDispatch(); 
   
@@ -46,11 +49,7 @@ const StepOne = (props) => {
     }
     useEffect(() => {
         countries = dispatch(getCountryList());
-        //if(!_.isEmpty(props.handleFormData)){
-          //  console.log("props?.handleFormData?.country ",props?.handleFormData?.country)
           states= dispatch(getStateList(101))
-            //console.log("states ",states)
-       // }
         if(!_.isEmpty(props.handleFormData)){
             let fname=''
             let lname=''
@@ -107,6 +106,16 @@ const StepOne = (props) => {
                 <div className="col-lg-12 grid-margin stretch-card">
                     <div className="card">
                       <div className="card-body">
+                        <div className="row back-btn">
+                            <div className="col-md-12">
+                                {
+                                currentId ?
+                                <Link to={user.isCandidateLogin ? `/candidate/view/${currentId}` : `/candidate/preview/${currentId}`} rel="noreferrer" className="p-0">
+                                    <button type="submit" className="btn btn-gradient-primary">Back</button>
+                                </Link> : ''
+                                }
+                            </div>
+                        </div>
                       <div className="text-center">
                         <h3 className="page-title" style={{fontSize: '25px'}}> {currentId ? "Complete Your Profile ":"Complete Candidate Profile"} 
                             <br/><span style={{fontSize: '12px'}}> {currentId ? "Employers will use this information to contact you. ":"Employers will use this information to candidate."} </span></h3>

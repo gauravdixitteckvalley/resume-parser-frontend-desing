@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash'
 import "./header.css";
@@ -13,14 +13,13 @@ import moment from 'moment'
 const Header = (props) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
-    const [toggleView, setToggleView] = useState("");
+    //const [toggleView, setToggleView] = useState("");
 
     const loggedUser = useSelector(state => state.authenticatedUser);
     const {user} = loggedUser;
-    const currentId = user.id;
-    //console.log(currentId)
+    //const currentId = user.id;
+
     let userType =JSON.parse(localStorage.getItem("data"));
-    //console.log(" userType ", userType.user_role_name)
     /**method to call action and redirect to home page */
     const _loggedOutUser = () => {
         dispatch(resetLoggedUserData())
@@ -35,16 +34,17 @@ const Header = (props) => {
     const searchResume = () => {
         if(_.isEmpty(searchValue))
             displayErrorMessage('Please input any search name first');
-    
+        
+        localStorage.setItem("headerSearch",searchValue)
         _getData('', {searchValue});
 
-        history.push('/resume');
+        
     }
 
     var status = false;
     const toggleSidebar = () => {
         
-        if (status == false) {
+        if (status === false) {
             document.body.classList.add('sidebar-icon-only');
             status = !status;
         }else{
@@ -72,13 +72,24 @@ const Header = (props) => {
         const queryParams = {
             page    : data ? data : 1,
             name    : params?.searchValue,
+            // email   : params?.searchValue,
+            // phone   : params?.searchValue,
+            // city    : params?.searchValue,
+            // company : params?.searchValue,
+            sortingData : {},
+            // status  : '',
+            // minExp  : '',
+            // maxExp  : ''
             /*email   : params?.searchValue,
             phone   : params?.searchValue,
             city    : params?.searchValue,
             company : params?.searchValue,
             skills  : params?.searchValue*/
+            
+            
         }
         dispatch(fetchResumeData(queryParams));
+        // history.push('/resume');
     } 
 
 
@@ -116,7 +127,7 @@ const Header = (props) => {
                                 <form className="d-flex align-items-center h-100" action="#">
                                     <div className="input-group">
                                         <div className="input-group-prepend bg-transparent">
-                                            <Link className="search-btn" onClick={() => searchResume()}>
+                                            <Link to='/resume' className="search-btn" onClick={() => searchResume()}>
                                                 <i className="input-group-text border-0 mdi mdi-magnify"></i>
                                             </Link>
                                         </div>
@@ -182,7 +193,7 @@ const Header = (props) => {
                                
                                 { ( typeof loggedUser.user.message != "undefined" && Object.keys(loggedUser.user.message).length > 0 )?
                                  loggedUser.user?.message.map((data, index) => (
-                                        <>
+                                        <Fragment key={index}>
                                         <Link to={`/message/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
                                             <img src={ data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} alt="image" className="profile-pic" />
@@ -193,7 +204,7 @@ const Header = (props) => {
                                         </div>
                                         </Link>
                                         <div className="dropdown-divider"></div>
-                                        </>
+                                        </Fragment>
                                 ))
                                 : 
                                 <>
@@ -222,7 +233,7 @@ const Header = (props) => {
                                     <div className="dropdown-divider"></div>
                                     {( typeof loggedUser.user.notice != "undefined" && Object.keys(loggedUser.user.notice).length > 0 )?
                                     loggedUser.user?.notice.map((data, index) => (
-                                        <>
+                                        <Fragment key={index}>
                                             <Link to={'/notifications'} className="dropdown-item preview-item">
                                             <div className="preview-thumbnail">
                                                 <div className="preview-icon bg-success">
@@ -235,7 +246,7 @@ const Header = (props) => {
                                             </div>
                                             </Link>
                                             <div className="dropdown-divider"></div>
-                                        </>
+                                        </Fragment>
                                     ))
                                     : 
                                     <>
@@ -254,7 +265,7 @@ const Header = (props) => {
                         }
                         
                         <li className="nav-item nav-logout d-none d-lg-block">
-                            <a className="nav-link" href="javascript:void(0)" onClick={() => _loggedOutUser()}>
+                            <a className="nav-link" onClick={() => _loggedOutUser()}>
                             <i className="mdi mdi-power"></i>
                             </a>
                         </li>

@@ -306,7 +306,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                projectArray?.map((data,index) => ( 
                    _project_page(data,index)
                
-               )) 
+               ))  
            }
             {/* <div className="page fifth-page">
                 <div className="header innerpage-header">

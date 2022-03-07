@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { useState,  Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import _ from 'lodash'
+//import _ from 'lodash'
 
 import ChangePasswordStyle from './changePasswordStyle';
 import BlockUI from "../../../components/BlockUI"
@@ -68,7 +68,7 @@ const ChangePasswordForm = (props) => {
                                         
                                 <div className="row mt-2">
                                     <div className="col-md-6">
-                                        <label className="mb-1" for="inlineFormInputName2">Old Password</label>
+                                        <label className="mb-1" htmlFor="inlineFormInputName2">Old Password</label>
                                             <input type="password" name="oldPassword" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                         value={fields.oldPassword || ''} 
                                                         onChange={(event) => _handleChange(event.target)} 
@@ -78,7 +78,7 @@ const ChangePasswordForm = (props) => {
                                 </div> 
                                 <div className="row mt-2">
                                     <div className="col-md-6">
-                                            <label className="mb-1" for="inlineFormInputName2">Password</label>
+                                            <label className="mb-1" htmlFor="inlineFormInputName2">Password</label>
                                                 <input type="password" name="password" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                             value={fields.password || ''} 
                                                             onChange={(event) => _handleChange(event.target)} 
@@ -86,7 +86,7 @@ const ChangePasswordForm = (props) => {
                                                     <div className="errorMsg">{errors.password}</div>        
                                     </div>       
                                     <div className="col-md-6"> 
-                                        <label className="mb-1" for="inlineFormInputName2">Confirm Password</label>
+                                        <label className="mb-1" htmlFor="inlineFormInputName2">Confirm Password</label>
                                         <div className="form-group">
                                             <input type="password" name="confirmPassword" className="form-control mb-2 mr-sm-2 col-md-6"  
                                                     value={fields.confirmPassword || ''} 

@@ -2,12 +2,12 @@ import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import BlockUI from "../../components/BlockUI";
 import CommentModal from "../../components/CommentModal/CommentModal";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 import moment from "moment";
 import { addResumeComment,getResumeCommunication } from "../../actions/Resume";
 
-import { displayRecordNotFound, API_URL, displayErrorMessage } from '../../utils/helper';
+import { displayRecordNotFound } from '../../utils/helper';
 import './CandidateCommunication.css';
 
 const CandidateCommunication = (props) => {

@@ -1,5 +1,5 @@
 export function notice(state = [], action){
-    // console.log(action, 'action');
+    
     switch (action.type) {
         
         

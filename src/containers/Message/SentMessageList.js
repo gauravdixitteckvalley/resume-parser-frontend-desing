@@ -15,7 +15,6 @@ const SentMessageListing = () => {
     const [searchTitle, setSearchTitle] = useState('');
     const [sortingOption, setSortingOption] = useState({})
     /**fetched data from redux store */
-    // console.log(state.message);
     const messages = useSelector(state =>  state.message);
 
     const dispatch = useDispatch();

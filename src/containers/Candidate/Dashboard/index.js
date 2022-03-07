@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Card } from "react-bootstrap";
-// import {
-//   fetchDashboardResume,
-//   fetchDashboardReset,
-// } from "../../actions/Dashboard";
-// import RecentList from './Recent/RecentList';
-// import RecentEntries from './Recent/Recent';
+import {  useSelector } from "react-redux";
+
 
 import "./index.css";
 
 const Dashboard = (props) => {
   /**fetched data from redux store */
   let [callData, setCallData] = useState(true);
-  const dashboardData = useSelector((state) => state.dashboard);
+  //const dashboardData = useSelector((state) => state.dashboard);
   const loggedUser = useSelector(state => state.authenticatedUser);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   useEffect(() => {
     if (callData) {
       // dispatch(fetchDashboardResume());
@@ -26,7 +20,6 @@ const Dashboard = (props) => {
     };
   }, [callData]);
 
-  const { weeklyList, monthlyList, totalList, statusList, statusData, topResume } = dashboardData;
   const { user } = loggedUser;
 
   return (

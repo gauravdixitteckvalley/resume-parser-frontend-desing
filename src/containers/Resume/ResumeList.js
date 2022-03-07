@@ -64,9 +64,10 @@ const ResumeList = (props) => {
     
     /**method to call the configure the data and call the action */
     const _getData = (data, params = {}) => {
+      const localName = localStorage.getItem('headerSearch');
       const queryParams = {
         page    : data ? data : 1,
-        name    : params?.name,
+        name    : (localName===null)?params?.name:localName,
         email   : params?.email,
         phone   : params?.phone,
         city    : params?.city,
@@ -76,6 +77,9 @@ const ResumeList = (props) => {
         status  : status,
         minExp  : minExp,
         maxExp  : maxExp
+      }
+      if(localName !== ''){
+        localStorage.removeItem('headerSearch');
       }
       dispatch(fetchResumeData(queryParams));
     }
@@ -285,7 +289,6 @@ const ResumeList = (props) => {
                             ></i>
                           </Link>
                           <Link 
-                            className="" 
                             title="Delete" 
                             className="ms-2" 
                             style={{'cursor':'pointer'}}
@@ -388,6 +391,7 @@ const ResumeList = (props) => {
       setStatus('')
       setsortingOption({})
       _getData()
+      localStorage.removeItem('headerSearch');
     }
 
     const {totalRecords, per_page , blocking, resumeList, currentPage, definedSkills, applicant_status, statusList } = resumes;

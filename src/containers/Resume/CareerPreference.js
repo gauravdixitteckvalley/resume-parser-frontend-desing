@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import BlockUI from "../../components/BlockUI"
@@ -14,6 +15,11 @@ const CareerPreference = (props) => {
 
     //use selector to get candidate store data
     const { resumeDetails, blocking } = useSelector(state => state.resume );
+
+    //fetch user from redux store
+    const loggedUser = useSelector(state => state.authenticatedUser);
+
+    const { user } = loggedUser;
 
     //dispatch function to execute the action
     const dispatch = useDispatch();
@@ -116,9 +122,18 @@ const CareerPreference = (props) => {
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="page-title font-style-bold mb-4">
-                  Career Preference
-                </h4>
+                <div className="row back-btn">
+                    <div className="col-md-10 col-sm-12">
+                        <h4 className="page-title font-style-bold">
+                        Career Preference
+                        </h4>
+                    </div>
+                    <div className="col-md-2 col-md-2">
+                        <Link to={user.isCandidateLogin ? `/candidate/view/${candidateId}` : `/candidate/preview/${candidateId}`} rel="noreferrer" className="p-0">
+                            <button type="submit" className="btn btn-gradient-primary mb-4">Back</button>
+                        </Link>
+                    </div>
+                </div>
                 <hr className="mb-4" />
 
                 <Form onSubmit={ event => _onSubmitCareerForm(event) } className="form-inline edit-form">

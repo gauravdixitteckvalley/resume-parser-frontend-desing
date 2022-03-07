@@ -1,5 +1,5 @@
 export function candidate(state = [], action) {
-    // console.log(action, " Candidate Action ")
+  
     switch (action.type) {
         /* cases for submit form starts */
         case 'SUBMIT_CANDIDATE_GET_DATA_REQUEST':
