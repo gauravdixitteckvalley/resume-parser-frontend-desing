@@ -10,15 +10,15 @@ const RecentList = (props) => {
 
     const _ManageStatus = (data) =>{
       if(data.candidate_status === "1"){
-        return ( <label className="badge badge-gradient-info">{data.candidate_status_name[0].name}</label> )
+        return ( <><label className="badge badge-gradient-info">{data.candidate_status_name[0].name}</label></> )
       }else if(data.candidate_status === "2"){
-        return ( <label className="badge badge-gradient-warning">{data.candidate_status_name[0].name}</label> )
+        return ( <><label className="badge badge-gradient-warning">{data.candidate_status_name[0].name}</label></> )
       }else if(data.candidate_status === "3"){
-        return ( <label className="badge badge-gradient-success">{data.candidate_status_name[0].name}</label> )
+        return ( <><label className="badge badge-gradient-success">{data.candidate_status_name[0].name}</label></> )
       }else if(data.candidate_status === "4"){
-        return ( <label className="badge badge-gradient-danger">{data.candidate_status_name[0].name}</label> )
+        return ( <><label className="badge badge-gradient-danger">{data.candidate_status_name[0].name}</label></> )
       }else{
-        return('')
+        return(<></>)
       }
     }
 
@@ -26,7 +26,7 @@ const RecentList = (props) => {
       if (!_.isEmpty(topResume)) {
         return( 
           topResume.map((data, index) => (
-            <tr>
+            <tr key={index}>
               <td>
                 {/* <img
                   src="./../../assets/img/faces/face1.jpg"
@@ -54,6 +54,7 @@ const RecentList = (props) => {
     // if (!_.isEmpty(topResume)) {
 
     return (
+        <>
         <div className="row">
         <div className="col-12 grid-margin">
           <div className="card">
@@ -80,6 +81,7 @@ const RecentList = (props) => {
           </div>
         </div>
       </div>
+      </>
       
     )
   // }else{

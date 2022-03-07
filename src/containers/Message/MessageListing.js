@@ -45,7 +45,7 @@ const MessageListing = () => {
             <> 
             { data.map((data, index) => ( 
                 <>
-                <div className="listings mb-3" key={index}>
+                <div className="listings mb-3" key={data._id}>
                     <Link to={`message/message-details/${data._id}`}  style={{ fontWeight : (!data.is_view)?'700':'' }}  >
                         <div className="row align-items-center">
                             <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
@@ -54,7 +54,7 @@ const MessageListing = () => {
                         </div>
                     </Link>
                 </div> 
-                <hr className="mb-4" />
+                <hr className="mb-4" key={index} />
                 </>
             )) }  
             </>  
@@ -70,7 +70,7 @@ const MessageListing = () => {
     let total = 0;
     if(typeof totalRecords != 'undefined')
         total = totalRecords;
-        console.log(messageList);
+        
     return (
         <Fragment>
             

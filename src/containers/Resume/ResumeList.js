@@ -290,7 +290,6 @@ const ResumeList = (props) => {
                             ></i>
                           </Link>
                           <Link 
-                            className="" 
                             title="Delete" 
                             className="ms-2" 
                             style={{'cursor':'pointer'}}

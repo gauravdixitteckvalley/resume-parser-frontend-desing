@@ -35,8 +35,8 @@ const SelectResume = () => {
         return coreCompetencie.map((index, key) => 
             <div className="input-group mb-3" key={key}>
                 <input type="text" className="form-control" value={index.core_competencies  } maxLength={80} name="core_competencies" onChange={ event=>_handleChange(event,key)} placeholder=""/>
-                <div class="input-group-append">
-                    <button class="btn btn-danger" onClick={event=>_remove_click(key)} type="button"><i className="mdi mdi-delete"></i></button>
+                <div className="input-group-append">
+                    <button className="btn btn-danger" onClick={event=>_remove_click(key)} type="button"><i className="mdi mdi-delete"></i></button>
                 </div>
                  
             </div>          
@@ -178,11 +178,11 @@ const SelectResume = () => {
                             <form className="form-inline user-form" onSubmit={ event=>_handleSubmit(event) }>
                                 <div className="row">
                                     <div className="col-md-12 mb-4">
-                                        <label className="mb-3 required" for="inlineFormInputName2">Select Candidate</label>
+                                        <label className="mb-3 required" htmlFor="inlineFormInputName2">Select Candidate</label>
                                         <Form.Control as="select" name="candidate_name" onChange={ event=>_handleChange(event)} > 
                                             <option value=''>Select Name</option> 
                                             { candidateList?.map((data,index)=>(
-                                                <option value={data._id} >{data.name }</option>
+                                                <option key={data._id} value={data._id} >{data.name }</option>
                                                 ))
                                             }
                                         </Form.Control>
@@ -191,12 +191,12 @@ const SelectResume = () => {
                                     <div className="col-md-12 mb-4">
                                         <div className="row">
                                         <div className="col-md-6">
-                                            <label className="mb-3 required" for="inlineFormInputName2">Employee Code</label>
+                                            <label className="mb-3 required" htmlFor="inlineFormInputName2">Employee Code</label>
                                             <input type="text" className="form-control" name="emp_code" onChange={ event=>_handleChange(event)} placeholder="TK-10758"/>
                                             <div className="errorMsg">{errors.emp_code}</div> 
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="mb-3 required" for="inlineFormInputName2">Title/Designation</label>
+                                            <label className="mb-3 required" htmlFor="inlineFormInputName2">Title/Designation</label>
                                             <input type="text" className="form-control" name="emp_title" onChange={ event=>_handleChange(event)} placeholder="Software Engineer"/>
                                             <div className="errorMsg">{errors.emp_title}</div> 
                                         </div>
@@ -204,7 +204,7 @@ const SelectResume = () => {
                                     </div>
                                     {/* <div className="row"> */}
                                     <div className="col-md-12 mb-4">
-                                        <label className="mb-3 required" for="inlineFormInputName2">Tools</label>
+                                        <label className="mb-3 required" htmlFor="inlineFormInputName2">Tools</label>
                                         <input type="text" className="form-control" maxLength = {140} name="tools" onChange={ event=>_handleChange(event)} placeholder="Dreamweaver, Visual studio, Netbeans, Sublime, Slack"/>
                                         <div className="errorMsg">{errors.tools}</div> 
                                     </div>
@@ -212,24 +212,25 @@ const SelectResume = () => {
                                     {/* <div className="row"> */}
                                     
                                     <div className="col-md-12 mb-4">
-                                        <label className="mb-3 required" for="inlineFormInputName2">Web Compatibility</label>
+                                        <label className="mb-3 required" htmlFor="inlineFormInputName2">Web Compatibility</label>
                                             <input type="text" className="form-control" maxLength = {140} name="webCompatibility" onChange={ event=>_handleChange(event)} placeholder="LMS , CMS , Framework" />
                                         <div className="errorMsg">{errors.webCompatibility}</div> 
                                     </div>
 
                                     <div className="col-md-12 mb-4">
-                                        <label className="mb-3 required" for="inlineFormInputName2">Core Competencies</label>
+                                        <label className="mb-3 required" htmlFor="inlineFormInputName2">Core Competencies</label>
                                         {_create_core_competencie()}      
-                                        <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/>
+                                        {/* <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/> */}
+                                        <button className="btn col-md-2 btn-primary " onClick={event=>_add_core_competencie(event)}>add more</button>
                                         <div className="errorMsg">{errors.core_competencies}</div>
                                     </div>
                                     {/* </div> */}
                                     <div className="col-md-12 mt-4">
-                                        <label className="mb-1 required" for="inlineFormInputName2">Select Template</label><br />
+                                        <label className="mb-1 required" htmlFor="inlineFormInputName2">Select Template</label><br />
                                         <div className="check-sec">
                                             <div className="form-check form-check-inline mt-2">
                                                 <input className="form-check-input" type="radio" name="template" onChange={ event=>_handleChange(event)} id="inlineRadio1" value="designer" />
-                                                <label className="form-check-label" for="template">Designer</label>
+                                                <label className="form-check-label" htmlFor="template">Designer</label>
                                                 <img className="rounded" onClick={() => setDesignerShow(true)} src="./assets/img/designer-small.png" style={{width: '150px', cursor: 'pointer', marginTop: '10px'}}/>
                                                 <Modal
                                                     show={designerShow}
@@ -249,7 +250,7 @@ const SelectResume = () => {
                                             </div>
                                             <div className="form-check form-check-inline mt-2">
                                                 <input className="form-check-input" type="radio" name="template" onChange={ event=>_handleChange(event)} id="template" value="developer" />
-                                                <label className="form-check-label" for="template">Developer</label>
+                                                <label className="form-check-label" htmlFor="template">Developer</label>
                                                 <img className="rounded" onClick={() => setDeveloperShow(true)} src="./assets/img/developer-small.png" style={{width: '150px', cursor: 'pointer', marginTop: '10px'}}/>
                                                 <Modal
                                                     show={developerShow}
