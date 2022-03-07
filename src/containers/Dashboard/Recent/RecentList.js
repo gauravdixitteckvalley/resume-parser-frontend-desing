@@ -25,7 +25,7 @@ const RecentList = (props) => {
       if (!_.isEmpty(topResume)) {
         return( 
           topResume.map((data, index) => (
-            <tr key={index}>
+            <tr key={`topResume-${index}`}>
               <td>
                 {data.name}
               </td>
