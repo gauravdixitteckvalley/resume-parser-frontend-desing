@@ -203,7 +203,7 @@ const ProfileForm = (props) => {
                           name="profile_image"
                             id="profile_image" 
                             className="form-control mb-2 mr-sm-2 col-md-6"
-                            handleinputchange={(event) => _handleChange(event)}
+                            onChange={(event) => _handleChange(event)}
                             placeholder="Upload profile" 
                           />
                         <div className="errorMsg">{errors.profile_image}</div> 

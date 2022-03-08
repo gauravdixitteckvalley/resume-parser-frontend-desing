@@ -34,7 +34,7 @@ if(!_.isEmpty(props.handleFormData) && status){
   let string  = false ;
   let  propsData =  props.handleFormData.skills;
   propsData.map((ppData)=>{
-      if(typeof(ppData) == 'string'){
+      if(typeof(ppData) === 'string'){
           string = true 
       }
   }) 
