@@ -34,7 +34,7 @@ if(!_.isEmpty(props.handleFormData) && status){
   let string  = false ;
   let  propsData =  props.handleFormData.skills;
   propsData.map((ppData)=>{
-      if(typeof(ppData) == 'string'){
+      if(typeof(ppData) === 'string'){
           string = true 
       }
   }) 
@@ -176,32 +176,32 @@ if(!_.isEmpty(props.handleFormData) && status){
                         <option>Select your skill level</option>
                         <option 
                           value="Novice" 
-                          selected={(index.skillLevel == "Novice") ? true :false }>
+                          selected={(index.skillLevel === "Novice") ? true :false }>
                             Novice
                         </option>
                         <option 
                           value="Beginner" 
-                          selected={(index.skillLevel == "Beginner") ? true :false }>
+                          selected={(index.skillLevel === "Beginner") ? true :false }>
                             Beginner
                         </option>
                         <option 
                           value="Skillful" 
-                          selected={(index.skillLevel == "Skillful") ? true :false }>
+                          selected={(index.skillLevel === "Skillful") ? true :false }>
                             Skillful
                         </option>
                         <option 
                           value="Experienced" 
-                          selected={(index.skillLevel == "Experienced") ? true :false }>
+                          selected={(index.skillLevel === "Experienced") ? true :false }>
                             Experienced
                         </option>
                         <option 
                           value="Expert" 
-                          selected={(index.skillLevel == "Expert") ? true :false }>
+                          selected={(index.skillLevel === "Expert") ? true :false }>
                             Expert
                         </option>
                         <option 
                           value="- Don't show level" 
-                          selected={(index.skillLevel == "- Don't show level") ? true :false }>
+                          selected={(index.skillLevel === "- Don't show level") ? true :false }>
                             - Don't show level
                         </option>
                     </Form.Select>
