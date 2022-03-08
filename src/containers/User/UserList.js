@@ -111,7 +111,7 @@ const UserList = (props) => {
                                     :"" }
                                     {/* eslint-disable-next-line */}
                                     { (userRole === "1")? 
-                                    <Link className="delete ms-2" title="Delete" style={{'cursor':'pointer'}}
+                                    <Link to="#" className="delete ms-2" title="Delete" style={{'cursor':'pointer'}}
                                         onClick={(event) => _handleModalShowClick(event,index)}>
                                         <i className="mdi mdi-delete" aria-hidden="true"></i>
                                     </Link>

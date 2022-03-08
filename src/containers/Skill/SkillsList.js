@@ -121,7 +121,7 @@ const SkillsList = (props) => {
                                             <i className="mdi mdi-square-edit-outline"></i>
                                         </NavLink>
                                         
-                                        <Link className="delete" title="Delete"  style={{'cursor':'pointer'}}
+                                        <Link to="#" className="delete" title="Delete"  style={{'cursor':'pointer'}}
                                             onClick={(event) => _handleModalShowClick(event,index)} >
                                             <i className="mdi mdi-delete"></i>
                                         </Link> 

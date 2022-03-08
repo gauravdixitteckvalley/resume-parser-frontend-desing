@@ -1,9 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-//import _ from 'lodash'
-//import { Form } from "react-bootstrap";
-
-//import {history} from '../../utils/helper'
 import BlockUI from "../../components/BlockUI"
 import validateMessageForm from './MessageFormValidation'
 import "./message.css";
@@ -57,11 +53,6 @@ const Message = (props) => {
             dispatch(messageSend(postData));  // action is called to submit data
         }
     }
-
-    /**method called when form is cancelled */
-    // const _handleCancelForm = () => {
-    //     history.push('/candidate/dashboard')
-    // }
 
     return (
         <Fragment>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputBox = ({labelStatus,labelValue,labelClass,labelFor, id, type, name, handleClick, className, value, minLength, maxLength,placeholder,readonly }) => {
+const InputBox = ({labelStatus,labelValue,labelClass,labelFor, id, type, name, handleinputchange, className, value, minLength, maxLength,placeholder,readonly }) => {
     return (
     <>
     {labelStatus ?
@@ -9,7 +9,7 @@ const InputBox = ({labelStatus,labelValue,labelClass,labelFor, id, type, name, h
     : ""
     }
         <input type={type ? type : "text"}
-        onChange={handleClick}
+        onChange={handleinputchange}
         className={className ? className : ""}
         value={value ? value : ""}
         minLength={minLength ? minLength :""}

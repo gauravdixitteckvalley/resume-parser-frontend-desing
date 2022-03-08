@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import { displayRecordNotFound } from '../../../utils/helper';
 import { NavLink } from "react-router-dom"
 import './RecentList.css';
 
@@ -40,7 +39,11 @@ const RecentList = (props) => {
         )
       }else{
         return (
-          displayRecordNotFound('No Resume Found')
+          <tr key={`topResume`}>
+              <td className="alert alert-info m-t-20 text-center" colSpan={5}>
+                <i className="fa fa-info-circle"></i> No Record Found
+              </td>
+          </tr>
       )
       }
     }
@@ -52,8 +55,8 @@ const RecentList = (props) => {
           <div className="card">
             <div className="card-body">
               <h4 className="card-title">Recent Candidates</h4>
-              <div className="table-responsive">
-                <table className="table table-bordered mb-4">
+              <div className="">
+                <table className="table table-bordered mb-4 table-responsive">
                   <thead>
                     <tr>
                       <th> Name </th>

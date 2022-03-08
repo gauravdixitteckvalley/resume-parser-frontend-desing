@@ -7,16 +7,16 @@ import "./index.css";
 const Dashboard = (props) => {
   /**fetched data from redux store */
   let [callData, setCallData] = useState(true);
-  //const dashboardData = useSelector((state) => state.dashboard);
+
   const loggedUser = useSelector(state => state.authenticatedUser);
-  //const dispatch = useDispatch();
+
   useEffect(() => {
     if (callData) {
-      // dispatch(fetchDashboardResume());
+      
       setCallData(false);
     }
     return () => {
-      // dispatch(fetchDashboardReset());
+      
     };
   }, [callData]);
 

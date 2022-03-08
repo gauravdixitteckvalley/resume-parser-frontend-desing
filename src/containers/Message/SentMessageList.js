@@ -43,8 +43,8 @@ const SentMessageListing = () => {
         return (
             <> 
             { data.map((data, index) => ( 
-                <>
-                <div className="listings mb-3" key={index}   >
+                <Fragment key={index}>
+                <div className="listings mb-3"    >
                     <Link to={`/sent-message-details/${data._id}`} >
                         <div className="row align-items-center">                        
                             <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
@@ -54,7 +54,7 @@ const SentMessageListing = () => {
                     </Link>  
                 </div> 
                 <hr className="mb-4" />
-                </>
+                </Fragment>
             )) }  
             </>  
         )

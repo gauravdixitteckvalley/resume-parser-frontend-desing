@@ -27,7 +27,7 @@ export default function SingleEmailModal(props) {
   };
 
   const _handleChange = (event) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
     setFields(value);
   };
 

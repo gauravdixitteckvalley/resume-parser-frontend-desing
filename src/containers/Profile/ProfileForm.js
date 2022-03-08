@@ -117,7 +117,7 @@ const ProfileForm = (props) => {
                             name="first_name"
                             id="first_name"
                             value={fields.first_name || ""}
-                            handleClick={(event) => _handleChange(event)}
+                            handleinputchange={(event) => _handleChange(event)}
                             minLength="3"
                             placeholder="Enter first name"
                         />
@@ -135,7 +135,7 @@ const ProfileForm = (props) => {
                             name="last_name"
                             id="last_name"
                             value={fields.last_name || ""}
-                            handleClick={(event) => _handleChange(event)}
+                            handleinputchange={(event) => _handleChange(event)}
                             minLength="3"
                             placeholder="Enter last name"
                         />
@@ -155,7 +155,7 @@ const ProfileForm = (props) => {
                             name="username"
                             id="username"
                             value={fields.username || ""}
-                            handleClick={(event) => _handleChange(event)}
+                            handleinputchange={(event) => _handleChange(event)}
                             minLength="3"
                             placeholder="Enter username"
                             readonly={true}
@@ -174,7 +174,7 @@ const ProfileForm = (props) => {
                             name="email"
                             id="email"
                             value={fields.email || ""}
-                            handleClick={(event) => _handleChange(event)}
+                            handleinputchange={(event) => _handleChange(event)}
                             placeholder="Enter email"
                             readonly={true}
                         />
@@ -193,7 +193,7 @@ const ProfileForm = (props) => {
                             type="file"
                             name="profile_image"
                             id="profile_image"
-                            handleClick={(event) => _handleChange(event)}
+                            handleinputchange={(event) => _handleChange(event)}
                             placeholder="Upload profile"
 
                         />                             */}
@@ -203,7 +203,7 @@ const ProfileForm = (props) => {
                           name="profile_image"
                             id="profile_image" 
                             className="form-control mb-2 mr-sm-2 col-md-6"
-                            handleClick={(event) => _handleChange(event)}
+                            handleinputchange={(event) => _handleChange(event)}
                             placeholder="Upload profile" 
                           />
                         <div className="errorMsg">{errors.profile_image}</div> 
