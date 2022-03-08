@@ -23,7 +23,7 @@ const StepSeven = (props) => {
           step:7
       })
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const _handleChange = (event) => {
     event.preventDefault();
     let data = fields;

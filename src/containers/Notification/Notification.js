@@ -26,7 +26,7 @@ const Notification = () => {
     useEffect(() => {
         _getData();
 
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const _getData = (data) =>{
         const params = {
@@ -51,7 +51,7 @@ const Notification = () => {
                     { data.map((data, index) => ( 
                             <div className="row notification-container mb-4 pb-2" key={index}>
                                 <div className="col-md-12 notification-main">
-                                    <img src="/assets/img/user_icon.png" />
+                                    <img src="/assets/img/user_icon.png" alt="user-img"/>
                                     <div className="content-area">
                                         <p>{ data.notice_text }</p>
                                         <p>{ moment(data.createdAt).calendar() }</p>
@@ -74,7 +74,7 @@ const Notification = () => {
             { data.map((data, index) => ( 
                     <div className="row notification-container mb-4 pb-2" key={index}>
                         <div className="col-md-12 notification-main">
-                            <img src="/assets/img/user_icon.png" />
+                            <img src="/assets/img/user_icon.png" alt="user-img"/>
                             <div className="content-area">
                                 <p>{ data.notice_text }</p>
                                 <p>{ moment(data.createdAt).calendar() }</p>

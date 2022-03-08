@@ -18,7 +18,7 @@ const Notice = (props) => {
     useEffect(() => {
         _getUserData();
 
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const _validateForm = () => {
         let formFields = fields;

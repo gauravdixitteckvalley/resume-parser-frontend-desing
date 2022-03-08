@@ -23,7 +23,8 @@ const StepEight = (props) => {
         step:8
       })
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  
   const _handleChange = (event) => {
     let data = fields;
       data[event.target.name] = event.target.value;

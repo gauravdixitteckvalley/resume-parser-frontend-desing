@@ -186,7 +186,7 @@ const StepOne = (props) => {
                                     >
                                         <option value="">Select Country</option>
                                         {countryList?.map((country, index) => (
-                                            <option key={index} selected={country._id == fields.country ? true :false } value={country._id}>{country.name}</option>
+                                            <option key={index} selected={country._id === fields.country ? true :false } value={country._id}>{country.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -204,7 +204,7 @@ const StepOne = (props) => {
                                     >
                                         <option value="">Select State</option>
                                         {stateList?.map((state, index) => (
-                                            <option key={index} selected={state._id == fields.state ? true :false } value={state._id}>{state.name}</option>
+                                            <option key={index} selected={state._id === fields.state ? true :false } value={state._id}>{state.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
