@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { Fragment, useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Card, Button, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -126,27 +126,24 @@ const StepTwo = (props) => {
             const resumeListSelectedCountry = formValues[formValuesKey].stateArray
             return resumeListSelectedCountry.map ( (state, index) => {
             return (
-                <>
+                <Fragment key={`with-selecting-${index}`}>
                     <option 
-                        key={index} 
-                        
-                        value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }
-                        selected={selectedState-1 == index ? true :false }
+                        value={ `${state._id} ${state.name}` }
+                        //selected={selectedState-1 == index ? true :false }
                     >{state.name} </option>
-                </>
+                </Fragment>
             )
         })
         }else{
             if(formValues[formValuesKey].country !== ""){
             return optionsArray.map ( (state, index) => {
                 return (
-                    <>
-                        <option 
-                            key={index} 
+                    <Fragment key={`without-selecting-${index}`}>
+                        <option
                             value={ `${state._id} ${state.name}` }
-                            selected={selectedState-1 == index ? true :false }
+                            //selected={selectedState-1 == index ? true :false }
                         >{state.name}</option>
-                    </>
+                    </Fragment>
                 )
             })
             
@@ -170,6 +167,7 @@ const StepTwo = (props) => {
             <Form onSubmit={submitFormData} className="mt-4">
             
                 {formValues.map((index, key) => {
+                    const stateName = `state${key}`
                     return(
                         <div key={key}>
                             
@@ -218,13 +216,13 @@ const StepTwo = (props) => {
                                         name="country" 
                                         style={{ border: errors[key]?.country ? "2px solid red" : "" }}
                                         onChange={(event) => _handleChange(event,key)}
+                                        value={ index.country }
                                     >
                                         <option value="">Select Country</option>
                                         
                                         {countryList?.map((country, key) => (
                                             <option 
-                                                key={key} 
-                                                selected={index.country == country._id ? true :false }
+                                                key={`country-${key}`} 
                                                 value={country._id}>{country.name}</option>
                                         ))}
                                     </Form.Select>
@@ -239,9 +237,10 @@ const StepTwo = (props) => {
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>State</Form.Label>
                                     <Form.Select aria-label="Default select example" 
-                                        name={ `state${key}` } 
+                                        name={ stateName } 
                                         style={{ border: errors[key]?.[`state${key}`] ? "2px solid red" : "" }}
                                         onChange={(event) => _handleChange(event,key)}
+                                        value={ `${formValues[key]?.stateId} ${formValues[key]?.[stateName]}`}
                                     >
                                         <option value="">Select State</option>
                                         {   selectStateOrCountryOption(formValues, stateList, key,index.stateId) }

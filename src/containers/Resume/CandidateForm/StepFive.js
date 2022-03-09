@@ -172,36 +172,31 @@ if(!_.isEmpty(props.handleFormData) && status){
                       style={{ border: errors[key]?.skillLevel ? "2px solid red" : "" }} 
                       name="skillLevel" 
                       onChange={(event) => _handleChange(event,key)} 
+                      value={ index.skillLevel }
                     >
                         <option>Select your skill level</option>
                         <option 
-                          value="Novice" 
-                          selected={(index.skillLevel == "Novice") ? true :false }>
+                          value="Novice" >
                             Novice
                         </option>
                         <option 
-                          value="Beginner" 
-                          selected={(index.skillLevel == "Beginner") ? true :false }>
+                          value="Beginner" >
                             Beginner
                         </option>
                         <option 
-                          value="Skillful" 
-                          selected={(index.skillLevel == "Skillful") ? true :false }>
+                          value="Skillful" >
                             Skillful
                         </option>
                         <option 
-                          value="Experienced" 
-                          selected={(index.skillLevel == "Experienced") ? true :false }>
+                          value="Experienced" >
                             Experienced
                         </option>
                         <option 
-                          value="Expert" 
-                          selected={(index.skillLevel == "Expert") ? true :false }>
+                          value="Expert" >
                             Expert
                         </option>
                         <option 
-                          value="- Don't show level" 
-                          selected={(index.skillLevel == "- Don't show level") ? true :false }>
+                          value="- Don't show level" >
                             - Don't show level
                         </option>
                     </Form.Select>

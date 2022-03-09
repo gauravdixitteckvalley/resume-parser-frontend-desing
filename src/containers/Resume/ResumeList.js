@@ -279,6 +279,7 @@ const ResumeList = (props) => {
                               "" +
                               (index === sending ? "disable" : "")
                             }
+                            to="#"
                             id={`mail_btn_${index}`}
                             onClick={(event) => sendMail(event, data.email, index)}
                             style={{ cursor: "pointer" }}
@@ -292,6 +293,7 @@ const ResumeList = (props) => {
                             title="Delete" 
                             className="ms-2" 
                             style={{'cursor':'pointer'}}
+                            to="#"
                             onClick={(event) => _handleDelModalShowClick(event, data.id)}>
                             <i className="mdi mdi-delete" aria-hidden="true"></i>
                           </Link>
@@ -567,6 +569,7 @@ const ResumeList = (props) => {
               <div className="table-responsive">
                 <div className="col-lg-12 p-3">
                   <Link
+                    to="#"
                     onClick={(event) => _handleModalShowClick(event)}
                     className="btn btn-primary send-email"
                   >

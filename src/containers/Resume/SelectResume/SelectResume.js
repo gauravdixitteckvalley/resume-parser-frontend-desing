@@ -33,7 +33,7 @@ const SelectResume = () => {
     const _create_core_competencie=()=>{
        
         return coreCompetencie.map((index, key) => 
-            <div className="input-group mb-3" key={key}>
+            <div className="input-group mb-3" key={ `core-competehc8e${key}`}>
                 <input type="text" className="form-control" value={index.core_competencies  } maxLength={80} name="core_competencies" onChange={ event=>_handleChange(event,key)} placeholder=""/>
                 <div className="input-group-append">
                     <button className="btn btn-danger" onClick={event=>_remove_click(key)} type="button"><i className="mdi mdi-delete"></i></button>
@@ -181,7 +181,7 @@ const SelectResume = () => {
                                         <Form.Control as="select" name="candidate_name" onChange={ event=>_handleChange(event)} > 
                                             <option value=''>Select Name</option> 
                                             { candidateList?.map((data,index)=>(
-                                                <option value={data._id} >{data.name }</option>
+                                                <option value={data._id} key={`candidateList${index}`} >{data.name }</option>
                                                 ))
                                             }
                                         </Form.Control>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form, Card, Button, Row } from "react-bootstrap";
@@ -51,7 +51,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                     country: "" ,
                     stateId: null,
                     stateArray: null,
-                    city: null
+                    city: ''
                 }])
             }
         }
@@ -210,28 +210,24 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
             const resumeListSelectedCountry = formValues[formValuesKey].stateArray
             return resumeListSelectedCountry.map ( (state, index) => {
                 return (
-                    <>
-                        <option 
-                            key={`select-state-${index}`} 
-                            value={ formValues[formValuesKey][stateName] !== "" ? formValues[formValuesKey][stateName] === state.name ? 'selected' : `${state._id} ${state.name}` : `${state._id} ${state.name}` }
-                            selected={ formValues[formValuesKey][stateName] === state.name ? true :false }
+                    <Fragment key={`with-selecting${index}`} >
+                        <option
+                            value={  `${state._id} ${state.name}` }
                             >{state.name}
                         </option>
-                    </>
+                    </Fragment>
                 )
         })
         }else{
             if(formValues[formValuesKey].country !== ""){
             return optionsArray.map ( (state, index) => {
                 return (
-                    <>
+                    <Fragment key={`without-selecting${index + formValuesKey}`} >
                         <option 
-                            selected={selectedState-1 == index ? true :false }
-                            key={index + formValuesKey} 
                             value={ `${state._id} ${state.name}` }
                             >{state.name}
                         </option>
-                    </>
+                    </Fragment>
                 )
             })
             }
@@ -250,7 +246,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         country: "" ,
                                         stateId: null,
                                         stateArray: null,
-                                        city: null
+                                        city: ''
                                     }])
                                     setFormValuesLength(formValuesLength + 1);
     }
@@ -290,6 +286,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
             <p style={{fontSize: '13px'}}>Add more about your educational background.</p>
             <Form onSubmit={submitFormData} className="mt-4">
                 {formValues?.map((index, key) => {
+                    const stateName = `state${key}`
                     return (
                         <div key={key}>
                             <Row>
@@ -300,7 +297,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         type="text"
                                         name="schoolOrCollege"
                                         placeholder="School/College Name"
-                                        value={index.schoolOrCollege}
+                                        value={index?.schoolOrCollege}
                                         onChange={ (event) => _handleChange(event, key) }
                                     />
                                     {errors[key]?.schoolOrCollege ? (
@@ -318,7 +315,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         type="text"
                                         name="degree" 
                                         placeholder="Enter your degree"
-                                        value={index.degree}
+                                        value={index?.degree}
                                         onChange={ (event) => _handleChange(event, key) }
                                     />
 
@@ -338,6 +335,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         name="country" 
                                         style={{ border: errors[key]?.country ? "2px solid red" : "" }}
                                         onChange={(event) => _handleChange(event,key)}
+                                        value={index?.country }
                                     >
                                         <option value="">Select Country</option>
                                         
@@ -345,8 +343,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             <option 
                                                 key={index2 + key} 
                                                 value={country._id} 
-                                                selected={index.country == country._id ? true :false }
-                                                >{country.name}
+                                            >{country.name}
                                             </option>
                                         ))}
                                     </Form.Select>
@@ -363,8 +360,9 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                     <Form.Select 
                                         aria-label="Default select example" 
                                         style={{ border: errors[key]?.[`state${key}`] ? "2px solid red" : "" }} 
-                                        name={ `state${key}` } 
+                                        name={ stateName } 
                                         onChange={ (event) => _handleChange(event, key) } 
+                                        value={ `${formValues[key]?.stateId} ${formValues[key]?.[stateName]}`}
                                     >
                                         <option>Select State</option>
 
@@ -385,7 +383,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                         style={{ border: errors[key]?.city ? "2px solid red" : "" }}
                                         name="city" 
                                         type="text"
-                                        value={index.city}
+                                        value={index?.city}
                                         onChange={(event) => _handleChange(event, key)}
                                     />
                                     {errors[key]?.city ? (
@@ -405,7 +403,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             type="text"
                                             name="studyField"
                                             placeholder="eg. Engineering"
-                                            value={index.studyField}
+                                            value={index?.studyField}
                                             onChange={ (event) => _handleChange(event, key) }
                                             />
                                         {errors[key]?.studyField ? (
@@ -425,13 +423,13 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             style={{ border: errors[key]?.gradMonth ? "2px solid red" : "" }} 
                                             name="gradMonth" 
                                             onChange={ (event) => _handleChange(event, key) }
+                                            value = { index.gradMonth}
                                         >
                                             <option>Month</option>
                                             {months?.map((month, index2) => (
                                             <option 
                                                 key={index2 + key} 
                                                 value={month} 
-                                                selected={index.gradMonth == month ? true :false }
                                                 >{month}
                                             </option>
                                         ))}
@@ -452,6 +450,7 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             style={{ border: errors[key]?.gradYear ? "2px solid red" : "" }} 
                                             name="gradYear"  
                                             onChange={ (event) => _handleChange(event, key) }
+                                            value={index.gradYear}
                                         >
                                            
                                             <option>Year</option>
@@ -459,7 +458,6 @@ const StepThree = (props,{ nextStep, handleFormData, prevStep, values }) => {
                                             <option 
                                                 key={index2 + key} 
                                                 value={year} 
-                                                selected={index.gradYear == year ? true :false }
                                                 >{year}
                                             </option>
                                             ))}

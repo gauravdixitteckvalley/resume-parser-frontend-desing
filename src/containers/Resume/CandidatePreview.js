@@ -241,7 +241,7 @@ const CandidatePreview = (props) => {
                     </label>
                     <div className="col-lg-12 col-form-label">
                     {countryList?.map((country, index) => (
-                            <span>{country._id == fields?.country ? country.name :" " }</span>
+                            <span key={`country${index}`}>{country._id == fields?.country ? country.name :" " }</span>
                         ))}
                       
                     </div>
@@ -252,7 +252,7 @@ const CandidatePreview = (props) => {
                     </label>
                     <div className="col-lg-12 col-form-label">
                     {stateList?.map((state, index) => (
-                            <span>{state._id == fields?.state ? state.name :" " }</span>
+                            <span key={`state-${index}`}>{state._id == fields?.state ? state.name :" " }</span>
                         ))}
                       
                     </div>
@@ -379,7 +379,7 @@ const CandidatePreview = (props) => {
                 </h3>
                 <hr className="mb-4" />
                 {fields.workExperience?.map((company, index) => (
-                  <>
+                  <Fragment key={`workExperience${index}`}>
                 <div className="row">
                   <div className="displayPreviewRow col-md-6">
                     <label className="col-lg-4 col-form-label">
@@ -484,7 +484,7 @@ const CandidatePreview = (props) => {
                   </div>
                 </div>
                 <hr className="mb-4" />
-                </>
+                </Fragment>
                   ))} 
                   
               </div>
@@ -504,7 +504,7 @@ const CandidatePreview = (props) => {
                 </h3>
                 <hr className="mb-4" />
                 {fields.education?.map((edu, key) => (
-                  <>
+                  <Fragment key={ `education${key}`}>
                     <div className="row">
                       <div className="displayPreviewRow col-md-6">
                         <label className="col-lg-12 col-form-label">
@@ -567,7 +567,7 @@ const CandidatePreview = (props) => {
                       </div>
                     </div>
                     <hr className="mb-4" />
-                  </>
+                  </Fragment>
                   ))}
               </div>
             </div>
@@ -586,7 +586,7 @@ const CandidatePreview = (props) => {
                 </h3>
                 <hr className="mb-4" />
                 {fields.project?.map((proj, key) => (
-                  <>
+                  <Fragment key={ `project${key}`}>
                     <div className="row">
                       <div className="displayPreviewRow col-md-6">
                         <label className="col-lg-12 col-form-label">
@@ -633,7 +633,7 @@ const CandidatePreview = (props) => {
                       
                     </div>
                     <hr className="mb-4" />
-                  </>
+                  </Fragment>
                   ))}
               </div>
             </div>
@@ -664,7 +664,7 @@ const CandidatePreview = (props) => {
                   </div>
                 </div>
                 {fields.skills?.map((index,key) => (
-                  <div className="row" key={`${key}`}>
+                  <div className="row" key={`skills${key}`}>
                     <div className="displayPreviewRow col-md-6">
                       <div className="col-lg-12 col-form-label">
                         {index.skill}
@@ -706,7 +706,7 @@ const CandidatePreview = (props) => {
                   </div>
                 </div>  
                 {fields.langauge?.map((index,key) => (
-                  <div className="row" key={`${key}`}>
+                  <div className="row" key={`langauge${key}`}>
                     <div className="displayPreviewRow col-md-6">
                       <div className="col-lg-12 col-form-label">
                         {index.language}

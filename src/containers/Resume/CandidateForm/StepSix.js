@@ -123,7 +123,7 @@ useEffect(() => {
           <Form onSubmit={submitFormData} className="mt-4">
               {formValues.map((index, key) => {
                 return (
-                  <Row key={index}>
+                  <Row key={`row-${key}`}>
                     <Form.Group className="mb-2 col-md-6">
                         <Form.Label>Content</Form.Label>
                         <Form.Control
@@ -149,31 +149,27 @@ useEffect(() => {
                           style={{ border: errors[key]?.langLevel ? "2px solid red" : "" }} 
                           name="langLevel"  
                           onChange={event => _handleChange(event, key)}
+                          value={ index.langLevel }
                         >
                             <option>Select your language level</option>
                             <option 
-                              selected={(index.langLevel == "Basic") ? true :false }
                               value="Basic"
                               >Basic
                             </option>
                             <option 
                               value="Proficient"
-                              selected={(index.langLevel == "Proficient") ? true :false }
                               >Proficient
                             </option>
                             <option 
                               value="Conversational"
-                              selected={(index.langLevel == "Conversational") ? true :false }
                               >Conversational
                             </option>
                             <option 
                               value="Fluent"
-                              selected={(index.langLevel == "Conversational") ? true :false }
                               >Fluent
                             </option>
                             <option 
                               value="Native speaker"
-                              selected={(index.langLevel == "Native speaker") ? true :false }
                               >Native speaker
                             </option>
                         </Form.Select>

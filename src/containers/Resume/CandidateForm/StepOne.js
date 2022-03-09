@@ -100,7 +100,7 @@ const StepOne = (props) => {
         }
     };
 
-  return (
+    return (
       
        <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">
@@ -147,8 +147,7 @@ const StepOne = (props) => {
                                     <Form.Control
                                         style={{ border: errorFields?.lastName ? "2px solid red" : "" }}
                                         name="lastName"
-                                       // defaultValue={values.lastName}
-                                       value={fields.lastName}
+                                        value={fields.lastName}
                                         type="text"
                                         placeholder="Last Name"
                                         onChange={(event) => _handleChange(event)}
@@ -182,11 +181,11 @@ const StepOne = (props) => {
                                         style={{ border: errorFields?.country ? "2px solid red" : "" }} 
                                         name="country" 
                                         onChange={(event) => _handleChange(event)} 
-                                        //defaultValue={values.country} onChange={handleFormData("country")}
+                                        value = { fields?.country }
                                     >
                                         <option value="">Select Country</option>
                                         {countryList?.map((country, index) => (
-                                            <option key={index} selected={country._id == fields.country ? true :false } value={country._id}>{country.name}</option>
+                                            <option key={index}  value={country._id}>{country.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -200,11 +199,11 @@ const StepOne = (props) => {
                                         style={{ border: errorFields?.state ? "2px solid red" : "" }} 
                                         name="state" 
                                         onChange={(event) => _handleChange(event)} 
-                                        //defaultValue={values.state} onChange={handleFormData("state")}
+                                        value={ fields?.state }
                                     >
                                         <option value="">Select State</option>
                                         {stateList?.map((state, index) => (
-                                            <option key={index} selected={state._id == fields.state ? true :false } value={state._id}>{state.name}</option>
+                                            <option key={index} value={state._id}>{state.name}</option>
                                         ))}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -219,7 +218,6 @@ const StepOne = (props) => {
                                         type="text"
                                         placeholder="City"
                                         onChange={(event) => _handleChange(event)}
-                                        //value={fields.city ? fields.city : props?.handleFormData?.place} 
                                         value={fields.city} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -233,11 +231,9 @@ const StepOne = (props) => {
                                     <Form.Control
                                         style={{ border: errorFields?.zip ? "2px solid red" : "" }}
                                         name="zip"
-                                        //defaultValue={values.zip}
                                         type="text"
                                         placeholder="Zip Code"
                                         onChange={(event) => _handleChange(event)} 
-                                        //value={fields.zip ? fields.zip : props?.handleFormData?.zip}
                                         value={fields.zip}
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -249,12 +245,10 @@ const StepOne = (props) => {
                                         <Form.Control
                                             style={{ border: errorFields?.email ? "2px solid red" : "" }}
                                             name="email"
-                                            //defaultValue={values.email}
                                             type="email"
                                             placeholder="Email"
                                             value={fields.email}
                                             onChange={(event) => _handleChange(event)} 
-                                           // value={fields.email ? fields.email : props?.handleFormData?.email}
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
                                             {errorFields.email}
@@ -269,7 +263,6 @@ const StepOne = (props) => {
                                             placeholder="Phone"
                                             onChange={(event) => _handleChange(event)} 
                                             value={fields.phone}
-                                           // value={fields.phone ? fields.phone : props?.handleFormData?.phone}
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
                                             {errorFields.phone}
