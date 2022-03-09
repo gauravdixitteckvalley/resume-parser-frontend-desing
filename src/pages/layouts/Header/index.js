@@ -55,38 +55,11 @@ const Header = (props) => {
 
     }
 
-    // var showMobileNav = false;
-    // const toggleMobileSidebar = () => {
-           
-    //     if (showMobileNav == false) {
-    //         document.sidebar.classList.add('active');
-    //         showMobileNav = !showMobileNav;
-    //     }else{
-    //         document.sidebar.classList.remove('active');            
-    //         showMobileNav = !showMobileNav;
-    //     }
-
-    // }
-
     const _getData = (data, params = {}) => {
         const queryParams = {
             page    : data ? data : 1,
             name    : params?.searchValue,
-            // email   : params?.searchValue,
-            // phone   : params?.searchValue,
-            // city    : params?.searchValue,
-            // company : params?.searchValue,
-            sortingData : {},
-            // status  : '',
-            // minExp  : '',
-            // maxExp  : ''
-            /*email   : params?.searchValue,
-            phone   : params?.searchValue,
-            city    : params?.searchValue,
-            company : params?.searchValue,
-            skills  : params?.searchValue*/
-            
-            
+            sortingData : {},            
         }
         dispatch(fetchResumeData(queryParams));
         // history.push('/resume');
@@ -110,7 +83,7 @@ const Header = (props) => {
     
     return (
         <>
-            <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
+            <nav key="qwqewe1" className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row sidebar-icon-only">
                 <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                     <Link className="navbar-brand brand-logo" to={user.isCandidateLogin ? "/candidate/dashboard" : "/dashboard"}><img src="/logo.PNG" alt="logo" /></Link> 
                     <Link className="navbar-brand brand-logo-mini" to={user.isCandidateLogin ? "/candidate/dashboard" : "/dashboard"}><img src="/mobile_logo.png" alt="logo" /></Link> 
@@ -183,7 +156,7 @@ const Header = (props) => {
                         </li>
                         
                         <li className="nav-item dropdown">
-                            <Link className="nav-link count-indicator dropdown-toggle" id="messageDropdown" to="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <Link key="1233" className="nav-link count-indicator dropdown-toggle" id="messageDropdown" to="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i className="mdi mdi-email-outline"></i>
                             <span className="count-symbol bg-warning"></span>
                             </Link>

@@ -274,12 +274,12 @@ const ResumeList = (props) => {
                           >
                             <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
                           </NavLink>
-                          <Link
+                          <Link 
+                            to="#"
                             className={
                               "" +
                               (index === sending ? "disable" : "")
                             }
-                            to="#"
                             id={`mail_btn_${index}`}
                             onClick={(event) => sendMail(event, data.email, index)}
                             style={{ cursor: "pointer" }}
@@ -290,10 +290,10 @@ const ResumeList = (props) => {
                             ></i>
                           </Link>
                           <Link 
+                            to="#"
                             title="Delete" 
                             className="ms-2" 
                             style={{'cursor':'pointer'}}
-                            to="#"
                             onClick={(event) => _handleDelModalShowClick(event, data.id)}>
                             <i className="mdi mdi-delete" aria-hidden="true"></i>
                           </Link>
@@ -568,8 +568,7 @@ const ResumeList = (props) => {
             <div className="card card-cls">
               <div className="table-responsive">
                 <div className="col-lg-12 p-3">
-                  <Link
-                    to="#"
+                  <Link to="#"
                     onClick={(event) => _handleModalShowClick(event)}
                     className="btn btn-primary send-email"
                   >

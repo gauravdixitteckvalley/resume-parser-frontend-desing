@@ -102,9 +102,7 @@ const _deleteskillData = (status) => {
          { statusData ? <CandidateStatusGraph statusList ={statusList} statusData={statusData} /> : null }
         </div>
       </div>
-
-      <RecentList topResume={topResume} ></RecentList>
-
+      <RecentList topResume={topResume} ></RecentList>   
       {showModal ? (<WelcomeModal 
                             showModal={showModal} 
                             handleModalClose={_handleModalCloseClick} 

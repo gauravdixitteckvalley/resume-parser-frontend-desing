@@ -27,14 +27,14 @@ const StepFive = (props) => {
     dispatch(fetchSkillsList({ search: ''}))
 
     
-}, []);  
+}, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
 //set props skills values coming from the candidate table
 if(!_.isEmpty(props.handleFormData) && status){
   let string  = false ;
   let  propsData =  props.handleFormData.skills;
   propsData.map((ppData)=>{
-      if(typeof(ppData) == 'string'){
+      if(typeof(ppData) === 'string'){
           string = true 
       }
   }) 

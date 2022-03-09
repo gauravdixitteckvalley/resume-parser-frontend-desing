@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Form, Card, Button, Row } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import './CandidateMultiForm.css';
 import _ from "lodash";
 import {  submitCandidateData  } from "../../../actions/Candidate";
-import validateCandidateForm  from "./CandidateFromValidation";
 
 
 // creating functional component ans getting props from app.js and destucturing them
@@ -15,7 +13,7 @@ const StepFour = (props) => {
   const [errors, setErrors] = useState(false);
   const [formValues, setFormValues] = useState([{ project_name: "", role:"", technologies:"", project_link:"", project_description : ""}])
   const dispatch = useDispatch(); 
-  const [status,setStatus] =useState(true);
+  const [status,setStatus] = useState(true);
 
   const validateForm = (formValuesArray) => {
     let errors = [];
@@ -77,7 +75,7 @@ useEffect(() => {
         }
         
     }
-}, []);
+}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // after form submit validating the form data using validator
   const submitFormData = (e) => {

@@ -219,7 +219,8 @@ const SelectResume = () => {
                                     <div className="col-md-12 mb-4">
                                         <label className="mb-3 required" htmlFor="inlineFormInputName2">Core Competencies</label>
                                         {_create_core_competencie()}      
-                                        <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/>
+                                        {/* <input type='button ' className="btn col-md-2 btn-primary " value='add more' onClick={event=>_add_core_competencie(event)}/> */}
+                                        <button type='button' className="btn col-md-2 btn-primary " onClick={event=>_add_core_competencie(event)}>add more</button>
                                         <div className="errorMsg">{errors.core_competencies}</div>
                                     </div>
                                     {/* </div> */}

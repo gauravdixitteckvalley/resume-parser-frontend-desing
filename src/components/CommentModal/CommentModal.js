@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Modal from "react-bootstrap/Modal"
 
 class PopUpModal extends Component {
-    state = {
-        commentValue : ''
-    }
+    // state = {
+    //     commentValue : ''
+    // }
 
     _handleModalCloseClick = () => {
         this.props.handleModalClose(false)
@@ -19,8 +19,8 @@ class PopUpModal extends Component {
     }
 
     render() {
-        let { commentValue} = this.state;
-        const {showModal, modalTitle, modalBody} = this.props
+        // let { commentValue} = this.state;
+        const {showModal, modalTitle} = this.props
 
         return (
             <Modal show={showModal} onHide={this._handleModalCloseClick} backdrop="static">

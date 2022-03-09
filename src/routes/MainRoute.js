@@ -38,6 +38,7 @@ const ActivityLog = lazy(() => import ('../containers/Resume/ActivityLog/Activit
 const Notice = lazy(() => import ('../containers/Notice/Notice'))
 const Notification = lazy(() => import ('../containers/Notification/Notification'))
 const UploadImage = lazy(() => import ('../containers/Resume/UploadImage'))
+const TestEmail = lazy(() => import ('../containers/TestEmail/index'))
 
 
 function MainRoute() {
@@ -86,6 +87,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/activity-log" component={ActivityLog} />
                         <PrivateRoute exact path="/notices" component={Notice} />
                         <PrivateRoute exact path="/notifications" component={Notification} />
+                        <PrivateRoute exact path="/test-email" component={TestEmail} />
                         {/*Page Not Found*/}
                         <Route component={NotFound} />
                     </Switch>

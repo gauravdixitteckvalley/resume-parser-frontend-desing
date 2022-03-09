@@ -1,6 +1,5 @@
 import React, { useState,  Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
-//import _ from 'lodash'
 
 import ChangePasswordStyle from './changePasswordStyle';
 import BlockUI from "../../../components/BlockUI"

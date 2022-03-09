@@ -8,7 +8,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
         
         return (
             
-             <div className="page inner" >
+             <div key={"project"+index} className="page inner" >
                 <div className="header">
                 <h2 className="emp-id">{ empCode }</h2>
                 <img src="../../assets/img/designer-resume-img/logo.png" className="logo" />
@@ -23,7 +23,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                     </div>
                 </div>
                 { project?.map((data,index)=>( 
-                <div className="two-col-line" key={index}>
+                <div className="two-col-line" key={"projdetail"+index}>
                     <div className="left-col">
                         <span className="circle-arrow"></span>
                     </div>
@@ -53,7 +53,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
           
             <div ref={ref}>
              {/* Page 1 Start */}
-            <div className="page main-page" PageSize="A4" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/web-capability-bg.png)'}}>
+            <div className="page main-page" pagesize="A4" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/web-capability-bg.png)'}}>
                 <section id="top-head-main" style={{backgroundImage: 'url(../../assets/img/designer-resume-img/top-dotted-bg.png)'}}>
                 <div className="page-container">
                     <div className="logo-main">
@@ -178,7 +178,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                         <h2>Core Competencies</h2>
                         <ul style={{marginTop: '20px'}}>
                             { coreCompetencie.map( (data,index)=>( 
-                            <li>{ data }</li>
+                            <li key={"coreCompetencie"+index}>{ data }</li>
                             )) }
                             {/*<li>Planning and conducting cross-browser usability testing against W3C.  </li>
                             <li>Testing and validating work produced as part of the development process. </li>
@@ -204,7 +204,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                             <ul>
                             { (skillsArray.Server !== undefined)? 
                                  skillsArray.Server.map((data,index)=>(
-                                    <li>{ data.skill }</li>
+                                    <li key={"skill-Server"+index} >{ data.skill }</li>
                                  )) 
                             :
                                 <>
@@ -222,7 +222,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                             <ul>
                             { (skillsArray.Backend !== undefined)?  
                                  skillsArray.Backend.map((data,index)=>(
-                                        <li>{ data.skill }</li>
+                                        <li key={"skill-Backend"+index}>{ data.skill }</li>
                                 )) 
                              :
                                 <>
@@ -240,7 +240,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                             <ul>
                                 { (skillsArray.Other !== undefined)?
                                      skillsArray.Other.map((data,index)=>(
-                                        <li>{ data.skill }</li>
+                                        <li key={"skill-Other"+index}>{ data.skill }</li>
                                 )) 
                             :
                                 <>
@@ -257,7 +257,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                             <ul>
                                 { (skillsArray.Frontend !== undefined)?
                                 skillsArray.Frontend.map((data,index)=>(
-                                        <li>{ data.skill }</li>
+                                        <li key={"skill-Frontend"+index}>{ data.skill }</li>
                                 )) 
                                 :
                                 <>
@@ -279,7 +279,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                         <h2>Tools</h2>
                         <ul className="inline-list">
                             {   empTools.split(',').map((data,index)=>(
-                                    <li>{data}</li>
+                                    <li key={"tools"+index}>{data}</li>
                                 )) 
                             }
                             {/* <li>Dreamweaver</li>
@@ -328,7 +328,7 @@ export const DeveloperResumeToPrint = React.forwardRef((props, ref) => {
                             <ul style={{marginTop: '20px'}}>
                                 { candidateInfo?.education?.map((edu,index)=>( 
                                 
-                                    <li key={index} ><strong>{edu.degree}</strong><span>{edu.degree} in { edu.schoolOrCollege } — { edu.gradMonth +'-'+ edu.gradYear }</span></li>
+                                    <li key={"education"+index} ><strong>{edu.degree}</strong><span>{edu.degree} in { edu.schoolOrCollege } — { edu.gradMonth +'-'+ edu.gradYear }</span></li>
                                     
                                     
                                 ))}

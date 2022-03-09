@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import './DesignerResume.css'
@@ -9,7 +9,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
     const _project_page =(project,index)=>{
 
         return (
-        <div className="page fifth-page">
+        <div key={"project"+index} className="page fifth-page">
                 <div className="header innerpage-header">
                     <div className="logo_bg">
                         <img src="../../assets/img/designer-images/logo.png"/>
@@ -22,7 +22,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                     <h1 className="inner-heading"><span>Portfolio</span></h1>	
                     <img src="../../assets/img/designer-images/quote-icon.png"/>
                     {  project?.map((data,innerindex)=>( 
-                    <>   
+                    <Fragment key={"innerindex"+innerindex}>   
                     { (index===0 && innerindex ===0)?  
                     <h2>Created strong design concepts and developed design layouts for a variety of creative projects, you can see more at my portfolio.</h2>
                     :''}
@@ -49,7 +49,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                     </div>
                     <br />
                 
-                    </>
+                    </Fragment>
                     )) }
                     {/* <div className="col-two-col-second">
                         <div className="col-left">
@@ -138,20 +138,10 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                     <h2>We design websites with conversions in mind, our websites look great, but each page has a clearly deﬁned conversion goal. </h2>
                     <ul>
                         { coreCompetencie.map(( data, index)=>(                         
-                            <li style={{lineHeight: '1.5'}}>{ data }</li>
+                            <li key={"coreCompetencie"+index} style={{lineHeight: '1.5'}}>{ data }</li>
                         )) }
-                        {/* <li style={{lineHeight: '1.5'}}>Proficient in Graphic Design, Website Design, UI Design and Front-end development.</li>
-                        <li style={{lineHeight: '1.5'}}>Understanding of Cross/Mobile Browser (Chrome, IE, Firefox and Safari) and Creating SEO friendly HTML with Website Optimization.</li>
-                        <li style={{lineHeight: '1.5'}}>Implement HTML into Wordpress and Joomla.</li>
-                        <li style={{lineHeight: '1.5'}}>Experience of pre-processing platforms, such as SASS and LESS.</li>
-                        <li style={{lineHeight: '1.5'}}>Worked with project teams to create user-friendly and appealing application interfaces and websites for users. </li>
-                        <li style={{lineHeight: '1.5'}}>Managing & providing designing support to the team and managed the team members for efficient management work.</li> */}
                     </ul>
                     <h1 className="inner-heading" style={{marginTop:'100px'}}><span>Tools</span></h1>
-                    {/* {   empTools.split(',').map((data,index)=>(
-                            <li>{data}</li>
-                        )) 
-                    } */}
                     <p>{empTools}</p>
                 </div>
                 
@@ -189,36 +179,6 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                     
                     </div>
                     
-                    {/* <div className="app-tech">
-                        <div className="app-tech-inner">
-                            <span>Front-end</span>
-                            <img src ="../../assets/img/designer-images/tech-icon/1icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/2icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/3icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/4icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/5icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/6icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/7icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/8icon.png"/>
-                        </div>
-                        <div className="app-tech-inner">
-                            <span>Design</span>
-                            <img src ="../../assets/img/designer-images/tech-icon/9icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/10icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/11icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/12icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/13icon.png"/>
-                            
-                        </div>
-                        <div className="app-tech-inner">
-                            <span>CMS</span>
-                            <img src ="../../assets/img/designer-images/tech-icon/14icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/15icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/16icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/17icon.png"/>
-                            <img src ="../../assets/img/designer-images/tech-icon/18icon.png"/>
-                        </div>
-                    </div> */}
                     <div className="two-col">
                         <div className="right-col">
                             <div className="skills-div">
@@ -228,7 +188,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <ul>
                                 { (skillsArray.Frontend !== undefined)? 
                                  skillsArray.Frontend.map((data,index)=>(
-                                    <li>{ data.skill }</li>
+                                    <li key={"Frontend"+index}>{ data.skill }</li>
                                  )) 
                                 :   <>
                                         <li>Godaddy</li>
@@ -245,7 +205,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 <ul>
                                 { (skillsArray.Framework !== undefined)?  
                                  skillsArray.Framework.map((data,index)=>(
-                                        <li>{ data.skill }</li>
+                                        <li key={"Framework"+index}>{ data.skill }</li>
                                 )) 
                              :
                                 <>
@@ -257,30 +217,12 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                                 </ul>
                                 </div>
                             
-                            
-                                {/* <div className="circle third">
-                                Payment<br /> Gateway
-                                <ul>
-                                { (skillsArray.Other !== undefined)?  
-                                 skillsArray.Other.map((data,index)=>(
-                                        <li>{ data.skill }</li>
-                                )) 
-                             :
-                                <>
-                                    <li>Paypal Checkout</li>
-                                    <li>Google Checkout</li>
-                                    </>
-}
-                                </ul>
-                                </div> */}
-                                
-                            
                                 <div className="circle fourth">
                                 UI/UX 
                                 <ul>
                                 { (skillsArray['UI/UX'] !== undefined)?  
                                     skillsArray['UI/UX'].map((data,index)=>(
-                                        <li>{ data.skill }</li>
+                                        <li key={"uiux"+index }>{ data.skill }</li>
                                     )) 
                                 :
                                 <>
@@ -452,9 +394,8 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                     <h2>Education is not the learning of facts, but the training of the mind to think. Education is a gift that none can take away. I am still learning every day.</h2>
                     { candidateInfo?.education?.map((edu,index)=>( 
                                 
-                        // <li key={index} ><strong>{edu.degree}</strong><span>{edu.degree} in { edu.schoolOrCollege } — { edu.gradMonth +'-'+ edu.gradYear }</span></li>
-                        <>        
-                        <div className="col-two-col-second">
+                        < Fragment key={"edu"+index}>        
+                        <div className="col-two-col-second" >
                             <div className="col-left">
                                 <h5 className="orange-box">{ index+1 }</h5>
                             </div>
@@ -468,7 +409,7 @@ export const DesignerResumeToPrint = React.forwardRef((props, ref) => {
                         
                         </div>
                         <br />
-                        </>       
+                        </Fragment>       
                                 
                     ))}
                     

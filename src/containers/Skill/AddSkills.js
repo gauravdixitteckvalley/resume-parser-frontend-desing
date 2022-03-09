@@ -85,32 +85,21 @@ const SkillsForm = (props) => {
         history.push('/skills')
     }
 
-    const _skill_options = (category) =>{
-        return (
-            
-                <option
-                    key={ category._id } 
-                    value={ category._id} 
-                    selected={(category._id == fields?.skill_category) ? true :false }>
-                        { category.name }
-                </option>
-            
-        )
-    }
     const selectSkillCategory = () => {
         
         if(skillsData?.skillsCategory?.length > 0){
            
             return skillsData?.skillsCategory.map( (category,index) => {
                 return (
-                    <>
+                    
                         <option
-                            key={ category._id } 
+                            key={ "skillsCategory"+index } 
                             value={ category._id} 
-                            selected={(category._id == fields?.skill_category) ? true :false }>
+                            // selected={(category._id === fields?.skill_category) ? true :false }
+                            >
                                 { category.name }
                         </option>
-                    </>
+                    
                 )
             })
         }
@@ -152,7 +141,8 @@ const SkillsForm = (props) => {
                                         aria-label="Default select example" 
                                         style={{ border: errors?.skillLevel ? "2px solid red" : "" }} 
                                         name="skillCategory" 
-                                        onChange={(event) => _handleChange(event)} 
+                                        onChange={(event) => _handleChange(event)}
+                                        value={fields?.skill_category} 
                                         >
                                             <option value='' >Select your skill level</option>
                                             { selectSkillCategory()}

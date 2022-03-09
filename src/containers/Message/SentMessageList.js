@@ -43,18 +43,18 @@ const SentMessageListing = () => {
         return (
             <> 
             { data.map((data, index) => ( 
-                <>
-                <div className="listings mb-3" key={index}   >
+                <Fragment key={index}>
+                <div className="listings mb-3"    >
                     <Link to={`/sent-message-details/${data._id}`} >
                         <div className="row align-items-center">                        
-                            <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="image" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
+                            <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="profile-img" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
                             <div className="col-md-4"><p>{ data.message_subject }</p></div>
                             <div className="col-md-4 text-right-cls"><p>{ (moment().isSame(data.createdAt, 'day'))? moment(data.createdAt).calendar() : moment(data.createdAt).format('MMM DD YYYY')  }</p></div>
                         </div>
                     </Link>  
                 </div> 
                 <hr className="mb-4" />
-                </>
+                </Fragment>
             )) }  
             </>  
         )
