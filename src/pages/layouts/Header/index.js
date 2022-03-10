@@ -26,19 +26,27 @@ const Header = (props) => {
         loginRedirect(user, userType.user_role_name)
     }
 
-    const _handleChange = (event) => {
-        const {name, value} = event.target;
-        setSearchValue(value);
-    }
+     const _handleChange = (event) => {
+        event.preventDefault();
+        setSearchValue(event.target.value);
+     }
 
     const searchResume = () => {
         if(_.isEmpty(searchValue))
             displayErrorMessage('Please input any search name first');
         
         localStorage.setItem("headerSearch",searchValue)
-        _getData('', {searchValue});
+        _getData('', {searchValue});    
+    }
 
-        
+    const _handlePressEnter = (event) => {
+        event.preventDefault();
+        const value = event.target.value;
+        if(_.isEmpty(value))
+        displayErrorMessage('Please input any search name first');
+
+        localStorage.setItem("headerSearch",searchValue)
+        _getData('', {searchValue}); 
     }
 
     var status = false;
@@ -99,18 +107,24 @@ const Header = (props) => {
                             <div className="search-field d-none d-md-block">
                                 <form className="d-flex align-items-center h-100" action="#">
                                     <div className="input-group">
+                                        <input 
+                                            type="text" 
+                                            className="form-control bg-transparent border-0" 
+                                            name="name" 
+                                            placeholder="Search Resume"
+                                            onChange={(event) => _handleChange(event)}
+                                            onKeyPress={(event) => {
+                                                var key = event.keyCode || event.which;
+                                                if (key === 13)
+                                                    _handlePressEnter(event)
+                                            }}
+                                            value= {searchValue}
+                                        />
                                         <div className="input-group-prepend bg-transparent">
                                             <Link to='/resume' className="search-btn" onClick={() => searchResume()}>
                                                 <i className="input-group-text border-0 mdi mdi-magnify"></i>
                                             </Link>
                                         </div>
-                                        <input 
-                                            type="text" 
-                                            className="form-control bg-transparent border-0" 
-                                            name="name" 
-                                            placeholder="Search Resume" 
-                                            onChange={(event) => _handleChange(event)}
-                                        />
                                     </div>
                                 </form>
                             </div>

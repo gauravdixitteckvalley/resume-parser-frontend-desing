@@ -13,6 +13,7 @@ export const fetchResumeData = (params) => {
             });
             if (response.data.success) {
                 dispatch({ type : 'RESUME_LIST_SUCCESS', payload : response.data.data});
+                history.push('/resume');
             } 
         } catch(error) {
             handleHttpError(error.response);
