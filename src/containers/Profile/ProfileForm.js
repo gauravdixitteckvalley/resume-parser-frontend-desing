@@ -27,13 +27,7 @@ const ProfileForm = (props) => {
   const [applyCheck] = useState(currentId ? false : true);
   /**hook equivalent to componentdidmount lifecycle */
   useEffect(() => {
-    // if (userData.user.id) {
       dispatch(fetchUserEditFormDependantData(userData.user.id)); // action is called to fetch record
-    // } else {
-    //   dispatch(fetchUserRolesData());
-    // }
-
-    // returned function will be called on component unmount
     return () => {
       dispatch(resetUserData());
     };
@@ -52,7 +46,6 @@ const ProfileForm = (props) => {
   const _validateForm = () => {
     let formFields = fields;
     let response = validateProfileForm(formFields, applyCheck);
-
     setErrors(response.errors);
     return response.formIsValid;
     
@@ -70,17 +63,7 @@ const ProfileForm = (props) => {
   const _handleSubmit = (event) => {
     event.preventDefault();
     if (_validateForm()) {
-      // const { first_name, last_name, email,  username, profile_image } =
-      //   event.target;
-      // const postData = {
-      //   first_name: first_name.value,
-      //   last_name: last_name.value,
-      //   profile_image:profile_image.files[0].name,
-      // };
       const postData = new FormData(event.target);
-       // postData.append('frontendURL', window.location.origin);
-       // dispatch(submitManualResumeFormData(postData));
-      
       dispatch(submitProfileFormData(currentId, postData)); //action is called to submit data
     }
   };

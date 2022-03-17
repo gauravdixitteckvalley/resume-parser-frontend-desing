@@ -55,6 +55,7 @@ const ProfileForm = (props) => {
   const _handleChange = (event) => {
     let data = fields;
     data[event.target.name] = event.target.value;
+    //console.log("event.target.name ",event.target.name ," event.target.value ",event.target.value)
     setFields({ ...data });
   };
 
@@ -104,7 +105,7 @@ const ProfileForm = (props) => {
                         name="old_password"
                         id="old_password"
                         value={fields.old_password || ""}
-                        handleClick={(event) => _handleChange(event)}
+                        handleinputchange={(event) => _handleChange(event)}
                         placeholder="Enter old password"
                         minLength="6"
                       />
@@ -121,7 +122,7 @@ const ProfileForm = (props) => {
                         name="password"
                         id="password"
                         value={fields.password || ""}
-                        handleClick={(event) => _handleChange(event)}
+                        handleinputchange={(event) => _handleChange(event)}
                         placeholder="Enter new password"
                         minLength="6"
                       />
@@ -139,7 +140,7 @@ const ProfileForm = (props) => {
                         name="confirm_password"
                         id="confirm_password"
                         value={fields.confirm_password || ""}
-                        handleClick={(event) => _handleChange(event)}
+                        handleinputchange={(event) => _handleChange(event)}
                         placeholder="Enter confirm password"
                         minLength="6"
                       />

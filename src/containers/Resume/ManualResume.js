@@ -74,14 +74,7 @@ const ManualResume = (props) => {
         event.preventDefault();
         
         if (_validateForm()) {
-            // const {name, email, phone, skills} = event.target;
-            // const postData = {
-            //     name    : name.value,
-            //     email   : email.value,
-            //     phone   : phone.value,
-            //     skills  : skills.value,
-            //     file    : base64File
-            // }
+            
 
             const postData = new FormData(event.target);
             postData.append('frontendURL', window.location.origin);

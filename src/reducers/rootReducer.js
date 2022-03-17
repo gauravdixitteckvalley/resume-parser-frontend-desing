@@ -9,6 +9,7 @@ import { profile } from "./Profile";
 import { candidate } from "./Candidate";
 import { message } from "./Message";
 import { notice } from "./Notice";
+import { activity } from "./ActivityLog"
 
 const rootReducer = combineReducers({
     authenticatedUser,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     dashboard,
     candidate,
     message,
-    notice
+    notice,
+    activity
 });
 
 export default rootReducer;
