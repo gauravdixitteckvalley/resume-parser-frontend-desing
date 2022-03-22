@@ -82,7 +82,7 @@ const SentMessageListing = () => {
                 <Fragment key={index}>
                 <div className="listings mb-3">
                     <Checkbox
-                        key={data.id}
+                        key={data._id}
                         className="form-check-input message-check sent-msg" 
                         type="checkbox"
                         name={data.id}
