@@ -6,8 +6,9 @@ class PopUpModal extends Component {
         this.props.handleModalClose(false)
     }
 
-    _executeDeleteRequest = () => {
-        this.props.updateData(true)
+    _executeDeleteRequest = (event) => {
+        event.preventDefault()
+        this.props.updateData(event,true)
     }
 
     render() {
@@ -21,7 +22,7 @@ class PopUpModal extends Component {
                 <Modal.Body>{modalBody}</Modal.Body>
                 <Modal.Footer>
                     <button type="button" className="btn btn-danger" onClick={this._handleModalCloseClick}>Cancel</button>
-                    <button type="button" className="btn btn-primary" onClick={this._executeDeleteRequest}>Yes</button>
+                    <button type="button" className="btn btn-primary" onClick={(event) => {this._executeDeleteRequest(event)}}>Yes</button>
                 </Modal.Footer>
             </Modal>
         )

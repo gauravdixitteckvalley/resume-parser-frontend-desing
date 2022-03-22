@@ -97,3 +97,53 @@ export const fetchSentMessageData = (params) => {
         }
     }
 }
+
+/* action for fetching sent message records */
+export const deleteMessageData = (id) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: 'DELETE_MESSAGE_LIST_REQUEST' });
+        try {
+            const response = await api.post('message/message-delete', {id : id }, {
+                headers : requestTokenHeader(),
+            });
+            
+            if (response.data.success) {
+                const updatedMessageList =  getState().message.messageList.filter((res) => {
+                    if(id.indexOf(res._id) === -1){
+                        return res
+                    }
+                });
+                dispatch({ type : 'DELETE_MESSAGE_LIST_SUCCESS', payload : updatedMessageList});
+                displaySuccessMessage('Record Deleted Successfully');
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            
+            dispatch({ type: 'DELETE_MESSAGE_LIST_FAILURE'});
+        }
+    }
+}
+
+export const deleteSentMessageData = (id) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: 'DELETE_SENT_MESSAGE_LIST_REQUEST' });
+        try {
+            const response = await api.post('message/sent-item/message-delete', {id : id }, {
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                const updatedMessageList =  getState().message.sentMessageList.filter((res) => {
+                    if(id.indexOf(res._id) === -1){
+                        return res
+                    }
+                });
+                dispatch({ type : 'DELETE_SENT_MESSAGE_LIST_SUCCESS', payload : updatedMessageList});
+                displaySuccessMessage('Record Deleted Successfully');
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            
+            dispatch({ type: 'DELETE_SENT_MESSAGE_LIST_FAILURE'});
+        }
+    }
+}

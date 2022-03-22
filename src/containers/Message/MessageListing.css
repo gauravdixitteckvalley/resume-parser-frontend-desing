@@ -19,3 +19,7 @@
 .text-right-cls {
     text-align: right;
 }
+.message-check {
+    float: left;
+    margin-top: 10px;
+}
