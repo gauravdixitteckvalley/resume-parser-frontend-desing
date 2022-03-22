@@ -94,8 +94,8 @@ const ActivityLog = () => {
                                 <tbody>       
                                     {activityList ? activityList.map((data,key)=>{
                                             return(<tr key={data._id}>
-                                                <td> {getMethod(data.req_method)} {data.req_page} </td>
-                                                <td> {getMethod(data.req_method)} {getStatus(data.res_code)}</td>
+                                                <td>{data.req_page == "login"? "":getMethod(data.req_method) }  {data.req_page} </td>
+                                                <td> {data.req_page == "login"? "":getMethod(data.req_method) }  {getStatus(data.res_code)}</td>
                                                 <td>{fetchDateAndTime(data.current_time)}</td>
                                                 <td> {data.req_ip} </td>
                                             </tr>)
