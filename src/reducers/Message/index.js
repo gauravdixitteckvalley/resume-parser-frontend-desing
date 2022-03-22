@@ -1,5 +1,4 @@
 export function message(state = [], action){
-    
     switch (action.type) {
       
         case 'USER_LIST_REQUEST':
@@ -49,6 +48,7 @@ export function message(state = [], action){
         
         case 'MESSAGE_LIST_SUCCESS':
             return {
+                ...state,
                 blocking : false,
                 totalRecords    : action.payload.total,
                 per_page        : action.payload.per_page,
@@ -111,7 +111,44 @@ export function message(state = [], action){
                 per_page        : 0,
                 currentPage     : 1,
                 sentMessageList : []
-            };             
+            }; 
+            
+        case 'DELETE_SENT_MESSAGE_LIST_REQUEST':
+            return {
+                ...state,
+                blocking : true,
+            }; 
+
+        case 'DELETE_SENT_MESSAGE_LIST_SUCCESS':
+            return {
+                ...state,
+                blocking    : false,
+                sentMessageList     : action.payload
+            };
+
+        case 'DELETE_SENT_MESSAGE_LIST_FAILURE':
+                return {
+                    blocking : false
+                };
+            
+        case 'DELETE_MESSAGE_LIST_REQUEST':
+            return {
+                ...state,
+                blocking : true,
+            }; 
+
+        case 'DELETE_MESSAGE_LIST_SUCCESS':
+            return {
+                ...state,
+                blocking    : false,
+                messageList     : action.payload
+            };
+
+        case 'DELETE_MESSAGE_LIST_FAILURE':
+                return {
+                    blocking : false
+                };
+
         default:
             return state;
     }

@@ -5,15 +5,21 @@ import Pagination from "react-js-pagination"
 
 import BlockUI from "../../components/BlockUI"
 import './MessageListing.css';
-import { fetchSentMessageData } from '../../actions/Message';
+import { fetchSentMessageData, deleteSentMessageData } from '../../actions/Message';
 import _ from 'lodash';
 import { displayRecordNotFound, IMAGE_URL } from '../../utils/helper';
 import moment from 'moment'
+import Checkbox from "../../components/Checkbox";
+import Modal from '../../components/ConfirmationModal/Modal';
 
 const SentMessageListing = () => {
 
+    const [isChecked, setIsChecked] = useState(false);
     const [searchTitle, setSearchTitle] = useState('');
-    const [sortingOption, setSortingOption] = useState({})
+    const [sortingOption, setSortingOption] = useState({}) 
+    const [showDelModal, setShowDelModal] = useState(false);
+    const [deleteMessage, setDeleteMessage] = useState([]);
+
     /**fetched data from redux store */
     const messages = useSelector(state =>  state.message);
 
@@ -36,6 +42,36 @@ const SentMessageListing = () => {
     
     /**method for calling api based on page change  */
     const _handlePageChange = (pageNumber) => _getData(pageNumber)
+
+    const handleSelectOnly = (event) => {
+        setIsChecked(!isChecked);
+        if(deleteMessage.includes(event)) {
+            const index = deleteMessage.indexOf(event)
+            deleteMessage.splice(index, 1);
+        } else {
+            deleteMessage.push(event)
+        }
+    }
+
+    /*method called to display modal*/
+    function _handleDelModalShowClick(e,i){
+        e.preventDefault();
+        setShowDelModal(true);
+        setDeleteMessage(i);
+    }
+
+    /*method called to when record deleted option is chosen*/
+    const _deleteMessageData = (status) => {
+        if(status) {
+        dispatch(deleteSentMessageData(deleteMessage));  // action is called to get data
+        _handleDelModalCloseClick(false);  //modal is closed
+        setDeleteMessage([]);
+        }
+    }
+
+    const _handleDelModalCloseClick = (value) => {
+        setShowDelModal(value);
+    }
         
     const _buildList = (data) =>{
 
@@ -44,7 +80,16 @@ const SentMessageListing = () => {
             <> 
             { data.map((data, index) => ( 
                 <Fragment key={index}>
-                <div className="listings mb-3"    >
+                <div className="listings mb-3">
+                    <Checkbox
+                        key={data.id}
+                        className="form-check-input message-check sent-msg" 
+                        type="checkbox"
+                        name={data.id}
+                        id={data.id}
+                        handleClick={() => handleSelectOnly(data._id)}
+                        checked={isChecked}
+                      />
                     <Link to={`/sent-message-details/${data._id}`} >
                         <div className="row align-items-center">                        
                             <div className="col-md-4"><p><img src={data.users.profile_image ? IMAGE_URL+data.users.profile_image :"/assets/img/user_icon.png"} className="me-2" alt="profile-img" /> { data.users.first_name +' '+ data.users.last_name }</p></div>
@@ -77,15 +122,13 @@ const SentMessageListing = () => {
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2">
                   <h3 className="page-title" style={{fontWeight: '600'}}> Sent Items</h3>
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end text-right">
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 text-end">
                   <Link to="/message">
-                    <button
-                      type="button"
-                      className="btn btn-gradient-primary btn-fw mb-2"
-                    >
-                      Inbox
-                    </button>
+                    <button type="button" className="btn btn-gradient-primary btn-fw mb-2" style={{marginRight: '5px'}}>Inbox</button>
                   </Link>
+                  <Link to="#" style={{display: deleteMessage.length>0 ? 'initial' : 'none' }}>
+                    <button type="button" className="btn btn-gradient-primary btn-fw mb-2" onClick={(event) => _handleDelModalShowClick(event, deleteMessage)} > Delete </button>
+                </Link>
                 </div>
             </div>
             <div className="row">
@@ -119,7 +162,16 @@ const SentMessageListing = () => {
                     </div>
                 </div>
             </div>
-         
+            {/* delete pop up modal */}
+            {showDelModal ? (
+            <Modal 
+                showModal={showDelModal} 
+                handleModalClose={_handleDelModalCloseClick} 
+                updateData={_deleteMessageData}
+                modalTitle="Delete Record"
+                modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+            />
+            ) : null}
         </Fragment>
     )
 }
