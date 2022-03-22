@@ -12,7 +12,7 @@ const CareerPreference = (props) => {
     const [ fields, setFields ] = useState({ preferredShift: '', jobType:[], empType: []})
     const [ errors, setErrors ] = useState({})
     const [ isCareerResponseFetched , setCareerResponse ] = useState(true)
-
+    
     //use selector to get candidate store data
     const { resumeDetails, blocking } = useSelector(state => state.resume );
 
@@ -36,14 +36,19 @@ const CareerPreference = (props) => {
 
     //set fields value
     if(resumeDetails !== undefined && Object.keys(resumeDetails).length > 0 && isCareerResponseFetched){
-        setFields( resumeDetails.careerPreference )
-        setCareerResponse(false)
+        
+        if(resumeDetails.careerPreference !== undefined){
+            setFields(resumeDetails.careerPreference)
+            setCareerResponse(false)
+        }
+        
     }
 
     //handle Change event
-    const _handleChange = event => {
+    const _handleChange = (event) => {
         event.preventDefault()
         const { target } = event
+        
         if(target.name === "jobType1" || target.name === "jobType2"){
             if(target.checked === true){
                 fields.jobType = [ ...fields.jobType, target.name === "jobType2" ? 'permanent' : 'contractual']
@@ -62,6 +67,7 @@ const CareerPreference = (props) => {
                 fields.empType = filteredEmpType
             }
         }else{
+            
             fields[target.name] = target.value
         }
         setFields({ ...fields})

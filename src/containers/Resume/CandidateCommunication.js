@@ -115,21 +115,6 @@ const CandidateCommunication = (props) => {
                 <div className="table-responsive">
                   {/* list of records */}
                   {_buildCommunicationList(resumeCommunication)}
-
-                  {/* {(total > per_page) ? 
-                                <div className="pagination mb-3 pagination-content">
-                                    <Pagination
-                                        activePage={currentPage}
-                                        itemsCountPerPage={Number(per_page)}
-                                        totalItemsCount={total}
-                                        pageRangeDisplayed={5}
-                                        onChange={_handlePageChange}
-                                        itemclassName="page-item"
-                                        linkclassName="page-link"
-                                        innerclassName="pagination text-center"
-                                    /> 
-                                </div> 
-                            : ''}  */}
                 </div>
               </div>
             </div>

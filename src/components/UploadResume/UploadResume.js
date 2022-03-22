@@ -5,7 +5,7 @@ import { updateResume } from "../../actions/Resume";
 
 export default function UploadResume(props) {
     const [fields,setFields] = useState();
-    const [fileName,setFileName] =useState("")
+    // const [fileName,setFileName] =useState("")
     let id = props.id;
     const {showModal, modalTitle} = props;
     const [error,setError] = useState("");
@@ -31,8 +31,8 @@ export default function UploadResume(props) {
         
       };
     const _handleChange = (event) => {
-        const { name, value } = event.target;
-        setFileName(event.target.files[0])
+        const { value } = event.target;
+        // setFileName(event.target.files[0])
         setFields(value);
     }
     const _handleModalCloseClick = () => {
