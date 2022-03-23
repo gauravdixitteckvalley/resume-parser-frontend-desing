@@ -87,6 +87,9 @@ const Header = (props) => {
             )
         }
     }
+
+    
+    const deletedMsg = loggedUser.user.message.filter(msgs => msgs.is_deleted < 1);
     
     
     return (
@@ -178,8 +181,9 @@ const Header = (props) => {
                                 <h6 className="p-3 mb-0">Messages</h6>
                                 <div className="dropdown-divider"></div>
                                
-                                { ( typeof loggedUser.user.message != "undefined" && Object.keys(loggedUser.user.message).length > 0 )?
-                                 loggedUser.user?.message.map((data, index) => (
+
+                                {( typeof deletedMsg != "undefined" && Object.keys(deletedMsg).length > 0 )?
+                                 deletedMsg.map((data, index) => (
                                         <Fragment key={index}>
                                         <Link to={`/message/message-details/${data._id}`} style={{ backgroundColor : (!data.is_view)?'rgb(219 221 223)':'' }} className="dropdown-item preview-item">
                                         <div className="preview-thumbnail">
