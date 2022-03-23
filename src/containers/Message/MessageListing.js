@@ -65,12 +65,10 @@ const MessageListing = () => {
     /*method called to when record deleted option is chosen*/
     const _deleteMessageData = (event, status) => {
         event.preventDefault()
-        setIsChecked(false)
-        setDeleteMessage([])
         if(status) {  
         dispatch(deleteMessageData(deleteMessage));  // action is called to get data
         _handleDelModalCloseClick(false);  //modal is closed
-        console.log(isChecked, deleteMessage, 'check')
+        setDeleteMessage([]);
         }
     }
 
@@ -87,7 +85,7 @@ const MessageListing = () => {
                 <Fragment key={index}>
                 <div className="listings mb-3" key={index}>
                     <Checkbox
-                        key={data.id}
+                        key={data._id}
                         className="form-check-input message-check" 
                         type="checkbox"
                         name={data.id}
