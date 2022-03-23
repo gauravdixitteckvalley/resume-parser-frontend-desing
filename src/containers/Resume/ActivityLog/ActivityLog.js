@@ -16,7 +16,18 @@ const ActivityLog = () => {
             dispatch(fetchActivityLogs(localData.id ))
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
     
-    const {blocking, activityList} = logs;
+    let {blocking, activityList} = logs;
+    function reverseArr(input) {
+        var ret = new Array;
+        for(var i = input.length-1; i >= 0; i--) {
+            ret.push(input[i]);
+        }
+        return ret;
+      }
+    let  activityList2 =""
+    if(activityList)
+        activityList2= reverseArr(activityList);
+    //console.log("activityList2 ",activityList, " activityList ", activityList2)
     const fetchDateAndTime = (fetchDateTime) => {
             let fetchDate = new Date(fetchDateTime);
             let newDate = fetchDate.getDate();
@@ -85,14 +96,14 @@ const ActivityLog = () => {
                                         <th> Operation </th>
                                         <th> Status </th>
                                         <th> Date and time 
-                                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
-                                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
+                                            {/* <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button> */}
                                         </th>
                                         <th> IP Address </th>
                                     </tr>
                                 </thead>
                                 <tbody>       
-                                    {activityList ? activityList.map((data,key)=>{
+                                    {activityList ? activityList2.map((data,key)=>{
                                             return(<tr key={data._id}>
                                                 <td>{data.req_page == "login"? "":getMethod(data.req_method) }  {data.req_page} </td>
                                                 <td> {data.req_page == "login"? "":getMethod(data.req_method) }  {getStatus(data.res_code)}</td>
