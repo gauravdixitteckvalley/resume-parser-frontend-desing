@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 //import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 //import Dropzone from "react-dropzone-uploader";
@@ -11,26 +11,59 @@ import BlockUI from "../../components/BlockUI";
 import { Form, Row, Button } from "react-bootstrap";
 import {  getCountryList,getStateList } from "../../actions/Resume"
 import {  submitCandidateData,submitManualResumeFormData  } from "../../actions/Candidate";
+import PostJobValidation from './PostJobValidation';
 import './PostJob.css';
 
 export default function PostJob() {
+
+    const [errorFields, setErrorFields] = useState({});
+    const [fields, setFields] = useState({
+        jobTitle: "",
+        exp:  "",
+        highlights: "",
+        opening: "",
+        location: "",
+        salary: "",
+        keySkills: "",
+        otherSkills: "",
+        jd: "",
+        industryType: "",
+        functionalArea: "",
+        role: "",
+        empType: "",
+        education: "",
+        recruitDetails: "",
+        companyName: "",
+        companyWebsite: "",
+        companyDetails: "",
+    });
+
     let fileArray = [];
   
     const blocking = false;
+
+    const _validateForm = () => {
+        let formFields = fields;
+        let response = PostJobValidation(formFields);
+        setErrorFields(response.errorFields);
+        return response.formIsValid;
+    };
+
+    const _handleChange = (event) => {
+        let data = fields;
+        if(event.target.name === 'jobTitle'){
+            let jobTitle = event.target.value;    
+        }
+        data[event.target.name] = event.target.value;
+        setFields({...data})      
+    }
   
     const submitFormData = (e) => {
         e.preventDefault();
+        if (_validateForm()) {
+
+        } 
         
-        // if (_validateForm()) {
-        //     if(currentId){
-        //         dispatch(submitCandidateData(currentId, fields));
-        //         setTimeout(function(){  props.nextStep(); }, 2000);
-        //     }else{
-                
-        //         dispatch(submitManualResumeFormData(fields))
-        //         setTimeout(function(){  props.nextStep(); }, 2000);
-        //     }
-        // }
     };
     return (
       <Fragment>
@@ -56,29 +89,45 @@ export default function PostJob() {
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Job Title</Form.Label>
                                     <Form.Control
-                                        //style={{ border: errorFields?.firstName ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.jobTitle ? "2px solid red" : "" }}
                                         name="jobTitle"
                                         type="text"
                                         placeholder="Job Title"
-                                        //value={fields.firstName}
-                                       // onChange={(event) => _handleChange(event)} 
+                                        value={fields.jobTitle}
+                                        onChange={(event) => _handleChange(event)} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.firstName} */}
+                                        {errorFields.jobTitle}
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Exprience Required </Form.Label>
                                     <Form.Control
-                                       // style={{ border: errorFields?.lastName ? "2px solid red" : "" }}
+                                       style={{ border: errorFields?.exp ? "2px solid red" : "" }}
                                         name="exp"
-                                        //value={fields.lastName}
+                                        value={fields.exp}
                                         type="text"
                                         placeholder="Exprience Required"
-                                        //onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event)}
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.lastName} */}
+                                        {errorFields.exp}
+                                    </Form.Text>
+                                </Form.Group>
+                            </Row>
+                            <Row>
+                                <Form.Group className="mb-2 col-md-12">
+                                    <Form.Label>Job Highlights </Form.Label>
+                                    <Form.Control
+                                        style={{ border: errorFields?.highlights ? "2px solid red" : "" }}
+                                        name="highlights"
+                                        value={fields.highlights}
+                                        as="textarea"
+                                        placeholder="Job Highlights"
+                                        onChange={(event) => _handleChange(event)} 
+                                    />
+                                    <Form.Text className="errorMsg" style={{ color: "red" }}>
+                                        {errorFields.highlights}
                                     </Form.Text>
                                 </Form.Group>
                             </Row>
@@ -87,10 +136,10 @@ export default function PostJob() {
                                     <Form.Label>No of opening </Form.Label>
                                     <Form.Select 
                                         aria-label="Default select example" 
-                                        //style={{ border: errorFields?.country ? "2px solid red" : "" }} 
+                                        style={{ border: errorFields?.opening ? "2px solid red" : "" }} 
                                         name="opening" 
-                                       // onChange={(event) => _handleChange(event)} 
-                                        //value = { fields?.country }
+                                        onChange={(event) => _handleChange(event)} 
+                                        value = { fields?.opening }
                                     >
                                         <option value="">Select Opening</option>
                                         {/* {countryList?.map((country, index) => (
@@ -98,17 +147,17 @@ export default function PostJob() {
                                         ))} */}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.country} */}
+                                        {errorFields.opening}
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Location</Form.Label>
                                     <Form.Select 
                                         aria-label="Default select example" 
-                                        //style={{ border: errorFields?.state ? "2px solid red" : "" }} 
-                                        name="Location" 
-                                       // onChange={(event) => _handleChange(event)} 
-                                        //value={ fields?.state }
+                                        style={{ border: errorFields?.location ? "2px solid red" : "" }} 
+                                        name="location" 
+                                        onChange={(event) => _handleChange(event)} 
+                                        value={ fields?.location }
                                     >
                                         <option value="">Select Location</option>
                                         {/* {stateList?.map((state, index) => (
@@ -116,21 +165,21 @@ export default function PostJob() {
                                         ))} */}
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.state} */}
+                                        {errorFields.location}
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Salary Range</Form.Label>
                                     <Form.Control
-                                        //style={{ border: errorFields?.city ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.salary ? "2px solid red" : "" }}
                                         name="salary" 
                                         type="text"
                                         placeholder="Salary Range"
-                                       // onChange={(event) => _handleChange(event)}
-                                        //value={fields.city} 
+                                        onChange={(event) => _handleChange(event)}
+                                        value={fields.salary} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.city} */}
+                                        {errorFields.salary}
                                     </Form.Text>
                                 </Form.Group>
                             </Row>
@@ -138,29 +187,29 @@ export default function PostJob() {
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Key Skills (must have)</Form.Label>
                                     <Form.Control
-                                        //style={{ border: errorFields?.firstName ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.keySkills ? "2px solid red" : "" }}
                                         name="keySkills"
                                         type="text"
                                         placeholder="React, PHP"
-                                        //value={fields.firstName}
-                                       // onChange={(event) => _handleChange(event)} 
+                                        value={fields.keySkills}
+                                       onChange={(event) => _handleChange(event)} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.firstName} */}
+                                        {errorFields.keySkills}
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Other Skills </Form.Label>
                                     <Form.Control
-                                       // style={{ border: errorFields?.lastName ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.otherSkills ? "2px solid red" : "" }}
                                         name="otherSkills"
-                                        //value={fields.lastName}
+                                        value={fields.otherSkills}
                                         type="text"
                                         placeholder="Other Skills"
-                                        //onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event)}
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.lastName} */}
+                                        {errorFields.otherSkills}
                                     </Form.Text>
                                 </Form.Group>
                             </Row>
@@ -168,15 +217,15 @@ export default function PostJob() {
                                 <Form.Group className="mb-2 col-md-12">
                                     <Form.Label>Job Description </Form.Label>
                                     <Form.Control
-                                       // style={{ border: errorFields?.address ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.jd ? "2px solid red" : "" }}
                                         name="jd"
-                                        //value={fields.address}
+                                        value={fields.jd}
                                         as="textarea"
                                         placeholder="Job Description"
-                                       // onChange={(event) => _handleChange(event)} 
+                                        onChange={(event) => _handleChange(event)} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.address} */}
+                                        {errorFields.jd}
                                     </Form.Text>
                                 </Form.Group>
                             </Row>
@@ -184,43 +233,43 @@ export default function PostJob() {
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Industry type</Form.Label>
                                     <Form.Control
-                                       // style={{ border: errorFields?.zip ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.industryType ? "2px solid red" : "" }}
                                         name="industryType"
                                         type="text"
                                         placeholder="Industry type"
-                                       // onChange={(event) => _handleChange(event)} 
-                                        //value={fields.zip}
+                                        onChange={(event) => _handleChange(event)} 
+                                        value={fields.industryType}
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.zip} */}
+                                        {errorFields.industryType}
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Functional area</Form.Label>
                                         <Form.Control
-                                           // style={{ border: errorFields?.email ? "2px solid red" : "" }}
+                                            style={{ border: errorFields?.functionalArea ? "2px solid red" : "" }}
                                             name="functionalArea"
                                             type="text"
                                             placeholder="Functional area"
-                                            //value={fields.email}
-                                            //onChange={(event) => _handleChange(event)} 
+                                            value={fields.functionalArea}
+                                            onChange={(event) => _handleChange(event)} 
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                            {/* {errorFields.email} */}
+                                            {errorFields.functionalArea}
                                         </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Role</Form.Label>
                                         <Form.Control
-                                           // style={{ border: errorFields?.phone ? "2px solid red" : "" }}
+                                            style={{ border: errorFields?.role ? "2px solid red" : "" }}
                                             name="role"
                                             type="text"
                                             placeholder="Role"
-                                            //onChange={(event) => _handleChange(event)} 
-                                            //value={fields.phone}
+                                            onChange={(event) => _handleChange(event)} 
+                                            value={fields.role}
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                            {/* {errorFields.phone} */}
+                                            {errorFields.role}
                                         </Form.Text>
                                 </Form.Group>
                             </Row>
@@ -232,48 +281,48 @@ export default function PostJob() {
                                         <Form.Check
                                             inline
                                             label="Full Time"
-                                            name="group1"
+                                            name="empType"
                                             type="checkbox"
                                         />
                                         <Form.Check
                                             inline
                                             label="Part Time"
-                                            name="group1"
+                                            name="empType"
                                             type="checkbox"
                                         />
                                         <Form.Check
                                             inline
                                             label="Contractual"
-                                            name="group1"
+                                            name="empType"
                                             type="checkbox"
                                         />
                                     </div>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.zip} */}
+                                        {/* {errorFields.empType} */}
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Education</Form.Label>
                                         <Form.Control
-                                           // style={{ border: errorFields?.email ? "2px solid red" : "" }}
+                                            style={{ border: errorFields?.education ? "2px solid red" : "" }}
                                             name="education"
                                             type="text"
                                             placeholder="Education"
-                                            //value={fields.email}
-                                            //onChange={(event) => _handleChange(event)} 
+                                            value={fields.education}
+                                            onChange={(event) => _handleChange(event)} 
                                         />
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                            {/* {errorFields.email} */}
+                                            {errorFields.education}
                                         </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Recruiter Details </Form.Label>
                                         <Form.Select 
                                             aria-label="Default select example" 
-                                            //style={{ border: errorFields?.state ? "2px solid red" : "" }} 
-                                            name="Location" 
-                                        // onChange={(event) => _handleChange(event)} 
-                                            //value={ fields?.state }
+                                            style={{ border: errorFields?.recruitDetails ? "2px solid red" : "" }} 
+                                            name="recruitDetails" 
+                                            onChange={(event) => _handleChange(event)} 
+                                            value={ fields?.recruitDetails }
                                         >
                                             <option value="">Select Recruiter</option>
                                             {/* {stateList?.map((state, index) => (
@@ -281,7 +330,7 @@ export default function PostJob() {
                                             ))} */}
                                         </Form.Select>
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                            {/* {errorFields.phone} */}
+                                            {errorFields.recruitDetails}
                                         </Form.Text>
                                 </Form.Group>
                             </Row>
@@ -297,29 +346,29 @@ export default function PostJob() {
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Company Name</Form.Label>
                                     <Form.Control
-                                        //style={{ border: errorFields?.firstName ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.companyName ? "2px solid red" : "" }}
                                         name="companyName"
                                         type="text"
                                         placeholder="Company Name"
-                                        //value={fields.firstName}
-                                       // onChange={(event) => _handleChange(event)} 
+                                        value={fields.companyName}
+                                        onChange={(event) => _handleChange(event)} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.firstName} */}
+                                        {errorFields.companyName}
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-2 col-md-6">
                                     <Form.Label>Company Website</Form.Label>
                                     <Form.Control
-                                       // style={{ border: errorFields?.lastName ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.companyWebsite ? "2px solid red" : "" }}
                                         name="companyWebsite"
-                                        //value={fields.lastName}
+                                        value={fields.companyWebsite}
                                         type="text"
                                         placeholder="www.xyz.com"
-                                        //onChange={(event) => _handleChange(event)}
+                                        onChange={(event) => _handleChange(event)}
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.lastName} */}
+                                        {errorFields.companyWebsite}
                                     </Form.Text>
                                 </Form.Group>
                             </Row>
@@ -328,14 +377,14 @@ export default function PostJob() {
                                 <Form.Group className="mb-2 col-md-12">
                                     <Form.Label>Company Details</Form.Label>
                                     <Form.Control
-                                       // style={{ border: errorFields?.address ? "2px solid red" : "" }}
+                                        style={{ border: errorFields?.companyDetails ? "2px solid red" : "" }}
                                         name="companyDetails"
                                         as="textarea"
                                         placeholder="Company Details"
-                                       // onChange={(event) => _handleChange(event)} 
+                                        onChange={(event) => _handleChange(event)} 
                                     />
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
-                                        {/* {errorFields.address} */}
+                                        {errorFields.companyDetails}
                                     </Form.Text>
                                 </Form.Group>
                             </Row>
