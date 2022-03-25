@@ -40,6 +40,7 @@ const Notification = lazy(() => import ('../containers/Notification/Notification
 const UploadImage = lazy(() => import ('../containers/Resume/UploadImage'))
 const JobList = lazy(()=> import ('../containers/Job/JobList'))
 const PostJob = lazy(()=> import ('../containers/Job/PostJob'))
+const JobDetails = lazy(()=> import ('../containers/Job/JobDetails'))
 
 
 function MainRoute() {
@@ -90,6 +91,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/notifications" component={Notification} />
                         <PrivateRoute exact path="/jobs" component={JobList} />
                         <PrivateRoute exact path="/jobs/post-job" component={PostJob} />
+                        <PrivateRoute exact path="/jobs/job-details" component={JobDetails} />
                         {/*Page Not Found*/}
                         <Route component={NotFound} />
                     </Switch>

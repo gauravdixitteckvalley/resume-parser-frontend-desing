@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { NavLink } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom"
 import './JobList.css';
 
 export default function JobList(props) {
@@ -68,13 +68,120 @@ export default function JobList(props) {
                     <tr>
                       <th> Job Title </th>
                       <th> Company Name </th>
-                      <th> No Of Opening </th>
+                      <th> No. of Opening </th>
                       <th> Salary Range </th>
                       <th> Location </th>
                       <th> Actions </th>
                     </tr>
                   </thead>
                   <tbody>
+                  
+                  <tr>
+                    <td className="actions icons-list my-mdi-cls">
+                      Software Engineer
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      Virtual Employee
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      2
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      2-5LPA
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      Noida, UP
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      <div className="actions-cls">
+                        <NavLink target="_blank" to='/jobs/job-details'>
+                          <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
+                        </NavLink>
+                        <NavLink target="_blank" to='#'>
+                          <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
+                        </NavLink>
+                        
+                        <Link 
+                          to="#"
+                          title="Delete"
+                          style={{'cursor':'pointer'}}
+                            >
+                          <i className="mdi mdi-delete" aria-hidden="true"></i>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="actions icons-list my-mdi-cls">
+                      Sr. Software Engineer
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      Virtual Employee
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      2
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      4-9LPA
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      Noida, UP
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      <div className="actions-cls">
+                        <NavLink target="_blank" to='/jobs/job-details'>
+                          <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
+                        </NavLink>
+                        <NavLink target="_blank" to='#'>
+                          <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
+                        </NavLink>
+                        
+                        <Link 
+                          to="#"
+                          title="Delete" 
+                          style={{'cursor':'pointer'}}
+                            >
+                          <i className="mdi mdi-delete" aria-hidden="true"></i>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="actions icons-list my-mdi-cls">
+                      Python Developer
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      Virtual Employee
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      2
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      5-7LPA
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      Noida, UP
+                    </td>
+                    <td className="actions icons-list my-mdi-cls">
+                      <div className="actions-cls">
+                        <NavLink target="_blank" to='/jobs/job-details'>
+                          <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
+                        </NavLink>
+                        <NavLink target="_blank" to='#'>
+                          <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
+                        </NavLink>
+                        
+                        <Link 
+                          to="#"
+                          title="Delete" 
+                          style={{'cursor':'pointer'}}
+                            >
+                          <i className="mdi mdi-delete" aria-hidden="true"></i>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                  
                   {/* {  _LatestRecord(topResume) } 
                   
                      <td className="actions icons-list my-mdi-cls">
