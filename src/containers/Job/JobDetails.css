@@ -1,0 +1,65 @@
+.btn-area {
+    text-align: -webkit-right;
+}
+.job-detail p, .job-detail h4 {
+    margin-bottom: 0;
+}
+.job-details p {
+    margin-bottom: 0;
+}
+.job-details div {
+    border-bottom: 0;
+    display: block;
+    padding: 0;
+    border-right: 0;
+}
+.job-details {
+    border: 0;
+}
+.job-details div i {
+    width: 30px;
+    font-size: 18px;
+}
+.header-btm p {
+    font-size: 14px;
+}
+.header-btm p>span {
+    color: #808080bf;
+}
+.header-btm p:nth-child(1) {
+    margin-right: 15px;
+}
+.highlights-ul {
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+.job-details div p {
+    font-size: 14px;
+}
+.label-p {
+    color: #808080bf;
+}
+.label-p span {
+    color: #000;
+    margin-left: 50px;
+}
+.position p {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+.badges-area .badge {
+    padding: 0.65em 0.99em;
+    margin-left: 6px;
+    margin-top: 8px;
+}
+.social-icons {
+    border: 0;
+}
+.social-icons div {
+    border-bottom: 0;
+    border-right: 0;
+    padding: 0;
+}
+.social-icons div i {
+    font-size: 30px;
+}

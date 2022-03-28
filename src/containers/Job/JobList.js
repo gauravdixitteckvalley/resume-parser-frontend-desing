@@ -55,7 +55,7 @@ export default function JobList(props) {
                       <th> No </th>
                       <th> Job Title </th>
                       <th> Company Name </th>
-                      <th> No Of Opening </th>
+                      <th> No. of Opening </th>
                       <th> Salary Range </th>
                       <th> Location </th>
                       {/* <th> Actions </th> */}
