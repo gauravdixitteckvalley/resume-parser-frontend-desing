@@ -53,6 +53,7 @@ export default function JobList(props) {
                 <table className="table table-bordered mb-4 table-responsive">
                   <thead>
                     <tr>
+                      <th> No </th>
                       <th> Job Title </th>
                       <th> Company Name </th>
                       <th> No Of Opening </th>
@@ -66,6 +67,7 @@ export default function JobList(props) {
                      {jobPostedList?.map((postDataList, index)=>{
                       return(
                       <tr key={index}>
+                        <td>{index + 1 }</td>
                         <td>{postDataList.jobTitle}</td>
                         <td>{postDataList.companyName}</td>
                         <td>{postDataList.opening}</td>
