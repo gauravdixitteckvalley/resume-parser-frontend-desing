@@ -1,57 +1,44 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import _ from 'lodash';
-import { NavLink, Link } from "react-router-dom"
+import { NavLink,Link } from "react-router-dom";
 import './JobList.css';
+import {fetchPostedJob} from  "../../actions/Job";
+import { useSelector, useDispatch } from "react-redux";
+import BlockUI from "../../components/BlockUI";
+import Modal from '../../components/ConfirmationModal/Modal';
 
 export default function JobList(props) {
-    const { topResume } = props;
-{/*
-    const _ManageStatus = (data) =>{
-      if(data.candidate_status === "1"){
-        return ( <><label className="badge badge-gradient-info">{data.candidate_status_name[0].name}</label></> )
-      }else if(data.candidate_status === "2"){
-        return ( <><label className="badge badge-gradient-warning">{data.candidate_status_name[0].name}</label></> )
-      }else if(data.candidate_status === "3"){
-        return ( <><label className="badge badge-gradient-success">{data.candidate_status_name[0].name}</label></> )
-      }else if(data.candidate_status === "4"){
-        return ( <><label className="badge badge-gradient-danger">{data.candidate_status_name[0].name}</label></> )
-      }else{
-        return(<></>)
-      }
-    }
-*/}
-{/*
-    const _LatestRecord = (data) =>{
-      if (!_.isEmpty(topResume)) {
-        return( 
-          topResume.map((data, index) => (
-            <tr key={`topResume-${index}`}>
-              <td>
-                {data.name}
-              </td>
-              <td> {data.email} </td>
-              <td>
-                {_ManageStatus(data)}
-              </td>
-              <td>  { data.phone } </td>
-              <td>  { data.created_at } </td>
-            </tr>
-          ))
-        )
-      }else{
-        return (
-          <tr key={`topResume`}>
-              <td className="alert alert-info m-t-20 text-center" colSpan={5}>
-                <i className="fa fa-info-circle"></i> No Record Found
-              </td>
-          </tr>
-      )
-      }
-    }
-*/}
+    //const { topResume } = props;
+    const [data,setData] =  useState([])
+    const jobs = useSelector(state => state.job);
+      console.log("jobs list ",jobs)
+    const dispatch = useDispatch();
+    const { blocking,jobPostedList } = jobs;
+    const [showModal, setShowModal] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState('');
+    
+    useEffect(() => {
+      dispatch(fetchPostedJob()) // action is called to fetch skills category list
 
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
+    function _handleModalShowClick(e,i){
+        e.preventDefault();
+        //console.log("i" ,i)
+        setShowModal(true)
+        setSelectedRowId(i)
+    }
+    const _deleteskillData = (status) => {
+      if(status) {
+         // dispatch(deleteSkill(selectedRowId));  // action is called to get data
+          _handleModalCloseClick(false);  //modal is closed
+      }
+  }
+  const _handleModalCloseClick = (value) => {
+    setShowModal(value)
+}
     return (
         <>
+        <BlockUI blocking={blocking} />
         <div className='new_job_btn'>
             <NavLink to={`/jobs/post-job/`} className='btn btn-gradient-primary btn-fw'>New Job Post</NavLink>
         </div>
@@ -66,144 +53,50 @@ export default function JobList(props) {
                 <table className="table table-bordered mb-4 table-responsive">
                   <thead>
                     <tr>
+                      <th> No </th>
                       <th> Job Title </th>
                       <th> Company Name </th>
                       <th> No. of Opening </th>
                       <th> Salary Range </th>
                       <th> Location </th>
-                      <th> Actions </th>
+                      {/* <th> Actions </th> */}
                     </tr>
                   </thead>
                   <tbody>
                   
-                  <tr>
-                    <td className="actions icons-list my-mdi-cls">
-                      Software Engineer
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      Virtual Employee
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      2
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      2-5LPA
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      Noida, UP
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      <div className="actions-cls">
-                        <NavLink target="_blank" to='/jobs/job-details'>
-                          <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
-                        </NavLink>
-                        <NavLink target="_blank" to='#'>
-                          <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
-                        </NavLink>
-                        
-                        <Link 
-                          to="#"
-                          title="Delete"
-                          style={{'cursor':'pointer'}}
+                     {jobPostedList?.map((postDataList, index)=>{
+                      return(
+                      <tr key={index}>
+                        <td>{index + 1 }</td>
+                        <td>{postDataList.jobTitle}</td>
+                        <td>{postDataList.companyName}</td>
+                        <td>{postDataList.opening}</td>
+                        <td>{postDataList.salary}</td>
+                        <td>{postDataList.location}</td>
+                          {/* <td className="actions icons-list my-mdi-cls">
+                          <div className="actions-cls">
+                            <NavLink
+                              target="_blank"
+                              to=""
                             >
-                          <i className="mdi mdi-delete" aria-hidden="true"></i>
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="actions icons-list my-mdi-cls">
-                      Sr. Software Engineer
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      Virtual Employee
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      2
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      4-9LPA
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      Noida, UP
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      <div className="actions-cls">
-                        <NavLink target="_blank" to='/jobs/job-details'>
-                          <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
-                        </NavLink>
-                        <NavLink target="_blank" to='#'>
-                          <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
-                        </NavLink>
-                        
-                        <Link 
-                          to="#"
-                          title="Delete" 
-                          style={{'cursor':'pointer'}}
+                              <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
+                            </NavLink>
+                          
+                            <Link 
+                              to="#"
+                              title="Delete" 
+                              className="ms-2" 
+                              style={{'cursor':'pointer'}}
+                              onClick={(event) => _handleModalShowClick(event, postDataList.id)}
                             >
-                          <i className="mdi mdi-delete" aria-hidden="true"></i>
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="actions icons-list my-mdi-cls">
-                      Python Developer
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      Virtual Employee
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      2
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      5-7LPA
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      Noida, UP
-                    </td>
-                    <td className="actions icons-list my-mdi-cls">
-                      <div className="actions-cls">
-                        <NavLink target="_blank" to='/jobs/job-details'>
-                          <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
-                        </NavLink>
-                        <NavLink target="_blank" to='#'>
-                          <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
-                        </NavLink>
-                        
-                        <Link 
-                          to="#"
-                          title="Delete" 
-                          style={{'cursor':'pointer'}}
-                            >
-                          <i className="mdi mdi-delete" aria-hidden="true"></i>
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
+                              <i className="mdi mdi-delete" aria-hidden="true"></i>
+                            </Link>
+                          </div>
+                        </td>   */}
+                      </tr>
+                      )
+                    })}
                   
-                  {/* {  _LatestRecord(topResume) } 
-                  
-                     <td className="actions icons-list my-mdi-cls">
-                        <div className="actions-cls">
-                          <NavLink
-                            target="_blank"
-                            to={`/candidate/preview/${data.id}`}
-                          >
-                            <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
-                          </NavLink>
-                         
-                          <Link 
-                            to="#"
-                            title="Delete" 
-                            className="ms-2" 
-                            style={{'cursor':'pointer'}}
-                            onClick={(event) => _handleDelModalShowClick(event, data.id)}>
-                            <i className="mdi mdi-delete" aria-hidden="true"></i>
-                          </Link>
-                        </div>
-                      </td>
-                  */}
                   </tbody>
                 </table>
               </div>
@@ -212,6 +105,13 @@ export default function JobList(props) {
           </div>
         </div>
       </div>
+        {showModal ? (<Modal 
+            showModal={showModal} 
+            handleModalClose={_handleModalCloseClick} 
+            updateData={_deleteskillData}
+            modalTitle="Delete Record"
+            modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+        />) : null}
       </>
       
     )
