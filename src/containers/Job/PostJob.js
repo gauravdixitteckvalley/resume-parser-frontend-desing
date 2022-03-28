@@ -1,22 +1,18 @@
 import React, { Fragment, useState } from "react";
-//import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-//import Dropzone from "react-dropzone-uploader";
-//import "react-dropzone-uploader/dist/styles.css";
-
 import BlockUI from "../../components/BlockUI";
-//import { API_URL, displayErrorMessage } from "../../utils/helper";
-//import { submitResumeData } from "../../actions/Resume";
-//import resumeSampleFile from "../../assets/files/resumeSampleFile.docx";
 import { Form, Row, Button } from "react-bootstrap";
-import {  getCountryList,getStateList } from "../../actions/Resume"
-import {  submitCandidateData,submitManualResumeFormData  } from "../../actions/Candidate";
 import PostJobValidation from './PostJobValidation';
+import {submitJobPost} from "../../actions/Job/index";
+import { useSelector, useDispatch } from "react-redux";
 import './PostJob.css';
+
 
 export default function PostJob() {
 
     const [errorFields, setErrorFields] = useState({});
+    let currentUser= JSON.parse(localStorage.getItem('data'));
+    //console.log("currentUser  ",currentUser)
     const [fields, setFields] = useState({
         jobTitle: "",
         exp:  "",
@@ -36,8 +32,16 @@ export default function PostJob() {
         companyName: "",
         companyWebsite: "",
         companyDetails: "",
+        cId:currentUser?.id,
     });
-
+    const dispatch = useDispatch();
+    let opening = 10;
+    let openArry = []
+    let jobLocation = ['Delhi','Noida','Gurugram','Bangalore','kolkata','Mumbai','Chandigarh','Any Where']
+    for(let i= 1; i <= opening; i++ ){
+        openArry.push(i)
+    }
+    
     let fileArray = [];
   
     const blocking = false;
@@ -54,14 +58,17 @@ export default function PostJob() {
         if(event.target.name === 'jobTitle'){
             let jobTitle = event.target.value;    
         }
+       // console.log("event.target.name ", event.target.name , " event.target.value ",event.target.value)
         data[event.target.name] = event.target.value;
         setFields({...data})      
     }
   
     const submitFormData = (e) => {
         e.preventDefault();
+        console.log("fields ")
         if (_validateForm()) {
-
+            console.log("gfghfg")
+            dispatch(submitJobPost(fields));
         } 
         
     };
@@ -70,7 +77,7 @@ export default function PostJob() {
         <BlockUI blocking={blocking} />
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
-                <div className="card">
+                <div className="card"> 
                     <div className="card-body">
                       <div className="text-center">
                         <h3 className="page-title" style={{fontSize: '25px'}}>New Job Post</h3>
@@ -142,9 +149,9 @@ export default function PostJob() {
                                         value = { fields?.opening }
                                     >
                                         <option value="">Select Opening</option>
-                                        {/* {countryList?.map((country, index) => (
-                                            <option key={index}  value={country._id}>{country.name}</option>
-                                        ))} */}
+                                          {openArry?.map((open, index) => (
+                                            <option key={index}  value={open}>{open}</option>
+                                        ))}  
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
                                         {errorFields.opening}
@@ -160,9 +167,9 @@ export default function PostJob() {
                                         value={ fields?.location }
                                     >
                                         <option value="">Select Location</option>
-                                        {/* {stateList?.map((state, index) => (
-                                            <option key={index} value={state._id}>{state.name}</option>
-                                        ))} */}
+                                         {jobLocation?.map((location, index) => (
+                                            <option key={index} value={location}>{location}</option>
+                                        ))} 
                                     </Form.Select>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
                                         {errorFields.location}
@@ -247,6 +254,7 @@ export default function PostJob() {
                                 <Form.Group className="mb-2 col-md-4">
                                     <Form.Label>Functional area</Form.Label>
                                         <Form.Control
+
                                             style={{ border: errorFields?.functionalArea ? "2px solid red" : "" }}
                                             name="functionalArea"
                                             type="text"
@@ -283,18 +291,21 @@ export default function PostJob() {
                                             label="Full Time"
                                             name="empType"
                                             type="checkbox"
+                                            //onChange={(event) => _handleChange(event)} 
                                         />
                                         <Form.Check
                                             inline
                                             label="Part Time"
                                             name="empType"
                                             type="checkbox"
+                                            //onChange={(event) => _handleChange(event)} 
                                         />
                                         <Form.Check
                                             inline
                                             label="Contractual"
                                             name="empType"
                                             type="checkbox"
+                                            //onChange={(event) => _handleChange(event)} 
                                         />
                                     </div>
                                     <Form.Text className="errorMsg" style={{ color: "red" }}>
@@ -328,6 +339,10 @@ export default function PostJob() {
                                             {/* {stateList?.map((state, index) => (
                                                 <option key={index} value={state._id}>{state.name}</option>
                                             ))} */}
+                                            <option value="">Select Location</option>
+                                         {jobLocation?.map((location, index) => (
+                                            <option key={index} value={`${location}${index}`}>{location}{index}</option>
+                                        ))}
                                         </Form.Select>
                                         <Form.Text className="errorMsg" style={{ color: "red" }}>
                                             {errorFields.recruitDetails}

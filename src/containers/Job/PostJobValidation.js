@@ -87,12 +87,12 @@ const validateSkillsForm = (fields, applyCheck = false) => {
         errorFields["role"] = "";
     }
 
-    if (!fields["empType"] || fields["empType"].trim() === '') {
+    /*if (!fields["empType"] || fields["empType"].trim() === '') {
         formIsValid = false;
         errorFields["empType"] = "*Please enter employee type.";
     }else{
         errorFields["empType"] = "";
-    }
+    }*/
 
     if (!fields["education"] || fields["education"].trim() === '') {
         formIsValid = false;

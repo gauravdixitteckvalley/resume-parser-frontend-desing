@@ -10,6 +10,7 @@ import { candidate } from "./Candidate";
 import { message } from "./Message";
 import { notice } from "./Notice";
 import { activity } from "./ActivityLog"
+import { job } from "./Job"
 
 const rootReducer = combineReducers({
     authenticatedUser,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     candidate,
     message,
     notice,
-    activity
+    activity,
+    job
 });
 
 export default rootReducer;
