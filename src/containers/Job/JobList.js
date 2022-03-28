@@ -9,9 +9,8 @@ import Modal from '../../components/ConfirmationModal/Modal';
 
 export default function JobList(props) {
     //const { topResume } = props;
-    const [data,setData] =  useState([])
     const jobs = useSelector(state => state.job);
-      console.log("jobs list ",jobs)
+      //console.log("jobs list ",jobs)
     const dispatch = useDispatch();
     const { blocking,jobPostedList } = jobs;
     const [showModal, setShowModal] = useState(false);
