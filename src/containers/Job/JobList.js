@@ -72,7 +72,7 @@ export default function JobList(props) {
                         <td>{postDataList.opening}</td>
                         <td>{postDataList.salary}</td>
                         <td>{postDataList.location}</td>
-                           <td className="actions icons-list my-mdi-cls">
+                           {/* <td className="actions icons-list my-mdi-cls">
                           <div className="actions-cls">
                             <NavLink
                               target="_blank"
@@ -91,7 +91,7 @@ export default function JobList(props) {
                               <i className="mdi mdi-delete" aria-hidden="true"></i>
                             </Link>
                           </div>
-                        </td>   
+                        </td>    */}
                       </tr>
                       )
                     })}
