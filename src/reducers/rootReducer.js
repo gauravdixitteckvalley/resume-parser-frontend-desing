@@ -11,6 +11,7 @@ import { message } from "./Message";
 import { notice } from "./Notice";
 import { activity } from "./ActivityLog"
 import { job } from "./Job"
+import { employee } from "./Employee";
 
 const rootReducer = combineReducers({
     authenticatedUser,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
     message,
     notice,
     activity,
-    job
+    job,
+    employee
 });
 
 export default rootReducer;
