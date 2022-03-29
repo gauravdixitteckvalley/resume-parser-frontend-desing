@@ -13,8 +13,9 @@ export const submitJobPost = (postData) => {
             });
             
             if (response.data.success) {
-                dispatch({ type : 'SUBMIT_JOB_POST_SUCCESS', payload :response.data.data.candidateId });
-                displaySuccessMessage(response.data.data.message);
+                dispatch({ type : 'SUBMIT_JOB_POST_SUCCESS' });
+                displaySuccessMessage(response.data.data.data);
+                console.log("response.data ",response.data.data.data)
                 history.push('/jobs');
             } 
         } catch(error) {
@@ -45,8 +46,8 @@ export const fetchPostedJob = (params) => {
 }
 
 /* action for deleting user record */
-/*export const deletePostedJob = (id) => {
-    return async (dispatch, getState) => {
+export const deletePostedJob = (id) => {
+    /*return async (dispatch, getState) => {
         dispatch({ type: 'DELETE_POSTED_JOBS_LIST_REQUEST' });
         try {
             const response = await api.delete('skills/'+id, {
@@ -63,5 +64,24 @@ export const fetchPostedJob = (params) => {
             dispatch({ type: 'DELETE_POSTED_JOBS_LIST_FAILURE'});
         }
     }
+    */
+    console.log("action id ",id)
+    return async (dispatch, getState) => {
+        dispatch({ type: 'DELETE_POSTED_JOBS_LIST_REQUEST' });
+        try {
+            const response = await api.delete('job/deletePostedJob/'+id, {
+                headers : requestTokenHeader(),
+            });
+    
+            if (response.data.success) {
+                const updatPosedJob =  getState()//.resume.resumeList.filter(res => res.id !== id);
+                dispatch({ type : 'DELETE_POSTED_JOBS_LIST_SUCCESS', payload : updatPosedJob});
+                displaySuccessMessage('Record Deleted Successfully');
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'DELETE_POSTED_JOBS_LIST_FAILURE'});
+        }
+    }
 }
-*/
+
