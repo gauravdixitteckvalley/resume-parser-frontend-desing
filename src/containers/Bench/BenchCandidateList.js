@@ -134,10 +134,26 @@ export default function BenchCandidateList(props) {
                     <table className="table table-bordered mb-4 table-responsive">
                     <thead>
                         <tr>
-                            <th> Name </th>
-                            <th> Email </th>
-                            <th> Skills </th>
-                            <th> TL </th>
+                            <th> 
+                            Name 
+                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
+                            </th>
+                            <th> 
+                            Email 
+                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
+                            </th>
+                            <th> 
+                            Skills 
+                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
+                            </th>
+                            <th> 
+                            TL 
+                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
+                            </th>
                             <th> Emp Code </th>
                             <th> Status </th>
                         </tr>

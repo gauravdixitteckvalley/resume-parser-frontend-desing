@@ -107,10 +107,10 @@ const Sidebar = () => {
                     <li  className={splitLocation[1] ==="jobs" ? "active nav-item" : "nav-item "}>
                         <Link to='/jobs' className="nav-link">
                             <span className="menu-title">Posted Job </span>
-                            <i className="mdi mdi-account-multiple menu-icon"></i>
+                            <i className="mdi mdi-gmail menu-icon"></i>
                         </Link>
                     </li>
-                    <li  className={splitLocation[1] ==="bench" ? "active nav-item" : "nav-item "}>
+                    <li  className={splitLocation[1] ==="bench-candidate-list" ? "active nav-item" : "nav-item "}>
                         <Link to='/bench-candidate-list' className="nav-link">
                             <span className="menu-title">Bench Candidate </span>
                             <i className="mdi mdi-account-multiple menu-icon"></i>

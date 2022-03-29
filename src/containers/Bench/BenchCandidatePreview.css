@@ -1,0 +1,5 @@
+.displayPreviewRow {
+    justify-content: space-between !important;
+    display: flex;
+    flex-direction: column;
+}

@@ -20,3 +20,7 @@
 .actions-cls i {
     width: 30px !important;
 }
+button.icon-up, button.icon-down {
+    margin-left: 2px;
+    border: 0;
+}
