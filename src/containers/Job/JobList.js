@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import _ from 'lodash';
 import { NavLink,Link } from "react-router-dom";
 import './JobList.css';
-import {fetchPostedJob} from  "../../actions/Job";
+import {fetchPostedJob, deletePostedJob} from  "../../actions/Job";
 import { useSelector, useDispatch } from "react-redux";
 import BlockUI from "../../components/BlockUI";
 import Modal from '../../components/ConfirmationModal/Modal';
@@ -26,9 +26,9 @@ export default function JobList(props) {
         setShowModal(true)
         setSelectedRowId(i)
     }
-    const _deleteskillData = (status) => {
+    const _deletePostedJob = (status) => {
       if(status) {
-         // dispatch(deleteSkill(selectedRowId));  // action is called to get data
+          dispatch(deletePostedJob(selectedRowId));  // action is called to get data
           _handleModalCloseClick(false);  //modal is closed
       }
   }
@@ -72,7 +72,7 @@ export default function JobList(props) {
                         <td>{postDataList.opening}</td>
                         <td>{postDataList.salary}</td>
                         <td>{postDataList.location}</td>
-                          {/* <td className="actions icons-list my-mdi-cls">
+                           <td className="actions icons-list my-mdi-cls">
                           <div className="actions-cls">
                             <NavLink
                               target="_blank"
@@ -91,7 +91,7 @@ export default function JobList(props) {
                               <i className="mdi mdi-delete" aria-hidden="true"></i>
                             </Link>
                           </div>
-                        </td>   */}
+                        </td>   
                       </tr>
                       )
                     })}
@@ -107,7 +107,7 @@ export default function JobList(props) {
         {showModal ? (<Modal 
             showModal={showModal} 
             handleModalClose={_handleModalCloseClick} 
-            updateData={_deleteskillData}
+            updateData={_deletePostedJob}
             modalTitle="Delete Record"
             modalBody="Are you sure you wish to perform this action? This action is irreversible!"
         />) : null}
