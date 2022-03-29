@@ -5,20 +5,17 @@ export function job(state = [], action) {
            
             return {
                 ...state,
-                jobPostInfo        : {},
                 blocking : true
             };
         
         case 'SUBMIT_JOB_POST_SUCCESS':
             return {
                 ...state,
-                jobPostInfo     : action.payload.postJob,
                 blocking : false
             };
         
         case 'SUBMIT_JOB_POST_FAILURE':
             return {
-                jobPostInfo        : {},
                 blocking : false,
             };
 
@@ -51,6 +48,23 @@ export function job(state = [], action) {
                 // currentPage     : 1,
             }
        
+        case 'DELETE_POSTED_JOBS_LIST_REQUEST':
+            return {
+                ...state,
+                blocking        : true,
+            };
+        
+        case 'DELETE_POSTED_JOBS_LIST_SUCCESS':
+            return {
+                ...state,
+                blocking    : false,
+                jobPostedList    : action.payload,
+            };
+        
+        case 'DELETE_POSTED_JOBS_LIST_FAILURE':
+            return {
+                blocking : false
+            };
 
         default:
             return state;
