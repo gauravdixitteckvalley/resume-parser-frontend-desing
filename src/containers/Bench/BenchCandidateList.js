@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { NavLink, Link } from "react-router-dom"
 import Select from "react-select";
-import { Form } from "react-bootstrap";
+import BenchEmployeeModal  from '../../components/BenchEmployeeModel' 
+import { getBenchEmployee } from '../../actions/Employee'
+import { useSelector, useDispatch } from 'react-redux'
+import Pagination from "react-js-pagination"
 
 import './BenchCandidateList.css'
+import BlockUI from "../../components/BlockUI";
 
 export default function BenchCandidateList(props) {
     const [name, setName] = useState('');
@@ -14,6 +18,34 @@ export default function BenchCandidateList(props) {
     const [skillsSearch, setSkillsSearch] = useState('');
     const [skillsData, setSkillsData] = useState([]);
     const [status, setStatus] = useState('');
+    const [sortingOption, setsortingOption]   = useState({});
+
+    const [showModal, setShowModal] = useState(false);
+    const bench = useSelector(state => state.employee);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        _getData();
+    },[]);
+    
+
+    const _getData = (data, params = {}) => {
+       
+        const queryParams = {
+          page    : data ? data : 1,    
+          email   : params?.email,
+          code   : params?.empcode,
+          tl    : params?.tl,
+          skillsSearch : params?.skillsSearch,
+          skillsData  : params?.skillsData,
+          sortingData : params.sortingData === undefined ? {} : params.sortingData,
+          status  : status,
+    
+        }
+        
+        dispatch(getBenchEmployee(queryParams))
+      }
+
 
     /*handle reset event*/
     const _handleReset = () => {
@@ -27,17 +59,35 @@ export default function BenchCandidateList(props) {
         localStorage.removeItem('headerSearch');
       }
 
+    const _handleModalShowClick = (event) => {
+        event.preventDefault();
+        setShowModal(true);
+    }
+    
+    const _handleModalCloseClick = (value) =>{ 
+        setShowModal(value);
+    }
+
+    const _handlePageChange = (pageNumber) => _getData(pageNumber, {name, email , skills : skillsSearch, sortingData: sortingOption,status });
+
+    const { blocking, currentPage, per_page, totalRecords, benchList  } = bench;
+
+    let total = 0;
+    if(typeof totalRecords != 'undefined')
+        total = totalRecords;
+
     return (
         <>
+         <BlockUI blocking={blocking} />
         <div className='export-btn'>
-            <NavLink to="#" className='btn btn-gradient-primary btn-fw'>Export Bench Candidate</NavLink>
+            <NavLink to="#" onClick={(event) => _handleModalShowClick(event)} className='btn btn-gradient-primary btn-fw'>Import Bench Candidate</NavLink>
         </div>
         
         <div className="row">
             <div className="col-lg-12 grid-margin stretch-card mb-4">
                 <div className="card">
                 <div className="card-body">
-                    <h3 class="page-title font-style-bold mb-4">Search by Preference</h3>
+                    <h3 className="page-title font-style-bold mb-4">Search by Preference</h3>
                     <form className="form-inline">
                     <div className="row">
                         <div className="col-md-4">
@@ -156,36 +206,34 @@ export default function BenchCandidateList(props) {
                             </th>
                             <th> Emp Code </th>
                             <th> Status </th>
+                            <th> Action </th>
                         </tr>
                     </thead>
                     <tbody>
-                    
-                    <tr>
+                    { benchList?.map((data, index)=>( 
+                    <tr key={index}>
                         <td className="actions icons-list my-mdi-cls">
-                        Kuldeep
+                            {data.employee_name}
                         </td>
                         <td className="actions icons-list my-mdi-cls">
-                        kuldeeprawat@virtualemployee.com
+                        { data.employee_email }
                         </td>
                         <td className="actions icons-list my-mdi-cls">
-                        Software Engineer
+                        { data.employee_skill }
                         </td>
                         <td className="actions icons-list my-mdi-cls">
-                        React, Node
+                        { data.employee_title }
                         </td>
                         <td className="actions icons-list my-mdi-cls">
-                        Kuldeep
+                        { data.employee_code }
                         </td>
                         <td className="actions icons-list my-mdi-cls">
-                        Kuldeep
+                        { data.status }
                         </td>
-                        {/* <td className="actions icons-list my-mdi-cls">
+                        <td className="actions icons-list my-mdi-cls">
                             <div className="actions-cls">
-                                <NavLink target="_blank" to='/jobs/job-details'>
-                                <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
-                                </NavLink>
                                 <NavLink target="_blank" to='#'>
-                                <i className="mdi mdi-square-edit-outline" aria-hidden="true"></i>
+                                <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
                                 </NavLink>
                                 
                                 <Link 
@@ -196,16 +244,44 @@ export default function BenchCandidateList(props) {
                                 <i className="mdi mdi-delete" aria-hidden="true"></i>
                                 </Link>
                             </div>
-                        </td> */}
+                        </td>
                     </tr>
+                    ))  }
                     </tbody>
                     </table>
                 </div>
-                
+                {total > per_page ? (
+                    <div aria-label="Page navigation example" style={{display:'flex', justifyContent: 'space-between'}}>
+                    <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
+                    <Pagination
+                        activePage={currentPage}
+                        itemsCountPerPage={Number(per_page)}
+                        totalItemsCount={total}
+                        prevPageText="Prev"
+                        nextPageText="Next"
+                        pageRangeDisplayed={5}
+                        onChange={_handlePageChange}
+                        itemClass="page-item"
+                        linkClass="page-link"
+                        innerClass="pagination justify-content-end"
+                    />
+                    </div>
+                ) : (
+                    ""
+                )}
                 </div>
             </div>
             </div>
         </div>
+
+        {showModal ? (
+                  <BenchEmployeeModal
+                    showModal={showModal}
+                    handleModalClose={_handleModalCloseClick}
+                    modalTitle="Upload Bench Employee"
+                    modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+                  />
+                ) : null}
         </> 
     )
 }

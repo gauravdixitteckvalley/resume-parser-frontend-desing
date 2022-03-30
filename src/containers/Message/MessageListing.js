@@ -118,7 +118,8 @@ const MessageListing = () => {
     let total = 0;
     if(typeof totalRecords != 'undefined')
         total = totalRecords;
-        
+    
+    
     return (
         <Fragment>
             
