@@ -10,7 +10,6 @@ import Modal from '../../components/ConfirmationModal/Modal';
 export default function JobList(props) {
     //const { topResume } = props;
     const jobs = useSelector(state => state.job);
-      //console.log("jobs list ",jobs)
     const dispatch = useDispatch();
     const { blocking,jobPostedList } = jobs;
     const [showModal, setShowModal] = useState(false);
@@ -58,7 +57,7 @@ export default function JobList(props) {
                       <th> No. of Opening </th>
                       <th> Salary Range </th>
                       <th> Location </th>
-                      {/* <th> Actions </th> */}
+                      <th> Actions </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -72,11 +71,11 @@ export default function JobList(props) {
                         <td>{postDataList.opening}</td>
                         <td>{postDataList.salary}</td>
                         <td>{postDataList.location}</td>
-                           {/* <td className="actions icons-list my-mdi-cls">
+                        <td className="actions icons-list my-mdi-cls">
                           <div className="actions-cls">
                             <NavLink
                               target="_blank"
-                              to=""
+                              to={`/jobs/job-details/${postDataList.id}`}
                             >
                               <i className="mdi mdi mdi-eye" aria-hidden="true"></i>
                             </NavLink>
@@ -91,7 +90,7 @@ export default function JobList(props) {
                               <i className="mdi mdi-delete" aria-hidden="true"></i>
                             </Link>
                           </div>
-                        </td>    */}
+                        </td>   
                       </tr>
                       )
                     })}
