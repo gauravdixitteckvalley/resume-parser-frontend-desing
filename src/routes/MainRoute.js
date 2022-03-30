@@ -43,6 +43,7 @@ const PostJob = lazy(()=> import ('../containers/Job/PostJob'))
 const JobDetails = lazy(()=> import ('../containers/Job/JobDetails'))
 const BenchCandidate = lazy(()=> import ('../containers/Bench/BenchCandidateList'))
 const BenchCandidatePreview = lazy(()=> import ('../containers/Bench/BenchCandidatePreview'))
+const Reports = lazy(()=> import ('../containers/Bench/Reports'))
 
 
 function MainRoute() {
@@ -96,6 +97,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/jobs/job-details/:id" component={JobDetails} />
                         <PrivateRoute exact path="/bench-candidate-list" component={BenchCandidate} />
                         <PrivateRoute exact path="/bench-candidate-list/bench-candidate-preview" component={BenchCandidatePreview} />
+                        <PrivateRoute exact path="/bench-candidate-list/view-reports" component={Reports} />
                         {/*Page Not Found*/}
                         <Route component={NotFound} />
                     </Switch>
