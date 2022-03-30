@@ -93,7 +93,7 @@ function MainRoute() {
                         <PrivateRoute exact path="/notifications" component={Notification} />
                         <PrivateRoute exact path="/jobs" component={JobList} />
                         <PrivateRoute exact path="/jobs/post-job" component={PostJob} />
-                        <PrivateRoute exact path="/jobs/job-details" component={JobDetails} />
+                        <PrivateRoute exact path="/jobs/job-details/:id" component={JobDetails} />
                         <PrivateRoute exact path="/bench-candidate-list" component={BenchCandidate} />
                         <PrivateRoute exact path="/bench-candidate-list/bench-candidate-preview" component={BenchCandidatePreview} />
                         {/*Page Not Found*/}

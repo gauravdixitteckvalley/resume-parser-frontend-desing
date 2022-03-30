@@ -1,12 +1,43 @@
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import _ from 'lodash';
 import { NavLink, Link } from "react-router-dom"
+
+import {fetchPostedJob} from  "../../actions/Job";
+import { useSelector, useDispatch } from "react-redux";
+import BlockUI from "../../components/BlockUI";
 import './JobDetails.css';
 
 export default function JobDetails(props) {
+    const currentId = props?.match?.params?.id;
+    const [fields, setFields] = useState({currentId});
+    console.log(fields, 'fields')
+    /**fetched data from redux store */
+    const jobs = useSelector(state => state.job);
+    console.log(jobs.jobPostedList, 'jobs')
+    const loggedUser = useSelector(state => state.authenticatedUser);
+    const dispatch = useDispatch();
 
+    const { user } = loggedUser;  
+
+    if(currentId && !_.isEmpty(jobs.jobPostedList)  ){
+        if (_.size(jobs.jobPostedList) !== _.size(fields))
+            setFields({...jobs.jobPostedList}) 
+        } 
+        
+    const getJobDetails = async () => {
+        dispatch(fetchPostedJob(currentId));   
+        
+    }
+
+    useEffect(() => {
+        getJobDetails(); // action is called to fetch skills category list
+  
+      }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
+    const blocking = false;
     return (
         <>
+        <BlockUI blocking={blocking} />
         <div className="row">
         <div className="col-12 grid-margin">
           <div className="card">
@@ -16,7 +47,7 @@ export default function JobDetails(props) {
               <div className='row'>
                 <div className='col-md-8'>
                     <div className='col-md-12 job-detail mb-3'>
-                        <h5 style={{fontWeight:'700'}}>Full Stack Architech - MEAN/MERN Stack</h5>
+                        <h5 style={{fontWeight:'700'}}>{fields.role || ""}</h5>
                         <p>Career Developer Consultancy</p>
                         <p>Hiring for Leading Client</p>
                     </div>
