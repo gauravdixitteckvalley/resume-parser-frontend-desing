@@ -146,6 +146,27 @@ export function skills(state = [], action) {
             return {
                 blocking : false,
             };
+        
+            //SKILLS_REPORTS_LIST_REQUEST
+        case 'SKILLS_REPORTS_LIST_REQUEST':
+        
+            return {
+                ...state,
+                blocking : true
+            };
+        
+        case 'SKILLS_REPORTS_LIST_SUCCESS':
+            return {
+                ...state,
+                blocking : false
+            };
+        
+        case 'SKILLS_REPORTS_LIST_FAILURE':
+            return {
+                blocking : false,
+            };
+    
+    
         default:
             return state;
     }

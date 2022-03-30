@@ -146,3 +146,22 @@ export const getSkillsCategory = () => {
         }
     }
 }
+
+/* action for fetching Resume records */
+export const fetchSkillsReports = (params) => {
+    return async dispatch => {
+        dispatch({ type: 'SKILLS_REPORTS_LIST_REQUEST' });
+        try {
+            const response = await api.get('employee/count-skills',{
+                params  : params,
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'SKILLS_REPORTS_LIST_SUCCESS', payload : response.data.data});
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SKILLS_REPORTS_LIST_FAILURE'});
+        }
+    }
+}
