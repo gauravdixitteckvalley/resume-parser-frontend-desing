@@ -70,8 +70,6 @@ export const UpdateEmployeeStatus = (id,postData) => {
             dispatch({ type: 'UPDATE_EMPLOYEE_STATUS_FAILURE' });
         }
     }
-<<<<<<< HEAD
-=======
 }
 
 /* action for getting bench employee list */
@@ -92,5 +90,4 @@ export const getTlGraphData = (params) => {
             dispatch({ type: 'BENCH_EMPLOYEE_GRAPH_LIST_FAILURE' });
         }
     }
->>>>>>> lokesh
 }
