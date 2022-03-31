@@ -47,3 +47,23 @@ export const getBenchEmployee = (params) => {
         }
     }
 }
+
+/* action for getting bench employee list */
+export const getTlGraphData = (params) => {
+    return async dispatch => {
+        
+        dispatch({ type: 'BENCH_EMPLOYEE_GRAPH_LIST_REQUEST' });
+        try {
+            let response = await api.get(`employee/get-tl-graph-data`, {
+                headers : requestTokenHeader(),
+            });
+            if (response.data.success) {
+                dispatch({ type : 'BENCH_EMPLOYEE_GRAPH_LIST_SUCCESS', payload :response.data.data });
+                displaySuccessMessage(response.data.data.message);
+            } 
+        } catch(error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'BENCH_EMPLOYEE_GRAPH_LIST_FAILURE' });
+        }
+    }
+}

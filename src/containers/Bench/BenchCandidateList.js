@@ -6,6 +6,7 @@ import BenchEmployeeModal  from '../../components/BenchEmployeeModel'
 import { getBenchEmployee } from '../../actions/Employee'
 import { useSelector, useDispatch } from 'react-redux'
 import Pagination from "react-js-pagination"
+import handleHttpError,{ history } from '../../utils/helper';
 
 import './BenchCandidateList.css'
 import BlockUI from "../../components/BlockUI";
@@ -44,6 +45,7 @@ export default function BenchCandidateList(props) {
         }
         
         dispatch(getBenchEmployee(queryParams))
+        history.push('/bench-candidate-list');
       }
 
 
@@ -256,7 +258,7 @@ export default function BenchCandidateList(props) {
                             {data.employee_skill}
                           </td>
                           <td className="actions icons-list my-mdi-cls">
-                            {data.employee_title}
+                            {data.employee_tl}
                           </td>
                           <td className="actions icons-list my-mdi-cls">
                             {data.employee_code}
