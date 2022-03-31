@@ -1,7 +1,6 @@
 export function employee(state = [], action) {
     
     switch (action.type) {
-
         case 'SUBMIT_BENCH_EMPLOYEE_REQUEST':
            
             return {
@@ -77,6 +76,33 @@ export function employee(state = [], action) {
                 blocking        : false
             }   
 
+            
+        case 'BENCH_EMPLOYEE_GRAPH_LIST_REQUEST':    
+            
+            return {
+                ...state,
+                blocking        : true,
+                candidateList      : [],
+                TlList    : [],
+            }
+
+        case 'BENCH_EMPLOYEE_GRAPH_LIST_SUCCESS':    
+            
+            return {
+                ...state,
+                blocking        : true,
+                candidateList      : action.payload.CandidList,
+                TlList    : action.payload.TlList,
+            }
+            
+        case 'BENCH_EMPLOYEE_GRAPH_LIST_FAILURE':    
+            
+            return {
+                ...state,
+                blocking        : true,
+                candidateList      : [],
+                TlList    : [],
+            } 
         default:
             return state;
     }
