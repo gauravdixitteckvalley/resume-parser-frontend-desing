@@ -117,12 +117,28 @@ export default function BenchCandidateList(props) {
         total = totalRecords;
 
     return (
-        <>
-         <BlockUI blocking={blocking} />
-        <div className='export-btn'>
-            <NavLink to="#" onClick={(event) => _handleModalShowClick(event)} className='btn btn-gradient-primary btn-fw'>Import Bench Candidate</NavLink>
+      <>
+        <BlockUI blocking={blocking} />
+        <div class="page-header">
+          <h3 class="page-title"> Inhouse Bench Candidate</h3>
+          <div className="export-btn template-demo mb-2">
+            <NavLink
+                to="/bench-candidate-list/view-reports"
+                className="btn btn-gradient-primary btn-fw"
+            >
+                View Reports
+            </NavLink>
+            <NavLink
+                to="#"
+                onClick={(event) => _handleModalShowClick(event)}
+                className="btn btn-gradient-primary btn-fw"
+            >
+                Import Bench Candidate
+            </NavLink>
+            </div>
         </div>
         
+
         <div className="row">
             <div className="col-lg-12 grid-margin stretch-card mb-4">
                 <div className="card">
@@ -227,43 +243,60 @@ export default function BenchCandidateList(props) {
                 </div>
                 </div>
             </div>
+          </div>
 
-            <div className="col-12 grid-margin">
+          <div className="col-12 grid-margin">
             <div className="card">
-                <div className="card-body">
+              <div className="card-body">
                 <div className="">
-                    <table className="table table-bordered mb-4 table-responsive">
+                  <table className="table table-bordered mb-4 table-responsive">
                     <thead>
-                        <tr>
-                            <th> 
-                            Name 
-                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
-                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
-                            </th>
-                            <th> 
-                            Email 
-                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
-                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
-                            </th>
-                            <th> 
-                            Skills 
-                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
-                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
-                            </th>
-                            <th> 
-                            TL 
-                            <button className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
-                            <button className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
-                            </th>
-                            <th> Emp Code </th>
-                            <th> Status </th>
-                            <th> Action </th>
-                        </tr>
+                      <tr>
+                        <th>
+                          Name
+                          <button className="icon-up">
+                            <i className="mdi mdi-chevron-up"></i>
+                          </button>
+                          <button className="icon-down">
+                            <i className="mdi mdi-chevron-down"></i>
+                          </button>
+                        </th>
+                        <th>
+                          Email
+                          <button className="icon-up">
+                            <i className="mdi mdi-chevron-up"></i>
+                          </button>
+                          <button className="icon-down">
+                            <i className="mdi mdi-chevron-down"></i>
+                          </button>
+                        </th>
+                        <th>
+                          Skills
+                          <button className="icon-up">
+                            <i className="mdi mdi-chevron-up"></i>
+                          </button>
+                          <button className="icon-down">
+                            <i className="mdi mdi-chevron-down"></i>
+                          </button>
+                        </th>
+                        <th>
+                          TL
+                          <button className="icon-up">
+                            <i className="mdi mdi-chevron-up"></i>
+                          </button>
+                          <button className="icon-down">
+                            <i className="mdi mdi-chevron-down"></i>
+                          </button>
+                        </th>
+                        <th> Emp Code </th>
+                        <th> Status </th>
+                        <th> Action </th>
+                      </tr>
                     </thead>
                     <tbody>
-                    { benchList?.map((data, index)=>( 
-                    <tr key={index}>
-                        <td className="actions icons-list my-mdi-cls">
+                      {benchList?.map((data, index) => (
+                        <tr key={index}>
+                          <td className="actions icons-list my-mdi-cls">
                             {data.employee_name}
                         </td>
                         <td className="actions icons-list my-mdi-cls">
@@ -310,44 +343,54 @@ export default function BenchCandidateList(props) {
                                 <i className="mdi mdi-delete" aria-hidden="true"></i>
                                 </Link> */}
                             </div>
-                        </td>
-                    </tr>
-                    ))  }
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
-                    </table>
+                  </table>
                 </div>
                 {total > per_page ? (
-                    <div aria-label="Page navigation example" style={{display:'flex', justifyContent: 'space-between'}}>
-                    <div className="">Showing {currentPage*Number(per_page)-Number(per_page)} to {(currentPage*Number(per_page)> total)?total:currentPage*Number(per_page)} of {total} entries</div>
-                    <Pagination
-                        activePage={currentPage}
-                        itemsCountPerPage={Number(per_page)}
-                        totalItemsCount={total}
-                        prevPageText="Prev"
-                        nextPageText="Next"
-                        pageRangeDisplayed={5}
-                        onChange={_handlePageChange}
-                        itemClass="page-item"
-                        linkClass="page-link"
-                        innerClass="pagination justify-content-end"
-                    />
+                  <div
+                    aria-label="Page navigation example"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div className="">
+                      Showing{" "}
+                      {currentPage * Number(per_page) - Number(per_page)} to{" "}
+                      {currentPage * Number(per_page) > total
+                        ? total
+                        : currentPage * Number(per_page)}{" "}
+                      of {total} entries
                     </div>
+                    <Pagination
+                      activePage={currentPage}
+                      itemsCountPerPage={Number(per_page)}
+                      totalItemsCount={total}
+                      prevPageText="Prev"
+                      nextPageText="Next"
+                      pageRangeDisplayed={5}
+                      onChange={_handlePageChange}
+                      itemClass="page-item"
+                      linkClass="page-link"
+                      innerClass="pagination justify-content-end"
+                    />
+                  </div>
                 ) : (
-                    ""
+                  ""
                 )}
-                </div>
+              </div>
             </div>
-            </div>
-        </div>
+          </div>
+        
 
         {showModal ? (
-                  <BenchEmployeeModal
-                    showModal={showModal}
-                    handleModalClose={_handleModalCloseClick}
-                    modalTitle="Upload Bench Employee"
-                    modalBody="Are you sure you wish to perform this action? This action is irreversible!"
-                  />
-                ) : null}
-        </> 
-    )
+          <BenchEmployeeModal
+            showModal={showModal}
+            handleModalClose={_handleModalCloseClick}
+            modalTitle="Upload Bench Employee"
+            modalBody="Are you sure you wish to perform this action? This action is irreversible!"
+          />
+        ) : null}
+      </>
+    );
 }
