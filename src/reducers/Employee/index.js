@@ -54,7 +54,9 @@ export function employee(state = [], action) {
                 per_page        : 0,
                 currentPage     : 1
             } 
-            case 'BENCH_EMPLOYEE_GRAPH_LIST_REQUEST':    
+
+            
+        case 'BENCH_EMPLOYEE_GRAPH_LIST_REQUEST':    
             
             return {
                 ...state,
