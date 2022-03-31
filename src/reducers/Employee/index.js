@@ -54,7 +54,30 @@ export function employee(state = [], action) {
                 per_page        : 0,
                 currentPage     : 1
             } 
-            case 'BENCH_EMPLOYEE_GRAPH_LIST_REQUEST':    
+
+        case 'UPDATE_EMPLOYEE_STATUS_REQUEST':
+            
+            return {
+                ...state,
+                blocking        : true
+            }
+
+        case 'UPDATE_EMPLOYEE_STATUS_SUCCESS':
+            
+            return {
+                ...state,
+                blocking        : false
+            }
+            
+        case 'UPDATE_EMPLOYEE_STATUS_FAILURE':
+            
+            return {
+                ...state,
+                blocking        : false
+            }   
+
+            
+        case 'BENCH_EMPLOYEE_GRAPH_LIST_REQUEST':    
             
             return {
                 ...state,

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
-
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import './BenchCandidatePreview.css'
 
 export default function BenchCandidateList(props) {
-
+    
+    const location = useLocation(); 
+    console.log('props',location.benchProps);
     return (
         <>
         <div className="row">
@@ -25,7 +27,7 @@ export default function BenchCandidateList(props) {
                       <b>Name</b>
                     </label>
                     <div className="col-form-label">
-                      Test
+                      { location.benchProps?.employee_name }
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -33,7 +35,7 @@ export default function BenchCandidateList(props) {
                       <b>Email</b>
                     </label>
                     <div className="col-form-label">
-                         Test
+                    { location.benchProps?.employee_email }
                     </div>
                   </div>
                 </div>
@@ -43,7 +45,7 @@ export default function BenchCandidateList(props) {
                       <b>Designation</b>
                     </label>
                     <div className="col-lg-12 col-form-label">
-                         Test
+                    { location.benchProps?.employee_title }
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -51,7 +53,7 @@ export default function BenchCandidateList(props) {
                       <b>Skills</b>
                     </label>
                     <div className="col-lg-12 col-form-label">
-                         Test
+                    { location.benchProps?.employee_skill }
                     </div>
                   </div>
                 </div>
@@ -61,7 +63,7 @@ export default function BenchCandidateList(props) {
                       <b>Team Leader</b>
                     </label>
                     <div className="col-form-label">
-                        Test
+                    { location.benchProps?.employee_tl }
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -69,7 +71,7 @@ export default function BenchCandidateList(props) {
                       <b>Emp. Code</b>
                     </label>
                     <div className="col-form-label">
-                        Test
+                    { location.benchProps?.employee_code }
                     </div>
                   </div>
                 </div>
@@ -79,7 +81,7 @@ export default function BenchCandidateList(props) {
                       <b>Experience</b>
                     </label>
                     <div className="col-form-label">
-                    Test
+                    { location.benchProps?.employee_experience }
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -87,7 +89,7 @@ export default function BenchCandidateList(props) {
                       <b>Joining Date</b>
                     </label>
                     <div className="col-lg-12 col-form-label">
-                    Test
+                    { location.benchProps?.joinig_date }
                     </div>
                   </div>
                 </div>
@@ -97,7 +99,7 @@ export default function BenchCandidateList(props) {
                       <b>Status</b>
                     </label>
                     <div className="col-form-label">
-                    Test
+                    { location.benchProps?.status }
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -105,7 +107,7 @@ export default function BenchCandidateList(props) {
                       <b>Status Since</b>
                     </label>
                     <div className="col-lg-12 col-form-label">
-                    Test
+                    { location.benchProps?.status_since }
                     </div>
                   </div>
                 </div>
@@ -115,7 +117,7 @@ export default function BenchCandidateList(props) {
                       <b>Occupancy Hours</b>
                     </label>
                     <div className="col-form-label">
-                    Test
+                    { location.benchProps?.occupancy_hours }
                     </div>
                   </div>
                   <div className="displayPreviewRow col-md-6">
@@ -123,7 +125,7 @@ export default function BenchCandidateList(props) {
                       <b>Notes</b>
                     </label>
                     <div className="col-lg-12 col-form-label">
-                    Test
+                    { location.benchProps?.note }
                     </div>
                   </div>
                 </div>
