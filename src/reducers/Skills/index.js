@@ -152,18 +152,24 @@ export function skills(state = [], action) {
         
             return {
                 ...state,
-                blocking : true
+                blocking : true,
+                skillsCandidList      : [],
+                skillsList    : [],
             };
         
         case 'SKILLS_REPORTS_LIST_SUCCESS':
             return {
                 ...state,
-                blocking : false
+                blocking : false,
+                skillsCandidList      : action.payload.skillsCandidList,
+                skillsList    : action.payload.skillsList,
             };
         
         case 'SKILLS_REPORTS_LIST_FAILURE':
             return {
                 blocking : false,
+                skillsCandidList      : [],
+                skillsList    : [],
             };
     
     

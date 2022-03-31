@@ -5,6 +5,7 @@ import TlReport from './TlReport';
 import { getTlGraphData } from '../../actions/Employee'
 import { useSelector, useDispatch } from 'react-redux'
 import './BenchCandidatePreview.css'
+import SkillsReport from "./SkillsReport/SkillsReport"
 
 export default function Reports(props) {
     const bench = useSelector(state => state.employee);
@@ -46,7 +47,22 @@ export default function Reports(props) {
                 </h4>
                 <hr className="mb-4" />
                 <TlReport candidateList={candidateList} TlList={TlList} />
-                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <h4 className="page-title font-style-bold mb-4">
+                  <span className="page-title-icon bg-gradient-primary text-white me-2">
+                    <i className="mdi mdi-checkbox-marked"></i>
+                  </span>
+                  Skills Report
+                </h4>
+                <hr className="mb-4" />
+                <SkillsReport />
               </div>
             </div>
           </div>

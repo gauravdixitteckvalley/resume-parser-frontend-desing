@@ -81,8 +81,8 @@ export default function BenchCandidateList(props) {
     return (
       <>
         <BlockUI blocking={blocking} />
-        <div class="page-header">
-          <h3 class="page-title"> Inhouse Bench Candidate</h3>
+        <div className="page-header">
+          <h3 className="page-title"> Inhouse Bench Candidate</h3>
           <div className="export-btn template-demo mb-2">
             <NavLink
                 to="/bench-candidate-list/view-reports"
@@ -313,9 +313,9 @@ export default function BenchCandidateList(props) {
                       nextPageText="Next"
                       pageRangeDisplayed={5}
                       onChange={_handlePageChange}
-                      itemClass="page-item"
-                      linkClass="page-link"
-                      innerClass="pagination justify-content-end"
+                      itemclassName="page-item"
+                      linkclassName="page-link"
+                      innerclassName="pagination justify-content-end"
                     />
                   </div>
                 ) : (
