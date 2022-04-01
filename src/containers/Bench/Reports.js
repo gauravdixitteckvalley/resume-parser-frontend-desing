@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-
+import { NavLink, Link } from "react-router-dom"
 import TlReport from './TlReport';
 import { getTlGraphData } from '../../actions/Employee'
 import { useSelector, useDispatch } from 'react-redux'
@@ -35,8 +35,17 @@ export default function Reports(props) {
 
     return (
         <>
+        <div className="page-header">
+          <div className="export-btn template-demo ml-auto mb-0">
+              <Link to={`/bench-candidate-list`} rel="noreferrer">
+                <button  className="btn btn-gradient-primary">Back</button>
+              </Link>
+            </div>
+        </div>
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
+          
+             
             <div className="card">
               <div className="card-body">
                 <h4 className="page-title font-style-bold mb-4">

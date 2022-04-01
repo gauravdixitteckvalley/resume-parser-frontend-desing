@@ -9,6 +9,13 @@ export default function BenchCandidateList(props) {
     console.log('props',location.benchProps);
     return (
         <>
+        <div className="page-header">
+          <div className="export-btn template-demo ml-auto mb-0">
+              <Link to={`/bench-candidate-list`} rel="noreferrer">
+                <button  className="btn btn-gradient-primary">Back</button>
+              </Link>
+            </div>
+        </div>
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
