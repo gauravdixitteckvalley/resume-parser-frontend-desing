@@ -249,7 +249,7 @@ export default function BenchCandidateList(props) {
             <div className="card">
               <div className="card-body">
                 <div className="">
-                  <table className="table table-bordered mb-4 table-responsive">
+                  <table className="table table-bordered mb-4 table-responsive bench-list">
                     <thead>
                       <tr>
                         <th>
