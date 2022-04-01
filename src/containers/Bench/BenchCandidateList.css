@@ -24,3 +24,16 @@ button.icon-up, button.icon-down {
     margin-left: 2px;
     border: 0;
 }
+.page-item.active .page-link {
+    background-color: #b66dff;
+    border-color: #b66dff;
+}
+.page-link {
+    position: relative;
+    display: block;
+    color: #b66dff;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

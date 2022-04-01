@@ -370,9 +370,9 @@ export default function BenchCandidateList(props) {
                       nextPageText="Next"
                       pageRangeDisplayed={5}
                       onChange={_handlePageChange}
-                      itemclassName="page-item"
-                      linkclassName="page-link"
-                      innerclassName="pagination justify-content-end"
+                      itemClass="page-item"
+                      linkClass="page-link"
+                      innerClass="pagination justify-content-end"
                     />
                   </div>
                 ) : (
