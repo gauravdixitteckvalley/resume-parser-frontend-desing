@@ -38,7 +38,7 @@ export const getBenchEmployee = (params) => {
             
             if (response.data.success) {
                 dispatch({ type : 'BENCH_EMPLOYEE_LIST_SUCCESS', payload :response.data.data });
-                displaySuccessMessage(response.data.data.message);
+                // displaySuccessMessage(response.data.data.message);
                 history.push('/bench-candidate-list');
             } 
         } catch(error) {
@@ -50,7 +50,7 @@ export const getBenchEmployee = (params) => {
 
 /* action for submitting bench employee file */
 export const UpdateEmployeeStatus = (id,postData) => {
-    console.log('postData',postData);
+    
     return async dispatch => {
         
         dispatch({ type: 'UPDATE_EMPLOYEE_STATUS_REQUEST' });
