@@ -3,3 +3,6 @@
     display: flex;
     flex-direction: column;
 }
+.ml-auto{
+    margin-left:auto;
+}

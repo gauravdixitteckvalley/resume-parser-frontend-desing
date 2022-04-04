@@ -38,7 +38,7 @@ export const getBenchEmployee = (params) => {
             
             if (response.data.success) {
                 dispatch({ type : 'BENCH_EMPLOYEE_LIST_SUCCESS', payload :response.data.data });
-                // displaySuccessMessage(response.data.data.message);
+                //displaySuccessMessage(response.data.data.message);
                 history.push('/bench-candidate-list');
             } 
         } catch(error) {
