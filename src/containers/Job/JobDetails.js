@@ -1,32 +1,31 @@
 import React,{ useEffect, useState } from 'react';
 import _ from 'lodash';
 import { NavLink, Link } from "react-router-dom"
+import moment from 'moment'
 
-import {fetchPostedJob} from  "../../actions/Job";
+import {getSingleJobData} from  "../../actions/Job";
 import { useSelector, useDispatch } from "react-redux";
 import BlockUI from "../../components/BlockUI";
 import './JobDetails.css';
 
 export default function JobDetails(props) {
     const currentId = props?.match?.params?.id;
-    const [fields, setFields] = useState({currentId});
-    console.log(fields, 'fields')
+    const [fields, setFields] = useState({});
     /**fetched data from redux store */
     const jobs = useSelector(state => state.job);
-    console.log(jobs.jobPostedList, 'jobs')
     const loggedUser = useSelector(state => state.authenticatedUser);
     const dispatch = useDispatch();
 
-    const { user } = loggedUser;  
+    const { user } = loggedUser; 
+    console.log(user, 'user')
 
-    if(currentId && !_.isEmpty(jobs.jobPostedList)  ){
+    if(currentId && !_.isEmpty(jobs.jobPostedList)){
         if (_.size(jobs.jobPostedList) !== _.size(fields))
             setFields({...jobs.jobPostedList}) 
         } 
         
     const getJobDetails = async () => {
-        dispatch(fetchPostedJob(currentId));   
-        
+        dispatch(getSingleJobData(currentId)); 
     }
 
     useEffect(() => {
@@ -47,35 +46,37 @@ export default function JobDetails(props) {
               <div className='row'>
                 <div className='col-md-8'>
                     <div className='col-md-12 job-detail mb-3'>
-                        <h5 style={{fontWeight:'700'}}>{fields.role || ""}</h5>
+                        <h5 style={{fontWeight:'700'}}>{fields.jobTitle || ""}</h5>
                         <p>Career Developer Consultancy</p>
                         <p>Hiring for Leading Client</p>
                     </div>
                     <div className='col-md-12 icons-list job-details'>
                         <div>
-                            <p><i className="mdi mdi-briefcase" aria-hidden="true"></i>12-18 years</p>
-                            <p><i className="mdi mdi-cash-usd" aria-hidden="true"></i>Not Disclosed</p>
-                            <p><i className="mdi mdi-google-maps" aria-hidden="true"></i>Noida, UP</p>
+                            <p><i className="mdi mdi-briefcase" aria-hidden="true"></i>{fields.experience || ""}</p>
+                            <p><i className="mdi mdi-cash-usd" aria-hidden="true"></i>{fields.salary || ""}</p>
+                            <p><i className="mdi mdi-google-maps" aria-hidden="true"></i>{fields.location || ""}</p>
                         </div>
                     </div>
                     
                 </div>
                 <div className='col-md-4 btn-area'>
-                    <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 d-flex">
-                        <NavLink to="#" style={{marginRight: '5px'}}>
-                            <button type="button" className="btn btn-gradient-primary">Save</button>
-                        </NavLink> 
-                        <NavLink to="#">
-                            <button type="button" className="btn btn-gradient-primary">Apply</button>
-                        </NavLink>
-                    </div>
+                    { user.user_role_name === 'Admin' ?
+                   '' : 
+                   <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-2 d-flex">
+                   <NavLink to="#" style={{marginRight: '5px'}}>
+                       <button type="button" className="btn btn-gradient-primary">Save</button>
+                   </NavLink> 
+                   <NavLink to="#">
+                       <button type="button" className="btn btn-gradient-primary">Apply</button>
+                   </NavLink>
+               </div> }
                 </div>
               </div>
               <hr className="mb-4" />
               <div className='row'>
                 <div className='col-md-12 header-btm d-flex'>
-                    <p><span>Posted :</span> 3 days ago</p>
-                    <p><span>Job Applicants :</span> 12</p>
+                    <p><span>Posted :</span> { (moment().isSame(fields.current_time, 'day'))? moment(fields.current_time).calendar() : moment(fields.current_time).format('MMM DD YYYY')  }</p>
+                    <p><span>Number of Openings :</span> {fields.opening || ""}</p>
                 </div>
               </div>
             </div>
@@ -86,24 +87,14 @@ export default function JobDetails(props) {
                 <div className='col-md-12'>
                     <h6 style={{fontWeight:'700'}}>Job Highlights</h6>
                     <ul className="highlights-ul">
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
+                        <li>{fields.highlights || ""}</li>
                     </ul>
                 </div>
                 <hr className="mb-4" />
                 <div className='col-md-12'>
                     <h6 style={{fontWeight:'700'}}>Job Description</h6>
                     <ul className="highlights-ul">
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
-                        <li>Minimum 6+ years of experience in developing apps.</li>
+                        <li>{fields.jd || ""}</li>
                     </ul>
                 </div>
               </div>
@@ -119,7 +110,7 @@ export default function JobDetails(props) {
                             <p className="label-p">Role :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>Software Engineer</p>
+                            <p>{fields.role || ""}</p>
                         </div>
                     </div>
                     <div className='row position'>
@@ -127,7 +118,7 @@ export default function JobDetails(props) {
                             <p className="label-p">Industry Type :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>IT</p>
+                            <p>{fields.industryType || ""}</p>
                         </div>
                     </div>
                     <div className='row position'>
@@ -135,7 +126,7 @@ export default function JobDetails(props) {
                             <p className="label-p">Functional Area :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>Software Services</p>
+                            <p>{fields.functionalArea || ""}</p>
                         </div>
                     </div>
                     <div className='row position'>
@@ -143,7 +134,7 @@ export default function JobDetails(props) {
                             <p className="label-p">Employment Type :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>Permanent</p>
+                            <p>{fields.employeeType || ''}</p>
                         </div>
                     </div>
                     <div className='row position'>
@@ -154,56 +145,55 @@ export default function JobDetails(props) {
                             <p>Software Engineer</p>
                         </div>
                     </div>
+                    <div className='row position'>
+                        <div className='col-md-2'>
+                            <p className="label-p">Key Skills :</p>
+                        </div>
+                        <div className='col-md-10'>
+                            <p>{fields.keySkills || "Nill"}</p>
+                        </div>
+                    </div>
+                    <div className='row position'>
+                        <div className='col-md-2'>
+                            <p className="label-p">Other Skills :</p>
+                        </div>
+                        <div className='col-md-10'>
+                            <p>{fields.otherSkills || "Nill"}</p>
+                        </div>
+                    </div>
                 </div>
                 <hr className="mb-4" />
                 <div className='col-md-12 mb-4'>
                     <h6 style={{fontWeight:'700'}}>Education</h6>
                     <div className='row position'>
                         <div className='col-md-2'>
-                            <p className="label-p">UG :</p>
+                            <p className="label-p">Degree :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>BCA in any specialization</p>
-                        </div>
-                    </div>
-                    <div className='row position'>
-                        <div className='col-md-2'>
-                            <p className="label-p">PG :</p>
-                        </div>
-                        <div className='col-md-10'>
-                            <p>Any Postgraduate</p>
-                        </div>
-                    </div>
-                    <div className='row position'>
-                        <div className='col-md-2'>
-                            <p className="label-p">Doctorate :</p>
-                        </div>
-                        <div className='col-md-10'>
-                            <p>Doctorate not required</p>
+                            <p>{fields.education || "Nill"}</p>
                         </div>
                     </div>
                 </div>
                 <hr className="mb-4" />
                 <div className='col-md-12 mb-4'>
-                    <h6 style={{fontWeight:'700'}}>Skills</h6>
-                    <div className='badges-area'>
-                        <span class="badge badge-pill badge-primary">* React</span>
-                        <span class="badge badge-pill badge-primary">* Node</span>
-                        <span class="badge badge-pill badge-primary">MongoDB</span>
-                        <span class="badge badge-pill badge-primary">PHP</span>
-                        <span class="badge badge-pill badge-primary">JS</span>
+                    <h6 style={{fontWeight:'700'}}>Recruiter Details</h6>
+                    <div className='row position'>
+                        <div className='col-md-2'>
+                            <p className="label-p">Details :</p>
+                        </div>
+                        <div className='col-md-10'>
+                            <p>{fields.recruitDetails || "Nill"}</p>
+                        </div>
                     </div>
-                    <p className='mt-3' style={{fontSize: '14px', color: '#808080bf'}}>Skills highlighted with * are key skills</p>
                 </div>
-                <hr className="mb-4" />
-                <div className='col-md-12 icons-list social-icons'>
+                {/* <div className='col-md-12 icons-list social-icons'>
                     <div>
                         <Link to="#"><i className="mdi mdi-facebook-box" aria-hidden="true"></i></Link>
                         <Link to="#"><i className="mdi mdi-linkedin-box" aria-hidden="true"></i></Link>
                         <Link to="#"><i className="mdi mdi-twitter-box" aria-hidden="true"></i></Link>
                     </div>
                     
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -217,7 +207,7 @@ export default function JobDetails(props) {
                             <p className="label-p">Company Name :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>Virtual Employee</p>
+                            <p>{fields.companyName || "Nill"}</p>
                         </div>
                     </div>
                     <div className='row position'>
@@ -225,7 +215,7 @@ export default function JobDetails(props) {
                             <p className="label-p">Company Website :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>virtualemployee.in</p>
+                            <p>{fields.companyWebsite || "Nill"}</p>
                         </div>
                     </div>
                     <div className='row position'>
@@ -233,7 +223,7 @@ export default function JobDetails(props) {
                             <p className="label-p">Company Details :</p>
                         </div>
                         <div className='col-md-10'>
-                            <p>Virtual Employee (P) Ltd has been providing dedicated virtual employees in any field or profession to small and medium enterprises in over 30 countries.</p>
+                            <p>{fields.companyDetails || "Nill"}</p>
                         </div>
                     </div>
                 </div>
