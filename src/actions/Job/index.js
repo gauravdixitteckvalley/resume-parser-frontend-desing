@@ -45,6 +45,26 @@ export const fetchPostedJob = (params) => {
     }
 }
 
+/* get single job details */
+export const getSingleJobData = (postJobId) => {
+    return async dispatch => {
+        dispatch({ type: 'SINGLE_JOB_GET_REQUEST' });
+        try {
+            let response = await api.get(`job/jobDetails/${postJobId}`, {
+                headers: requestTokenHeader(),
+            });
+
+            if (response.data.success) {
+                
+                dispatch({ type : 'SINGLE_JOB_GET_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
+            handleHttpError(error.response);
+            dispatch({ type: 'SINGLE_JOB_GET_FAILURE' });
+        }
+    }
+}
+
 /* action for deleting user record */
 export const deletePostedJob = (id) => {
     /*return async (dispatch, getState) => {

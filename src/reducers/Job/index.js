@@ -65,6 +65,26 @@ export function job(state = [], action) {
             return {
                 blocking : false
             };
+        
+        /* cases for listing of single job */
+        case 'SINGLE_JOB_GET_REQUEST':
+            return {
+                blocking        : true,
+                jobPostedList        : [],
+            }
+        
+        case 'SINGLE_JOB_GET_SUCCESS':
+            return {
+                blocking        : false,
+                jobPostedList      : action.payload.singleJob,
+            }
+        
+        case 'SINGLE_JOB_GET_FAILURE':
+            return {
+                blocking        : false,
+                jobPostedList   : [],
+            }
+        
 
         default:
             return state;
