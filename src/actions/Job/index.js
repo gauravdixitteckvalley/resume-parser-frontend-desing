@@ -45,26 +45,28 @@ export const fetchPostedJob = (params) => {
     }
 }
 
-/* action for deleting user record */
-export const deletePostedJob = (id) => {
-    /*return async (dispatch, getState) => {
-        dispatch({ type: 'DELETE_POSTED_JOBS_LIST_REQUEST' });
+/* get single job details */
+export const getSingleJobData = (postJobId) => {
+    return async dispatch => {
+        dispatch({ type: 'SINGLE_JOB_GET_REQUEST' });
         try {
-            const response = await api.delete('skills/'+id, {
-                headers : requestTokenHeader(),
+            let response = await api.get(`job/jobDetails/${postJobId}`, {
+                headers: requestTokenHeader(),
             });
-    
+
             if (response.data.success) {
-                const updatedSkillList =  getState().skills.skillsList.filter(skills => skills.id !== id);
-                dispatch({ type : 'DELETE_POSTED_JOBS_LIST_SUCCESS', payload : updatedSkillList});
-                displaySuccessMessage('Record Deleted Successfully');
-            } 
-        } catch(error) {
+                
+                dispatch({ type : 'SINGLE_JOB_GET_SUCCESS', payload : response.data.data});
+            }
+        } catch (error) {
             handleHttpError(error.response);
-            dispatch({ type: 'DELETE_POSTED_JOBS_LIST_FAILURE'});
+            dispatch({ type: 'SINGLE_JOB_GET_FAILURE' });
         }
     }
-    */
+}
+
+/* action for deleting user record */
+export const deletePostedJob = (id) => {
     console.log("action id ",id)
     return async (dispatch, getState) => {
         dispatch({ type: 'DELETE_POSTED_JOBS_LIST_REQUEST' });

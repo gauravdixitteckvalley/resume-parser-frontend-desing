@@ -1,4 +1,5 @@
 export function job(state = [], action) {
+    console.log("action ",action, " state ",state)
     switch (action.type) {
         /* cases for submit form starts */
         case 'SUBMIT_JOB_POST_REQUEST':
@@ -23,6 +24,7 @@ export function job(state = [], action) {
         /* cases for listing of user starts */
         case 'POSTED_JOBS_LIST_REQUEST':
             return {
+                ...state,
                 blocking        : true,
                 jobPostedList        : [],
                 // totalRecords    : 0,
@@ -32,6 +34,7 @@ export function job(state = [], action) {
         
         case 'POSTED_JOBS_LIST_SUCCESS':
             return {
+                ...state,
                 blocking        : false,
                 jobPostedList      : action.payload.data.postedJobList,
                 // totalRecords    : action.payload.total,
@@ -41,6 +44,7 @@ export function job(state = [], action) {
         
         case 'POSTED_JOBS_LIST_FAILURE':
             return {
+                ...state,
                 blocking        : false,
                 jobPostedList   : [],
                 // totalRecords    : 0,
@@ -65,6 +69,26 @@ export function job(state = [], action) {
             return {
                 blocking : false
             };
+        
+        /* cases for listing of single job */
+        case 'SINGLE_JOB_GET_REQUEST':
+            return {
+                blocking        : true,
+                jobPostedList        : [],
+            }
+        
+        case 'SINGLE_JOB_GET_SUCCESS':
+            return {
+                blocking        : false,
+                jobPostedList      : action.payload.singleJob,
+            }
+        
+        case 'SINGLE_JOB_GET_FAILURE':
+            return {
+                blocking        : false,
+                jobPostedList   : [],
+            }
+        
 
         default:
             return state;

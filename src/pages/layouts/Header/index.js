@@ -175,7 +175,14 @@ const Header = (props) => {
                         <li className="nav-item dropdown">
                             <Link key="1233" className="nav-link count-indicator dropdown-toggle" id="messageDropdown" to="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i className="mdi mdi-email-outline"></i>
-                            <span className="count-symbol bg-warning"></span>
+
+                            {
+                                deletedMsg.map((data) => (
+                                    <>
+                                    <span className="count-symbol bg-warning" style={{ display : (!data.is_view)? 'block':'none' }}></span>
+                                </>
+                            ))
+                            }
                             </Link>
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                                 <h6 className="p-3 mb-0">Messages</h6>
