@@ -65,6 +65,7 @@ const ResumeList = (props) => {
     /**method to call the configure the data and call the action */
     const _getData = (data, params = {}) => {
       const localName = localStorage.getItem('headerSearch');
+      const userSearch = localStorage.getItem('userSearch');
       const queryParams = {
         page    : data ? data : 1,
         name    : (localName===null)?params?.name:localName,
@@ -76,10 +77,14 @@ const ResumeList = (props) => {
         sortingData : params.sortingData === undefined ? {} : params.sortingData,
         status  : status,
         minExp  : minExp,
-        maxExp  : maxExp
+        maxExp  : maxExp,
+        userSearch : userSearch
       }
       if(localName !== ''){
         localStorage.removeItem('headerSearch');
+      }
+      if(userSearch !== ''){
+        localStorage.removeItem('userSearch');
       }
       dispatch(fetchResumeData(queryParams));
     }

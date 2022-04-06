@@ -61,6 +61,9 @@ const UserList = (props) => {
         dispatch(fetchUserData(queryParams));
     }
 
+    const searchResume = (userId) =>{
+        localStorage.setItem("userSearch",userId) 
+    }
     /* build user list */
     const _userList = users => {
         if (!_.isEmpty(users)) {
@@ -90,6 +93,8 @@ const UserList = (props) => {
                             </th>
                             <th>
                                 Resume 
+                                <button onClick={ () => onClickEventForSorting('resumeCount','asc') } className="icon-up"><i className="mdi mdi-chevron-up"></i></button>
+                                <button onClick={ () => onClickEventForSorting('resumeCount','desc') } className="icon-down"><i className="mdi mdi-chevron-down"></i></button>
                             </th>
                             <th>Actions</th>
                         </tr>
@@ -101,7 +106,13 @@ const UserList = (props) => {
                                 <td>{data.last_name}</td>
                                 <td>{data.email}</td>
                                 <td>{data.user_role}</td>
-                                <td>{data.resumeCount}</td>
+                                <td>
+                                { (data.resumeCount > "0")?    
+                                    <NavLink to={`/resume`} className="ms-2" onClick={() => searchResume(data.id)} >
+                                        {data.resumeCount}
+                                    </NavLink>
+                                    : data.resumeCount }
+                                </td>
                                 <td className="icons-list actions">
                                     <div className="actions-cls">
                                     { (userRole === "1")?    

@@ -24,12 +24,7 @@ const Sidebar = () => {
     const showRoutesForAdmin = () => {
         return(
             <>
-                <li  className={splitLocation[1] === "user" ? "active nav-item" : "nav-item "}>
-                    <Link to='/user' className="nav-link">
-                        <span className="menu-title">Users</span>
-                        <i className="mdi mdi-contacts menu-icon"></i>
-                    </Link>
-                </li>
+                
                 <li  className={splitLocation[1] === "skills" ? "active nav-item" : "nav-item "}>
                     <Link to='/skills' className="nav-link">
                         <span className="menu-title">Skills</span>
@@ -74,6 +69,12 @@ const Sidebar = () => {
                             <i className="mdi mdi-home menu-icon"></i>
                         </Link>
                     </li> 
+                    <li  className={splitLocation[1] === "user" ? "active nav-item" : "nav-item "}>
+                        <Link to='/user' className="nav-link">
+                            <span className="menu-title">Users</span>
+                            <i className="mdi mdi-contacts menu-icon"></i>
+                        </Link>
+                    </li>
                     {
                         user.role_id === '1' ?
                         showRoutesForAdmin() : ''
@@ -110,12 +111,12 @@ const Sidebar = () => {
                         <i className="mdi mdi-calendar menu-icon"></i>
                     </Link>
                     </li>
-                    <li  className={splitLocation[1] ==="jobs" ? "active nav-item" : "nav-item "}>
+                    {/* <li  className={splitLocation[1] ==="jobs" ? "active nav-item" : "nav-item "}>
                         <Link to='/jobs' className="nav-link">
                             <span className="menu-title">Job Posting</span>
                             <i className="mdi mdi-gmail menu-icon"></i>
                         </Link>
-                    </li> 
+                    </li>  */}
                     
                 </>
             )
